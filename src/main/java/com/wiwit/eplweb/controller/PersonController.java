@@ -1,4 +1,4 @@
-package com.wiwit.eplweb;
+package com.wiwit.eplweb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
