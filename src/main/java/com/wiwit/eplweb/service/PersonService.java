@@ -2,6 +2,8 @@ package com.wiwit.eplweb.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.wiwit.eplweb.model.Person;
 
 public interface PersonService {

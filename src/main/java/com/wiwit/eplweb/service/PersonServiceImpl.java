@@ -2,15 +2,19 @@ package com.wiwit.eplweb.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wiwit.eplweb.dao.PersonDAO;
 import com.wiwit.eplweb.model.Person;
 
+@Component
 @Service
 public class PersonServiceImpl implements PersonService {
 	
+	@Autowired
 	private PersonDAO personDAO;
 
 	public void setPersonDAO(PersonDAO personDAO) {
