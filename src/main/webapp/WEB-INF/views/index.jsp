@@ -1,4 +1,6 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <!-- saved from url=(0065)http://ironsummitmedia.github.io/startbootstrap-1-col-portfolio/# -->
 <html lang="en">
@@ -10,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>EPL</title>
+    <title>epl web app</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
@@ -111,66 +113,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="odd gradeX">
-                            <td>1</td>
-                            <td>Chelsea</td>
-                            <td>20</td>
-                            <td>14</td>
-                            <td>4</td>
-                            <td>2</td>
-                            <td>44</td>
-                            <td>19</td>
-                            <td>25</td>
-                            <td><strong>46</strong></td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td>2</td>
-                            <td>Man City</td>
-                            <td>20</td>
-                            <td>14</td>
-                            <td>4</td>
-                            <td>2</td>
-                            <td>44</td>
-                            <td>19</td>
-                            <td>25</td>
-                            <td><strong>46</strong></td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td>3</td>
-                            <td>Man United</td>
-                            <td>20</td>
-                            <td>14</td>
-                            <td>4</td>
-                            <td>2</td>
-                            <td>44</td>
-                            <td>19</td>
-                            <td>25</td>
-                            <td><strong>46</strong></td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td>4</td>
-                            <td>Southampton</td>
-                            <td>20</td>
-                            <td>14</td>
-                            <td>4</td>
-                            <td>2</td>
-                            <td>44</td>
-                            <td>19</td>
-                            <td>25</td>
-                            <td><strong>46</strong></td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td>4</td>
-                            <td>Tottenham</td>
-                            <td>20</td>
-                            <td>14</td>
-                            <td>4</td>
-                            <td>2</td>
-                            <td>44</td>
-                            <td>19</td>
-                            <td>25</td>
-                            <td><strong>46</strong></td>
-                        </tr>
+                        <c:forEach items="${teams}" var="r" varStatus="loop">
+                            <tr class="odd gradeX">
+                                <td>${loop.index + 1}</td>
+                                <td>${r.team.name}</td>
+                                <td>${r.gamesPlayed}</td>
+                                <td>${r.gamesWon}</td>
+                                <td>${r.gamesDrawn}</td>
+                                <td>${r.gamesLost}</td>
+                                <td>${r.goalsScored}</td>
+                                <td>${r.goalsAgainst}</td>
+                                <td>${r.goalsDifference}</td>
+                                <td><strong>${r.points}</strong></td>                                
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -493,7 +449,7 @@
                                 <div class="rows_2">
                                     <div class="st1">
                                         <img src="<c:url value="/resources/image/uniform/arsenal.png" />" alt="">
-                                        <p>Alexis Sánchez</p><p>43 (4)</p><p></p>
+                                        <p>Alexis Sï¿½nchez</p><p>43 (4)</p><p></p>
                                     </div>
                                     <div class="st2">
                                         <img src="<c:url value="/resources/image/uniform/manutd.png" />" alt="">
@@ -515,7 +471,7 @@
             <div class="col-lg-12">
                 <ul class="pagination">
                     <li>
-                        <a href="#">«</a>
+                        <a href="#">ï¿½</a>
                     </li>
                     <li class="active">
                         <a href="#">1</a>
@@ -533,7 +489,7 @@
                         <a href="#">5</a>
                     </li>
                     <li>
-                        <a href="#">»</a>
+                        <a href="#">ï¿½</a>
                     </li>
                 </ul>
             </div>
@@ -546,7 +502,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright © Your Website 2014</p>
+                    <p>Copyright ï¿½ Your Website 2014</p>
                 </div>
             </div>
             <!-- /.row -->

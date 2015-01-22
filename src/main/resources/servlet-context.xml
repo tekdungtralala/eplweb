@@ -41,6 +41,8 @@
 		<beans:property name="annotatedClasses">
 			<beans:list>
 				<beans:value>com.wiwit.eplweb.model.Person</beans:value>
+				<beans:value>com.wiwit.eplweb.model.Rank</beans:value>
+				<beans:value>com.wiwit.eplweb.model.Team</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
@@ -58,6 +60,14 @@
 	<beans:bean id="personService" class="com.wiwit.eplweb.service.PersonService">
 		<beans:property name="personDAO" ref="personDAO"></beans:property>
 	</beans:bean>
+	
+	<beans:bean id="rankDAO" class="com.wiwit.eplweb.dao.RankDAO">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="rankService" class="com.wiwit.eplweb.service.RankService">
+		<beans:property name="rankDAO" ref="rankDAO"></beans:property>
+	</beans:bean>
+		
 	<context:component-scan base-package="com.wiwit.eplweb" />
 	
 	<tx:annotation-driven transaction-manager="transactionManager"/>
