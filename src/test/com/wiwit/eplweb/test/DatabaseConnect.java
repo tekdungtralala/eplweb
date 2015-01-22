@@ -1,4 +1,4 @@
-package com.wiwit.epl.test;
+package com.wiwit.eplweb.test;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

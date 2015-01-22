@@ -52,10 +52,10 @@
 		</beans:property>
 	</beans:bean>
 	
-	<beans:bean id="personDAO" class="com.wiwit.eplweb.dao.PersonDAOImpl">
+	<beans:bean id="personDAO" class="com.wiwit.eplweb.dao.PersonDAO">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
-	<beans:bean id="personService" class="com.wiwit.eplweb.service.PersonServiceImpl">
+	<beans:bean id="personService" class="com.wiwit.eplweb.service.PersonService">
 		<beans:property name="personDAO" ref="personDAO"></beans:property>
 	</beans:bean>
 	<context:component-scan base-package="com.wiwit.eplweb" />
