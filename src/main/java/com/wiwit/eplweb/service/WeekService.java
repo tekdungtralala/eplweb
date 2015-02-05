@@ -7,18 +7,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.wiwit.eplweb.dao.RankDAO;
-import com.wiwit.eplweb.model.Rank;
+import com.wiwit.eplweb.dao.WeekDAO;
+import com.wiwit.eplweb.model.Week;
 
 @Component
 @Service
-public class RankService {
+public class WeekService {
 
 	@Autowired
-	private RankDAO rankDAO;
-
+	private WeekDAO weekDAO;
+	
 	@Transactional
-	public List<Rank> getFiveHighestRank() {
-		return this.rankDAO.getFiveHighestRank();
+	private List<Week> getLastFiveWeek(){
+		return weekDAO.getLastFiveWeek();
 	}
 }

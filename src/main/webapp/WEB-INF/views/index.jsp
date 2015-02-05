@@ -106,24 +106,20 @@
                             <th>W</th>
                             <th>D</th>
                             <th>L</th>
-                            <th>GF</th>
-                            <th>GA</th>
                             <th>GD</th>
                             <th>PTS</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${teams}" var="r" varStatus="loop">
+                        <c:forEach items="${ranks}" var="r" varStatus="loop">
                             <tr class="odd gradeX">
                                 <td>${loop.index + 1}</td>
                                 <td>${r.team.name}</td>
-                                <td>${r.gamesPlayed}</td>
+                                <td>${r.gamesWon + r.gamesDrawn + r.gamesLost}</td>
                                 <td>${r.gamesWon}</td>
                                 <td>${r.gamesDrawn}</td>
                                 <td>${r.gamesLost}</td>
-                                <td>${r.goalsScored}</td>
-                                <td>${r.goalsAgainst}</td>
-                                <td>${r.goalsDifference}</td>
+                                <td>${r.goalsScored} - ${r.goalsAgainst}</td>
                                 <td><strong>${r.points}</strong></td>                                
                             </tr>
                         </c:forEach>

@@ -19,9 +19,6 @@ public class Rank {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "games_played")
-	private int gamesPlayed;
-
 	@Column(name = "games_won")
 	private int gamesWon;
 
@@ -37,9 +34,6 @@ public class Rank {
 	@Column(name = "goals_against")
 	private int goalsAgainst;
 
-	@Column(name = "goals_difference")
-	private int goalsDifference;
-
 	@Column(name = "points")
 	private int points;
 
@@ -47,20 +41,16 @@ public class Rank {
 	@JoinColumn(name = "team_id", nullable = false)
 	private Team team;
 
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "week_id", nullable = false)
+	private Week week;
+
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getGamesPlayed() {
-		return gamesPlayed;
-	}
-
-	public void setGamesPlayed(int gamesPlayed) {
-		this.gamesPlayed = gamesPlayed;
 	}
 
 	public int getGamesWon() {
@@ -103,14 +93,6 @@ public class Rank {
 		this.goalsAgainst = goalsAgainst;
 	}
 
-	public int getGoalsDifference() {
-		return goalsDifference;
-	}
-
-	public void setGoalsDifference(int goalsDifference) {
-		this.goalsDifference = goalsDifference;
-	}
-
 	public int getPoints() {
 		return points;
 	}
@@ -131,4 +113,11 @@ public class Rank {
 		return "id= " + id + ", points=" + points + ", team=" + team.getName();
 	}
 
+	public Week getWeek() {
+		return week;
+	}
+
+	public void setWeek(Week week) {
+		this.week = week;
+	}
 }

@@ -24,14 +24,12 @@ public class RankDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public void setSessionFactory(SessionFactory sf) {
-		this.sessionFactory = sf;
-	}
-
 	public List<Rank> getFiveHighestRank() {
 		logger.info("Ready to load Rank - getFiveHighestRank()");
+		
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Rank> result = session.createQuery("from Rank ORDER BY points DESC").setMaxResults(5).list();
+		List<Rank> result = session.createQuery("from Rank ORDER BY week DESC, points DESC").setMaxResults(5).list();
+		
 		logger.info("Rank loaded successfully, Ranks size=" + result.size());
 		return result;
 	}
