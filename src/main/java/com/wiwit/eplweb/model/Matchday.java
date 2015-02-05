@@ -13,8 +13,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "machtday")
-public class Machtday {
+@Table(name = "matchday")
+public class Matchday {
 
 	@Id
 	@Column(name = "id")
@@ -28,16 +28,16 @@ public class Machtday {
 	private Time time;
 	
 	@Column(name = "home_goal")
-	private int homeGoal;
+	private Integer homeGoal;
 	
 	@Column(name = "away_goal")
-	private int awayGoal;
+	private Integer awayGoal;
 	
 	@Column(name = "home_point")
-	private int homePoint;
+	private Integer homePoint;
 	
 	@Column(name = "away_point")
-	private int awayPoint;
+	private Integer awayPoint;
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "home_team_id", nullable = false)
@@ -75,7 +75,7 @@ public class Machtday {
 		return homeGoal;
 	}
 
-	public void setHomeGoal(int homeGoal) {
+	public void setHomeGoal(Integer homeGoal) {
 		this.homeGoal = homeGoal;
 	}
 
@@ -83,7 +83,7 @@ public class Machtday {
 		return awayGoal;
 	}
 
-	public void setAwayGoal(int awayGoal) {
+	public void setAwayGoal(Integer awayGoal) {
 		this.awayGoal = awayGoal;
 	}
 
@@ -91,7 +91,7 @@ public class Machtday {
 		return homePoint;
 	}
 
-	public void setHomePoint(int homePoint) {
+	public void setHomePoint(Integer homePoint) {
 		this.homePoint = homePoint;
 	}
 
@@ -99,7 +99,7 @@ public class Machtday {
 		return awayPoint;
 	}
 
-	public void setAwayPoint(int awayPoint) {
+	public void setAwayPoint(Integer awayPoint) {
 		this.awayPoint = awayPoint;
 	}
 

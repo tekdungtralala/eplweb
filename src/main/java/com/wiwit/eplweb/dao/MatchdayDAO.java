@@ -10,18 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import com.wiwit.eplweb.model.Machtday;
+import com.wiwit.eplweb.model.Matchday;
 
 @Repository("matchdayDAO")
 @Service
 @Transactional
-public class MachtdayDAO {
+public class MatchdayDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	public List<Machtday> getMatchDayOnLastWeek(){
+	public List<Matchday> getMatchDayOnLastWeek(){
 		Session session = this.sessionFactory.getCurrentSession(); 
-		return session.createQuery("from Machtday order by date desc").setMaxResults(20).list();
+		return session.createQuery("from Matchday order by date desc").setMaxResults(20).list();
 	}
 }
