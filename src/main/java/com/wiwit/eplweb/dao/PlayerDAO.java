@@ -7,16 +7,16 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wiwit.eplweb.model.Squad;
+import com.wiwit.eplweb.model.Player;
 
 @Service
-public class SquadDAO {
+public class PlayerDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public List<Squad> getSquadsByTeamId(int teamId) {
+	public List<Player> getSquadsByTeamId(int teamId) {
 		Session session = this.sessionFactory.getCurrentSession();
-		return session.createQuery("from Squad ").list();
+		return session.createQuery("from Player where team.id=" + teamId).list();
 	}
 }

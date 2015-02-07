@@ -11,8 +11,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "squad")
-public class Squad {
+@Table(name = "player")
+public class Player {
 
 	@Id
 	@Column(name = "id")

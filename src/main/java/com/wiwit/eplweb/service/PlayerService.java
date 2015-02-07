@@ -6,17 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.wiwit.eplweb.dao.SquadDAO;
-import com.wiwit.eplweb.model.Squad;
+import com.wiwit.eplweb.dao.PlayerDAO;
+import com.wiwit.eplweb.model.Player;
 
 @Component
-public class SquadService {
+public class PlayerService {
 
 	@Autowired
-	private SquadDAO squadDAO;
+	private PlayerDAO squadDAO;
 	
 	@Transactional
-	public List<Squad> getSquadsByTeamId(int teamId){
+	public List<Player> getSquadsByTeamId(int teamId){
 		return squadDAO.getSquadsByTeamId(teamId);
 	}
 }
