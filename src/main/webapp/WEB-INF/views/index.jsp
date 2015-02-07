@@ -14,10 +14,15 @@
     <meta name="author" content="">
 
     <title>epl web app</title>
+    
+    <!-- jQuery -->
+    <script src="<c:url value="/bower_components/jquery/dist/jquery.min.js" />"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<c:url value="/bower_components/bootstrap/dist/js/bootstrap.js" />"></script>
 
     <!-- Bootstrap Core CSS -->
-    <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
-    <link href="<c:url value="/resources/css/index.css" />" rel="stylesheet">
+    <link href="<c:url value="/bower_components/bootstrap/dist/css/bootstrap.css" />" rel="stylesheet">
+    <link href="<c:url value="/eplweb_components/css/index.css" />" rel="stylesheet">
     <style type="text/css">
         body {
             padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
@@ -137,7 +142,7 @@
                     </a>
                 </h4>
                 <a href="#">
-                    <img class="image" src="<c:url value="/resources/image/news/gerrardc.jpg" />" alt="">
+                    <img class="image" src="<c:url value="/eplweb_components/image/news/gerrardc.jpg" />" alt="">
                 </a>
                 Liverpool captain Steven Gerrard says it is the "right time for a new challenge" as he confirms his move to Los Angeles Galaxy in the summer.
                 The Reds midfielder, 34, added that the MLS club were "aggressive" in pursuing him after he announced last week he was leaving Anfield at the end of the season.
@@ -173,17 +178,17 @@
                             <tbody>
                                 <tr class="odd gradeX">
                                     <td class="time">
-                                    	<fmt:formatDate pattern="HH:mm" value="${match.time}" />
+                                        <fmt:formatDate pattern="HH:mm" value="${match.time}" />
                                     </td>
                                     <td class="rightTeam">${match.homeTeam.name}</td>
                                     <td class="rightTeamLogo">
                                         <img class="image" 
-                                            src="<c:url value="/resources/image/logo/150x150/${match.homeTeam.id}.png" />" alt="">
+                                            src="<c:url value="/eplweb_components/image/logo/150x150/${match.homeTeam.id}.png" />" alt="">
                                     </td>
                                     <td class="versus">VS</td>
                                     <td class="leftTeamLogo">
                                         <img class="image" 
-                                            src="<c:url value="/resources/image/logo/150x150/${match.awayTeam.id}.png" />" alt="">
+                                            src="<c:url value="/eplweb_components/image/logo/150x150/${match.awayTeam.id}.png" />" alt="">
                                     </td>
                                     <td class="leftTeam">${match.awayTeam.name}</td>
                                 </tr>
@@ -202,7 +207,7 @@
                     </a>
                 </h4>
                 <a href="#">
-                    <img class="image" src="<c:url value="/resources/image/news/ronaldo.jpg" />" alt="">
+                    <img class="image" src="<c:url value="/eplweb_components/image/news/ronaldo.jpg" />" alt="">
                 </a>
                 The midfielder does not see why the Real Madrid forward should win the award given his failure to lead Portugal out of the World Cup group stage
             </div>
@@ -239,7 +244,8 @@
                                     </ul>
                                     -->
                                 </div>
-                                <input type="text" class="form-control input-season" value="2014-2015" disabled>
+                                <input type="text" class="form-control input-season" 
+                                    value="${currentSeason}" disabled>
                             </div>
 
                             <div class="input-group week">
@@ -256,7 +262,8 @@
                                     </ul>
                                     -->
                                 </div>
-                                <input type="text" class="form-control input-week" value="20" disabled>
+                                <input type="text" class="form-control input-week" 
+                                    value="${previousWeek}" disabled>
                             </div>
                         </div>
 
@@ -266,54 +273,54 @@
                             <div class="team-wrapper">
                                 <div class="rows_1">
                                     <div class="gk">
-                                        <img src="<c:url value="/resources/image/uniform/mancity-gk.png" />" alt="">
-                                        <p>Joe Hart</p><p>18 (64)</p><p></p>
+                                        <img src="<c:url value="/eplweb_components/image/uniform/mancity-gk.png" />" alt="">
+                                        <p>${squad[0].player.name}</p>
                                     </div>
                                 </div>
                                 <div class="rows_4">
                                     <div class="de1">
-                                        <img src="<c:url value="/resources/image/uniform/southampton.png" />" alt="">
-                                        <p>Toby Alderweireld</p><p>50 (103)</p><p></p>
+                                        <img src="<c:url value="/eplweb_components/image/uniform/southampton.png" />" alt="">
+                                        <p>${squad[1].player.name}</p>
                                     </div>
                                     <div class="de2">
-                                        <img src="<c:url value="/resources/image/uniform/hullcity.png" />" alt="">
-                                        <p>James Chester</p><p>33 (164)</p><p></p>
+                                        <img src="<c:url value="/eplweb_components/image/uniform/hullcity.png" />" alt="">
+                                        <p>${squad[2].player.name}</p>
                                     </div>
                                     <div class="de3">
-                                        <img src="<c:url value="/resources/image/uniform/chelsea.png" />" alt="">
-                                        <p>John Terry</p><p>34 (18)</p><p></p>
+                                        <img src="<c:url value="/eplweb_components/image/uniform/chelsea.png" />" alt="">
+                                        <p>${squad[3].player.name}</p>
                                     </div>
                                     <div class="de4">
-                                        <img src="<c:url value="/resources/image/uniform/southampton.png" />" alt="">
-                                        <p>Ryan Bertrand</p><p>35 (25)</p><p></p>
+                                        <img src="<c:url value="/eplweb_components/image/uniform/southampton.png" />" alt="">
+                                        <p>${squad[4].player.name}</p>
                                     </div>
                                 </div>
                                 <div class="rows_4">
                                     <div class="mf1">
-                                        <img src="<c:url value="/resources/image/uniform/southampton.png" />" alt="">
-                                        <p>Sadio Mane</p><p>50 (154)</p><p></p>
+                                        <img src="<c:url value="/eplweb_components/image/uniform/southampton.png" />" alt="">
+                                        <p>${squad[5].player.name}</p>
                                     </div>
                                     <div class="mf2">
-                                        <img src="<c:url value="/resources/image/uniform/mancity.png" />" alt="">
-                                        <p>Fernando</p><p>38 (108)</p><p></p>
+                                        <img src="<c:url value="/eplweb_components/image/uniform/mancity.png" />" alt="">
+                                        <p>${squad[6].player.name}</p>
                                     </div>
                                     <div class="mf3">
-                                        <img src="<c:url value="/resources/image/uniform/hullcity.png" />" alt="">
-                                        <p>Gaston Ramirez</p><p>39 (300)</p><p></p>
+                                        <img src="<c:url value="/eplweb_components/image/uniform/hullcity.png" />" alt="">
+                                        <p>${squad[7].player.name}</p>
                                     </div>
                                     <div class="mf4">
-                                        <img src="<c:url value="/resources/image/uniform/arsenal.png" />" alt="">
-                                        <p>Tomas Rosicky</p><p>40 (334)</p><p></p>
+                                        <img src="<c:url value="/eplweb_components/image/uniform/arsenal.png" />" alt="">
+                                        <p>${squad[8].player.name}</p>
                                     </div>
                                 </div>
                                 <div class="rows_2">
                                     <div class="st1">
-                                        <img src="<c:url value="/resources/image/uniform/arsenal.png" />" alt="">
-                                        <p>Alexis S�nchez</p><p>43 (4)</p><p></p>
+                                        <img src="<c:url value="/eplweb_components/image/uniform/arsenal.png" />" alt="">
+                                        <p>${squad[9].player.name}</p>
                                     </div>
                                     <div class="st2">
-                                        <img src="<c:url value="/resources/image/uniform/manutd.png" />" alt="">
-                                        <p>Wayne Rooney</p><p>57 (12)</p><p></p>
+                                        <img src="<c:url value="/eplweb_components/image/uniform/manutd.png" />" alt="">
+                                        <p>${squad[10].player.name}</p>
                                     </div>
                                 </div>
                             </div>
@@ -370,14 +377,4 @@
 
     </div>
     <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="<c:url value="/resources/js/jquery-2.1.3.js" />"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="<c:url value="/resources/js/bootstrap.js" />"></script>
-
-
-
-
 </body></html>

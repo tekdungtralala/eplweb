@@ -11,7 +11,6 @@ import com.wiwit.eplweb.dao.SeasonDAO;
 import com.wiwit.eplweb.model.Season;
 
 @Component
-@Service
 public class SeasonService {
 
 	@Autowired
@@ -20,5 +19,10 @@ public class SeasonService {
 	@Transactional
 	public List<Season> getAllSeason(){
 		return seasonDAO.getAllSeason();
+	}
+	
+	@Transactional
+	public Season getSeasonById(Object id) {
+		return seasonDAO.getSeasonById(id);
 	}
 }

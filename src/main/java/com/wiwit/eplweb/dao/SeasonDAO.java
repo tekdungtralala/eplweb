@@ -14,18 +14,23 @@ import org.springframework.stereotype.Service;
 
 import com.wiwit.eplweb.model.Season;
 
-@Repository("seasonDAO")
 @Service
-@Transactional
 public class SeasonDAO {
-	
-	private static final Logger logger = LoggerFactory.getLogger(SeasonDAO.class);
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(SeasonDAO.class);
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	public List<Season> getAllSeason(){
-		Session session = this.sessionFactory.getCurrentSession(); 
+
+	public List<Season> getAllSeason() {
+		Session session = this.sessionFactory.getCurrentSession();
 		return session.createQuery("from Season").list();
+	}
+
+	public Season getSeasonById(Object id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		return (Season) session.createQuery("from Season where id = " + id)
+				.list().get(0);
 	}
 }
