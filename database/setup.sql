@@ -1,89 +1,26 @@
-CREATE TABLE IF NOT EXISTS `season` (
-`id` int(10) NOT NULL,
-  `years` varchar(9) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+-- phpMyAdmin SQL Dump
+-- version 4.2.6deb1
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Feb 07, 2015 at 03:46 PM
+-- Server version: 5.5.41-0ubuntu0.14.10.1
+-- PHP Version: 5.5.12-2ubuntu4.1
 
-INSERT INTO `season` (`id`, `years`) VALUES
-(1, '2014-2015');
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
-ALTER TABLE `season`
- ADD PRIMARY KEY (`id`);
+--
+-- Database: `eplweb`
+--
 
- CREATE TABLE IF NOT EXISTS `week` (
-`id` int(3) NOT NULL,
-  `season_id` int(2) NOT NULL,
-  `week_number` int(4) NOT NULL,
-  `start_day` datetime NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `matchday`
+--
 
-INSERT INTO `week` (`id`, `season_id`, `week_number`, `start_day`) VALUES
-(1, 1, 1, '2014-08-16 00:00:00'),
-(2, 1, 2, '2014-08-23 00:00:00'),
-(3, 1, 3, '2014-08-30 00:00:00'),
-(4, 1, 4, '2014-09-13 00:00:00'),
-(5, 1, 5, '2014-09-20 00:00:00'),
-(6, 1, 6, '2014-09-27 00:00:00'),
-(7, 1, 7, '2014-10-04 00:00:00'),
-(8, 1, 8, '2014-10-18 00:00:00'),
-(9, 1, 9, '2014-10-25 00:00:00'),
-(10, 1, 10, '2014-11-01 00:00:00'),
-(11, 1, 11, '2014-11-08 00:00:00'),
-(12, 1, 12, '2014-11-22 00:00:00'),
-(13, 1, 13, '2014-11-29 00:00:00'),
-(14, 1, 14, '2014-12-03 00:00:00'),
-(15, 1, 15, '2014-12-06 00:00:00'),
-(16, 1, 16, '2014-12-13 00:00:00'),
-(17, 1, 17, '2014-12-20 00:00:00'),
-(18, 1, 18, '2014-12-26 00:00:00'),
-(19, 1, 19, '2014-12-28 00:00:00'),
-(20, 1, 20, '2015-01-01 00:00:00'),
-(21, 1, 21, '2015-01-10 00:00:00'),
-(22, 1, 22, '2015-01-17 00:00:00'),
-(23, 1, 23, '2015-01-31 00:00:00');
-
-ALTER TABLE `week`
- ADD PRIMARY KEY (`id`), ADD KEY `season_id` (`season_id`);
-
-ALTER TABLE `week`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
-
-ALTER TABLE `week`
-ADD CONSTRAINT `week_ibfk_2` FOREIGN KEY (`season_id`) REFERENCES `season` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-
-CREATE TABLE IF NOT EXISTS `team` (
-  `id` int(10) NOT NULL,
-  `name` varchar(64) NOT NULL,
-  `simple_name` varchar(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-INSERT INTO `team` (`id`, `name`, `simple_name`) VALUES
-(1, 'Leicester City', 'leicester'),
-(2, 'Queens Park Rangers', 'qpr'),
-(3, 'Hull City', 'hullcity'),
-(4, 'Burnley', 'burnley'),
-(5, 'Sunderland', 'sunderland'),
-(6, 'West Bromwich Albion', 'westbromwich'),
-(7, 'Aston Villa', 'astonvilla'),
-(8, 'Everton', 'everton'),
-(9, 'Crystal Palace', 'crystalpalace'),
-(10, 'Newcastle United', 'newcastle'),
-(11, 'Stoke City', 'strokecity'),
-(12, 'Swansea City', 'swansea'),
-(13, 'West Ham United', 'westham'),
-(14, 'Liverpool', 'liverpool'),
-(15, 'Arsenal', 'arsenal'),
-(16, 'Tottenham Hotspur', 'tottenham'),
-(17, 'Manchester United', 'manutd'),
-(18, 'Southampton', 'southampton'),
-(19, 'Manchester City', 'mancity'),
-(20, 'Chelsea', 'chelsea');
-
-ALTER TABLE `team`
- ADD PRIMARY KEY (`id`);
-
- CREATE TABLE IF NOT EXISTS `machtday` (
+CREATE TABLE IF NOT EXISTS `matchday` (
 `id` int(3) NOT NULL,
   `week_id` int(3) NOT NULL,
   `date` date NOT NULL,
@@ -94,10 +31,13 @@ ALTER TABLE `team`
   `away_goal` int(2) DEFAULT NULL,
   `home_point` int(1) NOT NULL DEFAULT '0',
   `away_point` int(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=254 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=264 ;
 
+--
+-- Dumping data for table `matchday`
+--
 
-INSERT INTO `machtday` (`id`, `week_id`, `date`, `time`, `home_team_id`, `away_team_id`, `home_goal`, `away_goal`, `home_point`, `away_point`) VALUES
+INSERT INTO `matchday` (`id`, `week_id`, `date`, `time`, `home_team_id`, `away_team_id`, `home_goal`, `away_goal`, `home_point`, `away_point`) VALUES
 (24, 1, '2014-07-19', '02:00:00', 4, 20, 1, 3, 0, 3),
 (25, 1, '2014-07-17', '22:00:00', 10, 19, 0, 2, 0, 3),
 (26, 1, '2014-07-17', '19:30:00', 14, 18, 2, 1, 3, 0),
@@ -327,20 +267,42 @@ INSERT INTO `machtday` (`id`, `week_id`, `date`, `time`, `home_team_id`, `away_t
 (250, 23, '2015-00-31', '22:00:00', 5, 4, 2, 0, 3, 0),
 (251, 23, '2015-00-31', '22:00:00', 6, 16, 0, 3, 0, 3),
 (252, 23, '2015-00-31', '22:00:00', 11, 2, 3, 1, 3, 0),
-(253, 23, '2015-00-31', '19:45:00', 3, 10, 0, 3, 0, 3);
+(253, 23, '2015-00-31', '19:45:00', 3, 10, 0, 3, 0, 3),
+(254, 24, '2015-01-07', '19:45:00', 16, 15, NULL, NULL, 0, 0),
+(255, 24, '2015-01-07', '22:00:00', 2, 18, NULL, NULL, 0, 0),
+(256, 24, '2015-01-07', '22:00:00', 19, 3, NULL, NULL, 0, 0),
+(257, 24, '2015-01-07', '22:00:00', 12, 5, NULL, NULL, 0, 0),
+(258, 24, '2015-01-07', '22:00:00', 7, 20, NULL, NULL, 0, 0),
+(259, 24, '2015-01-07', '22:00:00', 1, 9, NULL, NULL, 0, 0),
+(260, 24, '2015-01-08', '00:30:00', 8, 14, NULL, NULL, 0, 0),
+(261, 24, '2015-01-08', '19:00:00', 4, 6, NULL, NULL, 0, 0),
+(262, 24, '2015-01-08', '21:05:00', 10, 11, NULL, NULL, 0, 0),
+(263, 24, '2015-01-08', '23:15:00', 13, 17, NULL, NULL, 0, 0);
 
-ALTER TABLE `machtday`
- ADD PRIMARY KEY (`id`), ADD KEY `home_team_id` (`home_team_id`), ADD KEY `away_team_id` (`away_team_id`), ADD KEY `week_id` (`week_id`);
+-- --------------------------------------------------------
 
- ALTER TABLE `machtday`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=254;
+--
+-- Table structure for table `phase`
+--
 
-ALTER TABLE `machtday`
-ADD CONSTRAINT `machtday_ibfk_1` FOREIGN KEY (`week_id`) REFERENCES `week` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `machtday_ibfk_2` FOREIGN KEY (`home_team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `machtday_ibfk_3` FOREIGN KEY (`away_team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+CREATE TABLE IF NOT EXISTS `phase` (
+  `key` varchar(64) NOT NULL,
+  `value` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `phase`
+--
 
+INSERT INTO `phase` (`key`, `value`) VALUES
+('CURRENT_MATCHDAY', '24'),
+('CURRENT_SEASON', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rank`
+--
 
 CREATE TABLE IF NOT EXISTS `rank` (
 `id` int(2) NOT NULL,
@@ -354,6 +316,9 @@ CREATE TABLE IF NOT EXISTS `rank` (
   `points` int(2) DEFAULT '0'
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=523 ;
 
+--
+-- Dumping data for table `rank`
+--
 
 INSERT INTO `rank` (`id`, `week_id`, `team_id`, `games_won`, `games_drawn`, `games_lost`, `goals_scored`, `goals_against`, `points`) VALUES
 (63, 1, 1, 0, 1, 0, 2, 2, 1),
@@ -817,13 +782,192 @@ INSERT INTO `rank` (`id`, `week_id`, `team_id`, `games_won`, `games_drawn`, `gam
 (521, 23, 19, 14, 6, 3, 46, 23, 48),
 (522, 23, 20, 16, 5, 2, 52, 20, 53);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `season`
+--
+
+CREATE TABLE IF NOT EXISTS `season` (
+`id` int(10) NOT NULL,
+  `years` varchar(9) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `season`
+--
+
+INSERT INTO `season` (`id`, `years`) VALUES
+(1, '2014-2015');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `team`
+--
+
+CREATE TABLE IF NOT EXISTS `team` (
+  `id` int(10) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `simple_name` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `team`
+--
+
+INSERT INTO `team` (`id`, `name`, `simple_name`) VALUES
+(0, 'a', 'a'),
+(1, 'Leicester City', 'leicester'),
+(2, 'Queens Park Rangers', 'qpr'),
+(3, 'Hull City', 'hullcity'),
+(4, 'Burnley', 'burnley'),
+(5, 'Sunderland', 'sunderland'),
+(6, 'West Bromwich Albion', 'westbromwich'),
+(7, 'Aston Villa', 'astonvilla'),
+(8, 'Everton', 'everton'),
+(9, 'Crystal Palace', 'crystalpalace'),
+(10, 'Newcastle United', 'newcastle'),
+(11, 'Stoke City', 'strokecity'),
+(12, 'Swansea City', 'swansea'),
+(13, 'West Ham United', 'westham'),
+(14, 'Liverpool', 'liverpool'),
+(15, 'Arsenal', 'arsenal'),
+(16, 'Tottenham Hotspur', 'tottenham'),
+(17, 'Manchester United', 'manutd'),
+(18, 'Southampton', 'southampton'),
+(19, 'Manchester City', 'mancity'),
+(20, 'Chelsea', 'chelsea'),
+(21, '21', '21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `week`
+--
+
+CREATE TABLE IF NOT EXISTS `week` (
+`id` int(3) NOT NULL,
+  `season_id` int(2) NOT NULL,
+  `week_number` int(4) NOT NULL,
+  `start_day` datetime NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+
+--
+-- Dumping data for table `week`
+--
+
+INSERT INTO `week` (`id`, `season_id`, `week_number`, `start_day`) VALUES
+(1, 1, 1, '2014-08-16 00:00:00'),
+(2, 1, 2, '2014-08-23 00:00:00'),
+(3, 1, 3, '2014-08-30 00:00:00'),
+(4, 1, 4, '2014-09-13 00:00:00'),
+(5, 1, 5, '2014-09-20 00:00:00'),
+(6, 1, 6, '2014-09-27 00:00:00'),
+(7, 1, 7, '2014-10-04 00:00:00'),
+(8, 1, 8, '2014-10-18 00:00:00'),
+(9, 1, 9, '2014-10-25 00:00:00'),
+(10, 1, 10, '2014-11-01 00:00:00'),
+(11, 1, 11, '2014-11-08 00:00:00'),
+(12, 1, 12, '2014-11-22 00:00:00'),
+(13, 1, 13, '2014-11-29 00:00:00'),
+(14, 1, 14, '2014-12-03 00:00:00'),
+(15, 1, 15, '2014-12-06 00:00:00'),
+(16, 1, 16, '2014-12-13 00:00:00'),
+(17, 1, 17, '2014-12-20 00:00:00'),
+(18, 1, 18, '2014-12-26 00:00:00'),
+(19, 1, 19, '2014-12-28 00:00:00'),
+(20, 1, 20, '2015-01-01 00:00:00'),
+(21, 1, 21, '2015-01-10 00:00:00'),
+(22, 1, 22, '2015-01-17 00:00:00'),
+(23, 1, 23, '2015-01-31 00:00:00'),
+(24, 1, 24, '2015-02-07 00:00:00');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `matchday`
+--
+ALTER TABLE `matchday`
+ ADD PRIMARY KEY (`id`), ADD KEY `home_team_id` (`home_team_id`), ADD KEY `away_team_id` (`away_team_id`), ADD KEY `week_id` (`week_id`);
+
+--
+-- Indexes for table `phase`
+--
+ALTER TABLE `phase`
+ ADD PRIMARY KEY (`key`);
+
+--
+-- Indexes for table `rank`
+--
 ALTER TABLE `rank`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `week_id_team_id` (`week_id`,`team_id`), ADD KEY `week_id` (`week_id`), ADD KEY `team_id` (`team_id`);
 
+--
+-- Indexes for table `season`
+--
+ALTER TABLE `season`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `team`
+--
+ALTER TABLE `team`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `week`
+--
+ALTER TABLE `week`
+ ADD PRIMARY KEY (`id`), ADD KEY `season_id` (`season_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `matchday`
+--
+ALTER TABLE `matchday`
+MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=264;
+--
+-- AUTO_INCREMENT for table `rank`
+--
 ALTER TABLE `rank`
 MODIFY `id` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=523;
+--
+-- AUTO_INCREMENT for table `season`
+--
+ALTER TABLE `season`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `week`
+--
+ALTER TABLE `week`
+MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+--
+-- Constraints for dumped tables
+--
 
+--
+-- Constraints for table `matchday`
+--
+ALTER TABLE `matchday`
+ADD CONSTRAINT `matchday_ibfk_1` FOREIGN KEY (`week_id`) REFERENCES `week` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `matchday_ibfk_2` FOREIGN KEY (`home_team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `matchday_ibfk_3` FOREIGN KEY (`away_team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `rank`
+--
 ALTER TABLE `rank`
-ADD CONSTRAINT `rank_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `rank_ibfk_1` FOREIGN KEY (`week_id`) REFERENCES `week` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
- 
+ADD CONSTRAINT `rank_ibfk_1` FOREIGN KEY (`week_id`) REFERENCES `week` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `rank_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `week`
+--
+ALTER TABLE `week`
+ADD CONSTRAINT `week_ibfk_2` FOREIGN KEY (`season_id`) REFERENCES `season` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
