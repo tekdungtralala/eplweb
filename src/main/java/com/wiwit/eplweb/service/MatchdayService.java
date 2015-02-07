@@ -9,16 +9,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.wiwit.eplweb.dao.MatchdayDAO;
 import com.wiwit.eplweb.model.Matchday;
+import com.wiwit.eplweb.model.view.MatchdayModelView;
 
 @Component
-@Service
 public class MatchdayService {
 
 	@Autowired
 	private MatchdayDAO machtdayDAO;
 	
 	@Transactional
-	private List<Matchday> getAllMatchtdayOnLastWeek(){
-		return machtdayDAO.getMatchDayOnLastWeek();
+	public MatchdayModelView getMatchtdayOnCurrWeek(){
+		List<Matchday>  listMatchday = machtdayDAO.getMatchtdayOnCurrWeek();
+		return new MatchdayModelView(listMatchday);
 	}
 }

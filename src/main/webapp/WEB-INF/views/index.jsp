@@ -162,160 +162,33 @@
             <div class="col-md-7">
                 <table class="table table-striped table-bordered table-hover ind-table" 
                     id="dataTables-example" rules="none">
-                    <thead>
-                        <tr>
-                            <th colspan="6">Saturday, January 10, 2015  </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="odd gradeX">
-                            <td class="time">12:45</td>
-                            <td class="rightTeam">SunderLand</td>
-                            <td class="rightTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/sunderland.png" />" alt="">
-                            </td>
-                            <td class="versus">V</td>
-                            <td class="leftTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/liverpool.png" />" alt="">
-                            </td>
-                            <td class="leftTeam">Liverpool</td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td class="time">12:45</td>
-                            <td class="rightTeam">SunderLand</td>
-                            <td class="rightTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/sunderland.png" />" alt="">
-                            </td>
-                            <td class="versus">V</td>
-                            <td class="leftTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/liverpool.png" />" alt="">
-                            </td>
-                            <td class="leftTeam">Liverpool</td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td class="time">12:45</td>
-                            <td class="rightTeam">SunderLand</td>
-                            <td class="rightTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/sunderland.png" />" alt="">
-                            </td>
-                            <td class="versus">V</td>
-                            <td class="leftTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/liverpool.png" />" alt="">
-                            </td>
-                            <td class="leftTeam">Liverpool</td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td class="time">12:45</td>
-                            <td class="rightTeam">SunderLand</td>
-                            <td class="rightTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/sunderland.png" />" alt="">
-                            </td>
-                            <td class="versus">V</td>
-                            <td class="leftTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/liverpool.png" />" alt="">
-                            </td>
-                            <td class="leftTeam">Liverpool</td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td class="time">12:45</td>
-                            <td class="rightTeam">SunderLand</td>
-                            <td class="rightTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/sunderland.png" />" alt="">
-                            </td>
-                            <td class="versus">V</td>
-                            <td class="leftTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/liverpool.png" />" alt="">
-                            </td>
-                            <td class="leftTeam">Liverpool</td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td class="time">12:45</td>
-                            <td class="rightTeam">SunderLand</td>
-                            <td class="rightTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/sunderland.png" />" alt="">
-                            </td>
-                            <td class="versus">V</td>
-                            <td class="leftTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/liverpool.png" />" alt="">
-                            </td>
-                            <td class="leftTeam">Liverpool</td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td class="time">12:45</td>
-                            <td class="rightTeam">SunderLand</td>
-                            <td class="rightTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/sunderland.png" />" alt="">
-                            </td>
-                            <td class="versus">V</td>
-                            <td class="leftTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/liverpool.png" />" alt="">
-                            </td>
-                            <td class="leftTeam">Liverpool</td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td class="time">12:45</td>
-                            <td class="rightTeam">SunderLand</td>
-                            <td class="rightTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/sunderland.png" />" alt="">
-                            </td>
-                            <td class="versus">V</td>
-                            <td class="leftTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/liverpool.png" />" alt="">
-                            </td>
-                            <td class="leftTeam">Liverpool</td>
-                        </tr>
-                    </tbody>
-                    <thead>
-                        <tr>
-                            <th colspan="6">Sunday, January 11, 2015  </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="odd gradeX">
-                            <td class="time">12:45</td>
-                            <td class="rightTeam">SunderLand</td>
-                            <td class="rightTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/sunderland.png" />" alt="">
-                            </td>
-                            <td class="versus">V</td>
-                            <td class="leftTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/liverpool.png" />" alt="">
-                            </td>
-                            <td class="leftTeam">Liverpool</td>
-                        </tr>
-                        <tr class="odd gradeX">
-                            <td class="time">12:45</td>
-                            <td class="rightTeam">SunderLand</td>
-                            <td class="rightTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/sunderland.png" />" alt="">
-                            </td>
-                            <td class="versus">V</td>
-                            <td class="leftTeamLogo">
-                                <img class="image" 
-                                    src="<c:url value="/resources/image/logo/liverpool.png" />" alt="">
-                            </td>
-                            <td class="leftTeam">Liverpool</td>
-                        </tr>
-                    </tbody>
+                    <c:forEach items="${matchday}" var="m">
+                        <thead>
+                            <tr>
+                                <th colspan="6">${m.key}</th>
+                            </tr>
+                        </thead>
+                        <c:forEach items="${m.value}" var="match">
+                            <tbody>
+                                <tr class="odd gradeX">
+                                    <td class="time">
+                                    	<fmt:formatDate pattern="HH:mm" value="${match.time}" />
+                                    </td>
+                                    <td class="rightTeam">${match.homeTeam.name}</td>
+                                    <td class="rightTeamLogo">
+                                        <img class="image" 
+                                            src="<c:url value="/resources/image/logo/150x150/${match.homeTeam.id}.png" />" alt="">
+                                    </td>
+                                    <td class="versus">VS</td>
+                                    <td class="leftTeamLogo">
+                                        <img class="image" 
+                                            src="<c:url value="/resources/image/logo/150x150/${match.awayTeam.id}.png" />" alt="">
+                                    </td>
+                                    <td class="leftTeam">${match.awayTeam.name}</td>
+                                </tr>
+                            </tbody>
+                        </c:forEach>
+                    </c:forEach>
                 </table>
             </div>
             <div class="col-md-5 ind-right-news">

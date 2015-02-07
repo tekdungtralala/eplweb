@@ -12,16 +12,20 @@ import org.springframework.stereotype.Service;
 
 import com.wiwit.eplweb.model.Matchday;
 
-@Repository("matchdayDAO")
 @Service
-@Transactional
 public class MatchdayDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	public List<Matchday> getMatchDayOnLastWeek(){
-		Session session = this.sessionFactory.getCurrentSession(); 
-		return session.createQuery("from Matchday order by date desc").setMaxResults(20).list();
+
+	@Autowired
+	private PhaseDAO phaseDAO;
+
+	public List<Matchday> getMatchtdayOnCurrWeek() {
+		String currentWeek = phaseDAO.getCurrentMatchday().getValue();
+		Session session = this.sessionFactory.getCurrentSession();
+		return session.createQuery(
+				"from Matchday as m where m.week.weekNumber = " + currentWeek
+						+ " order by m.date asc, m.time asc").list();
 	}
 }

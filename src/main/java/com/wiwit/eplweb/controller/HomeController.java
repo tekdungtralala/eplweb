@@ -1,28 +1,39 @@
 package com.wiwit.eplweb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.wiwit.eplweb.service.MatchdayService;
 import com.wiwit.eplweb.service.RankService;
 
 @Controller
+@RequestMapping(value = "/")
 public class HomeController {
 	
 	private RankService rankService;
 	
+	private MatchdayService matchdayService;
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public String listPersons(Model model) {
+		
+		model.addAttribute("ranks", rankService.getFiveHighestLastRank());
+		
+		model.addAttribute("matchday", matchdayService.getMatchtdayOnCurrWeek().getModel());
+		
+		return "index";
+	}
+	
 	@Autowired(required=true)
-	@Qualifier(value="rankService")
 	public void setRankService(RankService rankService) {
 		this.rankService = rankService;
 	}
-
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String listPersons(Model model) {
-		model.addAttribute("ranks", rankService.getFiveHighestRank());
-		return "index";
+	
+	@Autowired(required=true)
+	public void setMatchdayService(MatchdayService matchdayService) {
+		this.matchdayService = matchdayService;
 	}
 }

@@ -1,6 +1,7 @@
 package com.wiwit.eplweb.model;
 
 import java.sql.Time;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ public class Matchday {
 	private int id;
 	
 	@Column(name = "date")
-	private String date;
+	private Date date;
 	
 	@Column(name = "time")
 	private Time time;
@@ -46,6 +47,10 @@ public class Matchday {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "away_team_id", nullable = false)
 	private Team awayTeam;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "week_id", nullable = false)
+	private Week week;
 
 	public int getId() {
 		return id;
@@ -55,11 +60,11 @@ public class Matchday {
 		this.id = id;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
@@ -117,5 +122,13 @@ public class Matchday {
 
 	public void setAwayTeam(Team awayTeam) {
 		this.awayTeam = awayTeam;
+	}
+
+	public Week getWeek() {
+		return week;
+	}
+
+	public void setWeek(Week week) {
+		this.week = week;
 	}
 }

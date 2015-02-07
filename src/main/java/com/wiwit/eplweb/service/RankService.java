@@ -11,14 +11,12 @@ import com.wiwit.eplweb.dao.RankDAO;
 import com.wiwit.eplweb.model.Rank;
 
 @Component
-@Service
 public class RankService {
 
 	@Autowired
 	private RankDAO rankDAO;
 
-	@Transactional
-	public List<Rank> getFiveHighestRank() {
-		return this.rankDAO.getFiveHighestRank();
+	public List<Rank> getFiveHighestLastRank() {
+		return this.rankDAO.getFiveHighestLastRank();
 	}
 }
