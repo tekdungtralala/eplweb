@@ -47,6 +47,7 @@
 				<beans:value>com.wiwit.eplweb.model.Week</beans:value>
 				<beans:value>com.wiwit.eplweb.model.Matchday</beans:value>
 				<beans:value>com.wiwit.eplweb.model.Phase</beans:value>
+				<beans:value>com.wiwit.eplweb.model.Squad</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
