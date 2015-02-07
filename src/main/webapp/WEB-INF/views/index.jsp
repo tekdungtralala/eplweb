@@ -194,20 +194,6 @@
             </div>
             <div class="col-md-5 ind-right-news">
                 <div class="date">
-                    7 January 2015 at 18:00 GMT
-                </div>
-                <h4 class="title">
-                    <a href="#">
-                        Ronaldo is a great but Messi is unique
-                    </a>
-                </h4>
-                    <a href="#">
-                        <img class="image" src="<c:url value="/resources/image/news/messi.jpg" />" alt="">
-                    </a>
-                    The pair are competing with Manuel Neuer for this year's Ballon d'Or and the Croatia international feels that his Barcelona team-mate should be the clear victor
-            </div>
-            <div class="col-md-5 ind-right-news">
-                <div class="date">
                     7 January 2015 at 14:00 GMT
                 </div>
                 <h4 class="title">
@@ -242,6 +228,7 @@
                             <div class="input-group season">
                                 <div class="input-group-btn">
                                     <button type="button" class="btn btn-default">Season : </button>
+                                    <!--
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                         <span class="caret"></span>
                                     </button>
@@ -250,6 +237,7 @@
                                         <li><a href="#">2013-2014</a></li>
                                         <li><a href="#">2012-2013</a></li>
                                     </ul>
+                                    -->
                                 </div>
                                 <input type="text" class="form-control input-season" value="2014-2015" disabled>
                             </div>
@@ -257,6 +245,7 @@
                             <div class="input-group week">
                                 <div class="input-group-btn">
                                     <button type="button" class="btn btn-default">Week : </button>
+                                    <!--
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                         <span class="caret"></span>
                                     </button>
@@ -265,6 +254,7 @@
                                         <li><a href="#">19</a></li>
                                         <li><a href="#">18</a></li>
                                     </ul>
+                                    -->
                                 </div>
                                 <input type="text" class="form-control input-week" value="20" disabled>
                             </div>
@@ -372,7 +362,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright � Your Website 2014</p>
+                    <p></p>
                 </div>
             </div>
             <!-- /.row -->

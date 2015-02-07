@@ -6,33 +6,46 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.wiwit.eplweb.service.BestWeekSquadService;
 import com.wiwit.eplweb.service.MatchdayService;
 import com.wiwit.eplweb.service.RankService;
 
 @Controller
 @RequestMapping(value = "/")
 public class HomeController {
-	
+
 	private RankService rankService;
-	
+
 	private MatchdayService matchdayService;
-	
+
+	private BestWeekSquadService bestWeekSquadService;
+
 	@RequestMapping(method = RequestMethod.GET)
 	public String listPersons(Model model) {
-		
+
 		model.addAttribute("ranks", rankService.getFiveHighestLastRank());
+
+		model.addAttribute("matchday", matchdayService.getMatchtdayOnCurrWeek()
+				.getModel());
+
+		model.addAttribute("squad", bestWeekSquadService.getBestSquadLastWeek());
 		
-		model.addAttribute("matchday", matchdayService.getMatchtdayOnCurrWeek().getModel());
-		
+		// TODO uniform on index.html still default
 		return "index";
 	}
-	
-	@Autowired(required=true)
+
+	@Autowired(required = true)
+	public void setBestWeekSquadService(
+			BestWeekSquadService bestWeekSquadService) {
+		this.bestWeekSquadService = bestWeekSquadService;
+	}
+
+	@Autowired(required = true)
 	public void setRankService(RankService rankService) {
 		this.rankService = rankService;
 	}
-	
-	@Autowired(required=true)
+
+	@Autowired(required = true)
 	public void setMatchdayService(MatchdayService matchdayService) {
 		this.matchdayService = matchdayService;
 	}
