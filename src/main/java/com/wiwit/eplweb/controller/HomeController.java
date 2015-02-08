@@ -13,7 +13,7 @@ import com.wiwit.eplweb.service.RankService;
 import com.wiwit.eplweb.service.SeasonService;
 
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/servlet")
 public class HomeController {
 
 	private RankService rankService;
