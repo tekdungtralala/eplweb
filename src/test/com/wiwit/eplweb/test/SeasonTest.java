@@ -2,7 +2,6 @@ package com.wiwit.eplweb.test;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.wiwit.eplweb.dao.SeasonDAO;
 import com.wiwit.eplweb.model.Season;
 import com.wiwit.eplweb.service.SeasonService;
 

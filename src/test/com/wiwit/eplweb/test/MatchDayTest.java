@@ -2,7 +2,6 @@ package com.wiwit.eplweb.test;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.wiwit.eplweb.dao.MatchdayDAO;
 import com.wiwit.eplweb.model.Matchday;
 import com.wiwit.eplweb.model.view.MatchdayModelView;
 import com.wiwit.eplweb.service.MatchdayService;
