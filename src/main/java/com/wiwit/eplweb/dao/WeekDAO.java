@@ -41,7 +41,7 @@ public class WeekDAO {
 				"from Week as w where w.weekNumber <= " + prevWeek
 				+ " order by w.weekNumber desc").list();
 		
-		logger.info("Week loaded successfully, Ranks size=" + result.size());
+		logger.info("Week loaded successfully, weeks size=" + result.size());
 		return result;
 	}
 }

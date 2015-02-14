@@ -19,6 +19,7 @@ public class MatchdayService {
 	@Transactional
 	public MatchdayModelView getMatchtdayOnCurrWeek(){
 		List<Matchday>  listMatchday = machtdayDAO.getMatchtdayOnCurrWeek();
+		
 		return new MatchdayModelView(listMatchday);
 	}
 }

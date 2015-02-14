@@ -12,6 +12,7 @@
         var service = {
             // Page /
             getHighestRanks: getHighestRanks,
+            getCurrentMatchday: getCurrentMatchday,
             // Page /ranks
             getRanksByWeekNmr: getRanksByWeekNmr,
             getAllWeek: getAllWeek,
@@ -23,6 +24,17 @@
         // Page /
         function getHighestRanks() {
             return $http.get('api/highestRanks')
+                .then(getLatestRankComplete)
+                .catch(function(message) {
+                });
+
+            function getLatestRankComplete(result) {
+                return result.data;
+            }
+        }
+
+        function getCurrentMatchday() {
+            return $http.get('api/currentMatchday')
                 .then(getLatestRankComplete)
                 .catch(function(message) {
                 });

@@ -41,9 +41,29 @@
     </a>
 </h3>
 
-<table class="table table-striped table-bordered table-hover epl-table" id="dataTables-example" rules="none">
+<table class="table table-bordered table-hover epl-table epl-mathchday" id="dataTables-example" rules="none">
 
-    <thead>
+    <thead data-ng-repeat='(key,val) in vm.model'>
+        <tr>
+            <th colspan="6">{{key}}</th>
+        </tr>
+        <tr class="odd gradeX" data-ng-repeat='m in val'>
+            <td class="time">
+                {{m.time}}
+            </td>
+            <td class="epl-right">{{m.homeTeam.name}}</td>
+            <td class="rightTeamLogo">
+                <img class="image" ng-src="eplweb_components/image/logo/150x150/{{m.homeTeam.id}}.png" alt="">
+            </td>
+            <td class="versus">VS</td>
+            <td class="leftTeamLogo">
+                <img class="image" src="eplweb_components/image/logo/150x150/{{m.awayTeam.id}}.png" alt="">
+            </td>
+            <td class="epl-left">{{m.awayTeam.name}}</td>
+        </tr>
+    </thead>    
+
+<!--     <thead>
         <tr>
             <th colspan="6">Thu Jan 08,2015</th>
         </tr>
@@ -223,7 +243,7 @@
             </td>
             <td class="leftTeam">Crystal Palace</td>
         </tr>
-    </tbody>
+    </tbody> -->
 </table>
 
 <h3 class='epl-left'>

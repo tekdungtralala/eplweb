@@ -54,7 +54,7 @@ public class RankDAO {
 		List<Rank> result = session.createQuery(
 				"from Rank as r where r.week.weekNumber = " + weekNumber
 						+ " ORDER BY r.points DESC").list();
-		logger.info("Rank loaded successfully, Ranks size=" + result.size());
+		logger.info("Rank loaded successfully, ranks size=" + result.size());
 		return result;
 	}
 }
