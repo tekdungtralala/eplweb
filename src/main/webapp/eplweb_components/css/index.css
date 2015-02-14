@@ -1,81 +1,77 @@
-.page-header
+#epl-main-container
 {
-	margin: 0px;
-}
-.title a
-{
-	color: green;
-}
-
-.ind-right-news .image
-{
-	max-height: 150px;
-	max-width: 150px;
-	float: left;
-	padding-right: 10px;
+	max-width: 742px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-.ind-right-news .date
-{
-	padding-top: 5px;
-}
-
-.ind-table
-{
-    border:1px solid #CCC;
-    border-collapse:collapse;
-}
-
-.ind-table .rightTeam
-{
-	text-align: right;
-}
-
-.ind-table .versus
-{
-	text-align: center;
-}
-
-.ind-table .rightTeamLogo,
-.ind-table .leftTeamLogo
+.epl-table .rightTeamLogo img,
+.epl-table .leftTeamLogo img
 {
 	width: 20px;
 }
 
-.ind-table .rightTeamLogo img,
-.ind-table .leftTeamLogo img
+.epl-center
 {
-	max-width: 20px;
-	max-height: 20px;
+	text-align: center;
 }
 
-.ind-table tbody tr td
+.epl-left
 {
-	border:none;
+	text-align: left;
 }
 
-.ind-ttw-container
+.epl-href:hover
 {
-	padding-top: 15px;
-	margin-bottom: 20px;
+	text-decoration: none;
 }
-.ind-ttw-container .input-season
+
+.epl-teamoftheweek
+{
+	margin-top:20px;
+}
+
+.epl-dash-phaseNav .epl-input,
+.epl-dash-phaseNav .epl-label
 {
 	width: 100px;
 }
 
-.ind-ttw-container .input-week
+.epl-dash-phaseNav .epl-season,
+.epl-dash-phaseNav .epl-week
+{
+	float: left;
+	width: 100px;
+}
+
+.epl-week.epl-rank .epl-input
 {
 	width: 150px;
 }
 
-.ind-ttw-container .season
-{
-	float: left;
-	width: 250px;
+.epl-dash-phaseNav .epl-week.epl-rank{
+	width: 365px;
 }
 
-.cursorPointer
+.epl-week.epl-rank .epl-btn-group,
+.epl-week.epl-rank .epl-input,
+.epl-week.epl-rank .epl-btn-next,
+.epl-week.epl-rank .epl-btn-prev,
+{
+	float: left;
+}
+.epl-dash-phaseNav .epl-season
+{
+	margin-right: 20px;
+}
+
+.epl-table.epl-rank
+{
+	margin-top: 20px;
+}
+
+.epl-week.epl-rank:hover
 {
 	cursor: pointer;
 }
@@ -86,7 +82,7 @@
 .teamofweek .team-wrapper p{background-color:#19803F;color:#fff;font-size:11px;font-weight:bold;line-height:12px;padding:0 2px;text-align:center;}
 .teamofweek .rows_1,.teamofweek .rows_2,.teamofweek .rows_3,.teamofweek .rows_4,.teamofweek .rows_5{display:block;clear:both;position:relative;overflow:visible;height:105px;}
 .teamofweek .rows_5 div{margin-left:49px;top:-15px;width:80px;display:inline-block;position:relative;text-align:center;vertical-align:top;}
-.teamofweek .rows_4 div{margin-left:77px;top:-15px;width:80px;display:inline-block;position:relative;text-align:center;vertical-align:top;}
+.teamofweek .rows_4 div{margin-left:77px;top:-15px;width:80px;display:inline-block;position:relative;text-align:center;vertical-align:top; left:-40px;}
 .teamofweek .rows_3 div{margin-left:115px;top:-15px;width:80px;display:inline-block;position:relative;text-align:center;vertical-align:top;}
-.teamofweek .rows_2 div{margin-left:185px;top:-15px;width:80px;display:inline-block;position:relative;text-align:center;vertical-align:top;}
-.teamofweek .rows_1 div{margin-left:310px;top:-15px;width:80px;display:inline-block;position:relative;text-align:center;vertical-align:top;}
+.teamofweek .rows_2 div{margin-left:0px;top:-15px;width:80px;display:inline-block;position:relative;text-align:center;vertical-align:top;}
+.teamofweek .rows_1 div{margin-left:0px;top:-15px;width:80px;display:inline-block;position:relative;text-align:center;vertical-align:top;}
