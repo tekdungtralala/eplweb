@@ -30,7 +30,7 @@
                     </ul>
                 </div>
                 <input type='text' class='form-control input-week' 
-                    value='#23 - 2015, 7 Jan' disabled=''>
+                    value='{{vm.selectedWeek}}' disabled=''>
                 <div type='button' class='btn btn-default' ng-disabled='vm.prevRankDisable'
                     ng-click='vm.changeWeek(vm.currWeek - 1)'>
                     <span class='glyphicon glyphicon-step-backward' 

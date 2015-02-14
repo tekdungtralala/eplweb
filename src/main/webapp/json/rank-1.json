@@ -1,0 +1,285 @@
+{
+	"ranks":
+	[
+	    {
+	        "id": 522,
+	        "team": {
+	            "name": "Chelsea",
+	            "simpleName": "chelsea",
+	            "id": 20
+	        },
+	        "points": 53,
+	        "gamesWon": 16,
+	        "gamesDrawn": 5,
+	        "gamesLost": 2,
+	        "goalsScored": 52,
+	        "goalsAgainst": 20
+	    },
+	    {
+	        "id": 521,
+	        "team": {
+	            "name": "Manchester City",
+	            "simpleName": "mancity",
+	            "id": 19
+	        },
+	        "points": 48,
+	        "gamesWon": 14,
+	        "gamesDrawn": 6,
+	        "gamesLost": 3,
+	        "goalsScored": 46,
+	        "goalsAgainst": 23
+	    },
+	    {
+	        "id": 519,
+	        "team": {
+	            "name": "Manchester United",
+	            "simpleName": "manutd",
+	            "id": 17
+	        },
+	        "points": 43,
+	        "gamesWon": 12,
+	        "gamesDrawn": 7,
+	        "gamesLost": 4,
+	        "goalsScored": 39,
+	        "goalsAgainst": 22
+	    },
+	    {
+	        "id": 520,
+	        "team": {
+	            "name": "Southampton",
+	            "simpleName": "southampton",
+	            "id": 18
+	        },
+	        "points": 42,
+	        "gamesWon": 13,
+	        "gamesDrawn": 3,
+	        "gamesLost": 7,
+	        "goalsScored": 37,
+	        "goalsAgainst": 17
+	    },
+	    {
+	        "id": 517,
+	        "team": {
+	            "name": "Arsenal",
+	            "simpleName": "arsenal",
+	            "id": 15
+	        },
+	        "points": 42,
+	        "gamesWon": 12,
+	        "gamesDrawn": 6,
+	        "gamesLost": 5,
+	        "goalsScored": 44,
+	        "goalsAgainst": 25
+	    },
+	    {
+	        "id": 518,
+	        "team": {
+	            "name": "Tottenham Hotspur",
+	            "simpleName": "tottenham",
+	            "id": 16
+	        },
+	        "points": 40,
+	        "gamesWon": 12,
+	        "gamesDrawn": 4,
+	        "gamesLost": 7,
+	        "goalsScored": 35,
+	        "goalsAgainst": 30
+	    },
+	    {
+	        "id": 516,
+	        "team": {
+	            "name": "Liverpool",
+	            "simpleName": "liverpool",
+	            "id": 14
+	        },
+	        "points": 38,
+	        "gamesWon": 11,
+	        "gamesDrawn": 5,
+	        "gamesLost": 7,
+	        "goalsScored": 33,
+	        "goalsAgainst": 27
+	    },
+	    {
+	        "id": 515,
+	        "team": {
+	            "name": "West Ham United",
+	            "simpleName": "westham",
+	            "id": 13
+	        },
+	        "points": 36,
+	        "gamesWon": 10,
+	        "gamesDrawn": 6,
+	        "gamesLost": 7,
+	        "goalsScored": 35,
+	        "goalsAgainst": 27
+	    },
+	    {
+	        "id": 514,
+	        "team": {
+	            "name": "Swansea City",
+	            "simpleName": "swansea",
+	            "id": 12
+	        },
+	        "points": 33,
+	        "gamesWon": 9,
+	        "gamesDrawn": 6,
+	        "gamesLost": 8,
+	        "goalsScored": 27,
+	        "goalsAgainst": 30
+	    },
+	    {
+	        "id": 513,
+	        "team": {
+	            "name": "Stoke City",
+	            "simpleName": "strokecity",
+	            "id": 11
+	        },
+	        "points": 32,
+	        "gamesWon": 9,
+	        "gamesDrawn": 5,
+	        "gamesLost": 9,
+	        "goalsScored": 26,
+	        "goalsAgainst": 28
+	    },
+	    {
+	        "id": 512,
+	        "team": {
+	            "name": "Newcastle United",
+	            "simpleName": "newcastle",
+	            "id": 10
+	        },
+	        "points": 30,
+	        "gamesWon": 8,
+	        "gamesDrawn": 6,
+	        "gamesLost": 9,
+	        "goalsScored": 29,
+	        "goalsAgainst": 35
+	    },
+	    {
+	        "id": 510,
+	        "team": {
+	            "name": "Everton",
+	            "simpleName": "everton",
+	            "id": 8
+	        },
+	        "points": 26,
+	        "gamesWon": 6,
+	        "gamesDrawn": 8,
+	        "gamesLost": 9,
+	        "goalsScored": 31,
+	        "goalsAgainst": 34
+	    },
+	    {
+	        "id": 507,
+	        "team": {
+	            "name": "Sunderland",
+	            "simpleName": "sunderland",
+	            "id": 5
+	        },
+	        "points": 23,
+	        "gamesWon": 4,
+	        "gamesDrawn": 11,
+	        "gamesLost": 8,
+	        "goalsScored": 21,
+	        "goalsAgainst": 33
+	    },
+	    {
+	        "id": 511,
+	        "team": {
+	            "name": "Crystal Palace",
+	            "simpleName": "crystalpalace",
+	            "id": 9
+	        },
+	        "points": 23,
+	        "gamesWon": 5,
+	        "gamesDrawn": 8,
+	        "gamesLost": 10,
+	        "goalsScored": 25,
+	        "goalsAgainst": 34
+	    },
+	    {
+	        "id": 508,
+	        "team": {
+	            "name": "West Bromwich Albion",
+	            "simpleName": "westbromwich",
+	            "id": 6
+	        },
+	        "points": 22,
+	        "gamesWon": 5,
+	        "gamesDrawn": 7,
+	        "gamesLost": 11,
+	        "goalsScored": 20,
+	        "goalsAgainst": 32
+	    },
+	    {
+	        "id": 509,
+	        "team": {
+	            "name": "Aston Villa",
+	            "simpleName": "astonvilla",
+	            "id": 7
+	        },
+	        "points": 22,
+	        "gamesWon": 5,
+	        "gamesDrawn": 7,
+	        "gamesLost": 11,
+	        "goalsScored": 11,
+	        "goalsAgainst": 30
+	    },
+	    {
+	        "id": 506,
+	        "team": {
+	            "name": "Burnley",
+	            "simpleName": "burnley",
+	            "id": 4
+	        },
+	        "points": 20,
+	        "gamesWon": 4,
+	        "gamesDrawn": 8,
+	        "gamesLost": 11,
+	        "goalsScored": 21,
+	        "goalsAgainst": 38
+	    },
+	    {
+	        "id": 504,
+	        "team": {
+	            "name": "Queens Park Rangers",
+	            "simpleName": "qpr",
+	            "id": 2
+	        },
+	        "points": 19,
+	        "gamesWon": 5,
+	        "gamesDrawn": 4,
+	        "gamesLost": 14,
+	        "goalsScored": 24,
+	        "goalsAgainst": 42
+	    },
+	    {
+	        "id": 505,
+	        "team": {
+	            "name": "Hull City",
+	            "simpleName": "hullcity",
+	            "id": 3
+	        },
+	        "points": 19,
+	        "gamesWon": 4,
+	        "gamesDrawn": 7,
+	        "gamesLost": 12,
+	        "goalsScored": 20,
+	        "goalsAgainst": 33
+	    },
+	    {
+	        "id": 503,
+	        "team": {
+	            "name": "Leicester City",
+	            "simpleName": "leicester",
+	            "id": 1
+	        },
+	        "points": 17,
+	        "gamesWon": 4,
+	        "gamesDrawn": 5,
+	        "gamesLost": 14,
+	        "goalsScored": 21,
+	        "goalsAgainst": 37
+	    }
+	]
+}

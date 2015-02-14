@@ -16,6 +16,7 @@
         vm.nextWeek = null;
         vm.prevWeek = null;
         vm.currWeek = null;
+        vm.selectedWeek = null;
 
         activate();
         function activate() {
@@ -36,10 +37,14 @@
             vm.weeks = weeks;
             _.each(vm.weeks, function(w){
                 // Set dateView 
-                var date = new Date(w.startDay);
-                var m = moment(date);
-                w.dateView = '#' + w.weekNumber + ' - ' + m.format('YYYY, DD MMM');
+                w.dateView = getFormattedWeek(w);
             });
+        }
+
+        function getFormattedWeek(w){
+            var date = new Date(w.startDay);
+            var m = moment(date);
+            return '#' + w.weekNumber + ' - ' + m.format('YYYY, DD MMM');
         }
 
         function initCurrPrevNext(currWeek){
@@ -58,6 +63,11 @@
                 vm.prevRankDisable = false;
                 vm.nextRankDisable = false;
             }
+
+            var currWeek = _.find(vm.weeks, function(w){
+                return parseInt(w.weekNumber) === vm.currWeek;
+            });
+            vm.selectedWeek = getFormattedWeek(currWeek);
         }
 
         // ngClick
