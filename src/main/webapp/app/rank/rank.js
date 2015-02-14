@@ -5,8 +5,6 @@
         .module('app.rank')
         .controller('Rank', Rank);
 
-    // rank.$inject = [];
-
     function Rank(dataservice) {
         var vm = this;
         vm.ranks = [];

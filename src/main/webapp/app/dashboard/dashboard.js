@@ -5,8 +5,24 @@
         .module('app.dashboard')
         .controller('Dashboard', Dashboard);
 
-    Dashboard.$inject = [];
+    function Dashboard(dataservice) {
+    	var vm = this;
+    	vm.ranks = [];
 
-    function Dashboard() {
+        activate();
+        function activate() {
+            var promises = [getHighestRanks()];
+            return dataservice.ready(promises).then(function(result){
+            	vm.ranks = result[0];
+            });
+        }
+
+        // Get ranks through service
+        function getHighestRanks() {
+            return dataservice.getHighestRanks().then(function(data) {
+                return data.ranks;
+            });
+        }
     }
+
 })();

@@ -10,12 +10,28 @@
         var primePromise;
 
         var service = {
+            // Page /
+            getHighestRanks: getHighestRanks,
+            // Page /ranks
             getRanksByWeekNmr: getRanksByWeekNmr,
             getAllWeek: getAllWeek,
             ready: ready
         };
 
         return service;
+
+        // Page /
+        function getHighestRanks() {
+            return $http.get('api/highestRanks')
+                .then(getLatestRankComplete)
+                .catch(function(message) {
+                });
+
+            function getLatestRankComplete(result) {
+                return result.data;
+            }
+        }
+
 
         // Page /ranks
         function getRanksByWeekNmr(weekNumber) {

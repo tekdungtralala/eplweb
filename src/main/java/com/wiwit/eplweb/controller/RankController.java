@@ -26,6 +26,17 @@ public class RankController extends BaseController {
 			.getLogger(RankController.class);
 
 	private RankService rankService;
+	
+	@RequestMapping(value = "/highestRanks", method = RequestMethod.GET)
+	public @ResponseBody
+	String getFiveHighestRank(Model model) throws JsonGenerationException,
+			JsonMappingException, IOException {
+		logger.info("GET /highestRanks");
+
+		List<Rank> ranks = rankService.getFiveHighestLastRank();
+
+		return generateJson(RankModelView.getModelView(ranks));
+	}	
 
 	@RequestMapping(value = "/ranks", method = RequestMethod.GET)
 	public @ResponseBody

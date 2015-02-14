@@ -1,442 +1,400 @@
-        <!-- Page Heading -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header title">
-                    <a href="#">
-                        Tables
-                    </a>
-                    <small></small>
-                </h1>
-            </div>
-        </div>
-        <!-- /.row -->
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header title">
+            <a href="#">
+                Tables
+            </a>
+            <small></small>
+        </h1>
+    </div>
+</div>
+<!-- /.row -->
 
-        <!-- Project One -->
-        <div class="row">
-            <div class="col-md-7">
-                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Team</th>
-                            <th>GP</th>
-                            <th>W</th>
-                            <th>D</th>
-                            <th>L</th>
-                            <th>GD</th>
-                            <th>PTS</th>
-                        </tr>
-                    </thead>
+<!-- Project One -->
+<div class="row">
+    <div class="col-md-7">
+        <table class="table table-striped table-bordered table-hover ind-table" id="dataTables-example">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Team</th>
+                    <th>GP</th>
+                    <th>W</th>
+                    <th>D</th>
+                    <th>L</th>
+                    <th>GD</th>
+                    <th>PTS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class='odd gradeX' data-ng-repeat='r in vm.ranks'>
+                    <td>{{$index + 1}}</td>
+                    <td>
+                        <img class='image rightTeamLogo' alt='' 
+                            ng-src='eplweb_components/image/logo/150x150/{{r.team.id}}.png' >
+                        {{r.team.name}}
+                    </td>
+                    <td>{{r.gamesWon + r.gamesDrawn + r.gamesLost}}</td>
+                    <td>{{r.gamesWon}}</td>
+                    <td>{{r.gamesDrawn}}</td>
+                    <td>{{r.gamesLost}}</td>
+                    <td>{{r.goalsScored}} - {{r.goalsAgainst}}</td>
+                    <td>{{r.points}}</td>
+                </tr>                
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-5 ind-right-news">
+        <div class="date">
+            7 January 2015 at 21:56 GMT
+        </div>
+        <h4 class="title">
+            <a href="#">
+                Steven Gerrard: LA Galaxy move right time for Liverpool captain
+            </a>
+        </h4>
+        <a href="#">
+            <img class="image" src="eplweb_components/image/news/gerrardc.jpg" alt="">
+        </a>
+        Liverpool captain Steven Gerrard says it is the "right time for a new challenge" as he confirms his move to Los Angeles Galaxy in the summer.
+        The Reds midfielder, 34, added that the MLS club were "aggressive" in pursuing him after he announced last week he was leaving Anfield at the end of the season.
+    </div>
+</div>
+<!-- /.row -->
+
+<hr>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header title">
+            <a href="#">
+                Matchday
+            </a>
+            <small></small>
+        </h1>
+    </div>
+</div>
+
+<!-- Project Two -->
+<div class="row">
+    <div class="col-md-7">
+        <table class="table table-striped table-bordered table-hover ind-table" id="dataTables-example" rules="none">
+            
+                <thead>
+                    <tr>
+                        <th colspan="6">Thu Jan 08,2015</th>
+                    </tr>
+                </thead>
+                
                     <tbody>
-                        
-                            <tr class="odd gradeX">
-                                <td>1</td>
-                                <td>Chelsea</td>
-                                <td>23</td>
-                                <td>16</td>
-                                <td>5</td>
-                                <td>2</td>
-                                <td>52 - 20</td>
-                                <td><strong>53</strong></td>                                
-                            </tr>
-                        
-                            <tr class="odd gradeX">
-                                <td>2</td>
-                                <td>Manchester City</td>
-                                <td>23</td>
-                                <td>14</td>
-                                <td>6</td>
-                                <td>3</td>
-                                <td>46 - 23</td>
-                                <td><strong>48</strong></td>                                
-                            </tr>
-                        
-                            <tr class="odd gradeX">
-                                <td>3</td>
-                                <td>Manchester United</td>
-                                <td>23</td>
-                                <td>12</td>
-                                <td>7</td>
-                                <td>4</td>
-                                <td>39 - 22</td>
-                                <td><strong>43</strong></td>                                
-                            </tr>
-                        
-                            <tr class="odd gradeX">
-                                <td>4</td>
-                                <td>Arsenal</td>
-                                <td>23</td>
-                                <td>12</td>
-                                <td>6</td>
-                                <td>5</td>
-                                <td>44 - 25</td>
-                                <td><strong>42</strong></td>                                
-                            </tr>
-                        
-                            <tr class="odd gradeX">
-                                <td>5</td>
-                                <td>Southampton</td>
-                                <td>23</td>
-                                <td>13</td>
-                                <td>3</td>
-                                <td>7</td>
-                                <td>37 - 17</td>
-                                <td><strong>42</strong></td>                                
-                            </tr>
-                        
+                        <tr class="odd gradeX">
+                            <td class="time">
+                                00:30
+                            </td>
+                            <td class="rightTeam">Everton</td>
+                            <td class="rightTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/8.png" alt="">
+                            </td>
+                            <td class="versus">VS</td>
+                            <td class="leftTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/14.png" alt="">
+                            </td>
+                            <td class="leftTeam">Liverpool</td>
+                        </tr>
                     </tbody>
-                </table>
-            </div>
-            <div class="col-md-5 ind-right-news">
-                <div class="date">
-                    7 January 2015 at 21:56 GMT
+                
+                    <tbody>
+                        <tr class="odd gradeX">
+                            <td class="time">
+                                19:00
+                            </td>
+                            <td class="rightTeam">Burnley</td>
+                            <td class="rightTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/4.png" alt="">
+                            </td>
+                            <td class="versus">VS</td>
+                            <td class="leftTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/6.png" alt="">
+                            </td>
+                            <td class="leftTeam">West Bromwich Albion</td>
+                        </tr>
+                    </tbody>
+                
+                    <tbody>
+                        <tr class="odd gradeX">
+                            <td class="time">
+                                21:05
+                            </td>
+                            <td class="rightTeam">Newcastle United</td>
+                            <td class="rightTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/10.png" alt="">
+                            </td>
+                            <td class="versus">VS</td>
+                            <td class="leftTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/11.png" alt="">
+                            </td>
+                            <td class="leftTeam">Stoke City</td>
+                        </tr>
+                    </tbody>
+                
+                    <tbody>
+                        <tr class="odd gradeX">
+                            <td class="time">
+                                23:15
+                            </td>
+                            <td class="rightTeam">West Ham United</td>
+                            <td class="rightTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/13.png" alt="">
+                            </td>
+                            <td class="versus">VS</td>
+                            <td class="leftTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/17.png" alt="">
+                            </td>
+                            <td class="leftTeam">Manchester United</td>
+                        </tr>
+                    </tbody>
+                
+            
+                <thead>
+                    <tr>
+                        <th colspan="6">Wed Jan 07,2015</th>
+                    </tr>
+                </thead>
+                
+                    <tbody>
+                        <tr class="odd gradeX">
+                            <td class="time">
+                                19:45
+                            </td>
+                            <td class="rightTeam">Tottenham Hotspur</td>
+                            <td class="rightTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/16.png" alt="">
+                            </td>
+                            <td class="versus">VS</td>
+                            <td class="leftTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/15.png" alt="">
+                            </td>
+                            <td class="leftTeam">Arsenal</td>
+                        </tr>
+                    </tbody>
+                
+                    <tbody>
+                        <tr class="odd gradeX">
+                            <td class="time">
+                                22:00
+                            </td>
+                            <td class="rightTeam">Queens Park Rangers</td>
+                            <td class="rightTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/2.png" alt="">
+                            </td>
+                            <td class="versus">VS</td>
+                            <td class="leftTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/18.png" alt="">
+                            </td>
+                            <td class="leftTeam">Southampton</td>
+                        </tr>
+                    </tbody>
+                
+                    <tbody>
+                        <tr class="odd gradeX">
+                            <td class="time">
+                                22:00
+                            </td>
+                            <td class="rightTeam">Manchester City</td>
+                            <td class="rightTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/19.png" alt="">
+                            </td>
+                            <td class="versus">VS</td>
+                            <td class="leftTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/3.png" alt="">
+                            </td>
+                            <td class="leftTeam">Hull City</td>
+                        </tr>
+                    </tbody>
+                
+                    <tbody>
+                        <tr class="odd gradeX">
+                            <td class="time">
+                                22:00
+                            </td>
+                            <td class="rightTeam">Swansea City</td>
+                            <td class="rightTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/12.png" alt="">
+                            </td>
+                            <td class="versus">VS</td>
+                            <td class="leftTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/5.png" alt="">
+                            </td>
+                            <td class="leftTeam">Sunderland</td>
+                        </tr>
+                    </tbody>
+                
+                    <tbody>
+                        <tr class="odd gradeX">
+                            <td class="time">
+                                22:00
+                            </td>
+                            <td class="rightTeam">Aston Villa</td>
+                            <td class="rightTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/7.png" alt="">
+                            </td>
+                            <td class="versus">VS</td>
+                            <td class="leftTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/20.png" alt="">
+                            </td>
+                            <td class="leftTeam">Chelsea</td>
+                        </tr>
+                    </tbody>
+                
+                    <tbody>
+                        <tr class="odd gradeX">
+                            <td class="time">
+                                22:00
+                            </td>
+                            <td class="rightTeam">Leicester City</td>
+                            <td class="rightTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/1.png" alt="">
+                            </td>
+                            <td class="versus">VS</td>
+                            <td class="leftTeamLogo">
+                                <img class="image" src="eplweb_components/image/logo/150x150/9.png" alt="">
+                            </td>
+                            <td class="leftTeam">Crystal Palace</td>
+                        </tr>
+                    </tbody>
+                
+            
+        </table>
+    </div>
+    <div class="col-md-5 ind-right-news">
+        <div class="date">
+            7 January 2015 at 14:00 GMT
+        </div>
+        <h4 class="title">
+            <a href="#">
+                Xavi dismisses CR7's Ballon d'Or bid
+            </a>
+        </h4>
+        <a href="#">
+            <img class="image" src="eplweb_components/image/news/ronaldo.jpg" alt="">
+        </a>
+        The midfielder does not see why the Real Madrid forward should win the award given his failure to lead Portugal out of the World Cup group stage
+    </div>
+</div>
+<!-- /.row -->
+
+<hr>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Team of The Week
+            <small></small>
+        </h1>
+    </div>
+</div>
+
+<!-- Project Three -->
+<div class="row">
+    <div class="col-md-7">
+        <div class="teamofweek teamofweek-single">
+            <div>
+                <div class="ind-ttw-container">
+                    <div class="input-group season">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default">Season : </button>
+                            <!--
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">2014-2015</a></li>
+                                <li><a href="#">2013-2014</a></li>
+                                <li><a href="#">2012-2013</a></li>
+                            </ul>
+                            -->
+                        </div>
+                        <input type="text" class="form-control input-season" value="2014-2015" disabled="">
+                    </div>
+
+                    <div class="input-group week">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default">Week : </button>
+                            <!--
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">20</a></li>
+                                <li><a href="#">19</a></li>
+                                <li><a href="#">18</a></li>
+                            </ul>
+                            -->
+                        </div>
+                        <input type="text" class="form-control input-week" value="23" disabled="">
+                    </div>
                 </div>
-                <h4 class="title">
-                    <a href="#">
-                        Steven Gerrard: LA Galaxy move right time for Liverpool captain
-                    </a>
-                </h4>
-                <a href="#">
-                    <img class="image" src="eplweb_components/image/news/gerrardc.jpg" alt="">
-                </a>
-                Liverpool captain Steven Gerrard says it is the "right time for a new challenge" as he confirms his move to Los Angeles Galaxy in the summer.
-                The Reds midfielder, 34, added that the MLS club were "aggressive" in pursuing him after he announced last week he was leaving Anfield at the end of the season.
-            </div>
-        </div>
-        <!-- /.row -->
 
-        <hr>
+                <div class="clearfix"></div>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header title">
-                    <a href="#">
-                        Matchday
-                    </a>
-                    <small></small>
-                </h1>
-            </div>
-        </div>
-
-        <!-- Project Two -->
-        <div class="row">
-            <div class="col-md-7">
-                <table class="table table-striped table-bordered table-hover ind-table" id="dataTables-example" rules="none">
-                    
-                        <thead>
-                            <tr>
-                                <th colspan="6">Thu Jan 08,2015</th>
-                            </tr>
-                        </thead>
-                        
-                            <tbody>
-                                <tr class="odd gradeX">
-                                    <td class="time">
-                                        00:30
-                                    </td>
-                                    <td class="rightTeam">Everton</td>
-                                    <td class="rightTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/8.png" alt="">
-                                    </td>
-                                    <td class="versus">VS</td>
-                                    <td class="leftTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/14.png" alt="">
-                                    </td>
-                                    <td class="leftTeam">Liverpool</td>
-                                </tr>
-                            </tbody>
-                        
-                            <tbody>
-                                <tr class="odd gradeX">
-                                    <td class="time">
-                                        19:00
-                                    </td>
-                                    <td class="rightTeam">Burnley</td>
-                                    <td class="rightTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/4.png" alt="">
-                                    </td>
-                                    <td class="versus">VS</td>
-                                    <td class="leftTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/6.png" alt="">
-                                    </td>
-                                    <td class="leftTeam">West Bromwich Albion</td>
-                                </tr>
-                            </tbody>
-                        
-                            <tbody>
-                                <tr class="odd gradeX">
-                                    <td class="time">
-                                        21:05
-                                    </td>
-                                    <td class="rightTeam">Newcastle United</td>
-                                    <td class="rightTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/10.png" alt="">
-                                    </td>
-                                    <td class="versus">VS</td>
-                                    <td class="leftTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/11.png" alt="">
-                                    </td>
-                                    <td class="leftTeam">Stoke City</td>
-                                </tr>
-                            </tbody>
-                        
-                            <tbody>
-                                <tr class="odd gradeX">
-                                    <td class="time">
-                                        23:15
-                                    </td>
-                                    <td class="rightTeam">West Ham United</td>
-                                    <td class="rightTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/13.png" alt="">
-                                    </td>
-                                    <td class="versus">VS</td>
-                                    <td class="leftTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/17.png" alt="">
-                                    </td>
-                                    <td class="leftTeam">Manchester United</td>
-                                </tr>
-                            </tbody>
-                        
-                    
-                        <thead>
-                            <tr>
-                                <th colspan="6">Wed Jan 07,2015</th>
-                            </tr>
-                        </thead>
-                        
-                            <tbody>
-                                <tr class="odd gradeX">
-                                    <td class="time">
-                                        19:45
-                                    </td>
-                                    <td class="rightTeam">Tottenham Hotspur</td>
-                                    <td class="rightTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/16.png" alt="">
-                                    </td>
-                                    <td class="versus">VS</td>
-                                    <td class="leftTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/15.png" alt="">
-                                    </td>
-                                    <td class="leftTeam">Arsenal</td>
-                                </tr>
-                            </tbody>
-                        
-                            <tbody>
-                                <tr class="odd gradeX">
-                                    <td class="time">
-                                        22:00
-                                    </td>
-                                    <td class="rightTeam">Queens Park Rangers</td>
-                                    <td class="rightTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/2.png" alt="">
-                                    </td>
-                                    <td class="versus">VS</td>
-                                    <td class="leftTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/18.png" alt="">
-                                    </td>
-                                    <td class="leftTeam">Southampton</td>
-                                </tr>
-                            </tbody>
-                        
-                            <tbody>
-                                <tr class="odd gradeX">
-                                    <td class="time">
-                                        22:00
-                                    </td>
-                                    <td class="rightTeam">Manchester City</td>
-                                    <td class="rightTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/19.png" alt="">
-                                    </td>
-                                    <td class="versus">VS</td>
-                                    <td class="leftTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/3.png" alt="">
-                                    </td>
-                                    <td class="leftTeam">Hull City</td>
-                                </tr>
-                            </tbody>
-                        
-                            <tbody>
-                                <tr class="odd gradeX">
-                                    <td class="time">
-                                        22:00
-                                    </td>
-                                    <td class="rightTeam">Swansea City</td>
-                                    <td class="rightTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/12.png" alt="">
-                                    </td>
-                                    <td class="versus">VS</td>
-                                    <td class="leftTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/5.png" alt="">
-                                    </td>
-                                    <td class="leftTeam">Sunderland</td>
-                                </tr>
-                            </tbody>
-                        
-                            <tbody>
-                                <tr class="odd gradeX">
-                                    <td class="time">
-                                        22:00
-                                    </td>
-                                    <td class="rightTeam">Aston Villa</td>
-                                    <td class="rightTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/7.png" alt="">
-                                    </td>
-                                    <td class="versus">VS</td>
-                                    <td class="leftTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/20.png" alt="">
-                                    </td>
-                                    <td class="leftTeam">Chelsea</td>
-                                </tr>
-                            </tbody>
-                        
-                            <tbody>
-                                <tr class="odd gradeX">
-                                    <td class="time">
-                                        22:00
-                                    </td>
-                                    <td class="rightTeam">Leicester City</td>
-                                    <td class="rightTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/1.png" alt="">
-                                    </td>
-                                    <td class="versus">VS</td>
-                                    <td class="leftTeamLogo">
-                                        <img class="image" src="eplweb_components/image/logo/150x150/9.png" alt="">
-                                    </td>
-                                    <td class="leftTeam">Crystal Palace</td>
-                                </tr>
-                            </tbody>
-                        
-                    
-                </table>
-            </div>
-            <div class="col-md-5 ind-right-news">
-                <div class="date">
-                    7 January 2015 at 14:00 GMT
-                </div>
-                <h4 class="title">
-                    <a href="#">
-                        Xavi dismisses CR7's Ballon d'Or bid
-                    </a>
-                </h4>
-                <a href="#">
-                    <img class="image" src="eplweb_components/image/news/ronaldo.jpg" alt="">
-                </a>
-                The midfielder does not see why the Real Madrid forward should win the award given his failure to lead Portugal out of the World Cup group stage
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <hr>
-
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">Team of The Week
-                    <small></small>
-                </h1>
-            </div>
-        </div>
-
-        <!-- Project Three -->
-        <div class="row">
-            <div class="col-md-7">
-                <div class="teamofweek teamofweek-single">
-                    <div>
-                        <div class="ind-ttw-container">
-                            <div class="input-group season">
-                                <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default">Season : </button>
-                                    <!--
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">2014-2015</a></li>
-                                        <li><a href="#">2013-2014</a></li>
-                                        <li><a href="#">2012-2013</a></li>
-                                    </ul>
-                                    -->
-                                </div>
-                                <input type="text" class="form-control input-season" value="2014-2015" disabled="">
-                            </div>
-
-                            <div class="input-group week">
-                                <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default">Week : </button>
-                                    <!--
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">20</a></li>
-                                        <li><a href="#">19</a></li>
-                                        <li><a href="#">18</a></li>
-                                    </ul>
-                                    -->
-                                </div>
-                                <input type="text" class="form-control input-week" value="23" disabled="">
+                <div>
+                    <div class="team-wrapper">
+                        <div class="rows_1">
+                            <div class="gk">
+                                <img src="eplweb_components/image/uniform/mancity-gk.png" alt="">
+                                <p>Petr Cech</p>
                             </div>
                         </div>
-
-                        <div class="clearfix"></div>
-
-                        <div>
-                            <div class="team-wrapper">
-                                <div class="rows_1">
-                                    <div class="gk">
-                                        <img src="eplweb_components/image/uniform/mancity-gk.png" alt="">
-                                        <p>Petr Cech</p>
-                                    </div>
-                                </div>
-                                <div class="rows_4">
-                                    <div class="de1">
-                                        <img src="eplweb_components/image/uniform/southampton.png" alt="">
-                                        <p>Mathieu Debuchy</p>
-                                    </div>
-                                    <div class="de2">
-                                        <img src="eplweb_components/image/uniform/hullcity.png" alt="">
-                                        <p>Kieran Gibbs</p>
-                                    </div>
-                                    <div class="de3">
-                                        <img src="eplweb_components/image/uniform/chelsea.png" alt="">
-                                        <p>Kolo Touré</p>
-                                    </div>
-                                    <div class="de4">
-                                        <img src="eplweb_components/image/uniform/southampton.png" alt="">
-                                        <p>Glen Johnson</p>
-                                    </div>
-                                </div>
-                                <div class="rows_4">
-                                    <div class="mf1">
-                                        <img src="eplweb_components/image/uniform/southampton.png" alt="">
-                                        <p>David Silva</p>
-                                    </div>
-                                    <div class="mf2">
-                                        <img src="eplweb_components/image/uniform/mancity.png" alt="">
-                                        <p>Reece Burke</p>
-                                    </div>
-                                    <div class="mf3">
-                                        <img src="eplweb_components/image/uniform/hullcity.png" alt="">
-                                        <p>Karl Henry</p>
-                                    </div>
-                                    <div class="mf4">
-                                        <img src="eplweb_components/image/uniform/arsenal.png" alt="">
-                                        <p>Robbie Brady</p>
-                                    </div>
-                                </div>
-                                <div class="rows_2">
-                                    <div class="st1">
-                                        <img src="eplweb_components/image/uniform/arsenal.png" alt="">
-                                        <p>Wayne Rooney</p>
-                                    </div>
-                                    <div class="st2">
-                                        <img src="eplweb_components/image/uniform/manutd.png" alt="">
-                                        <p>Robin van Persie</p>
-                                    </div>
-                                </div>
+                        <div class="rows_4">
+                            <div class="de1">
+                                <img src="eplweb_components/image/uniform/southampton.png" alt="">
+                                <p>Mathieu Debuchy</p>
+                            </div>
+                            <div class="de2">
+                                <img src="eplweb_components/image/uniform/hullcity.png" alt="">
+                                <p>Kieran Gibbs</p>
+                            </div>
+                            <div class="de3">
+                                <img src="eplweb_components/image/uniform/chelsea.png" alt="">
+                                <p>Kolo Touré</p>
+                            </div>
+                            <div class="de4">
+                                <img src="eplweb_components/image/uniform/southampton.png" alt="">
+                                <p>Glen Johnson</p>
+                            </div>
+                        </div>
+                        <div class="rows_4">
+                            <div class="mf1">
+                                <img src="eplweb_components/image/uniform/southampton.png" alt="">
+                                <p>David Silva</p>
+                            </div>
+                            <div class="mf2">
+                                <img src="eplweb_components/image/uniform/mancity.png" alt="">
+                                <p>Reece Burke</p>
+                            </div>
+                            <div class="mf3">
+                                <img src="eplweb_components/image/uniform/hullcity.png" alt="">
+                                <p>Karl Henry</p>
+                            </div>
+                            <div class="mf4">
+                                <img src="eplweb_components/image/uniform/arsenal.png" alt="">
+                                <p>Robbie Brady</p>
+                            </div>
+                        </div>
+                        <div class="rows_2">
+                            <div class="st1">
+                                <img src="eplweb_components/image/uniform/arsenal.png" alt="">
+                                <p>Wayne Rooney</p>
+                            </div>
+                            <div class="st2">
+                                <img src="eplweb_components/image/uniform/manutd.png" alt="">
+                                <p>Robin van Persie</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /.row -->
+    </div>
+</div>
+<!-- /.row -->

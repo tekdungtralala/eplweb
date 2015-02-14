@@ -15,7 +15,7 @@ public class RankService {
 	private RankDAO rankDAO;
 
 	public List<Rank> getFiveHighestLastRank() {
-		return this.rankDAO.getFiveHighestLastRank();
+		return this.rankDAO.getFiveHighestLastRank().subList(0, 5);
 	}
 	
 	public List<Rank> getLatestRank() {
