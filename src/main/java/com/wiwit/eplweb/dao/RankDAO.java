@@ -37,25 +37,24 @@ public class RankDAO {
 
 		return getRankByWeekNumber(prevWeek);
 	}
-	
+
 	@Transactional
-	public List<Rank> getLatestRank(){
+	public List<Rank> getLatestRank() {
 		String currentMatchday = phaseDAO.getCurrentMatchday().getValue();
-		
+
 		// last rank must be on previous week
 		int prevWeek = Integer.valueOf(currentMatchday) - 1;
 		// TODO - check if prevWeek == 0
-		
+
 		return getRankByWeekNumber(prevWeek);
 	}
-	
+
 	@Transactional
-	public List<Rank> getRankByWeekNumber(int weekNumber){
+	public List<Rank> getRankByWeekNumber(int weekNumber) {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Rank> result = session
-				.createQuery(
-						"from Rank as r where r.week.weekNumber = " + weekNumber
-								+ " ORDER BY r.points DESC").list();
+		List<Rank> result = session.createQuery(
+				"from Rank as r where r.week.weekNumber = " + weekNumber
+						+ " ORDER BY r.points DESC").list();
 		logger.info("Rank loaded successfully, Ranks size=" + result.size());
 		return result;
 	}

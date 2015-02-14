@@ -31,8 +31,8 @@ public class RankController extends BaseController {
 
 	@RequestMapping(value = "/ranks", method = RequestMethod.GET)
 	public @ResponseBody
-	String getLatestRank(HttpServletRequest request, Model model)
-			throws JsonGenerationException, JsonMappingException, IOException {
+	String getLatestRank(Model model) throws JsonGenerationException,
+			JsonMappingException, IOException {
 		logger.info("GET /ranks");
 
 		List<Rank> ranks = rankService.getLatestRank();
@@ -42,7 +42,8 @@ public class RankController extends BaseController {
 
 	@RequestMapping(value = "/ranks/{weekNumber}", method = RequestMethod.GET)
 	public @ResponseBody
-	String getSelectedRank(HttpServletRequest request, Model model, @PathVariable("weekNumber") String weekNumber)
+	String getSelectedRank(Model model,
+			@PathVariable("weekNumber") String weekNumber)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /ranks/" + weekNumber);
 

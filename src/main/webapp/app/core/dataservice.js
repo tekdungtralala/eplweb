@@ -3,10 +3,9 @@
 
     angular
         .module('app.core')
-        .factory('dataservice', dataservice);
+        .factory('dataservice', Dataservice);
 
-    /* @ngInject */
-    function dataservice($http, $location, $q) {
+    function Dataservice($http, $q) {
         var isPrimed = false;
         var primePromise;
 
@@ -18,6 +17,7 @@
 
         return service;
 
+        // Page /ranks
         function getRanksByWeekNmr(weekNumber) {
             var query = '';
             if (weekNumber) 
@@ -33,7 +33,7 @@
         }
 
         function getAllWeek() {
-            return $http.get('json/allweek.json')
+            return $http.get('api/weeks')
                 .then(getLatestRankComplete)
                 .catch(function(message) {
                 });
@@ -43,6 +43,8 @@
             }
         }
 
+
+        // Default
         function ready(nextPromises) {
             var readyPromise = primePromise || prime();
 
