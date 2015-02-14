@@ -11,7 +11,6 @@ import com.wiwit.eplweb.dao.PersonDAO;
 import com.wiwit.eplweb.model.Person;
 
 @Component
-@Service
 public class PersonService{
 	
 	@Autowired

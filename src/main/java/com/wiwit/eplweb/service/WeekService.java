@@ -11,7 +11,6 @@ import com.wiwit.eplweb.dao.WeekDAO;
 import com.wiwit.eplweb.model.Week;
 
 @Component
-@Service
 public class WeekService {
 
 	@Autowired

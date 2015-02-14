@@ -9,7 +9,6 @@ import com.wiwit.eplweb.dao.PhaseDAO;
 import com.wiwit.eplweb.model.Phase;
 
 @Component
-@Service
 public class PhaseService {
 
 	@Autowired
