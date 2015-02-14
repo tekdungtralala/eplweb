@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 @Entity
 @Table(name = "season")
 public class Season {
@@ -43,10 +46,12 @@ public class Season {
 		this.years = years;
 	}
 
+	@JsonIgnore
 	public Set<Week> getWeeks() {
 		return weeks;
 	}
 
+	@JsonProperty
 	public void setWeek(Set<Week> weeks) {
 		this.weeks = weeks;
 	}

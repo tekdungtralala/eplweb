@@ -5,5 +5,9 @@
         'app.core',
         'app.dashboard',
         'app.rank'
+        // ,
+        // 'app.matchday',
+        // 'app.teamoftheweek',
+        // 'app.news'
     ]);
 })();

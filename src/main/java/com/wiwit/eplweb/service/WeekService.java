@@ -18,7 +18,12 @@ public class WeekService {
 	private WeekDAO weekDAO;
 	
 	@Transactional
-	private List<Week> getLastFiveWeek(){
+	public List<Week> getLastFiveWeek(){
 		return weekDAO.getLastFiveWeek();
+	}
+	
+	@Transactional
+	public List<Week> getAllPassedWeek(){
+		return weekDAO.getAllPassedWeek();
 	}
 }

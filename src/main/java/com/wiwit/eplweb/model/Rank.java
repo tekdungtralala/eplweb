@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 @Entity
 @Table(name = "rank")
 public class Rank {
@@ -113,10 +116,12 @@ public class Rank {
 		return "id= " + id + ", points=" + points + ", team=" + team.getName();
 	}
 
+	@JsonIgnore
 	public Week getWeek() {
 		return week;
 	}
 
+	@JsonProperty
 	public void setWeek(Week week) {
 		this.week = week;
 	}

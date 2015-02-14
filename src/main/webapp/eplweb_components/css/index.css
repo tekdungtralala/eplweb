@@ -59,16 +59,25 @@
 	padding-top: 15px;
 	margin-bottom: 20px;
 }
-.ind-ttw-container .input-season,
-.ind-ttw-container .input-week
+.ind-ttw-container .input-season
 {
 	width: 100px;
+}
+
+.ind-ttw-container .input-week
+{
+	width: 150px;
 }
 
 .ind-ttw-container .season
 {
 	float: left;
 	width: 250px;
+}
+
+.cursorPointer
+{
+	cursor: pointer;
 }
 
 .teamofweek{font-size:11px;}

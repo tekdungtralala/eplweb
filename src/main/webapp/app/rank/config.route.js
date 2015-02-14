@@ -18,7 +18,7 @@
                 url: '/rank',
                 config: {
                     templateUrl: 'app/rank/rank.html',
-                    controller: 'rank',
+                    controller: 'Rank',
                     controllerAs: 'vm',
                     title: 'rank'
                 }

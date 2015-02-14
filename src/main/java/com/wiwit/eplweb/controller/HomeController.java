@@ -13,7 +13,6 @@ import com.wiwit.eplweb.service.RankService;
 import com.wiwit.eplweb.service.SeasonService;
 
 @Controller
-@RequestMapping(value = "/servlet")
 public class HomeController {
 
 	private RankService rankService;
@@ -26,7 +25,7 @@ public class HomeController {
 	
 	private SeasonService seasonService;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String listPersons(Model model) {
 
 		model.addAttribute("ranks", rankService.getFiveHighestLastRank());

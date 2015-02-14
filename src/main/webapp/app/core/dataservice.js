@@ -11,54 +11,44 @@
         var primePromise;
 
         var service = {
-            getAvengersCast: getAvengersCast,
-            getAvengerCount: getAvengerCount,
-            getAvengers: getAvengers,
+            getRanksByWeekNmr: getRanksByWeekNmr,
+            getAllWeek: getAllWeek,
             ready: ready
         };
 
         return service;
 
-        function getAvengers() {
-            return $http.get('/api/maa')
-                .then(getAvengersComplete)
+        function getRanksByWeekNmr(weekNumber) {
+            var query = '';
+            if (weekNumber) 
+                query = '/' + weekNumber;
+            return $http.get('api/ranks' + query)
+                .then(getLatestRankComplete)
                 .catch(function(message) {
-                    
-                    $location.url('/');
                 });
 
-            function getAvengersComplete(data, status, headers, config) {
-                return data.data[0].data.results;
+            function getLatestRankComplete(result) {
+                return result.data;
             }
         }
 
-        function getAvengerCount() {
-            var count = 0;
-            return getAvengersCast()
-                .then(getAvengersCastComplete)
+        function getAllWeek() {
+            return $http.get('json/allweek.json')
+                .then(getLatestRankComplete)
+                .catch(function(message) {
+                });
+
+            function getLatestRankComplete(result) {
+                return result.data;
+            }
+        }
+
+        function ready(nextPromises) {
+            var readyPromise = primePromise || prime();
+
+            return readyPromise
+                .then(function() { return $q.all(nextPromises); })
                 .catch();
-
-            function getAvengersCastComplete (data) {
-                count = data.length;
-                return $q.when(count);
-            }
-        }
-
-        function getAvengersCast() {
-            var cast = [
-                {name: 'Robert Downey Jr.', character: 'Tony Stark / Iron Man'},
-                {name: 'Chris Hemsworth', character: 'Thor'},
-                {name: 'Chris Evans', character: 'Steve Rogers / Captain America'},
-                {name: 'Mark Ruffalo', character: 'Bruce Banner / The Hulk'},
-                {name: 'Scarlett Johansson', character: 'Natasha Romanoff / Black Widow'},
-                {name: 'Jeremy Renner', character: 'Clint Barton / Hawkeye'},
-                {name: 'Gwyneth Paltrow', character: 'Pepper Potts'},
-                {name: 'Samuel L. Jackson', character: 'Nick Fury'},
-                {name: 'Paul Bettany', character: 'Jarvis'},
-                {name: 'Tom Hiddleston', character: 'Loki'},
-                {name: 'Clark Gregg', character: 'Agent Phil Coulson'}
-            ];
-            return $q.when(cast);
         }
 
         function prime() {
@@ -74,14 +64,5 @@
                 isPrimed = true;
             }
         }
-
-        function ready(nextPromises) {
-            var readyPromise = primePromise || prime();
-
-            return readyPromise
-                .then(function() { return $q.all(nextPromises); })
-                .catch();
-        }
-
     }
 })();

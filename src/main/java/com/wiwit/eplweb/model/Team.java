@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 @Entity
 @Table(name = "team")
 public class Team {
@@ -53,10 +56,12 @@ public class Team {
 		this.simpleName = simpleName;
 	}
 
+	@JsonIgnore
 	public Rank getRank() {
 		return rank;
 	}
 
+	@JsonProperty
 	public void setRank(Rank rank) {
 		this.rank = rank;
 	}

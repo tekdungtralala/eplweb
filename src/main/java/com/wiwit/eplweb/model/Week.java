@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 @Entity
 @Table(name = "week")
 public class Week {
@@ -55,10 +58,12 @@ public class Week {
 		this.startDay = startDay;
 	}
 
+	@JsonIgnore
 	public Season getSeason() {
 		return season;
 	}
 
+	@JsonProperty
 	public void setSeason(Season season) {
 		this.season = season;
 	}

@@ -19,4 +19,16 @@ public class RankService {
 	public List<Rank> getFiveHighestLastRank() {
 		return this.rankDAO.getFiveHighestLastRank();
 	}
+	
+	public List<Rank> getLatestRank() {
+		return this.rankDAO.getLatestRank();
+	}	
+	
+	public List<Rank> getRankByWeekNumber(int weekNumber) {
+		return this.rankDAO.getRankByWeekNumber(weekNumber);
+	}
+	
+	public List<Rank> getRankByWeekNumber(String weekNumber) {
+		return getRankByWeekNumber(Integer.valueOf(weekNumber));
+	}	
 }
