@@ -77,7 +77,7 @@ public class Matchday {
 	}
 
 	public int getHomeGoal() {
-		return homeGoal == null ? 0 : homeGoal;
+		return homeGoal == null ? -1 : homeGoal;
 	}
 
 	public void setHomeGoal(Integer homeGoal) {
@@ -85,7 +85,7 @@ public class Matchday {
 	}
 
 	public int getAwayGoal() {
-		return awayGoal == null ? 0 : awayGoal;
+		return awayGoal == null ? -1 : awayGoal;
 	}
 
 	public void setAwayGoal(Integer awayGoal) {
@@ -93,7 +93,7 @@ public class Matchday {
 	}
 
 	public int getHomePoint() {
-		return homePoint == null ? 0 : homePoint;
+		return homePoint == null ? -1 : homePoint;
 	}
 
 	public void setHomePoint(Integer homePoint) {
@@ -101,7 +101,7 @@ public class Matchday {
 	}
 
 	public int getAwayPoint() {
-		return awayPoint == null ? 0 : awayPoint;
+		return awayPoint == null ? -1 : awayPoint;
 	}
 
 	public void setAwayPoint(Integer awayPoint) {

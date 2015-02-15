@@ -10,16 +10,29 @@
         var primePromise;
 
         var service = {
+            // Page /matchday
+            getAllWeek: getAllWeek, 
             // Page /
             getHighestRanks: getHighestRanks,
-            getCurrentMatchday: getCurrentMatchday,
+            getMatchdayByWeekNmr: getMatchdayByWeekNmr,
             // Page /ranks
             getRanksByWeekNmr: getRanksByWeekNmr,
-            getAllWeek: getAllWeek,
+            getAllPassedWeek: getAllPassedWeek,
             ready: ready
         };
 
         return service;
+
+        function getAllWeek() {
+            return $http.get('api/weeks')
+                .then(getLatestRankComplete)
+                .catch(function(message) {
+                });
+
+            function getLatestRankComplete(result) {
+                return result.data;
+            }
+        }
 
         // Page /
         function getHighestRanks() {
@@ -33,8 +46,11 @@
             }
         }
 
-        function getCurrentMatchday() {
-            return $http.get('api/currentMatchday')
+        function getMatchdayByWeekNmr(weekNumber) {
+            var query = '';
+            if (weekNumber) 
+                query = '/' + weekNumber;
+            return $http.get('api/matchday' + query)
                 .then(getLatestRankComplete)
                 .catch(function(message) {
                 });
@@ -60,8 +76,8 @@
             }
         }
 
-        function getAllWeek() {
-            return $http.get('api/weeks')
+        function getAllPassedWeek() {
+            return $http.get('api/passedWeeks')
                 .then(getLatestRankComplete)
                 .catch(function(message) {
                 });

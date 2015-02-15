@@ -18,16 +18,12 @@ public class MatchdayDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-
-	@Autowired
-	private PhaseDAO phaseDAO;
-
-	public List<Matchday> getMatchtdayOnCurrWeek() {
-		String currentWeek = phaseDAO.getCurrentMatchday().getValue();
+	
+	public List<Matchday> getMatchtdayByWeekNmr(int weekNumber) {
 		Session session = this.sessionFactory.getCurrentSession();
 		
 		List<Matchday> result = session.createQuery(
-				"from Matchday as m where m.week.weekNumber = " + currentWeek
+				"from Matchday as m where m.week.weekNumber = " + weekNumber
 				+ " order by m.date asc, m.time asc").list();
 		logger.info("Matchday loaded successfully, matchdays size=" + result.size());
 		return result;

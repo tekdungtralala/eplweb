@@ -26,13 +26,23 @@ public class WeekController extends BaseController {
 
 	private WeekService weekService;
 
-	@RequestMapping(value = "/weeks", method = RequestMethod.GET)
+	@RequestMapping(value = "/passedWeeks", method = RequestMethod.GET)
 	public @ResponseBody
 	String getAllPassedWeek(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {
-		logger.info("GET /weeks");
+		logger.info("GET /passedWeeks");
 
 		List<Week> weeks = weekService.getAllPassedWeek();
+		return generateJson(WeekModelView.getModelView(weeks));
+	}
+	
+	@RequestMapping(value = "/weeks", method = RequestMethod.GET)
+	public @ResponseBody
+	String getAllWeek(Model model) throws JsonGenerationException,
+			JsonMappingException, IOException {
+		logger.info("GET /weeks");
+
+		List<Week> weeks = weekService.getAllWeek();
 		return generateJson(WeekModelView.getModelView(weeks));
 	}
 

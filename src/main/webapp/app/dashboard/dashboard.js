@@ -12,7 +12,7 @@
 
         activate();
         function activate() {
-            var promises = [getHighestRanks(), getCurrentMatchday()];
+            var promises = [getHighestRanks(), getMatchdayByWeekNmr()];
             return dataservice.ready(promises).then(function(result){
             	vm.ranks = result[0];
                 vm.model = result[1];
@@ -27,8 +27,8 @@
         }
 
         // Get matchday through service
-        function getCurrentMatchday() {
-            return dataservice.getCurrentMatchday().then(function(data) {
+        function getMatchdayByWeekNmr() {
+            return dataservice.getMatchdayByWeekNmr().then(function(data) {
                 return data.model;
             });
         }

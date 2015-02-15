@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.wiwit.eplweb.dao.PhaseDAO;
 import com.wiwit.eplweb.dao.WeekDAO;
 import com.wiwit.eplweb.model.Week;
 
@@ -15,13 +16,28 @@ public class WeekService {
 	@Autowired
 	private WeekDAO weekDAO;
 	
-	@Transactional
+	@Autowired
+	private PhaseDAO phaseDAO;
+	
 	public List<Week> getLastFiveWeek(){
 		return weekDAO.getLastFiveWeek();
 	}
 	
-	@Transactional
+	public Week findByWeekNumber(int weekNumber){
+		return weekDAO.findByWeekNmr(weekNumber);
+	}
+	
 	public List<Week> getAllPassedWeek(){
-		return weekDAO.getAllPassedWeek();
+		String currentMatchday = phaseDAO.getCurrentMatchday().getValue();
+
+		// last rank must be on previous week
+		int prevWeek = Integer.valueOf(currentMatchday) - 1;
+		// TODO - check if prevWeek == 0
+		
+		return weekDAO.getAllPassedWeek(prevWeek);
+	}
+	
+	public List<Week> getAllWeek(){
+		return weekDAO.getAllWeek();
 	}
 }

@@ -11,14 +11,12 @@
         vm.weeks = [];
         vm.nextRankDisable = true;
         vm.prevRankDisable = false;
-        vm.nextWeek = null;
-        vm.prevWeek = null;
         vm.currWeek = null;
         vm.selectedWeek = null;
 
         activate();
         function activate() {
-            var promises = [getAllWeek(),getRanksByWeekNmr(null)];
+            var promises = [getAllPassedWeek(),getRanksByWeekNmr(null)];
             return dataservice.ready(promises).then(function(result){
                 processWeekData(result[0]);
                 var lastWeek = parseInt(vm.weeks[0].weekNumber);
@@ -34,7 +32,7 @@
         function processWeekData(weeks){
             vm.weeks = weeks;
             _.each(vm.weeks, function(w){
-                // Set dateView 
+                // Set dateView attribute
                 w.dateView = getFormattedWeek(w);
             });
         }
@@ -47,19 +45,15 @@
 
         function initCurrPrevNext(currWeek){
             vm.currWeek = currWeek;
-            vm.nextWeek = vm.currWeek + 1;
-            vm.prevWeek = vm.currWeek - 1;
+
+            vm.nextRankDisable = false;
+            vm.prevRankDisable = false;
 
             var lastWeek = parseInt(vm.weeks[0].weekNumber);
             if (currWeek == 1) {
                 vm.prevRankDisable = true;
-                vm.nextRankDisable = false;
             } else if (currWeek == lastWeek) {
-                vm.prevRankDisable = false;
                 vm.nextRankDisable = true;
-            } else {
-                vm.prevRankDisable = false;
-                vm.nextRankDisable = false;
             }
 
             var currWeek = _.find(vm.weeks, function(w){
@@ -77,8 +71,8 @@
         }
 
         // Get weeks through service
-        function getAllWeek() {
-            return dataservice.getAllWeek().then(function(data) {
+        function getAllPassedWeek() {
+            return dataservice.getAllPassedWeek().then(function(data) {
                 return data.weeks;
             });
         }

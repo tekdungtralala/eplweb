@@ -7,14 +7,26 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.wiwit.eplweb.model.Matchday;
+import com.wiwit.eplweb.model.Week;
 
 public class MatchdayModelView {
 
 	private HashMap<String, List<Matchday>> model;
+	private Week week;
 
-	public MatchdayModelView(List<Matchday> list) {
+	public MatchdayModelView(List<Matchday> list, Week week) {
 		this.model = new HashMap<String, List<Matchday>>();
 		generate(list);
+		
+		this.week = week;
+	}
+	
+	public void setWeek(Week week) {
+		this.week = week;
+	}
+	
+	public Week getWeek() {
+		return week;
 	}
 
 	public HashMap<String, List<Matchday>> getModel() {
