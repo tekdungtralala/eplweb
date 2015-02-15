@@ -73,6 +73,7 @@
         // Get weeks through service
         function getAllPassedWeek() {
             return dataservice.getAllPassedWeek().then(function(data) {
+                console.log("data : ", data);
                 return data.weeks;
             });
         }

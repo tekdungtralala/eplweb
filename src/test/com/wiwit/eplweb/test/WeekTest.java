@@ -8,7 +8,6 @@ import com.wiwit.eplweb.model.Week;
 import com.wiwit.eplweb.service.WeekService;
 
 public class WeekTest {
-
 	public static void showLastFiveWeek(WeekService wd, ObjectWriter ow) throws Exception {
 		for (Week w : wd.getLastFiveWeek()) {
 			System.out.println("week : " + w.getWeekNumber());

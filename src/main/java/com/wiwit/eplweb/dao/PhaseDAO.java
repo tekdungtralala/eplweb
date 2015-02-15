@@ -2,6 +2,8 @@ package com.wiwit.eplweb.dao;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ public class PhaseDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	@Transactional
 	private Phase getPhaseByKey(PhaseKey phaseKey) {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Phase> results = session
@@ -27,10 +30,12 @@ public class PhaseDAO {
 		return results.get(0);
 	}
 
+	@Transactional
 	public Phase getCurrentMatchday() {
 		return this.getPhaseByKey(PhaseKey.CURRENT_MATCHDAY);
 	}
 
+	@Transactional
 	public Phase getCurrentSeason() {
 		return this.getPhaseByKey(PhaseKey.CURRENT_SEASON);
 	}
