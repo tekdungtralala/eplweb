@@ -4,9 +4,9 @@
     angular.module('app', [
         'app.core',
         'app.dashboard',
-        'app.rank'
+        'app.rank',
+        'app.matchday'
         // ,
-        // 'app.matchday',
         // 'app.teamoftheweek',
         // 'app.news'
     ]);

@@ -48,34 +48,3 @@
 
     <div class="clearfix"></div>
 </div>
-
-<table class="table table-striped table-bordered table-hover epl-table epl-rank">
-    <thead>
-        <tr>
-            <th class='epl-center'>#</th>
-            <th class='epl-left'>Team</th>
-            <th class='epl-center'>GP</th>
-            <th class='epl-center'>W</th>
-            <th class='epl-center'>D</th>
-            <th class='epl-center'>L</th>
-            <th class='epl-center'>GD</th>
-            <th class='epl-center'>PTS</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class='odd gradeX' data-ng-repeat='r in vm.ranks'>
-            <td class='epl-center'>{{$index + 1}}</td>
-            <td class='epl-left rightTeamLogo'>
-                <img class='image' alt='' 
-                    ng-src='eplweb_components/image/logo/150x150/{{r.team.id}}.png' >
-                {{r.team.name}}
-            </td>
-            <td class='epl-center'>{{r.gamesWon + r.gamesDrawn + r.gamesLost}}</td>
-            <td class='epl-center'>{{r.gamesWon}}</td>
-            <td class='epl-center'>{{r.gamesDrawn}}</td>
-            <td class='epl-center'>{{r.gamesLost}}</td>
-            <td class='epl-center'>{{r.goalsScored}} - {{r.goalsAgainst}}</td>
-            <td class='epl-center'>{{r.points}}</td>
-        </tr>                
-    </tbody>
-</table>

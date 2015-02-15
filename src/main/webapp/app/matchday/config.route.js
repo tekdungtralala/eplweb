@@ -2,12 +2,9 @@
     'use strict';
 
     angular
-        .module('app.dashboard')
+        .module('app.matchday')
         .run(appRun);
 
-    //appRun.$inject = ['routehelper'];
-
-    /* @ngInject */
     function appRun(routehelper) {
         routehelper.configureRoutes(getRoutes());
     }
@@ -15,12 +12,12 @@
     function getRoutes() {
         return [
             {
-                url: '/',
+                url: '/matchday',
                 config: {
-                    templateUrl: 'app/dashboard/dashboard.html',
-                    controller: 'Dashboard',
+                    templateUrl: 'app/matchday/matchday.html',
+                    controller: 'Matchday',
                     controllerAs: 'vm',
-                    title: 'dashboard'
+                    title: 'matchday'
                 }
             }
         ];
