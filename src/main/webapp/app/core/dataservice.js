@@ -12,7 +12,8 @@
         var service = {
             // Page /matchday
             getAllWeek: getAllWeek, 
-            // Page /
+            // Page / {dashboard}
+            getFiveBigTeamData: getFiveBigTeamData,
             getHighestRanks: getHighestRanks,
             getMatchdayByWeekNmr: getMatchdayByWeekNmr,
             // Page /ranks
@@ -25,23 +26,34 @@
 
         function getAllWeek() {
             return $http.get('api/weeks')
-                .then(getLatestRankComplete)
+                .then(getData)
                 .catch(function(message) {
                 });
 
-            function getLatestRankComplete(result) {
+            function getData(result) {
                 return result.data;
             }
         }
 
         // Page /
-        function getHighestRanks() {
-            return $http.get('api/highestRanks')
-                .then(getLatestRankComplete)
+        function getFiveBigTeamData() {
+            return $http.get('api/chart/fiveBigestTeam')
+                .then(getData)
                 .catch(function(message) {
                 });
 
-            function getLatestRankComplete(result) {
+            function getData(result) {
+                return result.data;
+            }
+        }
+
+        function getHighestRanks() {
+            return $http.get('api/highestRanks')
+                .then(getData)
+                .catch(function(message) {
+                });
+
+            function getData(result) {
                 return result.data;
             }
         }
@@ -51,11 +63,11 @@
             if (weekNumber) 
                 query = '/' + weekNumber;
             return $http.get('api/matchday' + query)
-                .then(getLatestRankComplete)
+                .then(getData)
                 .catch(function(message) {
                 });
 
-            function getLatestRankComplete(result) {
+            function getData(result) {
                 return result.data;
             }
         }
@@ -67,22 +79,22 @@
             if (weekNumber) 
                 query = '/' + weekNumber;
             return $http.get('api/ranks' + query)
-                .then(getLatestRankComplete)
+                .then(getData)
                 .catch(function(message) {
                 });
 
-            function getLatestRankComplete(result) {
+            function getData(result) {
                 return result.data;
             }
         }
 
         function getAllPassedWeek() {
             return $http.get('api/passedWeeks')
-                .then(getLatestRankComplete)
+                .then(getData)
                 .catch(function(message) {
                 });
 
-            function getLatestRankComplete(result) {
+            function getData(result) {
                 return result.data;
             }
         }

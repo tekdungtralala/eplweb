@@ -21,33 +21,6 @@ public class RankDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	@Autowired
-	private PhaseDAO phaseDAO;
-
-	@Transactional
-	public List<Rank> getFiveHighestLastRank() {
-		logger.info("Ready to load Rank - getFiveHighestLastRank()");
-
-		String currentMatchday = phaseDAO.getCurrentMatchday().getValue();
-
-		// last rank must be on previous week
-		int prevWeek = Integer.valueOf(currentMatchday) - 1;
-		// TODO - check if prevWeek == 0
-
-		return getRankByWeekNumber(prevWeek);
-	}
-
-	@Transactional
-	public List<Rank> getLatestRank() {
-		String currentMatchday = phaseDAO.getCurrentMatchday().getValue();
-
-		// last rank must be on previous week
-		int prevWeek = Integer.valueOf(currentMatchday) - 1;
-		// TODO - check if prevWeek == 0
-
-		return getRankByWeekNumber(prevWeek);
-	}
-
 	@Transactional
 	public List<Rank> getRankByWeekNumber(int weekNumber) {
 		Session session = this.sessionFactory.getCurrentSession();
