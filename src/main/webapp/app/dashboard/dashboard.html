@@ -1,8 +1,30 @@
 <h3 class='epl-left'>
-    <a href="#" class='epl-href'>
+    <a href="#/rank" class='epl-href'>
         Tables
     </a>
+    <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#epl-modal-id">
+        <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+    </button>
 </h3>
+
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="epl-modal-id" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width: 800px; margin: 0 auto">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Five Biggest Teams</h4>
+            </div>
+            <div class="modal-body">
+                <div id="epl-chart-container" 
+                    style="width: 750px; height: 400px; margin: 0 auto">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <table class="table table-striped table-bordered table-hover epl-table">
     <thead>
@@ -36,7 +58,7 @@
 </table>
 
 <h3 class='epl-left'>
-    <a href="#" class='epl-href'>
+    <a href="#/matchday" class='epl-href'>
         Matchday
     </a>
 </h3>
