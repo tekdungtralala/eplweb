@@ -32,6 +32,7 @@
 
         function initChart(){
             $('#epl-chart-container').highcharts({
+                series: vm.chartData.series,
                 title: {
                     text: 'Five Biggest Teams',
                     style: {
@@ -63,7 +64,7 @@
                     verticalAlign: 'top',
                     borderWidth: 0
                 },
-                series: vm.chartData.series
+                exporting: { enabled: false }
             });
         }
 
