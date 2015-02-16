@@ -98,6 +98,10 @@
     display: none;
 }
 
+.epl-table.epl-rank .epl-column-teamname{
+    border-right-color: transparent;
+}
+
 .teamofweek{font-size:11px;}
 .teamofweek .team-wrapper{background:url("../image/teamofweek.png") no-repeat;position:relative;height:413px;width:710px;}
 .teamofweek .team-wrapper img{max-width:50px;}

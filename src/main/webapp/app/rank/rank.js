@@ -13,6 +13,7 @@
         vm.prevRankDisable = false;
         vm.currWeek = null;
         vm.selectedWeek = null;
+        vm.currTeam = null;
 
         activate();
         function activate() {
@@ -21,6 +22,68 @@
                 processWeekData(result[0]);
                 var lastWeek = parseInt(vm.weeks[0].weekNumber);
                 processRankData(result[1], lastWeek);
+            });
+        }
+
+        // ngClick
+        vm.showChart = function(teamIndex){
+            console.log('teamIndex : ', teamIndex);
+            vm.currTeam = vm.ranks[teamIndex];
+            console.log('vm.currTeam : ', vm.currTeam);
+            initChart();
+            $('#epl-modal-id').modal('show');
+        }
+
+        
+        function initChart(){
+            $('#epl-chart-container').highcharts({
+                series: [{
+                    name: 'Chelsea ',
+                    data: [10, 9, 8, 7, 6]
+
+                }, {
+                    name: 'Average',
+                    data: [10, 9, 8, 7, 6]
+                }],
+                xAxis: {
+                    categories: [
+                        'Point',
+                        'Win Rate',
+                        'Lose Rate',
+                        'Goal scored',
+                        'Goal Conceded'
+                    ]
+                },
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: '',
+                    style: {
+                        'display': 'none'
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Rainfall (mm)'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                exporting: { enabled: false }
             });
         }
 
@@ -73,7 +136,6 @@
         // Get weeks through service
         function getAllPassedWeek() {
             return dataservice.getAllPassedWeek().then(function(data) {
-                console.log("data : ", data);
                 return data.weeks;
             });
         }

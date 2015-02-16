@@ -53,7 +53,7 @@
     <thead>
         <tr>
             <th class='epl-center'>#</th>
-            <th class='epl-left'>Team</th>
+            <th class='epl-left' colspan='2'>Team</th>
             <th class='epl-center'>GP</th>
             <th class='epl-center'>W</th>
             <th class='epl-center'>D</th>
@@ -65,10 +65,15 @@
     <tbody>
         <tr class='odd gradeX' data-ng-repeat='r in vm.ranks'>
             <td class='epl-center'>{{$index + 1}}</td>
-            <td class='epl-left rightTeamLogo'>
+            <td class='epl-left rightTeamLogo epl-column-teamname'>
                 <img class='image' alt='' 
                     ng-src='eplweb_components/image/logo/150x150/{{r.team.id}}.png' >
                 {{r.team.name}}
+            </td>
+            <td>
+                <button type="button" class="btn btn-default btn-sm" ng-click='vm.showChart($index)'>
+                    <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+                </button>
             </td>
             <td class='epl-center'>{{r.gamesWon + r.gamesDrawn + r.gamesLost}}</td>
             <td class='epl-center'>{{r.gamesWon}}</td>
@@ -79,3 +84,22 @@
         </tr>                
     </tbody>
 </table>
+
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="epl-modal-id" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width: 800px; margin: 0 auto">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">{{vm.currTeam.team.name}}'s Statistic</h4>
+            </div>
+            <div class="modal-body">
+                <div id="epl-chart-container" 
+                    style="width: 750px; height: 400px; margin: 0 auto">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
