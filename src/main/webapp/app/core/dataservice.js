@@ -17,6 +17,7 @@
             getHighestRanks: getHighestRanks,
             getMatchdayByWeekNmr: getMatchdayByWeekNmr,
             // Page /ranks
+            getTeamStat: getTeamStat,
             getRanksByWeekNmr: getRanksByWeekNmr,
             getAllPassedWeek: getAllPassedWeek,
             ready: ready
@@ -74,6 +75,17 @@
 
 
         // Page /ranks
+        function getTeamStat(weekNumber, teamId) {
+            return $http.get('api/chart/week/' + weekNumber + '/team/' + teamId)
+                .then(getData)
+                .catch(function(message) {
+                });
+
+            function getData(result) {
+                console.log("getdata : ", result.data);
+                return result.data;
+            }
+        }
         function getRanksByWeekNmr(weekNumber) {
             var query = '';
             if (weekNumber) 

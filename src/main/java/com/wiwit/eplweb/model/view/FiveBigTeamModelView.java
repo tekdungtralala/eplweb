@@ -12,8 +12,8 @@ public class FiveBigTeamModelView {
 	private static final Logger logger = LoggerFactory
 			.getLogger(FiveBigTeamModelView.class);
 
-	public List<Integer> categories;
-	public List<ChartData> series;
+	private List<Integer> categories;
+	private List<ChartData> series;
 
 	public FiveBigTeamModelView() {
 		categories = new ArrayList<Integer>();
@@ -37,27 +37,9 @@ public class FiveBigTeamModelView {
 		for (Rank r : ranks) {
 			for (ChartData cd : series) {
 				if (r.getTeam().getName().equals(cd.getName())) {
-					cd.getData().add(r.getPoints());
+					cd.getData().add(Double.valueOf(r.getPoints()));
 				}
 			}
-		}
-	}
-
-	class ChartData {
-		private String name;
-		private List<Integer> data;
-
-		public ChartData(String name) {
-			this.name = name;
-			data = new ArrayList<Integer>();
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public List<Integer> getData() {
-			return data;
 		}
 	}
 

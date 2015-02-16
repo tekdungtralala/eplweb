@@ -27,32 +27,19 @@
 
         // ngClick
         vm.showChart = function(teamIndex){
-            console.log('teamIndex : ', teamIndex);
             vm.currTeam = vm.ranks[teamIndex];
-            console.log('vm.currTeam : ', vm.currTeam);
-            initChart();
-            $('#epl-modal-id').modal('show');
+            getTeamStat(vm.currWeek, vm.currTeam.team.id).then(function(data){
+                initChart(data.series, data.categories);
+                $('#epl-modal-id').modal('show');
+            });
         }
 
         
-        function initChart(){
+        function initChart(series, categories){
             $('#epl-chart-container').highcharts({
-                series: [{
-                    name: 'Chelsea ',
-                    data: [10, 9, 8, 7, 6]
-
-                }, {
-                    name: 'Average',
-                    data: [10, 9, 8, 7, 6]
-                }],
+                series: series,
                 xAxis: {
-                    categories: [
-                        'Point',
-                        'Win Rate',
-                        'Lose Rate',
-                        'Goal scored',
-                        'Goal Conceded'
-                    ]
+                    categories: categories
                 },
                 chart: {
                     type: 'column'
@@ -130,6 +117,13 @@
             otherWeek = parseInt(otherWeek);
             getRanksByWeekNmr(otherWeek).then(function(data){
                 processRankData(data, otherWeek);
+            });
+        }
+
+        // Get weeks through service
+        function getTeamStat(weekNumber, teamId) {
+            return dataservice.getTeamStat(weekNumber, teamId).then(function(data) {
+                return data;
             });
         }
 

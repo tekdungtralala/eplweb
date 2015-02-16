@@ -52,7 +52,7 @@ public class RankController extends BaseController {
 	@RequestMapping(value = "/ranks/{weekNumber}", method = RequestMethod.GET)
 	public @ResponseBody
 	String getSelectedRank(Model model,
-			@PathVariable("weekNumber") String weekNumber)
+			@PathVariable("weekNumber") int weekNumber)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /ranks/" + weekNumber);
 
