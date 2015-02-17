@@ -25,7 +25,8 @@ public class FiveBigTeamModelView {
 		// initialize series when empty
 		if (series.size() == 0) {
 			for (Rank r : ranks) {
-				ChartData cd = new ChartData(r.getTeam().getName());
+				ChartData cd = new ChartData();
+				cd.setName(r.getTeam().getName());
 				series.add(cd);
 			}
 		}
