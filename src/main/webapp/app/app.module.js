@@ -5,7 +5,8 @@
         'app.core',
         'app.dashboard',
         'app.rank',
-        'app.matchday'
+        'app.matchday',
+        'app.team'
         // ,
         // 'app.teamoftheweek',
         // 'app.news'

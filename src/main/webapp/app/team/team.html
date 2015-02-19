@@ -1,0 +1,268 @@
+<div class='epl-team-menu'>
+    <span class='epl-center epl-team-image' data-ng-repeat='id in vm.halfTeam'>
+        <a href='#/team'>
+            <img class='image epl-mini-team-logo' alt='' 
+                ng-src='eplweb_components/image/logo/150x150/{{id}}.png' >
+        </a>
+    </span>
+</div>
+
+
+<div class='epl-team epl-div-tab'>
+    <ul class='nav nav-pills epl-tab'>
+        <li ng-repeat='(key,value) in vm.containerLbl' 
+            class="{{vm.container[key] ? '' : 'active'}}">
+            <a href='#/team' ng-click='vm.selectElement(key)'>
+                {{value}}
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div id='epl-overview' ng-hide='vm.container[0]'>
+	<h4 class='epl-cont-title'>
+		League Position
+	</h4>
+    <table class="table table-striped table-bordered epl-table epl-team">
+        <thead>
+            <tr>
+                <th class='epl-center'>
+                    <div class='epl-cell'>
+                        Position
+                    </div>
+                </th>
+                <th class='epl-center'>
+                    <div class='epl-cell' data-toggle="tooltip" 
+                        data-placement="top" title="Game Played">
+                        GP
+                    </div>
+                </th>
+                <th class='epl-center'>
+                    <div class='epl-cell' data-toggle="tooltip" 
+                        data-placement="top" title="Game Won">
+                        GW
+                    </div>
+                </th>
+                <th class='epl-center'>
+                    <div class='epl-cell' data-toggle="tooltip" 
+                        data-placement="top" title="Game Draw">
+                        GD
+                    </div>
+                </th>
+                <th class='epl-center'>
+                    <div class='epl-cell' data-toggle="tooltip" 
+                        data-placement="top" title="Game Lose">
+                        GL
+                    </div>
+                </th>
+                <th class='epl-center'>
+                    <div class='epl-cell' data-toggle="tooltip" 
+                        data-placement="top" title="Goal Scored">
+                        GS
+                    </div>
+                </th>
+                <th class='epl-center'>
+                    <div class='epl-cell' data-toggle="tooltip" 
+                        data-placement="top" title="Goal Against">
+                        GA
+                    </div>
+                </th>
+                <th class='epl-center'>
+                    <div class='epl-cell' data-toggle="tooltip" 
+                        data-placement="top" title="Points">
+                        PTS
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th class='epl-center'>1</th>
+                <th class='epl-center'>23</th>
+                <th class='epl-center'>10</th>
+                <th class='epl-center'>8</th>
+                <th class='epl-center'>5</th>
+                <th class='epl-center'>53</th>
+                <th class='epl-center'>32</th>
+                <th class='epl-center'>68</th>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class='epl-team epl-prevsixresult'>
+	    <table class="table table-striped table-bordered epl-table">
+	        <thead>
+	            <tr>
+	                <th class='epl-left' colspan='4'>
+	                        Last Six results
+	                </th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr>
+	                <td class='epl-right'>1 Jan 2015</td>
+		            <td class="epl-left">
+		                vs 
+		                <img class="epl-mini-team-logo" 
+		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                Arsenal
+		            </td>
+	                <th class='epl-center'>3 - 4</th>
+	            </tr>
+	            <tr>
+	                <td class='epl-right'>1 Jan 2015</td>
+		            <td class="epl-left">
+		                vs 
+		                <img class="epl-mini-team-logo" 
+		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                Arsenal
+		            </td>
+	                <th class='epl-center'>3 - 4</th>
+	            </tr>
+	            <tr>
+	                <td class='epl-right'>1 Jan 2015</td>
+		            <td class="epl-left">
+		                vs 
+		                <img class="epl-mini-team-logo" 
+		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                Arsenal
+		            </td>
+	                <th class='epl-center'>3 - 4</th>
+	            </tr>
+	            <tr>
+	                <td class='epl-right'>1 Jan 2015</td>
+		            <td class="epl-left">
+		                vs 
+		                <img class="epl-mini-team-logo" 
+		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                Arsenal
+		            </td>
+	                <th class='epl-center'>3 - 4</th>
+	            </tr>
+	            <tr>
+	                <td class='epl-right'>1 Jan 2015</td>
+		            <td class="epl-left">
+		                vs 
+		                <img class="epl-mini-team-logo" 
+		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                Arsenal
+		            </td>
+	                <th class='epl-center'>3 - 4</th>
+	            </tr>
+	            <tr>
+	                <td class='epl-right'>1 Jan 2015</td>
+		            <td class="epl-left">
+		                vs 
+		                <img class="epl-mini-team-logo" 
+		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                Arsenal
+		            </td>
+	                <th class='epl-center'>3 - 4</th>
+	            </tr>
+	        </tbody>
+	    </table>
+    </div>
+
+    <div class='epl-team epl-nextsixresult'>
+	    <table class="table table-striped table-bordered epl-table">
+	        <thead>
+	            <tr>
+	                <th class='epl-left' colspan='3'>
+	                        Next Six results
+	                </th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr>
+	                <td class='epl-right'>1 Jan 2015</td>
+		            <td class="epl-left">
+		                vs 
+		                <img class="epl-mini-team-logo" 
+		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                Arsenal
+		            </td>
+	            </tr>
+	            <tr>
+	                <td class='epl-right'>1 Jan 2015</td>
+		            <td class="epl-left">
+		                vs 
+		                <img class="epl-mini-team-logo" 
+		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                Arsenal
+		            </td>
+	            </tr>
+	            <tr>
+	                <td class='epl-right'>1 Jan 2015</td>
+		            <td class="epl-left">
+		                vs 
+		                <img class="epl-mini-team-logo" 
+		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                Arsenal
+		            </td>
+	            </tr>
+	            <tr>
+	                <td class='epl-right'>1 Jan 2015</td>
+		            <td class="epl-left">
+		                vs 
+		                <img class="epl-mini-team-logo" 
+		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                Arsenal
+		            </td>
+	            </tr>
+	            <tr>
+	                <td class='epl-right'>1 Jan 2015</td>
+		            <td class="epl-left">
+		                vs 
+		                <img class="epl-mini-team-logo" 
+		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                Arsenal
+		            </td>
+	            </tr>
+	            <tr>
+	                <td class='epl-right'>1 Jan 2015</td>
+		            <td class="epl-left">
+		                vs 
+		                <img class="epl-mini-team-logo" 
+		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                Arsenal
+		            </td>
+	            </tr>
+	        </tbody>
+	    </table>
+    </div>
+
+	<div class="clearfix"></div>
+
+    <table class="table table-striped table-bordered epl-table epl-team epl-kitandsponsor">
+        <tbody>
+            <tr>
+                <th class='epl-left'>Home Kit</th>
+                <th class='epl-left'>Away Kit</th>
+                <th class='epl-left'>Club Sponsor</th>
+            </tr>
+            <tr>
+                <td class='epl-left' rowspan='3'>baju 1</td>
+                <td class='epl-left' rowspan='3'>baju 2</td>
+                <td class='epl-left' >logo 1</td>
+            </tr>
+            <tr>
+                <th class='epl-left' >Kit Supplier</th>
+            </tr>
+            <tr>
+                <td class='epl-left' >logo 2</td>
+            </tr>
+        </tbodd>
+    </table>
+</div>
+<div id='epl-squad' ng-hide='vm.container[1]'>
+    squad
+</div>
+<div id='epl-stat' ng-hide='vm.container[2]'>
+    stat
+</div>
+<div id='epl-map' ng-hide='vm.container[3]'>
+    map
+</div>
+<div id='epl-video' ng-hide='vm.container[4]'>
+    video
+</div>
