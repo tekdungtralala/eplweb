@@ -148,11 +148,16 @@
 }
 
 .epl-team .epl-logo:hover img {
-    -webkit-transform:scale(1.50); /* Safari and Chrome */
-    -moz-transform:scale(1.50); /* Firefox */
-    -ms-transform:scale(1.50); /* IE 9 */
-    -o-transform:scale(1.50); /* Opera */
-     transform:scale(1.50);
+    -webkit-transform:scale(1.80); /* Safari and Chrome */
+    -moz-transform:scale(1.80); /* Firefox */
+    -ms-transform:scale(1.80); /* IE 9 */
+    -o-transform:scale(1.80); /* Opera */
+     transform:scale(1.80);
+    image-rendering: -moz-crisp-edges;         /* Firefox */
+    image-rendering:   -o-crisp-edges;         /* Opera */
+    image-rendering: -webkit-optimize-contrast;/* Webkit (non-standard naming) */
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;  /* IE (non-standard property) */
 }
 
 .epl-team .epl-info
