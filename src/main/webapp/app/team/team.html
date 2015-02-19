@@ -1,5 +1,6 @@
-<div class='epl-team-menu'>
-    <span class='epl-center epl-team-image' data-ng-repeat='id in vm.halfTeam'>
+<div class='epl-team'>
+<div class='epl-all-team'>
+    <span class='epl-center epl-logo' data-ng-repeat='id in vm.halfTeam'>
         <a href='#/team'>
             <img class='image epl-mini-team-logo' alt='' 
                 ng-src='eplweb_components/image/logo/150x150/{{id}}.png' >
@@ -7,23 +8,80 @@
     </span>
 </div>
 
+<!-- Info -->
+<table class='table epl-table epl-info'>
+	<tbody>
+		<tr>
+			<td class='epl-center'>
+		    	<img class='epl-main-logo' 
+		    		ng-src='eplweb_components/image/logo/150x150/20.png' alt=''/>
+		    </td>
+			<td class='epl-center'>
+				ESTABLISHED<br/>
+				1905
+			</td>
+			<td class='epl-center'>
+				MANAGER<br/>
+				jose mourinho
+			</td>
+			<td class='epl-center'>
+				NICKNAME<br/>
+				The blues
+			</td>
+			<td class='epl-center'>
+				Stadium<br/>
+				Stamfod bridge
+			</td>
+		</tr>
+	</tbody>
+</table>
 
-<div class='epl-team epl-div-tab'>
+<!-- carousel -->
+<div id='epl-slideshow' class='carousel slide' data-ride='carousel'>
+	<ol class='carousel-indicators'>
+		<li data-target='#epl-slideshow' data-slide-to='0' class='active'></li>
+		<li data-target='#epl-slideshow' data-slide-to='1' class=''></li>
+		<li data-target='#epl-slideshow' data-slide-to='2' class=''></li>
+	</ol>
+	<div class='carousel-inner' role='listbox'>
+		<div class='item active'>
+			<img ng-src='eplweb_components/image/slideshow/default/slideshow-1.jpg'/>
+		</div>
+		<div class='item'>
+			<img ng-src='eplweb_components/image/slideshow/default/slideshow-2.jpg'/>
+		</div>
+		<div class='item'>
+			<img ng-src='eplweb_components/image/slideshow/default/slideshow-3.jpg'/>
+		</div>
+	</div>
+	<a class='left carousel-control' href='#epl-slideshow' role='button' data-slide='prev'>
+		<span class='glyphicon glyphicon-chevron-left' aria-hidden='true'></span>
+		<span class='sr-only'>Previous</span>
+	</a>
+	<a class='right carousel-control' href='#epl-slideshow' role='button' data-slide='next'>
+		<span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span>
+		<span class='sr-only'>Next</span>
+	</a>
+</div>
+
+<!-- Tab Menu -->
+<div class='epl-div-tab'>
     <ul class='nav nav-pills epl-tab'>
         <li ng-repeat='(key,value) in vm.containerLbl' 
             class="{{vm.container[key] ? '' : 'active'}}">
-            <a href='#/team' ng-click='vm.selectElement(key)'>
+            <a href='#/team' ng-click='vm.selectContainer(key)'>
                 {{value}}
             </a>
         </li>
     </ul>
 </div>
 
+<!-- Overview -->
 <div id='epl-overview' ng-hide='vm.container[0]'>
-	<h4 class='epl-cont-title'>
+	<h4 class='epl-container-title'>
 		League Position
 	</h4>
-    <table class="table table-striped table-bordered epl-table epl-team">
+    <table class='table table-striped table-bordered epl-table'>
         <thead>
             <tr>
                 <th class='epl-center'>
@@ -32,44 +90,44 @@
                     </div>
                 </th>
                 <th class='epl-center'>
-                    <div class='epl-cell' data-toggle="tooltip" 
-                        data-placement="top" title="Game Played">
+                    <div class='epl-cell' data-toggle='tooltip' 
+                        data-placement='top' title='Game Played'>
                         GP
                     </div>
                 </th>
                 <th class='epl-center'>
-                    <div class='epl-cell' data-toggle="tooltip" 
-                        data-placement="top" title="Game Won">
+                    <div class='epl-cell' data-toggle='tooltip' 
+                        data-placement='top' title='Game Won'>
                         GW
                     </div>
                 </th>
                 <th class='epl-center'>
-                    <div class='epl-cell' data-toggle="tooltip" 
-                        data-placement="top" title="Game Draw">
+                    <div class='epl-cell' data-toggle='tooltip' 
+                        data-placement='top' title='Game Draw'>
                         GD
                     </div>
                 </th>
                 <th class='epl-center'>
-                    <div class='epl-cell' data-toggle="tooltip" 
-                        data-placement="top" title="Game Lose">
+                    <div class='epl-cell' data-toggle='tooltip' 
+                        data-placement='top' title='Game Lose'>
                         GL
                     </div>
                 </th>
                 <th class='epl-center'>
-                    <div class='epl-cell' data-toggle="tooltip" 
-                        data-placement="top" title="Goal Scored">
+                    <div class='epl-cell' data-toggle='tooltip' 
+                        data-placement='top' title='Goal Scored'>
                         GS
                     </div>
                 </th>
                 <th class='epl-center'>
-                    <div class='epl-cell' data-toggle="tooltip" 
-                        data-placement="top" title="Goal Against">
+                    <div class='epl-cell' data-toggle='tooltip' 
+                        data-placement='top' title='Goal Against'>
                         GA
                     </div>
                 </th>
                 <th class='epl-center'>
-                    <div class='epl-cell' data-toggle="tooltip" 
-                        data-placement="top" title="Points">
+                    <div class='epl-cell' data-toggle='tooltip' 
+                        data-placement='top' title='Points'>
                         PTS
                     </div>
                 </th>
@@ -89,8 +147,8 @@
         </tbody>
     </table>
 
-    <div class='epl-team epl-prevsixresult'>
-	    <table class="table table-striped table-bordered epl-table">
+    <div class='epl-prevsixresult'>
+	    <table class='table table-striped table-bordered epl-table'>
 	        <thead>
 	            <tr>
 	                <th class='epl-left' colspan='4'>
@@ -101,60 +159,60 @@
 	        <tbody>
 	            <tr>
 	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class="epl-left">
+		            <td class='epl-left'>
 		                vs 
-		                <img class="epl-mini-team-logo" 
-		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                <img class='epl-mini-team-logo' 
+		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''/>
 		                Arsenal
 		            </td>
 	                <th class='epl-center'>3 - 4</th>
 	            </tr>
 	            <tr>
 	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class="epl-left">
+		            <td class='epl-left'>
 		                vs 
-		                <img class="epl-mini-team-logo" 
-		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                <img class='epl-mini-team-logo' 
+		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''/>
 		                Arsenal
 		            </td>
 	                <th class='epl-center'>3 - 4</th>
 	            </tr>
 	            <tr>
 	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class="epl-left">
+		            <td class='epl-left'>
 		                vs 
-		                <img class="epl-mini-team-logo" 
-		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                <img class='epl-mini-team-logo' 
+		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''/>
 		                Arsenal
 		            </td>
 	                <th class='epl-center'>3 - 4</th>
 	            </tr>
 	            <tr>
 	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class="epl-left">
+		            <td class='epl-left'>
 		                vs 
-		                <img class="epl-mini-team-logo" 
-		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                <img class='epl-mini-team-logo' 
+		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''/>
 		                Arsenal
 		            </td>
 	                <th class='epl-center'>3 - 4</th>
 	            </tr>
 	            <tr>
 	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class="epl-left">
+		            <td class='epl-left'>
 		                vs 
-		                <img class="epl-mini-team-logo" 
-		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                <img class='epl-mini-team-logo' 
+		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''/>
 		                Arsenal
 		            </td>
 	                <th class='epl-center'>3 - 4</th>
 	            </tr>
 	            <tr>
 	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class="epl-left">
+		            <td class='epl-left'>
 		                vs 
-		                <img class="epl-mini-team-logo" 
-		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                <img class='epl-mini-team-logo' 
+		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''/>
 		                Arsenal
 		            </td>
 	                <th class='epl-center'>3 - 4</th>
@@ -163,8 +221,8 @@
 	    </table>
     </div>
 
-    <div class='epl-team epl-nextsixresult'>
-	    <table class="table table-striped table-bordered epl-table">
+    <div class='epl-nextsixresult'>
+	    <table class='table table-striped table-bordered epl-table'>
 	        <thead>
 	            <tr>
 	                <th class='epl-left' colspan='3'>
@@ -175,55 +233,55 @@
 	        <tbody>
 	            <tr>
 	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class="epl-left">
+		            <td class='epl-left'>
 		                vs 
-		                <img class="epl-mini-team-logo" 
-		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                <img class='epl-mini-team-logo' 
+		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''>
 		                Arsenal
 		            </td>
 	            </tr>
 	            <tr>
 	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class="epl-left">
+		            <td class='epl-left'>
 		                vs 
-		                <img class="epl-mini-team-logo" 
-		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                <img class='epl-mini-team-logo' 
+		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''>
 		                Arsenal
 		            </td>
 	            </tr>
 	            <tr>
 	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class="epl-left">
+		            <td class='epl-left'>
 		                vs 
-		                <img class="epl-mini-team-logo" 
-		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                <img class='epl-mini-team-logo' 
+		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''>
 		                Arsenal
 		            </td>
 	            </tr>
 	            <tr>
 	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class="epl-left">
+		            <td class='epl-left'>
 		                vs 
-		                <img class="epl-mini-team-logo" 
-		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                <img class='epl-mini-team-logo' 
+		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''>
 		                Arsenal
 		            </td>
 	            </tr>
 	            <tr>
 	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class="epl-left">
+		            <td class='epl-left'>
 		                vs 
-		                <img class="epl-mini-team-logo" 
-		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                <img class='epl-mini-team-logo' 
+		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''>
 		                Arsenal
 		            </td>
 	            </tr>
 	            <tr>
 	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class="epl-left">
+		            <td class='epl-left'>
 		                vs 
-		                <img class="epl-mini-team-logo" 
-		                	ng-src="eplweb_components/image/logo/150x150/2.png" alt="">
+		                <img class='epl-mini-team-logo' 
+		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''>
 		                Arsenal
 		            </td>
 	            </tr>
@@ -231,9 +289,13 @@
 	    </table>
     </div>
 
-	<div class="clearfix"></div>
+	<div class='clearfix'></div>
 
-    <table class="table table-striped table-bordered epl-table epl-team epl-kitandsponsor">
+	<h4 class='epl-container-title'>
+		Club kits & sponsors
+	</h4>
+
+    <table class='table table-striped table-bordered epl-table epl-kitandsponsor'>
         <tbody>
             <tr>
                 <th class='epl-left'>Home Kit</th>
@@ -241,28 +303,127 @@
                 <th class='epl-left'>Club Sponsor</th>
             </tr>
             <tr>
-                <td class='epl-left' rowspan='3'>baju 1</td>
-                <td class='epl-left' rowspan='3'>baju 2</td>
-                <td class='epl-left' >logo 1</td>
+                <td class='epl-center' rowspan='3'>
+                	<img ng-src='eplweb_components/image/uniform/home/20.png'/>
+                </td>
+                <td class='epl-center' rowspan='3'>
+                	<img ng-src='eplweb_components/image/uniform/away/20.png'/>
+                </td>
+                <td class='epl-center'>
+                	<img ng-src='eplweb_components/image/team/sponsor/20.png'/>
+                </td>
             </tr>
             <tr>
-                <th class='epl-left' >Kit Supplier</th>
+                <th class='epl-left'>Kit Supplier</th>
             </tr>
             <tr>
-                <td class='epl-left' >logo 2</td>
+                <td class='epl-center'>
+                	<img ng-src='eplweb_components/image/team/kitsuplier/20.png'/>
+                </td>
             </tr>
         </tbodd>
     </table>
 </div>
+
+<!-- Squad -->
 <div id='epl-squad' ng-hide='vm.container[1]'>
-    squad
+	<h4 class='epl-container-title'>
+		Team Squad
+	</h4>
+	<table class='table table-striped table-bordered epl-table epl-squad'>
+		<thead><tr><th>Squad Member</th><th>Position</th></tr></thead>
+        <tbody>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+        </tbody>
+    </table>
+
+	<table class='table table-striped table-bordered epl-table epl-squad'>
+		<thead><tr><th>Squad Member</th><th>Position</th></tr></thead>
+        <tbody>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+            <tr><th class='epl-left'>1. Petr Cech</th><th class='epl-center'>Goalkeeper</th></tr>
+        </tbody>
+    </table>
 </div>
+
+<!-- Statistic -->
 <div id='epl-stat' ng-hide='vm.container[2]'>
-    stat
+	<h4 class='epl-container-title'>
+		Team Statistic
+	</h4>
+
+    <div class="input-group epl-season">
+        <div class="input-group-btn ">
+            <div type="button" class="btn btn-default epl-label">Season : </div>
+        </div>
+        <input type="text" value="2014-2015" disabled=""
+            class="form-control epl-input" >
+    </div>
+
+	<div class="input-group epl-week">
+		<div class="input-group-btn">
+			<button type="button" class="btn btn-default">Week</button>
+			<button type="button" class="btn btn-default dropdown-toggle" 
+				data-toggle="dropdown" aria-expanded="false">
+				<span class="caret"></span>
+				<span class="sr-only">Toggle Dropdown</span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="#">Action</a></li>
+				<li><a href="#">Another action</a></li>
+			</ul>
+		</div>
+		<input type="text" class="form-control epl-input" disabled="">
+
+        <div type='button' class='btn btn-default epl-btn-nav'>
+            <span class='glyphicon glyphicon-step-backward' 
+                aria-hidden='true'>
+            </span>
+        </div>
+
+        <div type='button' class='btn btn-default epl-btn-nav'>
+            <span class='glyphicon glyphicon-step-forward' 
+                aria-hidden='true'>
+            </span>
+        </div>
+	</div>
+
+	<div class='clearfix'></div>
+
+    <div id='epl-chart-container' 
+    	style="width: 600px; height: 400px; margin: 0 auto">
+    </div>
+
+
 </div>
+
 <div id='epl-map' ng-hide='vm.container[3]'>
     map
 </div>
+
 <div id='epl-video' ng-hide='vm.container[4]'>
     video
 </div>
+</div>
+
+<div class='clearfix'></div>
+<div id='epl-team-eof'/>
