@@ -5,7 +5,7 @@
         .module('app.core')
         .factory('dataservice', Dataservice);
 
-    function Dataservice($http, $q) {
+    function Dataservice($http, $q, $rootScope) {
         var isPrimed = false;
         var primePromise;
 
@@ -25,10 +25,11 @@
         return service;
 
         function getInitData(page) {
-            return $http.get('api/page/' + page)
-                .then(getData)
-                .catch(function(message) {
-                });
+            $rootScope.promise = $http.get('api/page/' + page)
+                    .then(getData)
+                    .catch(function(message) {
+                    });
+            return $rootScope.promise;
 
             function getData(result) {
                 return result.data;
@@ -40,10 +41,11 @@
             var query = '';
             if (weekNumber) 
                 query = '/' + weekNumber;
-            return $http.get('api/matchday' + query)
+            $rootScope.promise = $http.get('api/matchday' + query)
                 .then(getData)
                 .catch(function(message) {
                 });
+            return $rootScope.promise;
 
             function getData(result) {
                 return result.data;
@@ -52,10 +54,11 @@
 
         // Page /ranks
         function getTeamStat(weekNumber, teamId) {
-            return $http.get('api/chart/week/' + weekNumber + '/team/' + teamId)
+            $rootScope.promise = $http.get('api/chart/week/' + weekNumber + '/team/' + teamId)
                 .then(getData)
                 .catch(function(message) {
                 });
+            return $rootScope.promise;
 
             function getData(result) {
                 console.log("getdata : ", result.data);
@@ -66,10 +69,11 @@
             var query = '';
             if (weekNumber) 
                 query = '/' + weekNumber;
-            return $http.get('api/ranks' + query)
+            $rootScope.promise = $http.get('api/ranks' + query)
                 .then(getData)
                 .catch(function(message) {
                 });
+            return $rootScope.promise;
 
             function getData(result) {
                 return result.data;
@@ -77,10 +81,11 @@
         }
 
         function getAllPassedWeek() {
-            return $http.get('api/passedWeeks')
+            $rootScope.promise = $http.get('api/passedWeeks')
                 .then(getData)
                 .catch(function(message) {
                 });
+            return $rootScope.promise;
 
             function getData(result) {
                 return result.data;

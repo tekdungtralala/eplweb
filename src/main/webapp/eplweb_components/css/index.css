@@ -5,6 +5,16 @@
     margin-left: auto;
     margin-right: auto;
 }
+.cg-busy-backdrop
+{
+    min-height: 2000px;
+}
+
+.cg-busy-default-sign
+{
+    top: 200px;
+}
+
 /*css class can be used on another page*/
 .epl-cell
 {

@@ -17,7 +17,6 @@
         activate();
         function activate() {
             return getInitData().then(function(result){
-                console.log("result : ", result);
                 processWeekData(result.weeks);
                 processMatchData(result.matchdayModelView);
             });

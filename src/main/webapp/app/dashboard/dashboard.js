@@ -11,6 +11,10 @@
         vm.model = [];
         vm.chartData = {};
 
+        vm.menu = function(){
+            return 'index2.html';
+        }
+
         activate();
         function activate() {
             // There are two way to call service, 
