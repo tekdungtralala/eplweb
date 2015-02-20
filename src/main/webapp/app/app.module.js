@@ -6,9 +6,11 @@
         'app.dashboard',
         'app.rank',
         'app.matchday',
-        'app.team'
+        'app.team',
         // ,
         // 'app.teamoftheweek',
         // 'app.news'
+        'ngAnimate',
+        'cgBusy'
     ]);
 })();

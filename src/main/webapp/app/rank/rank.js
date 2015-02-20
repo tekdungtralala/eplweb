@@ -118,10 +118,18 @@
             });
         }
 
-        function getInitData() {
-            return dataservice.getInitData('rank').then(function(data) {
+        function getRanksByWeekNmr(otherWeek){
+            vm.promises = dataservice.getRanksByWeekNmr(otherWeek).then(function(data) {
+                return data.ranks;
+            });
+            return vm.promises;            
+        }
+
+        function getInitData(){
+            vm.promises = dataservice.getInitData('rank').then(function(data) {
                 return data;
             });
+            return vm.promises;
         }
     }
 })();

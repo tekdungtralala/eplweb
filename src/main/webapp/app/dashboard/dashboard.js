@@ -9,10 +9,20 @@
     	var vm = this;
     	vm.ranks = [];
         vm.model = [];
-        vm.chartData = {}
+        vm.chartData = {};
 
         activate();
         function activate() {
+            // There are two way to call service, 
+            // First one using more of service, 
+            //  and the other one using one service
+
+            // var promises = [getInitData()];
+            // vm.promises =  dataservice.ready(promises).then(function(result){
+
+            // vm.promises =  getInitData().then(function(result){
+            //     result = result[0]
+
             return getInitData().then(function(result){
             	vm.ranks = result.highestRank;
                 vm.model = result.matchday.model;
@@ -63,9 +73,10 @@
         }
 
         function getInitData() {
-            return dataservice.getInitData('dashboard').then(function(data) {
+            vm.promises = dataservice.getInitData('dashboard').then(function(data) {
                 return data;
             });
+            return vm.promises;
         }
     }
 })();

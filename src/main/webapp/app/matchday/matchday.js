@@ -64,15 +64,17 @@
         }
 
         function getInitData() {
-            return dataservice.getInitData('matchday').then(function(data) {
+            vm.promises = dataservice.getInitData('matchday').then(function(data) {
                 return data;
             });
+            return vm.promises;
         }
 
         function getMatchdayByWeekNmr(weekNumber) {
-            return dataservice.getMatchdayByWeekNmr(weekNumber).then(function(data) {
+            vm.promises = dataservice.getMatchdayByWeekNmr(weekNumber).then(function(data) {
                 return data;
             });
+            return vm.promises;
         }
     }
 })();
