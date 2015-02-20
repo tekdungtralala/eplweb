@@ -33,16 +33,17 @@
         }
 
         initChart(
-[ {
-    "data" : [ 53.0, 16.0, 2.0, 5.0, 52.0, 20.0 ],
-    "name" : "Chelsea"
-  }, {
-    "data" : [ 31.0, 8.0, 8.0, 6.0, 29.0, 29.0 ],
-    "name" : "Other Team"
-  } ]
+            [ {
+                "data" : [ 53.0, 16.0, 2.0, 5.0, 52.0, 20.0 ],
+                "name" : "Chelsea"
+            }, {
+                "data" : [ 31.0, 8.0, 8.0, 6.0, 29.0, 29.0 ],
+                "name" : "Other Team"
+            } ]
             ,
             [ "Points", "Win Rate", "Win Lose", "Win Draw", "Goal Scored", "Goal Against" ]
             );
+
         function initChart(series, categories){
             $('#epl-chart-container').highcharts({
                 series: series,

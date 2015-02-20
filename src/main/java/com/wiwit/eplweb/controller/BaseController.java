@@ -9,8 +9,8 @@ import org.codehaus.jackson.map.ObjectWriter;
 
 public class BaseController {
 
-	public String generateJson(Object o) throws JsonGenerationException, JsonMappingException, IOException{
+	public String generateJson(Object result) throws JsonGenerationException, JsonMappingException, IOException{
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		return ow.writeValueAsString(o);
+		return ow.writeValueAsString(result);
 	}
 }

@@ -13,18 +13,12 @@
 
         activate();
         function activate() {
-            var promises = [
-                getHighestRanks(), 
-                getMatchdayByWeekNmr(), 
-                getFiveBigTeamData()
-            ];
+            return getInitData().then(function(result){
+            	vm.ranks = result.highestRank;
+                vm.model = result.matchday.model;
 
-            return dataservice.ready(promises).then(function(result){
-            	vm.ranks = result[0];
-                vm.model = result[1];
-
-                vm.chartData.categories = result[2].categories;
-                vm.chartData.series = result[2].series;
+                vm.chartData.categories = result.fiveBigTeam.categories;
+                vm.chartData.series = result.fiveBigTeam.series;
 
                 initChart();
             });
@@ -69,26 +63,10 @@
         }
 
         // Get chart data through service
-        function getFiveBigTeamData() {
-            return dataservice.getFiveBigTeamData().then(function(data) {
+        function getInitData() {
+            return dataservice.getInitData('dashboard').then(function(data) {
                 return data;
             });
         }
-
-
-        // Get ranks through service
-        function getHighestRanks() {
-            return dataservice.getHighestRanks().then(function(data) {
-                return data.ranks;
-            });
-        }
-
-        // Get matchday through service
-        function getMatchdayByWeekNmr() {
-            return dataservice.getMatchdayByWeekNmr().then(function(data) {
-                return data.model;
-            });
-        }
     }
-
 })();

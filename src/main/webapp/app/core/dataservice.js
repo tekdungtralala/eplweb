@@ -10,11 +10,11 @@
         var primePromise;
 
         var service = {
+            // First load
+            getInitData: getInitData,
             // Page /matchday
             getAllWeek: getAllWeek, 
             // Page / {dashboard}
-            getFiveBigTeamData: getFiveBigTeamData,
-            getHighestRanks: getHighestRanks,
             getMatchdayByWeekNmr: getMatchdayByWeekNmr,
             // Page /ranks
             getTeamStat: getTeamStat,
@@ -24,6 +24,17 @@
         };
 
         return service;
+
+        function getInitData(page) {
+            return $http.get('api/page/' + page)
+                .then(getData)
+                .catch(function(message) {
+                });
+
+            function getData(result) {
+                return result.data;
+            }
+        }
 
         function getAllWeek() {
             return $http.get('api/weeks')
@@ -37,28 +48,6 @@
         }
 
         // Page /
-        function getFiveBigTeamData() {
-            return $http.get('api/chart/fiveBigestTeam')
-                .then(getData)
-                .catch(function(message) {
-                });
-
-            function getData(result) {
-                return result.data;
-            }
-        }
-
-        function getHighestRanks() {
-            return $http.get('api/highestRanks')
-                .then(getData)
-                .catch(function(message) {
-                });
-
-            function getData(result) {
-                return result.data;
-            }
-        }
-
         function getMatchdayByWeekNmr(weekNumber) {
             var query = '';
             if (weekNumber) 
