@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.wiwit.eplweb.model.Rank;
 
-public class DashboardModelView {
+public class DashboardPageModelView {
 
 	private FiveBigTeamModelView fiveBigTeam;
 	private List<Rank> highestRank;
 	private MatchdayModelView matchday;
 	
-	public DashboardModelView() {
+	public DashboardPageModelView() {
 		// TODO Auto-generated constructor stub
 	}
 	

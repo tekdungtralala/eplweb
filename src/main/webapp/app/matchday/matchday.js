@@ -16,10 +16,10 @@
 
         activate();
         function activate() {
-            var promises = [getAllWeek(), getMatchdayByWeekNmr()];
-            return dataservice.ready(promises).then(function(result){
-                processWeekData(result[0]);
-                processMatchData(result[1]);
+            return getInitData().then(function(result){
+                console.log("result : ", result);
+                processWeekData(result.weeks);
+                processMatchData(result.matchdayModelView);
             });
         }
 
@@ -63,14 +63,12 @@
             });
         }
 
-        // Get weeks through service
-        function getAllWeek() {
-            return dataservice.getAllWeek().then(function(data) {
-                return data.weeks;
+        function getInitData() {
+            return dataservice.getInitData('matchday').then(function(data) {
+                return data;
             });
         }
 
-        // Get matchday through service
         function getMatchdayByWeekNmr(weekNumber) {
             return dataservice.getMatchdayByWeekNmr(weekNumber).then(function(data) {
                 return data;

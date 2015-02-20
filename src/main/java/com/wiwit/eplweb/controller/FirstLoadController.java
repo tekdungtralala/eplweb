@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wiwit.eplweb.model.Phase;
 import com.wiwit.eplweb.model.Rank;
-import com.wiwit.eplweb.model.view.DashboardModelView;
+import com.wiwit.eplweb.model.view.DashboardPageModelView;
 import com.wiwit.eplweb.model.view.FiveBigTeamModelView;
+import com.wiwit.eplweb.model.view.MatchdayPageModelView;
+import com.wiwit.eplweb.model.view.RankPageModelView;
 import com.wiwit.eplweb.service.MatchdayService;
 import com.wiwit.eplweb.service.PhaseService;
 import com.wiwit.eplweb.service.RankService;
+import com.wiwit.eplweb.service.WeekService;
 
 @Controller
 public class FirstLoadController extends BaseController {
@@ -32,14 +35,43 @@ public class FirstLoadController extends BaseController {
 	private PhaseService phaseService;
 	private RankService rankService;
 	private MatchdayService matchdayService;
+	private WeekService weekService;
+	
+	@RequestMapping(value = "/page/matchday", method = RequestMethod.GET)
+	public @ResponseBody
+	String getDataRankMatchday(Model model) throws JsonGenerationException,
+			JsonMappingException, IOException {
+		logger.info("GET /page/matchday");
+		
+		MatchdayPageModelView result = new MatchdayPageModelView();
+		result.setWeeks(weekService.getAllWeek());
+		result.setMatchdayModelView(matchdayService.getMatchtdayOnCurrWeek());
+		
+		return generateJson(result);
+	}
+	
+	@RequestMapping(value = "/page/rank", method = RequestMethod.GET)
+	public @ResponseBody
+	String getDataRankPage(Model model) throws JsonGenerationException,
+			JsonMappingException, IOException {
+		logger.info("GET /page/rank");
+		
+		RankPageModelView result = new RankPageModelView();
+		
+		result.setRanks(rankService.getLatestRank());
+		
+		result.setWeeks(weekService.getAllPassedWeek());
+		
+		return generateJson(result);
+	}
 	
 	@RequestMapping(value = "/page/dashboard", method = RequestMethod.GET)
 	public @ResponseBody
-	String getFiveBigestTeam(Model model) throws JsonGenerationException,
+	String getDataDashboardPage(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /page/dashboard");
 		
-		DashboardModelView result = new DashboardModelView();
+		DashboardPageModelView result = new DashboardPageModelView();
 		
 		Phase p = phaseService.getCurrentMatchday();
 		int currWeek = Integer.valueOf(p.getValue());
@@ -73,6 +105,11 @@ public class FirstLoadController extends BaseController {
 		result.setMatchday(matchdayService.getMatchtdayOnCurrWeek());
 		
 		return generateJson(result);
+	}
+	
+	@Autowired(required = true)
+	public void setWeekService(WeekService weekService) {
+		this.weekService = weekService;
 	}
 	
 	@Autowired(required = true)

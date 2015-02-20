@@ -13,7 +13,6 @@
             // First load
             getInitData: getInitData,
             // Page /matchday
-            getAllWeek: getAllWeek, 
             // Page / {dashboard}
             getMatchdayByWeekNmr: getMatchdayByWeekNmr,
             // Page /ranks
@@ -27,17 +26,6 @@
 
         function getInitData(page) {
             return $http.get('api/page/' + page)
-                .then(getData)
-                .catch(function(message) {
-                });
-
-            function getData(result) {
-                return result.data;
-            }
-        }
-
-        function getAllWeek() {
-            return $http.get('api/weeks')
                 .then(getData)
                 .catch(function(message) {
                 });
@@ -61,7 +49,6 @@
                 return result.data;
             }
         }
-
 
         // Page /ranks
         function getTeamStat(weekNumber, teamId) {

@@ -62,7 +62,6 @@
             });
         }
 
-        // Get chart data through service
         function getInitData() {
             return dataservice.getInitData('dashboard').then(function(data) {
                 return data;

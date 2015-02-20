@@ -17,11 +17,10 @@
 
         activate();
         function activate() {
-            var promises = [getAllPassedWeek(),getRanksByWeekNmr(null)];
-            return dataservice.ready(promises).then(function(result){
-                processWeekData(result[0]);
+            return getInitData().then(function(result){
+                processWeekData(result.weeks);
                 var lastWeek = parseInt(vm.weeks[0].weekNumber);
-                processRankData(result[1], lastWeek);
+                processRankData(result.ranks, lastWeek);
             });
         }
 
@@ -34,7 +33,6 @@
             });
         }
 
-        
         function initChart(series, categories){
             $('#epl-chart-container').highcharts({
                 series: series,
@@ -120,24 +118,9 @@
             });
         }
 
-        // Get weeks through service
-        function getTeamStat(weekNumber, teamId) {
-            return dataservice.getTeamStat(weekNumber, teamId).then(function(data) {
+        function getInitData() {
+            return dataservice.getInitData('rank').then(function(data) {
                 return data;
-            });
-        }
-
-        // Get weeks through service
-        function getAllPassedWeek() {
-            return dataservice.getAllPassedWeek().then(function(data) {
-                return data.weeks;
-            });
-        }
-
-        // Get ranks through service
-        function getRanksByWeekNmr(weekNumber) {
-            return dataservice.getRanksByWeekNmr(weekNumber).then(function(data) {
-                return data.ranks;
             });
         }
     }
