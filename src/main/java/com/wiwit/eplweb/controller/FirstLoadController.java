@@ -54,7 +54,7 @@ public class FirstLoadController extends BaseController {
 		
 		TeamPageModelView result = new TeamPageModelView();
 		result.setTeams(teamService.findAll());
-		result.setRank(rankService.findLatestTeamRank(teamId));
+		result.setRanks(rankService.getLatestRank());
 		result.setMatchdays(matchdayService.getLastAndNextMatchday(teamId));
 
 		return generateJson(result);

@@ -9,7 +9,7 @@ import com.wiwit.eplweb.model.Team;
 public class TeamPageModelView {
 
 	private List<Team> teams;
-	private Rank rank;
+	private List<Rank> ranks;
 	private List<Matchday> matchdays;
 	
 	public void setTeams(List<Team> teams) {
@@ -19,11 +19,11 @@ public class TeamPageModelView {
 		return teams;
 	}
 	
-	public void setRank(Rank rank) {
-		this.rank = rank;
+	public void setRanks(List<Rank> ranks) {
+		this.ranks = ranks;
 	}
-	public Rank getRank() {
-		return rank;
+	public List<Rank> getRanks() {
+		return ranks;
 	}
 	
 	public void setMatchdays(List<Matchday> matchdays) {

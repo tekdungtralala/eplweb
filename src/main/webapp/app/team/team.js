@@ -7,25 +7,29 @@
 
     function Team(dataservice, datautil, $routeParams) {
         var vm = this;
-        var id = $routeParams.id;
-        var name = $routeParams.name;
+        vm.id = $routeParams.id;
+        vm.name = $routeParams.name;
         vm.teams = [];
         vm.currTeam = null;
         vm.rank = null;
         vm.nextMatchday = [];
         vm.prevMatchday = [];
+        vm.position = null;
 
         $('[data-toggle="tooltip"]').tooltip();
 
         activate();
         function activate() {
             return getInitData().then(function(result){
-                console.log(result);
                 vm.teams = result.teams;
-                vm.rank = result.rank;
+                vm.position = 0;
+                vm.rank = _.find(result.ranks, function(r, i){
+                    vm.position++;
+                    return r.team.id === parseInt(vm.id);
+                });
 
                 vm.currTeam = _.find(vm.teams, function(t){
-                    return t.id === parseInt(id);
+                    return t.id === parseInt(vm.id);
                 });
 
                 _.each(result.matchdays, function(m){
@@ -36,8 +40,6 @@
                         vm.prevMatchday.push(m);
                     }
                 });
-
-                console.log(vm.prevMatchday);
             });
         }
 
@@ -55,7 +57,7 @@
         }
 
         function getInitData(){
-            return dataservice.getInitData('team/' + id + '/' + name)
+            return dataservice.getInitData('team/' + vm.id + '/' + vm.name)
                 .then(function(data) {
                     return data;
                 });
