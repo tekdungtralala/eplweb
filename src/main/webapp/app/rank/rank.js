@@ -116,10 +116,16 @@
             return datautil.getFormattedWeek(w.startDay, w.weekNumber);
         }
 
+        function getTeamStat(weekNumber, teamId) {
+            return dataservice.getTeamStat(weekNumber, teamId).then(function(data) {
+                return data;
+            });
+        }
+
         function getRanksByWeekNmr(otherWeek){
             return dataservice.getRanksByWeekNmr(otherWeek).then(function(data) {
                 return data.ranks;
-            });         
+            });
         }
 
         function getInitData(){
