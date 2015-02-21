@@ -26,7 +26,7 @@ public class WeekController extends BaseController {
 
 	private WeekService weekService;
 
-	@RequestMapping(value = "/passedWeeks", method = RequestMethod.GET)
+	@RequestMapping(value = "/passedWeeks", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getAllPassedWeek(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {
@@ -36,7 +36,7 @@ public class WeekController extends BaseController {
 		return generateJson(WeekModelView.getModelView(weeks));
 	}
 	
-	@RequestMapping(value = "/weeks", method = RequestMethod.GET)
+	@RequestMapping(value = "/weeks", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getAllWeek(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {

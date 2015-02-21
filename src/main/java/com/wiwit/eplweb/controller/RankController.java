@@ -27,7 +27,7 @@ public class RankController extends BaseController {
 
 	private RankService rankService;
 	
-	@RequestMapping(value = "/highestRanks", method = RequestMethod.GET)
+	@RequestMapping(value = "/highestRanks", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getFiveHighestRank(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {
@@ -38,7 +38,7 @@ public class RankController extends BaseController {
 		return generateJson(RankModelView.getModelView(ranks));
 	}	
 
-	@RequestMapping(value = "/ranks", method = RequestMethod.GET)
+	@RequestMapping(value = "/ranks", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getLatestRank(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {
@@ -49,7 +49,7 @@ public class RankController extends BaseController {
 		return generateJson(RankModelView.getModelView(ranks));
 	}
 
-	@RequestMapping(value = "/ranks/{weekNumber}", method = RequestMethod.GET)
+	@RequestMapping(value = "/ranks/{weekNumber}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getSelectedRank(Model model,
 			@PathVariable("weekNumber") int weekNumber)

@@ -32,22 +32,22 @@ public class ChartDataController extends BaseController {
 
 	private RankService rankService;
 
-	@RequestMapping(value = "/chart/week/{weekNumber}/team/{teamId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/chart/week/{weekNumber}/team/{teamId}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getChartTeamStat(Model model,
 			@PathVariable("weekNumber") int weekNumber,
 			@PathVariable("teamId") int teamId) throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /chart/week/" + weekNumber + "/team/" + teamId);
-		
+
 		List<Rank> ranks = rankService.getRankByWeekNumber(weekNumber);
 		TeamStatModelView tsmv = new TeamStatModelView();
 		tsmv.addData(teamId, weekNumber, ranks);
-		
+
 		return generateJson(tsmv);
 	}
 
-	@RequestMapping(value = "/chart/fiveBigestTeam", method = RequestMethod.GET)
+	@RequestMapping(value = "/chart/fiveBigestTeam", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getFiveBigestTeam(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {

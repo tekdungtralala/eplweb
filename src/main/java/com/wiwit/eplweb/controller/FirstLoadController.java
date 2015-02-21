@@ -31,51 +31,51 @@ public class FirstLoadController extends BaseController {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(FirstLoadController.class);
-	
+
 	private PhaseService phaseService;
 	private RankService rankService;
 	private MatchdayService matchdayService;
 	private WeekService weekService;
-	
-	@RequestMapping(value = "/page/matchday", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/page/matchday", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getDataRankMatchday(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /page/matchday");
-		
+
 		MatchdayPageModelView result = new MatchdayPageModelView();
 		result.setWeeks(weekService.getAllWeek());
 		result.setMatchdayModelView(matchdayService.getMatchtdayOnCurrWeek());
-		
+
 		return generateJson(result);
 	}
-	
-	@RequestMapping(value = "/page/rank", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/page/rank", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getDataRankPage(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /page/rank");
-		
+
 		RankPageModelView result = new RankPageModelView();
-		
+
 		result.setRanks(rankService.getLatestRank());
-		
+
 		result.setWeeks(weekService.getAllPassedWeek());
-		
+
 		return generateJson(result);
 	}
-	
-	@RequestMapping(value = "/page/dashboard", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/page/dashboard", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getDataDashboardPage(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /page/dashboard");
-		
+
 		DashboardPageModelView result = new DashboardPageModelView();
-		
+
 		Phase p = phaseService.getCurrentMatchday();
 		int currWeek = Integer.valueOf(p.getValue());
-		
+
 		FiveBigTeamModelView fiveBitTeam = new FiveBigTeamModelView();
 		List<Rank> bigestRank = rankService.getFiveHighestLastRank();
 		for (int i = 1; i < currWeek; i++) {
@@ -99,31 +99,31 @@ public class FirstLoadController extends BaseController {
 			fiveBitTeam.addData(i, tmp);
 		}
 		result.setFiveBigTeam(fiveBitTeam);
-		
+
 		result.setHighestRank(rankService.getFiveHighestLastRank());
-		
+
 		result.setMatchday(matchdayService.getMatchtdayOnCurrWeek());
-		
+
 		result.setCurrentWeek(weekService.findCurrWeek());
-		
+
 		return generateJson(result);
 	}
-	
+
 	@Autowired(required = true)
 	public void setWeekService(WeekService weekService) {
 		this.weekService = weekService;
 	}
-	
+
 	@Autowired(required = true)
 	public void setMatchdayService(MatchdayService matchdayService) {
 		this.matchdayService = matchdayService;
 	}
-	
+
 	@Autowired(required = true)
 	public void setPhaseService(PhaseService phaseService) {
 		this.phaseService = phaseService;
 	}
-	
+
 	@Autowired(required = true)
 	public void setRankService(RankService rankService) {
 		this.rankService = rankService;
