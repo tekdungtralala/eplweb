@@ -5,15 +5,12 @@
         .module('app.dashboard')
         .controller('Dashboard', Dashboard);
 
-    function Dashboard(dataservice) {
+    function Dashboard(dataservice, datautil) {
     	var vm = this;
     	vm.ranks = [];
         vm.model = [];
         vm.chartData = {};
-
-        vm.menu = function(){
-            return 'index2.html';
-        }
+        vm.currWeek = null;
 
         activate();
         function activate() {
@@ -33,6 +30,8 @@
 
                 vm.chartData.categories = result.fiveBigTeam.categories;
                 vm.chartData.series = result.fiveBigTeam.series;
+
+                vm.currWeek = getFormattedWeek(result.currentWeek);
 
                 initChart();
             });
@@ -76,11 +75,14 @@
             });
         }
 
+        function getFormattedWeek(w){
+            return datautil.getFormattedWeek(w.startDay, w.weekNumber);
+        }
+
         function getInitData() {
-            vm.promises = dataservice.getInitData('dashboard').then(function(data) {
+            return dataservice.getInitData('dashboard').then(function(data) {
                 return data;
             });
-            return vm.promises;
         }
     }
 })();

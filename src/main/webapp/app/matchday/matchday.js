@@ -5,7 +5,7 @@
         .module('app.matchday')
         .controller('Matchday', Matchday);
 
-    function Matchday(dataservice) {
+    function Matchday(dataservice, datautil) {
         var vm = this;
         vm.weeks = [];
         vm.model = [];
@@ -48,12 +48,6 @@
             });
         }
 
-        function getFormattedWeek(w){
-            var date = new Date(w.startDay);
-            var m = moment(date);
-            return '#' + w.weekNumber + ' - ' + m.format('YYYY, DD MMM');
-        }
-
         // ngClick
         vm.changeWeek = function(otherWeek){
             otherWeek = parseInt(otherWeek);
@@ -62,18 +56,20 @@
             });
         }
 
+        function getFormattedWeek(w){
+            return datautil.getFormattedWeek(w.startDay, w.weekNumber);
+        }
+
         function getInitData() {
-            vm.promises = dataservice.getInitData('matchday').then(function(data) {
+            return dataservice.getInitData('matchday').then(function(data) {
                 return data;
             });
-            return vm.promises;
         }
 
         function getMatchdayByWeekNmr(weekNumber) {
-            vm.promises = dataservice.getMatchdayByWeekNmr(weekNumber).then(function(data) {
+            return dataservice.getMatchdayByWeekNmr(weekNumber).then(function(data) {
                 return data;
             });
-            return vm.promises;
         }
     }
 })();

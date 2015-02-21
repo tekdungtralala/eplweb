@@ -5,7 +5,7 @@
         .module('app.rank')
         .controller('Rank', Rank);
 
-    function Rank(dataservice) {
+    function Rank(dataservice, datautil) {
         var vm = this;
         vm.ranks = [];
         vm.weeks = [];
@@ -85,12 +85,6 @@
             });
         }
 
-        function getFormattedWeek(w){
-            var date = new Date(w.startDay);
-            var m = moment(date);
-            return '#' + w.weekNumber + ' - ' + m.format('YYYY, DD MMM');
-        }
-
         function initCurrPrevNext(currWeek){
             vm.currWeek = currWeek;
 
@@ -118,18 +112,20 @@
             });
         }
 
+        function getFormattedWeek(w){
+            return datautil.getFormattedWeek(w.startDay, w.weekNumber);
+        }
+
         function getRanksByWeekNmr(otherWeek){
-            vm.promises = dataservice.getRanksByWeekNmr(otherWeek).then(function(data) {
+            return dataservice.getRanksByWeekNmr(otherWeek).then(function(data) {
                 return data.ranks;
-            });
-            return vm.promises;            
+            });         
         }
 
         function getInitData(){
-            vm.promises = dataservice.getInitData('rank').then(function(data) {
+            return dataservice.getInitData('rank').then(function(data) {
                 return data;
             });
-            return vm.promises;
         }
     }
 })();

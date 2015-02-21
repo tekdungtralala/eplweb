@@ -23,6 +23,12 @@ public class WeekService {
 		return weekDAO.getLastFiveWeek();
 	}
 	
+	public Week findCurrWeek(){
+		String currentMatchday = phaseDAO.getCurrentMatchday().getValue();
+		
+		return weekDAO.findByWeekNmr(Integer.valueOf(currentMatchday) - 1);
+	}
+	
 	public Week findByWeekNumber(int weekNumber){
 		return weekDAO.findByWeekNmr(weekNumber);
 	}

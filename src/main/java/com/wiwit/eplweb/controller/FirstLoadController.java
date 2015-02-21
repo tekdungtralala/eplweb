@@ -104,6 +104,8 @@ public class FirstLoadController extends BaseController {
 		
 		result.setMatchday(matchdayService.getMatchtdayOnCurrWeek());
 		
+		result.setCurrentWeek(weekService.findCurrWeek());
+		
 		return generateJson(result);
 	}
 	
