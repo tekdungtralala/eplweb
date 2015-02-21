@@ -5,6 +5,18 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+/* Override other css */
+
+/*Bootstrap*/
+@media (min-width: 992px) {
+  .container 
+  {
+    width: 750px;
+  }
+}
+
+/*CgBusy*/
 .cg-busy-backdrop
 {
     min-height: 2000px;
@@ -15,7 +27,7 @@
     top: 200px;
 }
 
-/*css class can be used on another page*/
+/* css class can be used on another page*/
 .epl-cell
 {
     height: 100%; 
@@ -23,7 +35,6 @@
     padding-top: 5px;
     padding-bottom: 5px;
 }
-
 
 .epl-mini-team-logo,
 .epl-table .rightTeamLogo img,
@@ -37,16 +48,14 @@
     text-align: center;
 }
 
-.epl-table .epl-right,
-.epl-right
-{
-    text-align: right;
-}
-
-.epl-table .epl-left,
 .epl-left
 {
     text-align: left;
+}
+
+.epl-right
+{
+    text-align: right;
 }
 
 .epl-href:hover
@@ -54,83 +63,76 @@
     text-decoration: none;
 }
 
-.epl-teamoftheweek
-{
-    margin-top:20px;
-}
-
-.epl-dash-phaseNav .epl-input,
-.epl-dash-phaseNav .epl-label
+/* season and week navigation */
+.epl-phase-nav .epl-input
 {
     width: 100px;
 }
 
-.epl-dash-phaseNav .epl-season,
-.epl-dash-phaseNav .epl-week
-{
-    float: left;
-    width: 100px;
-}
-
-.epl-week.epl-rank .epl-input
+.epl-phase-nav .epl-week .epl-input
 {
     width: 150px;
 }
 
-.epl-dash-phaseNav .epl-week.epl-rank{
-    width: 365px;
+.epl-phase-nav .epl-season
+{
+    float: left;
+    width: 200px;
+}
+.epl-phase-nav .epl-week
+{
+    float: left;
+    width: 350px;
 }
 
-.epl-week.epl-rank .epl-btn-group,
-.epl-week.epl-rank .epl-input,
-.epl-week.epl-rank .epl-btn-next,
-.epl-week.epl-rank .epl-btn-prev,
+.epl-phase-nav .epl-btn-nav
 {
     float: left;
 }
-.epl-dash-phaseNav .epl-season
-{
-    margin-right: 20px;
-}
 
-.epl-table.epl-rank
-{
-    margin-top: 20px;
-}
-
-.epl-week.epl-rank:hover
+.epl-phase-nav .epl-cursor-pointer
 {
     cursor: pointer;
 }
 
- 
-.epl-table.epl-mathchday > thead > tr:nth-of-type(even)
+
+/* Dashboard page*/
+.epl-db .epl-teamoftheweek
 {
-    background-color: #f9f9f9;
+    margin-top:20px;
 }
 
-.epl-table.epl-mathchday > thead > tr:hover
+.epl-db .epl-dash-phaseNav .epl-input,
+.epl-db .epl-dash-phaseNav .epl-label
 {
-    background-color: #f5f5f5;
+    width: 100px;
 }
 
-.epl-hide
+.epl-db .epl-dash-phaseNav .epl-week .epl-input
 {
-    display: none;
+    width: 150px;
 }
 
-.epl-table.epl-rank .epl-column-teamname
+.epl-db .epl-dash-phaseNav .epl-season,
+.epl-db .epl-dash-phaseNav .epl-week
 {
-    border-right-color: transparent;
+    padding-left: 10px;
+    float: left;
+    width: 100px;
 }
 
-/*Bootstrap*/
-@media (min-width: 992px) {
-  .container 
-  {
-    width: 750px;
-  }
+/* Rank page*/
+.epl-rank .epl-phase-nav
+{
+    padding-bottom: 20px;
 }
+
+/* Matchday page*/
+.epl-matchday .epl-phase-nav
+{
+    padding-bottom: 20px;
+}
+
 
 /*PAGE /team/{teamid}/{teamname}*/
 #epl-slideshow
@@ -237,27 +239,6 @@
     width: 45%;
     float: left;
     margin-right: 20px;
-}
-
-.epl-team .epl-input
-{
-    width: 100px;
-}
-
-#epl-stat .epl-season
-{
-    float: left;
-    width: 200px;
-}
-#epl-stat .epl-week
-{
-    float: left;
-    width: 300px;
-}
-
-.epl-team .epl-btn-nav
-{
-    float: left;
 }
 
 .teamofweek{font-size:11px;}
