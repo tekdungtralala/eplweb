@@ -15,7 +15,7 @@
     function getRoutes() {
         return [
             {
-                url: '/team',
+                url: '/team/:id/:name',
                 config: {
                     templateUrl: 'app/team/team.html',
                     controller: 'Team',

@@ -5,7 +5,9 @@
         .module('app.team')
         .controller('Team', Team);
 
-    function Team(dataservice) {
+    function Team(dataservice, $routeParams) {
+        // window.location.href = "#/rank";
+        // console.log($routeParams);
         var vm = this;
 
         vm.halfTeam = [];
@@ -37,8 +39,6 @@
 
         // Container below carousel/slideshow, false for active
         vm.container = [true, true, false, true, true]; 
-        console.log(vm.container)
-        console.log(vm.carouselState);
 
         vm.statContainerLbl = ['Played', 'Won', 'Drawn', 'Lost', 'Points'];
 
