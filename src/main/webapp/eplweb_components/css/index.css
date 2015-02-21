@@ -6,6 +6,10 @@
     margin-right: auto;
 }
 
+#epl-eof
+{
+    margin-bottom: 150px;
+}
 /* Override other css */
 
 /*Bootstrap*/
@@ -67,6 +71,16 @@
 .epl-href:hover
 {
     text-decoration: none;
+}
+
+.epl-hide
+{
+    display: none;
+}
+
+table.epl-table > tbody > tr > td
+{
+    vertical-align: middle;
 }
 
 /* season and week navigation */
@@ -153,11 +167,6 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-}
-
-#epl-team-eof
-{
-    margin-bottom: 150px;
 }
 
 .epl-team .epl-all-team

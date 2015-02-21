@@ -46,7 +46,10 @@
             <td class='epl-left rightTeamLogo'>
                 <img class='image' alt='' 
                     ng-src='eplweb_components/image/logo/150x150/{{r.team.id}}.png' >
-                {{r.team.name}}
+                <a ng-href='#/team/{{r.team.id}}/{{r.team.simpleName}}'
+                    class='epl-href'>
+                    {{r.team.name}}
+                </a>
             </td>
             <td class='epl-center'>{{r.gamesWon + r.gamesDrawn + r.gamesLost}}</td>
             <td class='epl-center'>{{r.gamesWon}}</td>
@@ -74,7 +77,12 @@
             <td class="time">
                 {{m.time}}
             </td>
-            <td class="epl-right">{{m.homeTeam.name}}</td>
+            <td class="epl-right">
+                <a ng-href='#/team/{{m.homeTeam.id}}/{{m.homeTeam.simpleName}}'
+                    class='epl-href'>
+                    {{m.homeTeam.name}}
+                </a>
+            </td>
             <td class="rightTeamLogo">
                 <img class="image" ng-src="eplweb_components/image/logo/150x150/{{m.homeTeam.id}}.png" alt="">
             </td>
@@ -82,7 +90,12 @@
             <td class="leftTeamLogo">
                 <img class="image" ng-src="eplweb_components/image/logo/150x150/{{m.awayTeam.id}}.png" alt="">
             </td>
-            <td class="epl-left">{{m.awayTeam.name}}</td>
+            <td class="epl-left">
+                <a ng-href='#/team/{{m.awayTeam.id}}/{{m.awayTeam.simpleName}}'
+                    class='epl-href'>
+                    {{m.awayTeam.name}}
+                </a>
+            </td>
         </tr>
     </thead>    
 </table>

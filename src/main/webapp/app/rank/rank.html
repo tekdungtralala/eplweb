@@ -69,7 +69,10 @@
             <td class='epl-left rightTeamLogo epl-column-teamname'>
                 <img class='image' alt='' 
                     ng-src='eplweb_components/image/logo/150x150/{{r.team.id}}.png' >
-                {{r.team.name}}
+                <a ng-href='#/team/{{r.team.id}}/{{r.team.simpleName}}'
+                    class='epl-href'>
+                    {{r.team.name}}
+                </a>
             </td>
             <td>
                 <button type="button" class="btn btn-default btn-sm" ng-click='vm.showChart($index)'>
