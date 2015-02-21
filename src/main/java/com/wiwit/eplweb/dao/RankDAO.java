@@ -30,4 +30,20 @@ public class RankDAO {
 		logger.info("Rank loaded successfully, ranks size=" + result.size());
 		return result;
 	}
+
+	@Transactional
+	public Rank findTeamRankByWeeknumber(int teamId, int weekNumber) {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Rank> list = session.createQuery(
+				"from Rank as r where r.week.weekNumber = " + weekNumber
+						+ " and r.team.id=" + teamId).list();
+		if (list == null || list.isEmpty()) {
+			logger.info("Can't find Rank with rank.teamId" + teamId
+					+ ", rank.weekNumber=" + weekNumber);
+			return null;
+		}
+		Rank result = list.get(0);
+		logger.info("Rank loaded successfully, rank.id" + result.getId());
+		return result;
+	}
 }

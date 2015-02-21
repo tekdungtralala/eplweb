@@ -9,6 +9,8 @@
         var isPrimed = false;
         var primePromise;
 
+
+
         var service = {
             // First load
             getInitData: getInitData,
@@ -28,6 +30,7 @@
             $rootScope.promise = $http.get('api/page/' + page)
                     .then(getData)
                     .catch(function(message) {
+                        if (message.status == 404) window.location.href = "404.html";
                     });
             return $rootScope.promise;
 

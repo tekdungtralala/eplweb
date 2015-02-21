@@ -1,9 +1,9 @@
 <div class='epl-team'>
 <div class='epl-all-team'>
-    <span class='epl-center epl-logo' data-ng-repeat='id in vm.halfTeam'>
+    <span class='epl-center epl-logo' data-ng-repeat='t in vm.teams'>
         <a href='#/team'>
             <img class='image epl-mini-team-logo' alt='' 
-                ng-src='eplweb_components/image/logo/150x150/{{id}}.png' >
+                ng-src='eplweb_components/image/logo/150x150/{{t.id}}.png' >
         </a>
     </span>
 </div>
@@ -17,20 +17,20 @@
 		    		ng-src='eplweb_components/image/logo/150x150/20.png' alt=''/>
 		    </td>
 			<td class='epl-center'>
-				ESTABLISHED<br/>
-				1905
+				Established<br/>
+				{{vm.currTeam.established}}
 			</td>
 			<td class='epl-center'>
-				MANAGER<br/>
-				jose mourinho
+				Manager<br/>
+				{{vm.currTeam.manager}}
 			</td>
 			<td class='epl-center'>
-				NICKNAME<br/>
-				The blues
+				Nickname<br/>
+				{{vm.currTeam.nickname}}
 			</td>
 			<td class='epl-center'>
 				Stadium<br/>
-				Stamfod bridge
+				{{vm.currTeam.stadium}}
 			</td>
 		</tr>
 	</tbody>
@@ -61,7 +61,7 @@
     <ul class='nav nav-pills epl-tab'>
         <li ng-repeat='(key,value) in vm.containerLbl' 
             class="{{vm.container[key] ? '' : 'active'}}">
-            <a href='#/team' ng-click='vm.selectContainer(key)'>
+            <a href='' ng-click='vm.selectContainer(key)'>
                 {{value}}
             </a>
         </li>
@@ -127,14 +127,17 @@
         </thead>
         <tbody>
             <tr>
-                <th class='epl-center'>1</th>
-                <th class='epl-center'>23</th>
-                <th class='epl-center'>10</th>
-                <th class='epl-center'>8</th>
-                <th class='epl-center'>5</th>
-                <th class='epl-center'>53</th>
-                <th class='epl-center'>32</th>
-                <th class='epl-center'>68</th>
+                <th class='epl-center'>{{vm.rank.position}}</th>
+                <th class='epl-center'>
+                	{{vm.rank.gamesWon + vm.rank.gamesDrawn + vm.rank.gamesLost}}
+                </th>
+                <th class='epl-center'>{{vm.rank.gamesWon}}</th>
+                <th class='epl-center'>{{vm.rank.gamesDrawn}}</th>
+                <th class='epl-center'>{{vm.rank.gamesLost}}</th>
+                <th class='epl-center'>{{vm.rank.goalsScored}}</th>
+                <th class='epl-center'>{{vm.rank.goalsAgainst}}</th>
+                <th class='epl-center'>{{vm.rank.points}}</th>
+                
             </tr>
         </tbody>
     </table>
@@ -149,65 +152,20 @@
 	            </tr>
 	        </thead>
 	        <tbody>
-	            <tr>
-	                <td class='epl-right'>1 Jan 2015</td>
+	            <tr ng-repeat='m in vm.prevMatchday'>
+	                <td class='epl-right'>{{m.formatedWeek}}</td>
 		            <td class='epl-left'>
+		                <img class='epl-mini-team-logo' 
+		                	ng-src='eplweb_components/image/logo/150x150/{{m.homeTeam.id}}.png' 
+		                	alt=''>
 		                vs 
 		                <img class='epl-mini-team-logo' 
-		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''/>
-		                Arsenal
+		                	ng-src='eplweb_components/image/logo/150x150/{{m.awayTeam.id}}.png' 
+		                	alt=''>
 		            </td>
-	                <th class='epl-center'>3 - 4</th>
-	            </tr>
-	            <tr>
-	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class='epl-left'>
-		                vs 
-		                <img class='epl-mini-team-logo' 
-		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''/>
-		                Arsenal
+		            <td class='epl-center'>
+		            	{{m.homeGoal}} - {{m.awayGoal}}
 		            </td>
-	                <th class='epl-center'>3 - 4</th>
-	            </tr>
-	            <tr>
-	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class='epl-left'>
-		                vs 
-		                <img class='epl-mini-team-logo' 
-		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''/>
-		                Arsenal
-		            </td>
-	                <th class='epl-center'>3 - 4</th>
-	            </tr>
-	            <tr>
-	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class='epl-left'>
-		                vs 
-		                <img class='epl-mini-team-logo' 
-		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''/>
-		                Arsenal
-		            </td>
-	                <th class='epl-center'>3 - 4</th>
-	            </tr>
-	            <tr>
-	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class='epl-left'>
-		                vs 
-		                <img class='epl-mini-team-logo' 
-		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''/>
-		                Arsenal
-		            </td>
-	                <th class='epl-center'>3 - 4</th>
-	            </tr>
-	            <tr>
-	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class='epl-left'>
-		                vs 
-		                <img class='epl-mini-team-logo' 
-		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''/>
-		                Arsenal
-		            </td>
-	                <th class='epl-center'>3 - 4</th>
 	            </tr>
 	        </tbody>
 	    </table>
@@ -223,58 +181,16 @@
 	            </tr>
 	        </thead>
 	        <tbody>
-	            <tr>
-	                <td class='epl-right'>1 Jan 2015</td>
+	            <tr ng-repeat='m in vm.nextMatchday'>
+	                <td class='epl-right'>{{m.formatedWeek}}</td>
 		            <td class='epl-left'>
+		                <img class='epl-mini-team-logo' 
+		                	ng-src='eplweb_components/image/logo/150x150/{{m.homeTeam.id}}.png' 
+		                	alt=''>
 		                vs 
 		                <img class='epl-mini-team-logo' 
-		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''>
-		                Arsenal
-		            </td>
-	            </tr>
-	            <tr>
-	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class='epl-left'>
-		                vs 
-		                <img class='epl-mini-team-logo' 
-		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''>
-		                Arsenal
-		            </td>
-	            </tr>
-	            <tr>
-	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class='epl-left'>
-		                vs 
-		                <img class='epl-mini-team-logo' 
-		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''>
-		                Arsenal
-		            </td>
-	            </tr>
-	            <tr>
-	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class='epl-left'>
-		                vs 
-		                <img class='epl-mini-team-logo' 
-		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''>
-		                Arsenal
-		            </td>
-	            </tr>
-	            <tr>
-	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class='epl-left'>
-		                vs 
-		                <img class='epl-mini-team-logo' 
-		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''>
-		                Arsenal
-		            </td>
-	            </tr>
-	            <tr>
-	                <td class='epl-right'>1 Jan 2015</td>
-		            <td class='epl-left'>
-		                vs 
-		                <img class='epl-mini-team-logo' 
-		                	ng-src='eplweb_components/image/logo/150x150/2.png' alt=''>
-		                Arsenal
+		                	ng-src='eplweb_components/image/logo/150x150/{{m.awayTeam.id}}.png' 
+		                	alt=''>
 		            </td>
 	            </tr>
 	        </tbody>

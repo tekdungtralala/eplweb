@@ -5,10 +5,63 @@
         .module('app.team')
         .controller('Team', Team);
 
-    function Team(dataservice, $routeParams) {
-        // window.location.href = "#/rank";
-        // console.log($routeParams);
+    function Team(dataservice, datautil, $routeParams) {
         var vm = this;
+        var id = $routeParams.id;
+        var name = $routeParams.name;
+        vm.teams = [];
+        vm.currTeam = null;
+        vm.rank = null;
+        vm.nextMatchday = [];
+        vm.prevMatchday = [];
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        activate();
+        function activate() {
+            return getInitData().then(function(result){
+                console.log(result);
+                vm.teams = result.teams;
+                vm.rank = result.rank;
+
+                vm.currTeam = _.find(vm.teams, function(t){
+                    return t.id === parseInt(id);
+                });
+
+                _.each(result.matchdays, function(m){
+                    m.formatedWeek = getFormattedWeek(m.week);
+                    if (m.awayGoal === -1 || m.homeGoal === -1) {
+                        vm.nextMatchday.push(m);
+                    } else {
+                        vm.prevMatchday.push(m);
+                    }
+                });
+
+                console.log(vm.prevMatchday);
+            });
+        }
+
+
+        // ngClick
+        vm.selectContainer = function(index){
+            _.each(vm.container, function(i, contIndex){
+                vm.container[contIndex] = true;
+            });
+            vm.container[index] = false;
+        }
+
+        function getFormattedWeek(w){
+            return datautil.getFormattedWeek(w.startDay, w.weekNumber);
+        }
+
+        function getInitData(){
+            return dataservice.getInitData('team/' + id + '/' + name)
+                .then(function(data) {
+                    return data;
+                });
+        }
+
+
 
         vm.halfTeam = [];
         for(var i = 1; i <= 20; i++){
@@ -38,21 +91,9 @@
         vm.containerLbl = ['Overview', 'Squad', 'Statistic', 'Map', 'Video'];
 
         // Container below carousel/slideshow, false for active
-        vm.container = [true, true, false, true, true]; 
+        vm.container = [false, true, true, true, true]; 
 
         vm.statContainerLbl = ['Played', 'Won', 'Drawn', 'Lost', 'Points'];
-
-        $('[data-toggle="tooltip"]').tooltip();
-
-        activate();
-        function activate() {
-            // var promises = [getAllPassedWeek(),getRanksByWeekNmr(null)];
-            // return dataservice.ready(promises).then(function(result){
-            //     processWeekData(result[0]);
-            //     var lastWeek = parseInt(vm.weeks[0].weekNumber);
-            //     processRankData(result[1], lastWeek);
-            // });
-        }
 
         initChart(
             [ {
@@ -103,14 +144,6 @@
                 },
                 exporting: { enabled: false }
             });
-        }
-
-        // ngClick
-        vm.selectContainer = function(index){
-            _.each(vm.container, function(i, contIndex){
-                vm.container[contIndex] = true;
-            });
-            vm.container[index] = false;
         }
 
     }

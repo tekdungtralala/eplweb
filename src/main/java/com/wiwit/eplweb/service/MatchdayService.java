@@ -10,6 +10,7 @@ import com.wiwit.eplweb.dao.MatchdayDAO;
 import com.wiwit.eplweb.dao.PhaseDAO;
 import com.wiwit.eplweb.dao.WeekDAO;
 import com.wiwit.eplweb.model.Matchday;
+import com.wiwit.eplweb.model.Phase;
 import com.wiwit.eplweb.model.Week;
 import com.wiwit.eplweb.model.view.MatchdayModelView;
 
@@ -17,7 +18,7 @@ import com.wiwit.eplweb.model.view.MatchdayModelView;
 public class MatchdayService {
 
 	@Autowired
-	private MatchdayDAO machtdayDAO;
+	private MatchdayDAO matchdayDAO;
 	
 	@Autowired
 	private PhaseDAO phaseDAO;
@@ -25,17 +26,21 @@ public class MatchdayService {
 	@Autowired
 	private WeekDAO weekDAO;
 	
-	@Transactional
+	public List<Matchday> getLastAndNextMatchday(int teamId){
+		Phase p = phaseDAO.getCurrentMatchday();
+		int weekNumber = Integer.valueOf(p.getValue());
+		return matchdayDAO.getLastAndNextMatchday(teamId, weekNumber, 7);
+	}
+	
 	public MatchdayModelView getMatchtdayOnCurrWeek(){
 		String currentWeek = phaseDAO.getCurrentMatchday().getValue();
 		return getMatchtdayByWeekNmr(Integer.valueOf(currentWeek));
 	}
 	
-	@Transactional
 	public MatchdayModelView getMatchtdayByWeekNmr(int weekNumber){
 		Week week = weekDAO.findByWeekNmr(weekNumber);
 		
-		List<Matchday>  listMatchday = machtdayDAO.getMatchtdayByWeekNmr(Integer.valueOf(weekNumber));
+		List<Matchday>  listMatchday = matchdayDAO.getMatchtdayByWeekNmr(Integer.valueOf(weekNumber));
 		return new MatchdayModelView(listMatchday, week);
 	}
 }

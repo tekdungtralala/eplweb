@@ -11,19 +11,23 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wiwit.eplweb.model.Phase;
 import com.wiwit.eplweb.model.Rank;
+import com.wiwit.eplweb.model.Team;
 import com.wiwit.eplweb.model.view.DashboardPageModelView;
 import com.wiwit.eplweb.model.view.FiveBigTeamModelView;
 import com.wiwit.eplweb.model.view.MatchdayPageModelView;
 import com.wiwit.eplweb.model.view.RankPageModelView;
+import com.wiwit.eplweb.model.view.TeamPageModelView;
 import com.wiwit.eplweb.service.MatchdayService;
 import com.wiwit.eplweb.service.PhaseService;
 import com.wiwit.eplweb.service.RankService;
+import com.wiwit.eplweb.service.TeamService;
 import com.wiwit.eplweb.service.WeekService;
 
 @Controller
@@ -36,17 +40,35 @@ public class FirstLoadController extends BaseController {
 	private RankService rankService;
 	private MatchdayService matchdayService;
 	private WeekService weekService;
+	private TeamService teamService;
+
+	@RequestMapping(value = "/page/team/{id}/{simpleName}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	public @ResponseBody
+	String getDataTeamPage(@PathVariable("id") int teamId,
+			@PathVariable("simpleName") String simpleName)
+			throws JsonGenerationException, JsonMappingException, IOException {
+		logger.info("GET /page/team/" + teamId + "/" + simpleName);
+		
+		Team team = teamService.findByIdAndSimppleName(teamId, simpleName);
+		if (team == null) throw404();
+		
+		TeamPageModelView result = new TeamPageModelView();
+		result.setTeams(teamService.findAll());
+		result.setRank(rankService.findLatestTeamRank(teamId));
+		result.setMatchdays(matchdayService.getLastAndNextMatchday(teamId));
+
+		return generateJson(result);
+	}
 
 	@RequestMapping(value = "/page/matchday", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
-	String getDataRankMatchday(Model model) throws JsonGenerationException,
+	String getDataMatchdayPage(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /page/matchday");
 
 		MatchdayPageModelView result = new MatchdayPageModelView();
 		result.setWeeks(weekService.getAllWeek());
 		result.setMatchdayModelView(matchdayService.getMatchtdayOnCurrWeek());
-
 		return generateJson(result);
 	}
 
@@ -107,6 +129,11 @@ public class FirstLoadController extends BaseController {
 		result.setCurrentWeek(weekService.findCurrWeek());
 
 		return generateJson(result);
+	}
+	
+	@Autowired(required = true)
+	public void setTeamService(TeamService teamService) {
+		this.teamService = teamService;
 	}
 
 	@Autowired(required = true)

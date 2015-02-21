@@ -22,6 +22,13 @@ public class RankService {
 		return getLatestRank().subList(0, 5);
 	}
 	
+	public Rank findLatestTeamRank(int teamId){
+		String currentMatchday = phaseDAO.getCurrentMatchday().getValue();
+		int prevWeek = Integer.valueOf(currentMatchday) - 1;
+		
+		return rankDAO.findTeamRankByWeeknumber(teamId, prevWeek);
+	}
+	
 	public List<Rank> getLatestRank() {
 		String currentMatchday = phaseDAO.getCurrentMatchday().getValue();
 
