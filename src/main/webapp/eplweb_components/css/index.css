@@ -16,6 +16,12 @@
   }
 }
 
+.right.carousel-control,
+.left.carousel-control
+{
+    cursor: pointer;
+}
+
 /*CgBusy*/
 .cg-busy-backdrop
 {
@@ -131,6 +137,12 @@
 .epl-matchday .epl-phase-nav
 {
     padding-bottom: 20px;
+}
+
+/* Totw page*/
+.epl-totw .epl-teamoftheweek
+{
+    margin-top:20px;
 }
 
 

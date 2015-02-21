@@ -7,6 +7,7 @@
         'app.rank',
         'app.matchday',
         'app.team',
+        'app.totw',
         // ,
         // 'app.teamoftheweek',
         // 'app.news'

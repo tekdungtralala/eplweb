@@ -13,10 +13,32 @@
             vm.halfTeam.push(i);
         }
 
+        vm.carousel = [];
+        vm.carousel[0] = {
+            isActive: true,
+            src:'eplweb_components/image/slideshow/default/slideshow-1.jpg'
+        };
+        vm.carousel[1] = {
+            isActive: false,
+            src:'eplweb_components/image/slideshow/default/slideshow-1.jpg'
+        };
+        vm.carousel[2] = {
+            isActive: false,
+            src:'eplweb_components/image/slideshow/default/slideshow-1.jpg'
+        };
+
+        // ngclick
+        vm.changeCarousel = function(to){
+            $('.carousel').carousel(to)
+        };
+
+
         vm.containerLbl = ['Overview', 'Squad', 'Statistic', 'Map', 'Video'];
 
         // Container below carousel/slideshow, false for active
         vm.container = [true, true, false, true, true]; 
+        console.log(vm.container)
+        console.log(vm.carouselState);
 
         vm.statContainerLbl = ['Played', 'Won', 'Drawn', 'Lost', 'Points'];
 
