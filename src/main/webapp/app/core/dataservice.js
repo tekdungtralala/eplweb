@@ -9,8 +9,6 @@
         var isPrimed = false;
         var primePromise;
 
-
-
         var service = {
             // First load
             getInitData: getInitData,
