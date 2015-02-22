@@ -24,7 +24,6 @@ public class UserSession {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
-
 	
 	@Column(name = "session")
 	private String session;

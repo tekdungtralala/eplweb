@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 @Entity
 @Table(name = "user")
 public class User {
@@ -37,6 +40,7 @@ public class User {
 		return email;
 	}
 
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
@@ -49,14 +53,17 @@ public class User {
 		this.email = email;
 	}
 
+	@JsonProperty
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+	@JsonIgnore
 	public Set<UserSession> getUserSessions() {
 		return userSessions;
 	}
 
+	@JsonProperty
 	public void setUserSessions(Set<UserSession> userSessions) {
 		this.userSessions = userSessions;
 	}

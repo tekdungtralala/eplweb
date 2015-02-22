@@ -20,8 +20,32 @@ public class BaseController {
 	public class ResourceNotFoundException extends RuntimeException {
 	}
 	
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public class ResourceBadRequestExceptidon extends RuntimeException {
+	}
+	
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	public class ResourceInternalErrorExceptidon extends RuntimeException {
+	}
+	
+	@ResponseStatus(value = HttpStatus.FORBIDDEN)
+	public class ResourceForbiddenExceptidon extends RuntimeException {
+	}
+	
+	public void throw400(){
+		throw new ResourceBadRequestExceptidon();
+	}
+	
+	public void throw403(){
+		throw new ResourceForbiddenExceptidon();
+	}
+	
 	public void throw404(){
 		throw new ResourceNotFoundException();
+	}
+	
+	public void throw500(){
+		throw new ResourceInternalErrorExceptidon();
 	}
 
 }
