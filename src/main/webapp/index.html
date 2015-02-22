@@ -92,30 +92,40 @@
                 <button type="button" 
                     class="navbar-toggle" data-toggle="collapse" 
                     data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#/">English Premier League</a>
+                <a class="navbar-brand epl-sub-menu" href="#/">
+                    English Premier League
+                </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#/rank">Tables</a>
+                        <a href="#/rank" class='epl-sub-menu'>Tables</a>
                     </li>
                     <li>
-                        <a href="#/matchday">Matchday</a>
+                        <a href="#/matchday" class='epl-sub-menu'>Matchday</a>
                     </li>
                     <li>
-                        <a href="#/totw">Team of The Week</a>
+                        <a href="#/totw" class='epl-sub-menu'>Team of The Week</a>
                     </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
     </nav>
+    <script>
+$( document ).ready(function() {
+    $('.epl-sub-menu').click(function(){
+        var collapseElmt = $('#bs-example-navbar-collapse-1');
+        if ( collapseElmt.hasClass('in')) collapseElmt.collapse('toggle');
+    });
+    console.log( "ready!" );
+});
+    </script>
 
     <!-- Page Content -->
     <div class="container">
