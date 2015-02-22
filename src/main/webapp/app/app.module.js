@@ -8,6 +8,7 @@
         'app.matchday',
         'app.team',
         'app.totw',
+        'app.adminlogin',
         // ,
         // 'app.teamoftheweek',
         // 'app.news'
