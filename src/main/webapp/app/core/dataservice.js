@@ -30,7 +30,7 @@
             $rootScope.promise = $http.get('api/page/' + page)
                     .then(getData)
                     .catch(function(message) {
-                        if (message.status == 404) window.location.href = "404.html";
+                        if (message.status == 404) window.location.href = "404.jsp";
                     });
             return $rootScope.promise;
 
