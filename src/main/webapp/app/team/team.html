@@ -14,8 +14,11 @@
 	<tbody>
 		<tr>
 			<td class='epl-center'>
+                <span class='epl-team-name'>{{vm.currTeam.name}}</span>
+                <br/>
 		    	<img class='epl-main-logo' 
-		    		ng-src='eplweb_components/image/logo/150x150/{{vm.id}}.png' alt=''/>
+		    		ng-src='eplweb_components/image/logo/150x150/{{vm.currTeam.id}}.png' 
+                    alt=''/>
 		    </td>
 			<td class='epl-center'>
 				Established<br/>
@@ -213,13 +216,13 @@
             </tr>
             <tr>
                 <td class='epl-center' rowspan='3'>
-                	<img ng-src='eplweb_components/image/uniform/home/20.png'/>
+                	<img ng-src='eplweb_components/image/uniform/home/{{vm.currTeam.id}}.png'/>
                 </td>
                 <td class='epl-center' rowspan='3'>
-                	<img ng-src='eplweb_components/image/uniform/away/20.png'/>
+                	<img ng-src='eplweb_components/image/uniform/away/{{vm.currTeam.id}}.png'/>
                 </td>
                 <td class='epl-center'>
-                	<img ng-src='eplweb_components/image/team/sponsor/20.png'/>
+                	<img ng-src='eplweb_components/image/team/sponsor/{{vm.currTeam.id}}.png'/>
                 </td>
             </tr>
             <tr>
@@ -227,7 +230,8 @@
             </tr>
             <tr>
                 <td class='epl-center'>
-                	<img ng-src='eplweb_components/image/team/kitsuplier/20.png'/>
+                	<img 
+                        ng-src='eplweb_components/image/team/kitsuplier/{{vm.currTeam.id}}.png'/>
                 </td>
             </tr>
         </tbodd>
@@ -292,7 +296,7 @@
 		<div class="input-group epl-week">
 			<div class="input-group-btn">
 				<button type="button" class="btn btn-default">Week</button>
-				<button type="button" class="btn btn-default dropdown-toggle" 
+<!-- 				<button type="button" class="btn btn-default dropdown-toggle" 
 					data-toggle="dropdown" aria-expanded="false">
 					<span class="caret"></span>
 					<span class="sr-only">Toggle Dropdown</span>
@@ -300,11 +304,12 @@
 				<ul class="dropdown-menu" role="menu">
 					<li><a href="#">Action</a></li>
 					<li><a href="#">Another action</a></li>
-				</ul>
+				</ul> -->
 			</div>
-			<input type="text" class="form-control epl-input" disabled="">
+			<input type="text" class="form-control epl-input" disabled=""
+                value='{{vm.currWeekView}}'>
 
-	        <div type='button' class='btn btn-default epl-btn-nav'>
+<!-- 	        <div type='button' class='btn btn-default epl-btn-nav'>
 	            <span class='glyphicon glyphicon-step-backward' 
 	                aria-hidden='true'>
 	            </span>
@@ -314,7 +319,7 @@
 	            <span class='glyphicon glyphicon-step-forward' 
 	                aria-hidden='true'>
 	            </span>
-	        </div>
+	        </div> -->
 		</div>
 
 		<div class='clearfix'></div>

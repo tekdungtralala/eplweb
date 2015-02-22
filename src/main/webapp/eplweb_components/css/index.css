@@ -203,6 +203,12 @@ table.epl-table > tbody > tr > td
     width: 50px;
 }
 
+.epl-team .epl-team-name
+{
+    font-size: 15px;
+    font-weight: bold;
+}
+
 .epl-team .epl-div-tab
 {
     padding-top: 20px;

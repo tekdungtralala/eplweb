@@ -64,7 +64,6 @@
             return $rootScope.promise;
 
             function getData(result) {
-                console.log("getdata : ", result.data);
                 return result.data;
             }
         }
