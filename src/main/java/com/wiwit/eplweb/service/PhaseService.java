@@ -13,12 +13,10 @@ public class PhaseService {
 	@Autowired
 	private PhaseDAO phaseDAO;
 
-	@Transactional
 	public Phase getCurrentMatchday() {
 		return phaseDAO.getCurrentMatchday();
 	}
 
-	@Transactional
 	public Phase getCurrentSeason() {
 		return phaseDAO.getCurrentSeason();
 	}

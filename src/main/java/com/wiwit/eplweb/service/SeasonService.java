@@ -15,12 +15,10 @@ public class SeasonService {
 	@Autowired
 	private SeasonDAO seasonDAO;
 	
-	@Transactional
 	public List<Season> getAllSeason(){
 		return seasonDAO.getAllSeason();
 	}
 	
-	@Transactional
 	public Season getSeasonById(Object id) {
 		return seasonDAO.getSeasonById(id);
 	}

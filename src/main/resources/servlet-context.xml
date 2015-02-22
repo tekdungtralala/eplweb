@@ -55,6 +55,8 @@
 				<beans:value>com.wiwit.eplweb.model.Phase</beans:value>
 				<beans:value>com.wiwit.eplweb.model.Player</beans:value>
 				<beans:value>com.wiwit.eplweb.model.BestWeekSquad</beans:value>
+				<beans:value>com.wiwit.eplweb.model.User</beans:value>
+				<beans:value>com.wiwit.eplweb.model.UserSession</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">

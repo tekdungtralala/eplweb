@@ -80,15 +80,20 @@
         margin-top: 10px;
     }
 </style>
-<h1 class="text-center login-title">Sign in to continue to Eplweb</h1>
+{{vm.adminEmail}}
+<h1 class="text-center login-title">Sign in</h1>
 <div class="account-wall">
     <img class="profile-img" alt=""
         src="eplweb_components/image/photo.png">
     <form class="form-signin">
-    <input type="text" class="form-control" placeholder="Email" required autofocus>
-    <input type="password" class="form-control" placeholder="Password" required>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">
-        Sign in</button>
+    <input type="text" class="form-control" placeholder="Email" required autofocus
+    	id='eplAdminEmail'>
+    <input type="password" class="form-control" placeholder="Password" required
+    	id='eplAdminPaswd'>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" 
+    	ng-click='vm.doLogin()'>
+        Sign in
+    </button>
 <!--     <label class="checkbox pull-left">
         <input type="checkbox" value="remember-me">
         Remember me

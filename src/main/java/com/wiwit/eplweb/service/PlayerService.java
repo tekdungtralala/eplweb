@@ -15,7 +15,6 @@ public class PlayerService {
 	@Autowired
 	private PlayerDAO squadDAO;
 	
-	@Transactional
 	public List<Player> getSquadsByTeamId(int teamId){
 		return squadDAO.getSquadsByTeamId(teamId);
 	}
