@@ -32,13 +32,13 @@ public class ChartDataController extends BaseController {
 
 	private RankService rankService;
 
-	@RequestMapping(value = "/chart/week/{weekNumber}/team/{teamId}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/api/chart/week/{weekNumber}/team/{teamId}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getChartTeamStat(Model model,
 			@PathVariable("weekNumber") int weekNumber,
 			@PathVariable("teamId") int teamId) throws JsonGenerationException,
 			JsonMappingException, IOException {
-		logger.info("GET /chart/week/" + weekNumber + "/team/" + teamId);
+		logger.info("GET /api/chart/week/" + weekNumber + "/team/" + teamId);
 
 		List<Rank> ranks = rankService.getRankByWeekNumber(weekNumber);
 		TeamStatModelView tsmv = new TeamStatModelView();
@@ -47,11 +47,11 @@ public class ChartDataController extends BaseController {
 		return generateJson(tsmv);
 	}
 
-	@RequestMapping(value = "/chart/fiveBigestTeam", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/api/chart/fiveBigestTeam", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getFiveBigestTeam(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {
-		logger.info("GET /chart/fiveBigestTeam");
+		logger.info("GET /api/chart/fiveBigestTeam");
 
 		Phase p = phaseService.getCurrentMatchday();
 		int currWeek = Integer.valueOf(p.getValue());

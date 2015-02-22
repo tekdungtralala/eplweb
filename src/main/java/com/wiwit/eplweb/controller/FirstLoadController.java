@@ -42,12 +42,12 @@ public class FirstLoadController extends BaseController {
 	private WeekService weekService;
 	private TeamService teamService;
 
-	@RequestMapping(value = "/page/team/{id}/{simpleName}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/api/page/team/{id}/{simpleName}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getDataTeamPage(@PathVariable("id") int teamId,
 			@PathVariable("simpleName") String simpleName)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		logger.info("GET /page/team/" + teamId + "/" + simpleName);
+		logger.info("GET /api/page/team/" + teamId + "/" + simpleName);
 		
 		Team team = teamService.findByIdAndSimppleName(teamId, simpleName);
 		if (team == null) throw404();
@@ -60,11 +60,11 @@ public class FirstLoadController extends BaseController {
 		return generateJson(result);
 	}
 
-	@RequestMapping(value = "/page/matchday", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/api/page/matchday", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getDataMatchdayPage(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {
-		logger.info("GET /page/matchday");
+		logger.info("GET /api/page/matchday");
 
 		MatchdayPageModelView result = new MatchdayPageModelView();
 		result.setWeeks(weekService.getAllWeek());
@@ -72,11 +72,11 @@ public class FirstLoadController extends BaseController {
 		return generateJson(result);
 	}
 
-	@RequestMapping(value = "/page/rank", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/api/page/rank", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getDataRankPage(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {
-		logger.info("GET /page/rank");
+		logger.info("GET /api/page/rank");
 
 		RankPageModelView result = new RankPageModelView();
 
@@ -87,11 +87,11 @@ public class FirstLoadController extends BaseController {
 		return generateJson(result);
 	}
 
-	@RequestMapping(value = "/page/dashboard", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/api/page/dashboard", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getDataDashboardPage(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {
-		logger.info("GET /page/dashboard");
+		logger.info("GET /api/page/dashboard");
 
 		DashboardPageModelView result = new DashboardPageModelView();
 

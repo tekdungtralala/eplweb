@@ -24,7 +24,7 @@ public class MatchdayController extends BaseController {
 
 	private MatchdayService matchdayService;
 
-	@RequestMapping(value = "/matchday", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/api/matchday", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getCurrentMatchday(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {
@@ -33,7 +33,7 @@ public class MatchdayController extends BaseController {
 		return generateJson(matchdayService.getMatchtdayOnCurrWeek());
 	}
 
-	@RequestMapping(value = "/matchday/{weekNumber}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/api/matchday/{weekNumber}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getSelectedMatchday(Model model,
 			@PathVariable("weekNumber") int weekNumber)

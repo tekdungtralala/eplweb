@@ -8,6 +8,14 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	
+	<resources mapping="/" location="/index.html" />
+	<resources mapping="/index.html" location="/index.html" />
+	<resources mapping="/404.html" location="/404.html" />
+	
+	<resources mapping="/app/**" location="/app/" />
+	<resources mapping="/eplweb_components/**" location="/eplweb_components/" />
+	<resources mapping="/bower_components/**" location="/bower_components/" />	
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->

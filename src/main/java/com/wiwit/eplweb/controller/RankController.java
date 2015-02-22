@@ -27,34 +27,34 @@ public class RankController extends BaseController {
 
 	private RankService rankService;
 	
-	@RequestMapping(value = "/highestRanks", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/api/highestRanks", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getFiveHighestRank(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {
-		logger.info("GET /highestRanks");
+		logger.info("GET /api/highestRanks");
 
 		List<Rank> ranks = rankService.getFiveHighestLastRank();
 
 		return generateJson(RankModelView.getModelView(ranks));
 	}	
 
-	@RequestMapping(value = "/ranks", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/api/ranks", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getLatestRank(Model model) throws JsonGenerationException,
 			JsonMappingException, IOException {
-		logger.info("GET /ranks");
+		logger.info("GET /api/ranks");
 
 		List<Rank> ranks = rankService.getLatestRank();
 
 		return generateJson(RankModelView.getModelView(ranks));
 	}
 
-	@RequestMapping(value = "/ranks/{weekNumber}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/api/ranks/{weekNumber}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String getSelectedRank(Model model,
 			@PathVariable("weekNumber") int weekNumber)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		logger.info("GET /ranks/" + weekNumber);
+		logger.info("GET /api/ranks/" + weekNumber);
 
 		List<Rank> ranks = rankService.getRankByWeekNumber(weekNumber);
 
