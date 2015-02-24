@@ -79,26 +79,38 @@
         display: block;
         margin-top: 10px;
     }
+    .epl-adminlogin-msg{
+        font-size: 12px;
+    }
 </style>
 {{vm.adminEmail}}
 <h1 class="text-center login-title">Sign in</h1>
 <div class="account-wall">
     <img class="profile-img" alt=""
         src="eplweb_components/image/photo.png">
+
     <form class="form-signin">
-    <input type="text" class="form-control" placeholder="Email" required autofocus
-    	id='eplAdminEmail'>
-    <input type="password" class="form-control" placeholder="Password" required
-    	id='eplAdminPaswd'>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" 
-    	ng-click='vm.doLogin()'>
-        Sign in
-    </button>
+        <div class="form-group {{vm.hasErr}}">
+            <label class="control-label epl-adminlogin-msg {{vm.hideMsg}}">
+                {{vm.errorMsg}}
+            </label>
+            <input type="text" class="form-control" placeholder="Email" autofocus
+                id='eplAdminEmail'/>
+        </div>
+        <div class="form-group {{vm.hasErr}}">
+            <input type="password" class="form-control" placeholder="Password" 
+                id='eplAdminPaswd'/>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" 
+        	ng-click='vm.doLogin()'>
+            Sign in
+        </button>
 <!--     <label class="checkbox pull-left">
         <input type="checkbox" value="remember-me">
         Remember me
     </label>
     	<a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
-    </form> -->
+        -->
+    </form> 
 </div>
 <!-- <a href="#" class="text-center new-account">Create an account </a> -->

@@ -10,6 +10,8 @@
         var primePromise;
 
         var service = {
+            // admin login
+            adminLogin: adminLogin,
             // First load
             getInitData: getInitData,
             // Page /matchday
@@ -23,6 +25,33 @@
         };
 
         return service;
+
+
+        function adminLogin(email, psswd) {
+            console.log("datservice adminLogin");
+            var data = {
+                adminEmailEncode: email,
+                adminPaswdEncode: psswd
+            };
+
+            var req = {
+                method: 'POST',
+                url: 'admin/login',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: $.param(data),
+            }
+
+            $rootScope.promise = $http(req)
+                    .then(getData)
+                    .catch(getData);
+            return $rootScope.promise;
+
+            function getData(result) {
+                return result;
+            }
+        }
 
         function getInitData(page) {
             $rootScope.promise = $http.get('api/page/' + page)

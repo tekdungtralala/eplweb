@@ -11,10 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.wiwit.eplweb.model.Person;
 import com.wiwit.eplweb.model.User;
 import com.wiwit.eplweb.model.UserSession;
 import com.wiwit.eplweb.service.UserService;
@@ -28,7 +30,7 @@ public class AdminController extends BaseController {
 	
 	private UserService userService;
 	private UserSessionService sessionService;
-
+	
 	@RequestMapping(value = "/admin/login", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String doLogin(HttpServletRequest request) throws JsonGenerationException,
@@ -40,19 +42,20 @@ public class AdminController extends BaseController {
 
 		if (adminEmailEncode == null || adminEmailEncode.isEmpty()
 				|| adminPaswdEncode == null || adminPaswdEncode.isEmpty()) {
-			throw400();
-			logger.info("throw 400");
+			throw404();
 		}
 		byte[] decodedBytes = Base64.decodeBase64(adminEmailEncode);
 		String decodedEmail = new String(decodedBytes);
 		
 		User u = userService.findUserByEmail(decodedEmail);
 		
+		if (u == null) throw404();
+		
 		if (u.getPassword().equals(adminPaswdEncode)){
 			UserSession session = sessionService.doLogin(u);
 			return generateJson(session);
 		} else {
-			logger.info("throw 400");
+			throw404();
 		}
 		
 		

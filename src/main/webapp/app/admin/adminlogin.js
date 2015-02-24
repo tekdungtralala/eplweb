@@ -7,9 +7,13 @@
 
     function AdminLogin(dataservice, datautil) {
     	var vm = this;
+        vm.hideMsg = null;
+        vm.hasErr = null; 
+        vm.errorMsg = null;
 
         activate();
         function activate() {
+            hideError();
         }
 
         vm.doLogin = function(){
@@ -18,8 +22,39 @@
             var adminPaswd = $('#eplAdminPaswd').val();
 
             if (adminEmail && adminPaswd){
-                console.log(encodeBase64(adminEmail));
-                console.log(encodeBase64(adminPaswd));
+
+                var email = encodeBase64(adminEmail);
+                var psswd = encodeBase64(adminPaswd)
+
+                dataservice.adminLogin(email, psswd).then(function(data) {
+                    processData(data);
+                })
+            } else {
+                showError('Email or Password is empty.')
+            }
+        }
+
+        function showError(errorMsg){
+            vm.hideMsg = '';
+            vm.hasErr = 'has-error';
+            vm.errorMsg = errorMsg;
+        }
+
+        function hideError(){
+            vm.hideMsg = 'hide';
+            vm.hasErr = '';
+            vm.errorMsg = '';
+        }
+
+        function processData(data) {
+            if (200 == data.status){
+                hideError();
+                // save cookie session
+                // all page without cookie redirect to admin
+                // all page/api admin must check/use cookie
+                window.location.href = "admin.html";
+            } else {
+                showError('The email or password you entered is incorrect.');
             }
         }
 
