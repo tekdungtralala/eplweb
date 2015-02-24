@@ -6,6 +6,7 @@
          * Angular modules
          */
         'ngRoute', 
+        'ngCookies',
         /*
          * Our reusable cross app code modules
          */

@@ -5,7 +5,7 @@
         .module('app.adminlogin')
         .controller('AdminLogin', AdminLogin);
 
-    function AdminLogin(dataservice, datautil) {
+    function AdminLogin(dataservice, adminutil) {
     	var vm = this;
         vm.hideMsg = null;
         vm.hasErr = null; 
@@ -14,10 +14,11 @@
         activate();
         function activate() {
             hideError();
+
+            console.log("adminutil.putAdminSession : ", adminutil.getAdminSession());
         }
 
         vm.doLogin = function(){
-            console.log('doLogin');
             var adminEmail = $('#eplAdminEmail').val();
             var adminPaswd = $('#eplAdminPaswd').val();
 
@@ -46,10 +47,12 @@
             vm.errorMsg = '';
         }
 
-        function processData(data) {
-            if (200 == data.status){
+        function processData(result) {
+            if (200 == result.status){
                 hideError();
                 // save cookie session
+                adminutil.putAdminSession(result.data.result.session);
+
                 // all page without cookie redirect to admin
                 // all page/api admin must check/use cookie
                 window.location.href = "admin.html";
