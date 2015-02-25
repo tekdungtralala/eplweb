@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.dashboard')
+        .module('app.admin.login')
         .run(appRun);
 
     function appRun(routehelper) {
@@ -12,9 +12,9 @@
     function getRoutes() {
         return [
             {
-                url: '/adminlogin',
+                url: '/admin/login',
                 config: {
-                    templateUrl: 'app/admin/adminlogin.html',
+                    templateUrl: 'app/admin/login/adminlogin.html',
                     controller: 'AdminLogin',
                     controllerAs: 'vm',
                     title: 'AdminLogin'

@@ -33,4 +33,8 @@ public class UserSessionService {
 		
 		return us;
 	}
+	
+	public UserSession findBySession(String session){
+		return userSessionDAO.findBySession(session);
+	}
 }

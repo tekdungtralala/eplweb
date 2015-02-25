@@ -410,6 +410,7 @@ a:focus {
   -moz-transition: -moz-transform 0.3s cubic-bezier(0.32, 1.25, 0.375, 1.15);
   -o-transition: -o-transform 0.3s cubic-bezier(0.32, 1.25, 0.375, 1.15);
   transition: transform 0.3s cubic-bezier(0.32, 1.25, 0.375, 1.15);
+  transition:none;
 }
 @media (max-width: 767px) {
   .main-sidebar,

@@ -1,40 +1,159 @@
 <!DOCTYPE html>
-<html lang="en" data-ng-app="app">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UAd-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="SHORTCUT ICON" href="eplweb_components/image/favicon.ico">
-
-    <title>English Premier League</title>
-
-    <!-- Module Core CSS -->
-    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-    <link href="bower_components/angular-busy/dist/angular-busy.css" rel="stylesheet">
+<html data-ng-app="app">
+  <head>
+    <meta charset="UTF-8">
+    <title>EPL web app</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <!-- Font Awesome Icons -->
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons -->
+    <link href="bower_components/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="eplweb_components/css/AdminLTE.css" rel="stylesheet" type="text/css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins 
+         folder instead of downloading all of them to reduce the load. -->
+    <link href="eplweb_components/css/skin-purple.css" rel="stylesheet" type="text/css" />
 
     <!-- Custom CSS -->
     <link href="eplweb_components/css/index.css" rel="stylesheet">
-
-    <style>
-        body {
-            padding-top: 70px;
-            /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-        }
-    </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+  </head>
+  <body class="fixed skin-purple sidebar-collapse"
+    ng-class="{'sidebar-collapse': !showAdminMenu}">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <div class="epl-displayblock" 
+          ng-class="{'epl-displayblock': !showAdminMenu, 'epl-displaynone': showAdminMenu}">
+          <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" 
+                  data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" 
+                  aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Start Bootstrap</a>
+              </div>
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 1px;">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+              </div>
+              <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+          </nav>
+        </div>
+        <div class="epl-displaynone"
+          ng-class="{'epl-displayblock': showAdminMenu, 'epl-displaynone': !showAdminMenu}">
+          <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#/" class="logo"><b>EPL</b> web app</a>
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+            <div class="navbar-custom-menu">
+              <ul class="nav navbar-nav">
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-user" />
+                    <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li class="user-footer">
+                      <button class="btn btn-block btn-default epl-profile-btn">
+                        <span class="glyphicon glyphicon-lock"/>
+                        Password
+                      </button>
+                    </li>
+                    <li class="user-footer">
+                      <button class="btn btn-block btn-default epl-profile-btn">
+                        <span class="glyphicon glyphicon-log-out"/>
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </header>
 
-</head>
+      <!-- =============================================== -->
 
-<body class='epl-body'>
+      <!-- Left side column. contains the sidebar -->
+      <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+            <li>
+              <a href="#/matchday">
+                <i class="fa fa-calendar"></i> <span>Matchday</span>
+              </a>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-table"></i> <span>Rank</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+
+      <!-- =============================================== -->
+
+      <!-- Right side column. Contains the navbar and content of the page -->
+      <div class="content-wrapper">
+        <!-- Main content -->
+        <section class="content">
+          <!-- Default box -->
+          <div class="box">
+            <div class="box-body" data-ng-view>
+
+
+
+
+            </div><!-- /.box-body -->
+          </div><!-- /.box -->
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+
+<!--       <footer class="main-footer">
+      </footer> -->
+    </div><!-- ./wrapper -->
+
     <!-- bower module -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
@@ -45,13 +164,12 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/slimScroll/jquery.slimscroll.js"></script>
+    <script src='bower_components/fastclick/lib/fastclick.js'></script>
 
     <!-- other module -->
     <script src="eplweb_components/js/highcharts.js"></script>
     <script src="eplweb_components/js/exporting.js"></script>
-
-    <!-- app module -->
-    <script src="app/app.module.js"></script>
 
     <!-- route module -->
     <script src="app/blocks/router/router.module.js"></script>
@@ -59,7 +177,6 @@
 
     <!-- core module -->
     <script src="app/core/core.module.js"></script>
-    <script src="app/core/constants.js"></script>
     <script src="app/core/config.js"></script>
     <script src="app/core/dataservice.js"></script>
     <script src="app/core/datautil.js"></script>
@@ -85,66 +202,18 @@
     <script src="app/totw/config.route.js"></script>
     <script src="app/totw/totw.js"></script>
 
-    <script src="app/admin/admin.module.js"></script>
-    <script src="app/admin/config.route.js"></script>
-    <script src="app/admin/adminlogin.js"></script>
+    <script src="app/admin/login/adminlogin.module.js"></script>
+    <script src="app/admin/login/config.route.js"></script>
+    <script src="app/admin/login/adminlogin.js"></script>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
-        cg-busy="{promise:promise, wrapperClass:'container'}">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" 
-                    class="navbar-toggle" data-toggle="collapse" 
-                    data-target="#bs-example-navbar-collapse-1">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand epl-sub-menu" href="#/">
-                    English Premier League
-                </a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#/rank" class='epl-sub-menu'>Tables</a>
-                    </li>
-                    <li>
-                        <a href="#/matchday" class='epl-sub-menu'>Matchday</a>
-                    </li>
-                    <li>
-                        <a href="#/totw" class='epl-sub-menu'>Team of The Week</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-    </nav>
-    <script>
-        $( document ).ready(function() {
-            $('.epl-sub-menu').click(function(){
-                var collapseElmt = $('#bs-example-navbar-collapse-1');
-                if ( collapseElmt.hasClass('in')) collapseElmt.collapse('toggle');
-            });
-        });
-    </script>
+    <script src="app/admin/dashboard/admindashboard.module.js"></script>
+    <script src="app/admin/dashboard/config.route.js"></script>
+    <script src="app/admin/dashboard/admindashboard.js"></script>
 
-    <!-- Page Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div data-ng-view id='epl-main-container'>
-                </div>
-            </div>
-        </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container -->
+    <!-- AdminLTE App -->
+    <script src="eplweb_components/js/app.js" type="text/javascript"></script>
+    <!-- app module -->
+    <script src="app/app.module.js"></script>
 
-    <div id='epl-eof'/>
-</body>
-
+  </body>
 </html>

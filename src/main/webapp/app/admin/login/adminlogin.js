@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.adminlogin')
+        .module('app.admin.login')
         .controller('AdminLogin', AdminLogin);
 
     function AdminLogin(dataservice, adminutil) {
@@ -55,7 +55,7 @@
 
                 // all page without cookie redirect to admin
                 // all page/api admin must check/use cookie
-                window.location.href = "admin.html";
+                // window.location.href = "admin.html/#/adminDashboard";
             } else {
                 showError('The email or password you entered is incorrect.');
             }

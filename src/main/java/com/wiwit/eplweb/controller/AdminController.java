@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,15 +32,32 @@ public class AdminController extends BaseController {
 
 	private UserService userService;
 	private UserSessionService sessionService;
+	
+	@RequestMapping(value = "/api/admin/login/{session}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	public @ResponseBody
+	String checkLogin(@PathVariable("session") String session) throws JsonGenerationException,
+			JsonMappingException, IOException {
+		logger.info("GET /api/admin/login/" + session);
+		
+		UserSession us = sessionService.findBySession(session);
+		
+		if (us == null)
+			throw404();
+		
+		return generateJson(SimpleResult.generateResult(us));
+	}
 
-	@RequestMapping(value = "/admin/login", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/api/admin/login", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public @ResponseBody
 	String doLogin(HttpServletRequest request) throws JsonGenerationException,
 			JsonMappingException, IOException {
-		logger.info("POST /admin/login");
+		logger.info("POST /api/admin/login");
 
 		String adminEmailEncode = request.getParameter("adminEmailEncode");
 		String adminPaswdEncode = request.getParameter("adminPaswdEncode");
+		
+		logger.info("adminEmailEncode : " + adminEmailEncode);
+		logger.info("adminPaswdEncode : " + adminPaswdEncode);
 
 		if (adminEmailEncode == null || adminEmailEncode.isEmpty()
 				|| adminPaswdEncode == null || adminPaswdEncode.isEmpty()) {
@@ -59,10 +77,6 @@ public class AdminController extends BaseController {
 		} else {
 			throw404();
 		}
-
-		logger.info("adminEmailEncode : " + adminEmailEncode);
-		logger.info("adminPaswdEncode : " + adminPaswdEncode);
-		logger.info("decodedEmail : " + decodedEmail);
 
 		return null;
 	}

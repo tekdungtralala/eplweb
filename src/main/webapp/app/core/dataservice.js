@@ -12,6 +12,7 @@
         var service = {
             // admin login
             adminLogin: adminLogin,
+            adminCekLogin: adminCekLogin,
             // First load
             getInitData: getInitData,
             // Page /matchday
@@ -26,9 +27,23 @@
 
         return service;
 
+        function adminCekLogin(session) {
+            $rootScope.promise = $http.get('api/admin/login/' + session)
+                .then(process)
+                .catch(process);
+            return $rootScope.promise;
+
+            function process(result) {
+                if (200 === result.status){
+                    $rootScope.showAdminMenu = true; 
+                } else {
+                    $rootScope.showAdminMenu = false; 
+                }
+            }
+        }
+
 
         function adminLogin(email, psswd) {
-            console.log("datservice adminLogin");
             var data = {
                 adminEmailEncode: email,
                 adminPaswdEncode: psswd
@@ -36,7 +51,7 @@
 
             var req = {
                 method: 'POST',
-                url: 'admin/login',
+                url: 'api/admin/login',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },

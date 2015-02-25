@@ -28,16 +28,25 @@ public class UserSessionDAO {
 	}
 
 	@Transactional
+	public UserSession findBySession(String session) {
+		Session se = this.sessionFactory.getCurrentSession();
+		List<UserSession> list = se.createQuery(
+				"from UserSession where session='" + session + "'").list();
+		
+		if (list != null && list.size() > 0)
+			return list.get(0);
+		return null;
+	}
+
+	@Transactional
 	public void saveSession(UserSession us) {
 		Session se = sessionFactory.openSession();
 		Transaction tx = se.beginTransaction();
 
-		// Delete all session before
-		Query q = se.createQuery("DELETE UserSession where user.id = "
-				+ us.getUser().getId() + "");
-		q.executeUpdate();
+		// Delete previous session
+		deleteAllSession(us.getUser());
 
-		// Save session to db
+		// Save new session
 		se.persist(us);
 
 		tx.commit();
@@ -45,9 +54,11 @@ public class UserSessionDAO {
 	}
 
 	@Transactional
-	public void DeleteAllSession(User u) {
-		Session session = this.sessionFactory.getCurrentSession();
-		// session.
+	public void deleteAllSession(User u) {
+		Session se = this.sessionFactory.getCurrentSession();
+		Query q = se.createQuery("DELETE UserSession where user.id = "
+				+ u.getId() + "");
+		q.executeUpdate();
 	}
 
 }
