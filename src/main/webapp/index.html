@@ -46,19 +46,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
+                <a class="navbar-brand" href="#/">EPL web app</a>
               </div>
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 1px;">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <a href="#/rank">Table</a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
+                        <a href="#/matchday">Matchday</a>
                     </li>
                     <li>
-                        <a href="#">Contact</a>
+                        <a href="#/totw">Team ot The Week</a>
                     </li>
                 </ul>
               </div>
@@ -135,11 +135,12 @@
       <!-- =============================================== -->
 
       <!-- Right side column. Contains the navbar and content of the page -->
-      <div class="content-wrapper">
+      <div class="content-wrapper epl-isAdmin"
+        ng-class="{'epl-isAdmin': !showAdminMenu}">
         <!-- Main content -->
         <section class="content">
           <!-- Default box -->
-          <div class="box">
+          <div class="box" id='epl-main-container'> 
             <div class="box-body" data-ng-view>
 
 

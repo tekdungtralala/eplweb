@@ -16,15 +16,15 @@
 <div class='epl-phase-nav'>
     <div class="input-group epl-season">
         <div class="input-group-btn ">
-            <div type="button" class="btn btn-default epl-label">Season : </div>
+            <div type="button" class="btn btn-default epl-season-label">Season : </div>
         </div>
-        <input type="text" value="2014-2015" disabled=""
-            class="form-control epl-input" >
+        <input type="text" value="2014-2015" disabled="" 
+            class="form-control epl-season-input" >
     </div>
 
     <div class="input-group epl-week">
-        <div class="input-group-btn">
-            <button type="button" class="btn btn-default">Week</button>
+        <div class="input-group-btn epl-week-label">
+            <button type="button" class="btn btn-default ">Week</button>
             <button type="button" class="btn btn-default dropdown-toggle" 
                 data-toggle="dropdown" aria-expanded="false">
                 <span class="caret"></span>
@@ -37,7 +37,7 @@
                 </li>
             </ul>
         </div>
-        <input type="text" class="form-control epl-input" disabled=""
+        <input type="text" class="form-control epl-week-input" disabled=""
             value='{{vm.selectedWeek}}'>
 
         <div type='button' class='btn btn-default epl-btn-nav'
@@ -57,6 +57,7 @@
 
     <div class='clearfix'></div>
 </div>
+
 <div class="teamofweek teamofweek-single">
     <div class='epl-teamoftheweek'>
         <div class="team-wrapper">

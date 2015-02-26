@@ -1,5 +1,5 @@
 <div class='epl-rank'>
-<h3 class='epl-left'>
+<h3 class='epl-left epl-title-page'>
     <a href="#/rank" class='epl-href'>
         Tables
     </a>
@@ -8,15 +8,15 @@
 <div class='epl-phase-nav'>
     <div class="input-group epl-season">
         <div class="input-group-btn ">
-            <div type="button" class="btn btn-default epl-label">Season : </div>
+            <div type="button" class="btn btn-default epl-season-label">Season : </div>
         </div>
         <input type="text" value="2014-2015" disabled=""
-            class="form-control epl-input" >
+            class="form-control epl-season-input" >
     </div>
 
     <div class="input-group epl-week">
-        <div class="input-group-btn">
-            <button type="button" class="btn btn-default">Week</button>
+        <div class="input-group-btn epl-week-label">
+            <button type="button" class="btn btn-default ">Week</button>
             <button type="button" class="btn btn-default dropdown-toggle" 
                 data-toggle="dropdown" aria-expanded="false">
                 <span class="caret"></span>
@@ -29,7 +29,7 @@
                 </li>
             </ul>
         </div>
-        <input type="text" class="form-control epl-input" disabled=""
+        <input type="text" class="form-control epl-week-input" disabled=""
             value='{{vm.selectedWeek}}'>
 
         <div type='button' class='btn btn-default epl-btn-nav'
@@ -50,7 +50,7 @@
     <div class='clearfix'></div>
 </div>
 
-<table class="table table-striped table-bordered table-hover epl-table">
+<table class="table borderless epl-table">
     <thead>
         <tr>
             <th class='epl-center'>#</th>
@@ -64,10 +64,10 @@
         </tr>
     </thead>
     <tbody>
-        <tr class='odd gradeX' data-ng-repeat='r in vm.ranks'>
+        <tr class="{{$odd ? 'odd' : 'even'}} gradeX" data-ng-repeat='r in vm.ranks'>
             <td class='epl-center'>{{$index + 1}}</td>
-            <td class='epl-left rightTeamLogo epl-column-teamname'>
-                <img class='image' alt='' 
+            <td class='epl-left epl-column-teamname'>
+                <img class='image epl-mini-team-logo' alt='' 
                     ng-src='eplweb_components/image/logo/150x150/{{r.team.id}}.png' >
                 <a ng-href='#/team/{{r.team.id}}/{{r.team.simpleName}}'
                     class='epl-href'>

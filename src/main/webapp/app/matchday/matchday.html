@@ -1,5 +1,5 @@
 <div class='epl-matchday'>
-<h3 class='epl-left'>
+<h3 class='epl-left epl-title-page'>
     <a href="#/matchday" class='epl-href'>
         Matchday
     </a>
@@ -8,15 +8,15 @@
 <div class='epl-phase-nav'>
     <div class="input-group epl-season">
         <div class="input-group-btn ">
-            <div type="button" class="btn btn-default epl-label">Season : </div>
+            <div type="button" class="btn btn-default epl-season-label">Season : </div>
         </div>
-        <input type="text" value="2014-2015" disabled=""
-            class="form-control epl-input" >
+        <input type="text" value="2014-2015" disabled="" 
+            class="form-control epl-season-input" >
     </div>
 
     <div class="input-group epl-week">
-        <div class="input-group-btn">
-            <button type="button" class="btn btn-default">Week</button>
+        <div class="input-group-btn epl-week-label">
+            <button type="button" class="btn btn-default ">Week</button>
             <button type="button" class="btn btn-default dropdown-toggle" 
                 data-toggle="dropdown" aria-expanded="false">
                 <span class="caret"></span>
@@ -29,7 +29,7 @@
                 </li>
             </ul>
         </div>
-        <input type="text" class="form-control epl-input" disabled=""
+        <input type="text" class="form-control epl-week-input" disabled=""
             value='{{vm.selectedWeek}}'>
 
         <div type='button' class='btn btn-default epl-btn-nav'
@@ -50,8 +50,7 @@
     <div class='clearfix'></div>
 </div>
 
-<table class="table table-bordered table-hover epl-table epl-mathchday" 
-    id="dataTables-example" rules="none">
+<table class="table borderless epl-table">
     <thead data-ng-repeat='(key,val) in vm.model'>
         <tr>
             <th colspan="8">{{key}}</th>
@@ -67,13 +66,15 @@
                 </a>
             </td>   
             <td class="rightTeamLogo">
-                <img class="image" ng-src="eplweb_components/image/logo/150x150/{{m.homeTeam.id}}.png" alt="">
+                <img class="image epl-mini-team-logo" 
+                ng-src="eplweb_components/image/logo/150x150/{{m.homeTeam.id}}.png" alt="">
             </td>
             <td class="epl-center {{m.homeGoal === -1 ? 'epl-hide' : ''}}">{{m.homeGoal}}</td>
             <td>VS</td>
             <td class="epl-center {{m.awayGoal === -1 ? 'epl-hide' : ''}}">{{m.awayGoal}}</td>
             <td class="leftTeamLogo">
-                <img class="image" ng-src="eplweb_components/image/logo/150x150/{{m.awayTeam.id}}.png" alt="">
+                <img class="image epl-mini-team-logo"
+                ng-src="eplweb_components/image/logo/150x150/{{m.awayTeam.id}}.png" alt="">
             </td>
             <td class="epl-left">
                 <a ng-href='#/team/{{m.awayTeam.id}}/{{m.awayTeam.simpleName}}'

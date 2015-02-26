@@ -21,9 +21,8 @@
     core.run(appRun);
 
     function appRun($rootScope, adminutil, dataservice){
-        console.log("appRun : ", $rootScope);
         var adminSession = adminutil.getAdminSession();
-
+// adminSession = '56a61a04d28540d698ea2d7a26a65bd2';
         if (adminSession) {
             dataservice.adminCekLogin(adminSession);
         }
