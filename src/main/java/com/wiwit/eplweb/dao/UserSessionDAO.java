@@ -56,10 +56,10 @@ public class UserSessionDAO {
 	}
 
 	@Transactional
-	public void deleteAllSession(User u) {
+	public void deleteSession(String session) {
 		Session se = this.sessionFactory.getCurrentSession();
-		Query q = se.createQuery("DELETE UserSession where user.id = "
-				+ u.getId() + "");
+		Query q = se.createQuery("DELETE UserSession where session = '"
+				+ session + "'");
 		q.executeUpdate();
 	}
 

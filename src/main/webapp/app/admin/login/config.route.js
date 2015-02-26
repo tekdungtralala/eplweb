@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.admin.login')
+        .module('app.admin.auth')
         .run(appRun);
 
     function appRun(routehelper) {

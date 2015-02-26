@@ -20,21 +20,25 @@ public class UserSessionService {
 	public List<UserSession> findAll() {
 		return userSessionDAO.findAll();
 	}
-	
-	public UserSession doLogin(User user){
+
+	public UserSession doLogin(User user) {
 		UserSession us = new UserSession();
 		us.setUser(user);
 		us.setLoginTime(new Date());
-		
+
 		String uuid = UUID.randomUUID().toString();
 		us.setSession(uuid.replace("-", ""));
-			
+
 		userSessionDAO.saveSession(us);
-		
+
 		return us;
 	}
-	
-	public UserSession findBySession(String session){
+
+	public UserSession findBySession(String session) {
 		return userSessionDAO.findBySession(session);
+	}
+
+	public void deleteSession(String session) {
+		userSessionDAO.deleteSession(session);
 	}
 }

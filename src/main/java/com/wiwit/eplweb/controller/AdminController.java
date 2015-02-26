@@ -30,9 +30,18 @@ public class AdminController extends BaseController {
 	private UserService userService;
 	private UserSessionService sessionService;
 	
+	@RequestMapping(value = "/api/admin/login/{session}", method = RequestMethod.DELETE, produces = "application/json; charset=utf-8")
+	public @ResponseBody
+	void removeSession(@PathVariable("session") String session) throws JsonGenerationException,
+			JsonMappingException, IOException {
+		logger.info("DELETE /api/admin/login/" + session);
+		
+		sessionService.deleteSession(session);
+	}
+	
 	@RequestMapping(value = "/api/admin/login/{session}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
-	String checkLogin(@PathVariable("session") String session) throws JsonGenerationException,
+	String checkSession(@PathVariable("session") String session) throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/admin/login/" + session);
 		
@@ -46,7 +55,7 @@ public class AdminController extends BaseController {
 
 	@RequestMapping(value = "/api/admin/login", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public @ResponseBody
-	String doLogin(HttpServletRequest request) throws JsonGenerationException,
+	String createSession(HttpServletRequest request) throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("POST /api/admin/login");
 

@@ -9,7 +9,7 @@
         'app.team',
         'app.totw',
         // admin page
-        'app.admin.login',
+        'app.admin.auth',
         'app.admin.dashboard',
         // ,
         // 'app.teamoftheweek',
