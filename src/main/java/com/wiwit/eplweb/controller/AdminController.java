@@ -11,13 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.wiwit.eplweb.model.Person;
 import com.wiwit.eplweb.model.User;
 import com.wiwit.eplweb.model.UserSession;
 import com.wiwit.eplweb.model.view.SimpleResult;
@@ -74,10 +71,9 @@ public class AdminController extends BaseController {
 		if (u.getPassword().equals(adminPaswdEncode)) {
 			UserSession session = sessionService.doLogin(u);
 			return generateJson(SimpleResult.generateResult(session));
-		} else {
-			throw404();
 		}
-
+		
+		throw404();
 		return null;
 	}
 

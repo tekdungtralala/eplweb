@@ -52,10 +52,9 @@
                 hideError();
                 // save cookie session
                 adminutil.putAdminSession(result.data.result.session);
-
-                // all page without cookie redirect to admin
-                // all page/api admin must check/use cookie
-                // window.location.href = "admin.html/#/adminDashboard";
+                
+                // redirect to admin dashboard
+                window.location.href = "#/admin/dashboard";
             } else {
                 showError('The email or password you entered is incorrect.');
             }

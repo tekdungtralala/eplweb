@@ -32,7 +32,7 @@ public class UserSessionDAO {
 		Session se = this.sessionFactory.getCurrentSession();
 		List<UserSession> list = se.createQuery(
 				"from UserSession where session='" + session + "'").list();
-		
+
 		if (list != null && list.size() > 0)
 			return list.get(0);
 		return null;
@@ -44,7 +44,9 @@ public class UserSessionDAO {
 		Transaction tx = se.beginTransaction();
 
 		// Delete previous session
-		deleteAllSession(us.getUser());
+		Query q = se.createQuery("DELETE UserSession where user.id = "
+				+ us.getUser().getId() + "");
+		q.executeUpdate();
 
 		// Save new session
 		se.persist(us);
