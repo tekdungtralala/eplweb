@@ -19,6 +19,13 @@
                     controllerAs: 'vm',
                     title: 'AdminLogin'
                 }
+            },
+            {
+                url: '/admin/logout',
+                config: {
+                    template: ' ',
+                    controller: 'AdminLogout'
+                }
             }
         ];
     }

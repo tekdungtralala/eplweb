@@ -5,7 +5,7 @@
         .module('app.core')
         .factory('dataservice', Dataservice);
 
-    function Dataservice($http, $q, $rootScope) {
+    function Dataservice($http, $q, $rootScope, adminutil) {
         var isPrimed = false;
         var primePromise;
 
@@ -13,6 +13,7 @@
             // admin login
             adminLogin: adminLogin,
             adminCekLogin: adminCekLogin,
+            adminLogout: adminLogout,
             // First load
             getInitData: getInitData,
             // Page /matchday
@@ -26,6 +27,16 @@
         };
 
         return service;
+
+        function adminLogout() {
+            // Remove server authentication
+            var session = adminutil.getAdminSession();
+            $http.delete('api/admin/login/' + session);
+
+            // Remove local authentication
+            adminutil.delAdminSession();
+            $rootScope.showAdminMenu = false; 
+        }
 
         function adminCekLogin(session) {
             $rootScope.promise = $http.get('api/admin/login/' + session)
@@ -59,11 +70,17 @@
             }
 
             $rootScope.promise = $http(req)
-                    .then(getData)
-                    .catch(getData);
+                    .then(process)
+                    .catch(process);
             return $rootScope.promise;
 
-            function getData(result) {
+            function process(result) {
+                if (200 === result.status){
+                    $rootScope.showAdminMenu = true; 
+                } else {
+                    $rootScope.showAdminMenu = false; 
+                }
+
                 return result;
             }
         }

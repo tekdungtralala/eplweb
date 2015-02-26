@@ -3,7 +3,13 @@
 
     angular
         .module('app.admin.login')
+        .controller('AdminLogout', AdminLogout)
         .controller('AdminLogin', AdminLogin);
+
+    function AdminLogout(dataservice) {
+        dataservice.adminLogout();
+        window.location.href = "#/admin/login";
+    }
 
     function AdminLogin(dataservice, adminutil) {
     	var vm = this;
@@ -14,8 +20,6 @@
         activate();
         function activate() {
             hideError();
-
-            console.log("adminutil.putAdminSession : ", adminutil.getAdminSession());
         }
 
         vm.doLogin = function(){
@@ -52,7 +56,7 @@
                 hideError();
                 // save cookie session
                 adminutil.putAdminSession(result.data.result.session);
-                
+
                 // redirect to admin dashboard
                 window.location.href = "#/admin/dashboard";
             } else {

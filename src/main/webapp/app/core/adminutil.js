@@ -7,12 +7,18 @@
 
     function AdminUtil($cookieStore) {
         var AMIN_SESSION_KEY = 'epl-admin-session';
+
         var service = {
             putAdminSession: putAdminSession,
-            getAdminSession: getAdminSession
+            getAdminSession: getAdminSession,
+            delAdminSession: delAdminSession
         };
 
         return service;
+
+        function delAdminSession() {
+            $cookieStore.remove(AMIN_SESSION_KEY);
+        }
 
         function getAdminSession() {
             return $cookieStore.get(AMIN_SESSION_KEY);
