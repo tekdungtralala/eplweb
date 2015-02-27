@@ -62,15 +62,23 @@
 
 <!-- Tab Menu -->
 <div class='epl-div-tab'>
-    <ul class='nav nav-pills epl-tab'>
+    <div ng-repeat='(key,value) in vm.containerLbl' >
+        <button ng-click='vm.selectContainer(key)'
+            class="btn btn-block btn-sm btn-{{vm.container[key] ? 'default' : 'primary'}}">
+            {{value}}
+        </button>
+    </div>
+
+<!--     <ul class="nav nav-tabs">
         <li ng-repeat='(key,value) in vm.containerLbl' 
             class="{{vm.container[key] ? '' : 'active'}}">
             <a href='' ng-click='vm.selectContainer(key)'>
                 {{value}}
             </a>
         </li>
-    </ul>
+    </ul> -->
 </div>
+<div class='clearfix'></div>
 
 <!-- Overview -->
 <div id='epl-overview' ng-hide='vm.container[0]'>

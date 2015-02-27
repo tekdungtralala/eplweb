@@ -16,7 +16,7 @@
         'app.matchday',
         'app.team',
         'app.totw',
-        // Admin module
+        // admin page
         'app.admin',
         'app.admin.auth',
         'app.admin.dashboard'
