@@ -5,10 +5,11 @@
         .module('app.team')
         .controller('Team', Team);
 
-    function Team(dataservice, datautil, $stateParams) {
+    function Team(dataservice, datautil, $stateParams, $state) {
         var vm = this;
+        vm.state = $state;
 
-        vm.containerLbl = ['Overview', 'Squad', 'Statistic', 'Map', 'Video'];
+        vm.containerLbl = ['overview', 'squad', 'statistic', 'map', 'video'];
 
         // Container below carousel/slideshow, false for active
         vm.container = [false, true, true, true, true];
@@ -38,6 +39,8 @@
         function activate() {
             return getInitData().then(function(result){
                 processRankData(result);
+                // $state.go('team.selected.' + vm.containerLbl[0], $stateParams);
+                $state.go('.' + vm.containerLbl[0], $stateParams);
             });
         }
 
@@ -72,6 +75,7 @@
                 vm.container[contIndex] = true;
             });
             vm.container[index] = false;
+            $state.go('^.' + vm.containerLbl[index], $stateParams)
 
             // Selected statistic tab
             if (2 === index) {
