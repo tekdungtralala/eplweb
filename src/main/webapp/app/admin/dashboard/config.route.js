@@ -3,23 +3,16 @@
 
     angular
         .module('app.admin.dashboard')
-        .run(appRun);
+        .config(configRoute);
 
-    function appRun(routehelper) {
-        routehelper.configureRoutes(getRoutes());
+    function configRoute($stateProvider) {
+        $stateProvider
+            .state("admin.dashoard", {
+                url: '/dashboard',
+                templateUrl: 'app/admin/dashboard/admindashboard.html',
+                controller: 'AdminDashboard',
+                controllerAs: 'vm'
+            });
     }
 
-    function getRoutes() {
-        return [
-            {
-                url: '/admin/dashboard',
-                config: {
-                    templateUrl: 'app/admin/dashboard/admindashboard.html',
-                    controller: 'AdminDashboard',
-                    controllerAs: 'vm',
-                    title: 'AdminDashboard'
-                }
-            }
-        ];
-    }
 })();

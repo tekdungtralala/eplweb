@@ -3,23 +3,16 @@
 
     angular
         .module('app.matchday')
-        .run(appRun);
+        .config(configRoute);
 
-    function appRun(routehelper) {
-        routehelper.configureRoutes(getRoutes());
-    }
-
-    function getRoutes() {
-        return [
-            {
+    function configRoute($stateProvider) {
+        $stateProvider
+            .state("matchday", {
                 url: '/matchday',
-                config: {
-                    templateUrl: 'app/matchday/matchday.html',
-                    controller: 'Matchday',
-                    controllerAs: 'vm',
-                    title: 'matchday'
-                }
-            }
-        ];
+                templateUrl: 'app/matchday/matchday.html',
+                controller: 'Matchday',
+                controllerAs: 'vm'
+            });
     }
+    
 })();

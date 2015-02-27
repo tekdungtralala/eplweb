@@ -3,26 +3,16 @@
 
     angular
         .module('app.totw')
-        .run(appRun);
+        .config(configRoute);
 
-    //appRun.$inject = ['routehelper'];
-
-    /* @ngInject */
-    function appRun(routehelper) {
-        routehelper.configureRoutes(getRoutes());
-    }
-
-    function getRoutes() {
-        return [
-            {
+    function configRoute($stateProvider) {
+        $stateProvider
+            .state("totw", {
                 url: '/totw',
-                config: {
-                    templateUrl: 'app/totw/totw.html',
-                    controller: 'Totw',
-                    controllerAs: 'vm',
-                    title: 'team of the week'
-                }
-            }
-        ];
+                templateUrl: 'app/totw/totw.html',
+                controller: 'Totw',
+                controllerAs: 'vm',
+            });
     }
+
 })();

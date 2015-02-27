@@ -3,26 +3,16 @@
 
     angular
         .module('app.rank')
-        .run(appRun);
+        .config(configRoute);
 
-    //appRun.$inject = ['routehelper'];
-
-    /* @ngInject */
-    function appRun(routehelper) {
-        routehelper.configureRoutes(getRoutes());
-    }
-
-    function getRoutes() {
-        return [
-            {
+    function configRoute($stateProvider) {
+        $stateProvider
+            .state("rank", {
                 url: '/rank',
-                config: {
-                    templateUrl: 'app/rank/rank.html',
-                    controller: 'Rank',
-                    controllerAs: 'vm',
-                    title: 'rank'
-                }
-            }
-        ];
+                templateUrl: 'app/rank/rank.html',
+                controller: 'Rank',
+                controllerAs: 'vm',
+            });
     }
+
 })();

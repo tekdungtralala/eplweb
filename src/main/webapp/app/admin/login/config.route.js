@@ -3,30 +3,20 @@
 
     angular
         .module('app.admin.auth')
-        .run(appRun);
+        .config(configRoute);
 
-    function appRun(routehelper) {
-        routehelper.configureRoutes(getRoutes());
-    }
+    function configRoute($stateProvider) {
+        $stateProvider
+            .state("admin.login", {
+                url: '/login',
+                templateUrl: 'app/admin/login/adminlogin.html',
+                controller: 'AdminLogin',
+                controllerAs: 'vm'
+            })
+            .state("admin.logout", {
+                url: '/logout',
+                controller: 'AdminLogout'
+            });
+    };
 
-    function getRoutes() {
-        return [
-            {
-                url: '/admin/login',
-                config: {
-                    templateUrl: 'app/admin/login/adminlogin.html',
-                    controller: 'AdminLogin',
-                    controllerAs: 'vm',
-                    title: 'AdminLogin'
-                }
-            },
-            {
-                url: '/admin/logout',
-                config: {
-                    template: ' ',
-                    controller: 'AdminLogout'
-                }
-            }
-        ];
-    }
 })();

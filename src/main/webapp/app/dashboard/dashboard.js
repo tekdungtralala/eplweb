@@ -5,7 +5,8 @@
         .module('app.dashboard')
         .controller('Dashboard', Dashboard);
 
-    function Dashboard(dataservice, datautil) {
+    // Dashboard.$inject = ['dataservice', 'datautil','$state'];
+    function Dashboard(dataservice, datautil, $state) {
     	var vm = this;
     	vm.ranks = [];
         vm.model = [];

@@ -5,7 +5,7 @@
         .module('app.team')
         .controller('Team', Team);
 
-    function Team(dataservice, datautil, $routeParams) {
+    function Team(dataservice, datautil, $stateParams) {
         var vm = this;
 
         vm.containerLbl = ['Overview', 'Squad', 'Statistic', 'Map', 'Video'];
@@ -13,8 +13,8 @@
         // Container below carousel/slideshow, false for active
         vm.container = [false, true, true, true, true];
 
-        var id = $routeParams.id;
-        var simpleName = $routeParams.name;
+        var id = $stateParams.id;
+        var simpleName = $stateParams.simpleName;
 
         vm.currTeam = null;
         vm.teams = [];
@@ -145,7 +145,6 @@
                     return data;
                 });
         }
-
 
 
         vm.halfTeam = [];
