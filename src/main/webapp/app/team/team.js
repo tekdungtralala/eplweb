@@ -28,6 +28,8 @@
         vm.currWeekView = null;
 
         vm.chartData = null;
+        vm.selectContainer = selectContainer;
+        vm.changeCarousel = changeCarousel;
         
 
         $('[data-toggle="tooltip"]').tooltip();
@@ -65,8 +67,7 @@
             vm.currWeekView = getFormattedWeek(vm.currWeek);
         }
 
-        // ngClick
-        vm.selectContainer = function(index){
+        function selectContainer(index){
             _.each(vm.container, function(i, contIndex){
                 vm.container[contIndex] = true;
             });
@@ -85,8 +86,7 @@
             }
         }
 
-        // ngclick
-        vm.changeCarousel = function(to){
+        function changeCarousel(to){
             $('.carousel').carousel(to)
         }
 

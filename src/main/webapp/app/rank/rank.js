@@ -14,6 +14,8 @@
         vm.currWeek = null;
         vm.selectedWeek = null;
         vm.currTeam = null;
+        vm.changeWeek = changeWeek;
+        vm.showChart = showChart;
 
         activate();
         function activate() {
@@ -24,8 +26,7 @@
             });
         }
 
-        // ngClick
-        vm.showChart = function(teamIndex){
+        function showChart(teamIndex){
             vm.currTeam = vm.ranks[teamIndex];
             getTeamStat(vm.currWeek, vm.currTeam.team.id).then(function(data){
                 initChart(data.series, data.categories);
@@ -104,8 +105,7 @@
             vm.selectedWeek = getFormattedWeek(currWeek);
         }
 
-        // ngClick
-        vm.changeWeek = function(otherWeek){
+        function changeWeek(otherWeek){
             otherWeek = parseInt(otherWeek);
             getRanksByWeekNmr(otherWeek).then(function(data){
                 processRankData(data, otherWeek);

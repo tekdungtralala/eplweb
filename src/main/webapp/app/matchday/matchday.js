@@ -13,6 +13,7 @@
         vm.currWeek = null;
         vm.nextRankDisable = false;
         vm.prevRankDisable = false;
+        vm.changeWeek = changeWeek;
 
         activate();
         function activate() {
@@ -48,8 +49,7 @@
             });
         }
 
-        // ngClick
-        vm.changeWeek = function(otherWeek){
+        function changeWeek(otherWeek){
             otherWeek = parseInt(otherWeek);
             getMatchdayByWeekNmr(otherWeek).then(function(data){
                 processMatchData(data);
