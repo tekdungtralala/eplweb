@@ -39,6 +39,13 @@
   }
 }
 
+.cg-busy {
+  z-index: 1031;
+}
+.cg-busy-default-sign {
+  top: 200px;
+}
+
 /* Change color of header menu for non-admin*/
 .navbar-inverse .navbar-toggle:hover {
   background-color: #555299;

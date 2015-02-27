@@ -16,6 +16,8 @@
          folder instead of downloading all of them to reduce the load. -->
     <link href="eplweb_components/css/skin-purple.css" rel="stylesheet" type="text/css" />
 
+    <link href="bower_components/angular-busy/dist/angular-busy.min.css" rel="stylesheet" type="text/css" />
+
     <!-- Custom CSS -->
     <link href="eplweb_components/css/index.css" rel="stylesheet">
 
@@ -27,7 +29,8 @@
     <![endif]-->
   </head>
   <body class="fixed skin-purple sidebar-collapse"
-    ng-class="{'sidebar-collapse': !showAdminMenu}">
+    ng-class="{'sidebar-collapse': !showAdminMenu}"
+    cg-busy="{promise:promise}">
     <!-- Site wrapper -->
     <div class="wrapper">
       
@@ -67,6 +70,7 @@
             <!-- /.container -->
           </nav>
         </div>
+
         <div class="epl-displaynone"
           ng-class="{'epl-displayblock': showAdminMenu, 'epl-displaynone': !showAdminMenu}">
           <nav class="navbar navbar-static-top" role="navigation">
@@ -143,18 +147,16 @@
           <!-- Default box -->
           <div class="box" id='epl-main-container'> 
             <div class="box-body" ui-view>
-
-
-
-
-            </div><!-- /.box-body -->
-          </div><!-- /.box -->
-        </section><!-- /.content -->
-      </div><!-- /.content-wrapper -->
-
-<!--       <footer class="main-footer">
-      </footer> -->
-    </div><!-- ./wrapper -->
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </section>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+    </div>
+    <!-- ./wrapper -->
 
     <!-- bower module -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -168,7 +170,7 @@
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/slimScroll/jquery.slimscroll.js"></script>
-    <script src='bower_components/fastclick/lib/fastclick.js'></script>
+    <script src="bower_components/fastclick/lib/fastclick.js"></script>
 
     <!-- other module -->
     <script src="eplweb_components/js/highcharts.js"></script>
