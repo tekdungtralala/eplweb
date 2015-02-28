@@ -28,7 +28,7 @@
     ]).config(configRoute);
 
     function configRoute($urlRouterProvider) {
-      // $urlRouterProvider.otherwise('/');
+      $urlRouterProvider.otherwise('/');
     };
 
 })();
