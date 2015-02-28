@@ -149,6 +149,7 @@
           <div class="box" id='epl-main-container'> 
             <div class="box-body" ui-view>
             </div>
+            <div id='epl-eof'/>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
@@ -222,11 +223,12 @@
     </div>
 
   </body>
-<script>
-$(function() {
-    $('.epl-menu-header').click(function() {
-      $('#bs-example-navbar-collapse-1').removeClass('in')
+
+  <script>
+    $(function() {
+        $('.epl-menu-header').click(function() {
+          $('#bs-example-navbar-collapse-1').removeClass('in')
+        });
     });
-});
-</script>
+  </script>
 </html>

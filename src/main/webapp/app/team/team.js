@@ -5,7 +5,7 @@
         .module('app.team')
         .controller('Team', Team);
 
-    function Team(dataservice, datautil, $stateParams, $state) {
+    function Team(dataservice, datautil, $stateParams, $state, $rootScope) {
         var vm = this;
         vm.state = $state;
 
@@ -28,9 +28,10 @@
         vm.currWeek = null;
         vm.currWeekView = null;
 
-        vm.chartData = null;
+        // Function 
         vm.selectContainer = selectContainer;
         vm.changeCarousel = changeCarousel;
+        $rootScope.$on('$stateChangeSuccess', stateChangeSuccess);
         
 
         $('[data-toggle="tooltip"]').tooltip();
@@ -70,28 +71,31 @@
             vm.currWeekView = getFormattedWeek(vm.currWeek);
         }
 
-        function selectContainer(index){
+        // Listene state movement
+        function stateChangeSuccess(event, toState, toParams, fromState, fromParams) { 
+            if ("team.selected.statistic" === toState.name) {
+                getTeamStat(vm.currWeek.weekNumber, vm.currTeam.id)
+                    .then(processChartData);
+            }
+        }
+
+        function processChartData(data) {
+            initChart(data.series, data.categories);
+        }
+
+        function selectContainer(index) {
+            // Change class of each button nav
             _.each(vm.container, function(i, contIndex){
                 vm.container[contIndex] = true;
             });
             vm.container[index] = false;
-            $state.go('^.' + vm.containerLbl[index], $stateParams)
 
-            // Selected statistic tab
-            if (2 === index) {
-                if (vm.chartData == null) {
-                    getTeamStat(vm.currWeek.weekNumber, vm.currTeam.id).then(function(data){
-                        vm.chartData = data;
-                        initChart(vm.chartData.series, vm.chartData.categories);
-                    });
-                } else {
-                    initChart(vm.chartData.series, vm.chartData.categories);
-                }
-            }
+            // Move to selected state
+            $state.go('^.' + vm.containerLbl[index], $stateParams);
         }
 
         function changeCarousel(to){
-            $('.carousel').carousel(to)
+            $('.carousel').carousel(to);
         }
 
         function initChart(series, categories){

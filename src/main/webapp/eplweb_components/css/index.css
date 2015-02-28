@@ -25,6 +25,7 @@
 .left-side {
   transition: none;
 }
+/*Arrangement box padding*/
 .content, .box{
   padding: 0px;
 }
@@ -39,6 +40,10 @@
   }
 }
 
+#epl-eof {
+  margin-bottom: 150px;
+}
+
 /* Spiner loading*/
 .cg-busy {
   z-index: 1031;
@@ -47,6 +52,7 @@
   top: 200px;
 }
 
+/* User cant selected*/
 body{
   -webkit-touch-callout: none;
   -webkit-user-select: none;
