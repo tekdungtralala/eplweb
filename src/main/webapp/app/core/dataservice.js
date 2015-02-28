@@ -5,7 +5,7 @@
         .module('app.core')
         .factory('dataservice', Dataservice);
 
-    function Dataservice($http, $q, $rootScope, adminutil) {
+    function Dataservice($http, $q, $rootScope, adminauth) {
         var isPrimed = false;
         var primePromise;
 
@@ -14,6 +14,9 @@
             adminLogin: adminLogin,
             adminCekLogin: adminCekLogin,
             adminLogout: adminLogout,
+            // Page /team
+            getPlayersByTeamId: getPlayersByTeamId,
+            getPlayersTeams: getPlayersTeams,
             // First load
             getInitData: getInitData,
             // Page /matchday
@@ -28,31 +31,66 @@
 
         return service;
 
-        function adminLogout() {
-            // Remove server authentication
-            var session = adminutil.getAdminSession();
-            $http.delete('api/admin/login/' + session);
+        function getPlayersTeams() {
+            $rootScope.promise = $http.get('api/teams')
+                    .then(getData)
+                    .catch(function(message) {
+                    });
 
-            // Remove local authentication
-            adminutil.delAdminSession();
-            $rootScope.showAdminMenu = false; 
-        }
-
-        function adminCekLogin(session) {
-            $rootScope.promise = $http.get('api/admin/login/' + session)
-                .then(process)
-                .catch(process);
             return $rootScope.promise;
 
-            function process(result) {
-                if (200 === result.status){
-                    $rootScope.showAdminMenu = true; 
-                } else {
-                    $rootScope.showAdminMenu = false; 
-                }
+            function getData(result) {
+                return result.data;
             }
         }
 
+        function getPlayersByTeamId(teamId) {
+            $rootScope.promise = $http.get('api/players/team/' + teamId)
+                    .then(getData)
+                    .catch(function(message) {
+                    });
+
+            return $rootScope.promise;
+
+            function getData(result) {
+                return result.data;
+            }
+        }
+
+        function adminLogout() {
+            // Remove server authentication
+            var session = adminauth.getAdminSession();
+            $rootScope.promise = $http.delete('api/admin/login/' + session);
+
+            // Remove local authentication
+            adminauth.delAdminSession();
+            $rootScope.isAdminLogged = false; 
+            window.location.reload();
+        }
+
+        function adminCekLogin() {
+            $rootScope.isAdminLogged = false;
+
+            var session = adminauth.getAdminSession();
+            if (session) {
+
+                $rootScope.promise = $http.get('api/admin/login/' + session)
+                    .then(process)
+                    .catch(process);
+                return $rootScope.promise;
+            } else {
+                return null;
+            }
+
+            function process(result) {
+                if (200 === result.status){
+                    $rootScope.isAdminLogged = true; 
+                } else {
+                    $rootScope.isAdminLogged = false; 
+                }
+                return result;
+            }
+        }
 
         function adminLogin(email, psswd) {
             var data = {
@@ -76,9 +114,9 @@
 
             function process(result) {
                 if (200 === result.status){
-                    $rootScope.showAdminMenu = true; 
+                    $rootScope.isAdminLogged = true; 
                 } else {
-                    $rootScope.showAdminMenu = false; 
+                    $rootScope.isAdminLogged = false; 
                 }
 
                 return result;

@@ -28,6 +28,8 @@
         vm.currWeek = null;
         vm.currWeekView = null;
 
+        vm.squads = [];
+
         // Function 
         vm.selectContainer = selectContainer;
         vm.changeCarousel = changeCarousel;
@@ -40,8 +42,40 @@
         function activate() {
             return getInitData().then(function(result){
                 processRankData(result);
-                // $state.go('team.selected.' + vm.containerLbl[0], $stateParams);
                 $state.go('.' + vm.containerLbl[0], $stateParams);
+            });
+        }
+
+        // Listene state movement
+        function stateChangeSuccess(event, toState, toParams, fromState, fromParams) { 
+            if ("team.selected.statistic" === toState.name) {
+                getTeamStat(vm.currWeek.weekNumber, vm.currTeam.id)
+                    .then(processChartData);
+            } else if ("team.selected.squad" === toState.name) {
+                if (!vm.squads.length > 0) {
+                    getPlayersByTeamId(vm.currTeam.id)
+                        .then(processSquadData);
+                }
+            }
+        }
+
+        function processSquadData(data) {
+            vm.squads[0] = [];vm.squads[1] = [];
+
+            var index = 0;
+            var pos = 0;
+            _.each(data.result, function(d) {
+
+                var position = d.position.charAt(0).toUpperCase() + 
+                    d.position.slice(1).toLowerCase();
+                d.position = position;
+
+                vm.squads[pos][index] = d;
+                index++;
+                if (index > data.result.length / 2) {
+                    index = 0;
+                    pos = 1;
+                }
             });
         }
 
@@ -69,14 +103,6 @@
             });
 
             vm.currWeekView = getFormattedWeek(vm.currWeek);
-        }
-
-        // Listene state movement
-        function stateChangeSuccess(event, toState, toParams, fromState, fromParams) { 
-            if ("team.selected.statistic" === toState.name) {
-                getTeamStat(vm.currWeek.weekNumber, vm.currTeam.id)
-                    .then(processChartData);
-            }
         }
 
         function processChartData(data) {
@@ -139,6 +165,12 @@
 
         function getFormattedWeek(w){
             return datautil.getFormattedWeek(w.startDay, w.weekNumber);
+        }
+
+        function getPlayersByTeamId( teamId){
+            return dataservice.getPlayersByTeamId(teamId).then(function(data) {
+                return data;
+            });
         }
 
         function getTeamStat(weekNumber, teamId){

@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 @Entity
 @Table(name = "player")
 public class Player {
@@ -36,10 +39,12 @@ public class Player {
 		return id;
 	}
 
+	@JsonIgnore
 	public Team getTeam() {
 		return team;
 	}
 
+	@JsonProperty
 	public int getPlayerNumber() {
 		return playerNumber;
 	}

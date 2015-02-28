@@ -7,6 +7,7 @@
 
     // Dashboard.$inject = ['dataservice', 'datautil','$state'];
     function Dashboard(dataservice, datautil, $state) {
+        // console.log("state : ", $state);
     	var vm = this;
     	vm.ranks = [];
         vm.model = [];

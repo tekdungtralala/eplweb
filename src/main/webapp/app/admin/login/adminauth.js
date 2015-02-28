@@ -11,7 +11,7 @@
         window.location.href = "#/admin/login";
     }
 
-    function AdminLogin(dataservice, adminutil) {
+    function AdminLogin(dataservice, adminauth) {
     	var vm = this;
         vm.hideMsg = null;
         vm.hasErr = null; 
@@ -56,7 +56,7 @@
             if (200 == result.status){
                 hideError();
                 // save cookie session
-                adminutil.putAdminSession(result.data.result.session);
+                adminauth.putAdminSession(result.data.result.session);
 
                 // redirect to admin dashboard
                 window.location.href = "#/admin/dashboard";

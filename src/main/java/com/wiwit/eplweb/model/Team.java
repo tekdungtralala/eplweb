@@ -2,16 +2,10 @@ package com.wiwit.eplweb.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
 
 @Entity
 @Table(name = "team")
@@ -27,10 +21,6 @@ public class Team {
 
 	@Column(name = "simple_name")
 	private String simpleName;
-
-//	@OneToOne(fetch = FetchType.LAZY, mappedBy = "team")
-//	@JoinColumn(nullable = false)
-//	private Rank rank;
 	
 	@Column(name = "established")
 	private String established;
@@ -92,16 +82,6 @@ public class Team {
 	public void setStadium(String stadium) {
 		this.stadium = stadium;
 	}
-
-//	@JsonIgnore
-//	public Rank getRank() {
-//		return rank;
-//	}
-//
-//	@JsonProperty
-//	public void setRank(Rank rank) {
-//		this.rank = rank;
-//	}
 
 	@Override
 	public String toString() {

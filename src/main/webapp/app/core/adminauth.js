@@ -3,18 +3,25 @@
 
     angular
         .module('app.core')
-        .factory('adminutil', AdminUtil);
+        .factory('adminauth', AdminAuth);
 
-    function AdminUtil($cookieStore) {
+    function AdminAuth($cookieStore, $rootScope, $state) {
         var AMIN_SESSION_KEY = 'epl-admin-session';
 
         var service = {
             putAdminSession: putAdminSession,
             getAdminSession: getAdminSession,
-            delAdminSession: delAdminSession
+            delAdminSession: delAdminSession,
+            adminMustLogedIn: adminMustLogedIn
         };
 
         return service;
+
+        function adminMustLogedIn() {
+            if (!$rootScope.isAdminLogged) {
+                $state.go('dashboard');
+            }
+        }
 
         function delAdminSession() {
             $cookieStore.remove(AMIN_SESSION_KEY);

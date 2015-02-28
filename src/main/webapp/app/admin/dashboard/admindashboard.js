@@ -5,7 +5,7 @@
         .module('app.admin.dashboard')
         .controller('AdminDashboard', AdminDashboard);
 
-    function AdminDashboard(dataservice, adminutil) {
+    function AdminDashboard(dataservice) {
     	var vm = this;
 
         activate();

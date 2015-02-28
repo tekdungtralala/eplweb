@@ -29,39 +29,40 @@ public class AdminController extends BaseController {
 
 	private UserService userService;
 	private UserSessionService sessionService;
-	
+
 	@RequestMapping(value = "/api/admin/login/{session}", method = RequestMethod.DELETE, produces = "application/json; charset=utf-8")
-	public @ResponseBody
-	void removeSession(@PathVariable("session") String session) throws JsonGenerationException,
-			JsonMappingException, IOException {
+	public @ResponseBody String removeSession(@PathVariable("session") String session)
+			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("DELETE /api/admin/login/" + session);
-		
+
 		sessionService.deleteSession(session);
+		
+		return "ok";
 	}
-	
+
 	@RequestMapping(value = "/api/admin/login/{session}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
-	String checkSession(@PathVariable("session") String session) throws JsonGenerationException,
-			JsonMappingException, IOException {
+	String checkSession(@PathVariable("session") String session)
+			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /api/admin/login/" + session);
-		
+
 		UserSession us = sessionService.findBySession(session);
-		
+
 		if (us == null)
 			throw404();
-		
+
 		return generateJson(SimpleResult.generateResult(us));
 	}
 
 	@RequestMapping(value = "/api/admin/login", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public @ResponseBody
-	String createSession(HttpServletRequest request) throws JsonGenerationException,
-			JsonMappingException, IOException {
+	String createSession(HttpServletRequest request)
+			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("POST /api/admin/login");
 
 		String adminEmailEncode = request.getParameter("adminEmailEncode");
 		String adminPaswdEncode = request.getParameter("adminPaswdEncode");
-		
+
 		logger.info("adminEmailEncode : " + adminEmailEncode);
 		logger.info("adminPaswdEncode : " + adminPaswdEncode);
 
@@ -81,7 +82,7 @@ public class AdminController extends BaseController {
 			UserSession session = sessionService.doLogin(u);
 			return generateJson(SimpleResult.generateResult(session));
 		}
-		
+
 		throw404();
 		return null;
 	}

@@ -9,11 +9,19 @@ import org.codehaus.jackson.map.ObjectWriter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.wiwit.eplweb.model.view.SimpleResult;
+
 public class BaseController {
 
 	public String generateJson(Object result) throws JsonGenerationException, JsonMappingException, IOException{
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		return ow.writeValueAsString(result);
+	}
+	
+	public String generateSimpleResult(Object result) throws JsonGenerationException, JsonMappingException, IOException{
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		SimpleResult sr = SimpleResult.generateResult(result);
+		return ow.writeValueAsString(sr);
 	}
 	
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)

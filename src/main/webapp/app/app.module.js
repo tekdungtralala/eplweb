@@ -19,13 +19,23 @@
         // admin page
         'app.admin',
         'app.admin.auth',
-        'app.admin.dashboard'
+        'app.admin.dashboard',
+        'app.players',
         // ,
         // 'app.teamoftheweek',
         // 'app.news'
         
         
-    ]).config(configRoute);
+    ])
+    .config(configRoute)
+    .run(appRun);
+
+    function appRun(adminauth, dataservice){
+        var adminSession = adminauth.getAdminSession();
+        if (adminSession) {
+            dataservice.adminCekLogin();
+        }
+    }
 
     function configRoute($urlRouterProvider) {
       $urlRouterProvider.otherwise('/');
