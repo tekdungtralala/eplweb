@@ -249,7 +249,6 @@ table.epl-table > tbody > tr > td {
   font-size: 15px;
   font-weight: bold;
 }
-
 .epl-team .epl-div-tab {
   margin-top: 10px;
   width: 510px;
@@ -257,26 +256,11 @@ table.epl-table > tbody > tr > td {
   margin-left: auto;
   margin-right: auto;
 }
-
 .epl-team .epl-div-tab div {
   width: 100px;
   float: left;
   padding-left: 5px;
 }
-/*.epl-team .epl-div-tab {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  width: 460px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-.epl-team .epl-div-tab > div > .epl-tab > li {
-  width: 90px;
-  text-align: center;
-}*/
-
-
 .epl-team .epl-container-title {
   text-align: left;
 }
@@ -293,4 +277,13 @@ table.epl-table > tbody > tr > td {
   width: 45%;
   float: left;
   margin-right: 20px;
+}
+
+/* Page squads*/
+.epl-squads .epl-all-team{
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 520px;
 }

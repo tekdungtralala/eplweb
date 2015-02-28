@@ -10,13 +10,15 @@
         var primePromise;
 
         var service = {
+            // auth
+            authentication: authentication,
             // admin login
             adminLogin: adminLogin,
             adminCekLogin: adminCekLogin,
             adminLogout: adminLogout,
             // Page /team
             getPlayersByTeamId: getPlayersByTeamId,
-            getPlayersTeams: getPlayersTeams,
+            getAllTeam: getAllTeam,
             // First load
             getInitData: getInitData,
             // Page /matchday
@@ -31,7 +33,14 @@
 
         return service;
 
-        function getPlayersTeams() {
+        function authentication(role) {
+            if ('admin' === role)
+                return adminCekLogin();
+            else 
+                return true;
+        }
+
+        function getAllTeam() {
             $rootScope.promise = $http.get('api/teams')
                     .then(getData)
                     .catch(function(message) {
@@ -65,7 +74,8 @@
             // Remove local authentication
             adminauth.delAdminSession();
             $rootScope.isAdminLogged = false; 
-            window.location.reload();
+            $('body').removeClass('sidebar-collapse');
+            $('body').removeClass('sidebar-open');
         }
 
         function adminCekLogin() {
@@ -73,13 +83,12 @@
 
             var session = adminauth.getAdminSession();
             if (session) {
-
                 $rootScope.promise = $http.get('api/admin/login/' + session)
                     .then(process)
                     .catch(process);
                 return $rootScope.promise;
             } else {
-                return null;
+                return false;
             }
 
             function process(result) {
