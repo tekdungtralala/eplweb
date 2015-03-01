@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiwit.eplweb.model.view.MatchdayModelView;
 import com.wiwit.eplweb.service.MatchdayService;
+import com.wiwit.eplweb.util.ApiPath;
 
 @RestController
 public class MatchdayController extends BaseController {
@@ -23,7 +24,7 @@ public class MatchdayController extends BaseController {
 
 	private MatchdayService matchdayService;
 
-	@RequestMapping(value = "/api/matchday", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.MATCHDAYS, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public MatchdayModelView getCurrentMatchday()
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /matchday");
@@ -31,7 +32,7 @@ public class MatchdayController extends BaseController {
 		return matchdayService.getMatchtdayOnCurrWeek();
 	}
 
-	@RequestMapping(value = "/api/matchday/{weekNumber}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.MATCHDAYS_BY_WEEK, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public MatchdayModelView getSelectedMatchday(
 			@PathVariable("weekNumber") int weekNumber)
 			throws JsonGenerationException, JsonMappingException, IOException {

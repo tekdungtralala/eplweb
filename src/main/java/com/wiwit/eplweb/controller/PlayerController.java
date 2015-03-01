@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiwit.eplweb.model.Player;
 import com.wiwit.eplweb.model.view.SimpleResult;
 import com.wiwit.eplweb.service.PlayerService;
+import com.wiwit.eplweb.util.ApiPath;
 
 @RestController
 public class PlayerController extends BaseController {
@@ -25,7 +26,7 @@ public class PlayerController extends BaseController {
 	
 	public PlayerService playerService;
 
-	@RequestMapping(value = "/api/players/team/{teemId}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.SQUADS_BY_TEAM, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public SimpleResult getFiveHighestRank(@PathVariable("teemId") int teamId) throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/players/team/" + teamId);

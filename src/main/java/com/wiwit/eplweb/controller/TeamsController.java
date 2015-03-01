@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiwit.eplweb.model.Team;
 import com.wiwit.eplweb.model.view.SimpleResult;
 import com.wiwit.eplweb.service.TeamService;
+import com.wiwit.eplweb.util.ApiPath;
 
 @RestController
 public class TeamsController extends BaseController {
@@ -24,7 +25,7 @@ public class TeamsController extends BaseController {
 
 	public TeamService teamService;
 
-	@RequestMapping(value = "/api/teams", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.TEAMS, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public SimpleResult getFiveHighestRank() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/teams");

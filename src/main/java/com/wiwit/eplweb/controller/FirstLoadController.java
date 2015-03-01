@@ -27,6 +27,7 @@ import com.wiwit.eplweb.service.PhaseService;
 import com.wiwit.eplweb.service.RankService;
 import com.wiwit.eplweb.service.TeamService;
 import com.wiwit.eplweb.service.WeekService;
+import com.wiwit.eplweb.util.ApiPath;
 
 @RestController
 public class FirstLoadController extends BaseController {
@@ -40,7 +41,7 @@ public class FirstLoadController extends BaseController {
 	private WeekService weekService;
 	private TeamService teamService;
 
-	@RequestMapping(value = "/api/page/team/{id}/{simpleName}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.INIT_TEAM_PAGE, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public TeamPageModelView getDataTeamPage(@PathVariable("id") int teamId,
 			@PathVariable("simpleName") String simpleName)
 			throws JsonGenerationException, JsonMappingException, IOException {
@@ -58,7 +59,7 @@ public class FirstLoadController extends BaseController {
 		return result;
 	}
 
-	@RequestMapping(value = "/api/page/matchday", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.INIT_MATCHDAY_PAGE, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public MatchdayPageModelView getDataMatchdayPage()
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /api/page/matchday");
@@ -69,7 +70,7 @@ public class FirstLoadController extends BaseController {
 		return result;
 	}
 
-	@RequestMapping(value = "/api/page/rank", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.INIT_RANK_PAGE, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public RankPageModelView getDataRankPage() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/page/rank");
@@ -83,7 +84,7 @@ public class FirstLoadController extends BaseController {
 		return result;
 	}
 
-	@RequestMapping(value = "/api/page/dashboard", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.INIT_DASHBOARD_PAGE, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public DashboardPageModelView getDataDashboardPage()
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /api/page/dashboard");

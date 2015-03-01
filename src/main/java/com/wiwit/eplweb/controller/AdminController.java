@@ -20,6 +20,7 @@ import com.wiwit.eplweb.model.UserSession;
 import com.wiwit.eplweb.model.view.SimpleResult;
 import com.wiwit.eplweb.service.UserService;
 import com.wiwit.eplweb.service.UserSessionService;
+import com.wiwit.eplweb.util.ApiPath;
 
 @RestController
 public class AdminController extends BaseController {
@@ -29,8 +30,8 @@ public class AdminController extends BaseController {
 
 	private UserService userService;
 	private UserSessionService sessionService;
-
-	@RequestMapping(value = "/api/admin/login/{session}", method = RequestMethod.DELETE, produces = "application/json; charset=utf-8")
+	
+	@RequestMapping(value = ApiPath.ADMIN_SESSION, method = RequestMethod.DELETE, produces = "application/json; charset=utf-8")
 	public String removeSession(@PathVariable("session") String session)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("DELETE /api/admin/login/" + session);
@@ -40,7 +41,7 @@ public class AdminController extends BaseController {
 		return "ok";
 	}
 
-	@RequestMapping(value = "/api/admin/login/{session}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.ADMIN_SESSION, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public SimpleResult checkSession(@PathVariable("session") String session)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /api/admin/login/" + session);
@@ -53,7 +54,7 @@ public class AdminController extends BaseController {
 		return SimpleResult.generateResult(us);
 	}
 
-	@RequestMapping(value = "/api/admin/login", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.ADMIN_LOGIN, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public SimpleResult createSession(HttpServletRequest request)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("POST /api/admin/login");

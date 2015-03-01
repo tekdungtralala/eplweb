@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiwit.eplweb.model.Week;
 import com.wiwit.eplweb.model.view.WeekModelView;
 import com.wiwit.eplweb.service.WeekService;
+import com.wiwit.eplweb.util.ApiPath;
 
 @RestController
 public class WeekController extends BaseController {
@@ -24,7 +25,7 @@ public class WeekController extends BaseController {
 
 	private WeekService weekService;
 
-	@RequestMapping(value = "/api/passedWeeks", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.PASSED_WEEK, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public WeekModelView getAllPassedWeek() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/passedWeeks");
@@ -33,7 +34,7 @@ public class WeekController extends BaseController {
 		return WeekModelView.getModelView(weeks);
 	}
 	
-	@RequestMapping(value = "/api/weeks", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.WEEKS, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public WeekModelView getAllWeek() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/weeks");

@@ -20,6 +20,7 @@ import com.wiwit.eplweb.model.view.FiveBigTeamModelView;
 import com.wiwit.eplweb.model.view.TeamStatModelView;
 import com.wiwit.eplweb.service.PhaseService;
 import com.wiwit.eplweb.service.RankService;
+import com.wiwit.eplweb.util.ApiPath;
 
 @RestController
 public class ChartDataController extends BaseController {
@@ -31,7 +32,7 @@ public class ChartDataController extends BaseController {
 
 	private RankService rankService;
 
-	@RequestMapping(value = "/api/chart/week/{weekNumber}/team/{teamId}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.CHART_TEAM_STAT, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public TeamStatModelView getChartTeamStat(@PathVariable("weekNumber") int weekNumber,
 			@PathVariable("teamId") int teamId) throws JsonGenerationException,
 			JsonMappingException, IOException {
@@ -44,7 +45,7 @@ public class ChartDataController extends BaseController {
 		return tsmv;
 	}
 
-	@RequestMapping(value = "/api/chart/fiveBigestTeam", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.CHART_FIVE_BIGGEST_TEAM, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public FiveBigTeamModelView getFiveBigestTeam() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/chart/fiveBigestTeam");

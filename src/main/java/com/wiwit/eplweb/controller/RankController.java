@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiwit.eplweb.model.Rank;
 import com.wiwit.eplweb.model.view.RankModelView;
 import com.wiwit.eplweb.service.RankService;
+import com.wiwit.eplweb.util.ApiPath;
 
 @RestController
 public class RankController extends BaseController {
@@ -25,7 +26,7 @@ public class RankController extends BaseController {
 
 	private RankService rankService;
 
-	@RequestMapping(value = "/api/highestRanks", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.HIGHEST_RANK, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public RankModelView getFiveHighestRank() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/highestRanks");
@@ -35,7 +36,7 @@ public class RankController extends BaseController {
 		return RankModelView.getModelView(ranks);
 	}
 
-	@RequestMapping(value = "/api/ranks", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.RANKS, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public RankModelView getLatestRank() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/ranks");
@@ -45,7 +46,7 @@ public class RankController extends BaseController {
 		return RankModelView.getModelView(ranks);
 	}
 
-	@RequestMapping(value = "/api/ranks/{weekNumber}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.RANKS_BY_WEEK, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public RankModelView getSelectedRank(
 			@PathVariable("weekNumber") int weekNumber)
 			throws JsonGenerationException, JsonMappingException, IOException {
