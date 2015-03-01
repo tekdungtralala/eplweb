@@ -14,7 +14,7 @@
                 controllerAs: 'vm',
                 roles: ['admin'],
                 resolve: {
-                    teams: getallTeam
+                    xhrTeams: getallTeam
                 }
             })
             .state("squads.team", {
@@ -22,12 +22,28 @@
                 templateUrl: 'app/squads/allsquads.html',
                 controller: 'SquadsTeam',
                 controllerAs: 'vm',
-                roles: ['admin']
+                resolve: {
+                    xhrSquads: getAllSquadByTeam
+                }
+            })
+            .state("squads.team.edit", {
+                url: '/player/{playerId:[0-9]{1,10}}',
+                views: {
+                    '@squads': {
+                        templateUrl: 'app/squads/editsquad.html',
+                        controller: 'SquadsTeamEdit',
+                        controllerAs: 'vm'
+                    }
+                }
             })
             ;
 
         function getallTeam(dataservice) {
             return dataservice.getAllTeam();
+        }
+
+        function getAllSquadByTeam(dataservice, $stateParams) {
+            return dataservice.getPlayersByTeamId($stateParams.teamId);
         }
     }
     

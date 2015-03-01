@@ -122,7 +122,10 @@ body{
 .epl-hide {
   display: none;
 }
-
+/*.epl-form-error {
+  color: #dd4b39;
+}
+*/
 /* Phase navigation*/
 .epl-phase-nav {
   width: 100%;

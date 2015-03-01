@@ -4,31 +4,102 @@
     angular
         .module('app.squads')
         .controller('Squads', Squads)
-        .controller('SquadsTeam', SquadsTeam);
+        .controller('SquadsTeam', SquadsTeam)
+        .controller('SquadsTeamEdit', SquadsTeamEdit);
 
-    function SquadsTeam(teams, $stateParams, dataservice) {
+    function SquadsTeamEdit(xhrSquads, $stateParams, $state) {
         var vm = this;
-        var teamId = $stateParams.teamId;
+
+        vm.curr = null;
+        var defCurr = null;
+        var formElmt = $('#playerEdit');
+        
+        vm.playerId = $stateParams.playerId;
+        vm.positions = [
+            { label: "Goalkeeper", value: "GOALKEEPER"}, 
+            { label: "Defender", value: "DEFENDER"},
+            { label: "Midfielder", value: "MIDFIELDER"},
+            { label: "Forward", value: "FORWARD"}
+        ];
+        vm.selectedPos = null;
+
+        vm.backToSquads = backToSquads;
+        vm.submit = submit;
+        vm.reset = reset;
+
+        formElmt.validate({ 
+            rules: {
+                playerName: {
+                    required: true
+                }
+            },
+            messages: {
+                playerName: getErrorFormat()
+            },
+            onkeyup: false,
+            showErrors: showErrors
+        });
 
         activate();
         function activate() {
-            getPlayersByTeamId(teamId).then(processAllSquad);
-        }
+            var squads = xhrSquads.result;
 
-        function processAllSquad(data) {
-            vm.squads = data;
-        }
-
-        function getPlayersByTeamId(teamId) {
-            return dataservice.getPlayersByTeamId(teamId).then(function(data) {
-                return data.result;
+            vm.curr = _.find(squads, function(s){
+                return s.id == vm.playerId;
             });
+
+            if (!vm.curr) backToSquads();
+
+            vm.curr.selectedPos = _.find(vm.positions, function(e){
+                return e.value === vm.curr.position;
+            });
+            defCurr = jQuery.extend({}, vm.curr);
+        }
+
+        function showErrors(errorMap, errors) {
+            formElmt.children('.form-group').removeClass('has-error');
+
+            for (var i in errors) {
+                var parent = $(errors[i].element).parent();
+                parent.addClass('has-error');
+            }
+
+            this.defaultShowErrors();
+        }
+
+        function getErrorFormat() {
+            return "<i class='fa fa-times-circle-o'></i> Please fill fieald above.";
+        }
+
+        function submit() {
+            if(formElmt.valid()){
+                console.log("YES VALID")
+            }
+        }
+
+        function reset() {
+            vm.curr = jQuery.extend({}, defCurr);
+        }
+
+        function backToSquads() {
+            $state.go('^');
         }
     }
 
-    function Squads(teams) {
+    function SquadsTeam(xhrSquads, $state) {
         var vm = this;
-        vm.teams = teams.result;
+        vm.squads = xhrSquads.result;
+
+        vm.gotoEdit = gotoEdit;
+
+        function gotoEdit(playerId) {
+            $state.go('.edit', { playerId: playerId });
+        }
+    }
+
+    function Squads(xhrTeams) {
+        var vm = this;
+        vm.teams = xhrTeams.result;
     }
 
 })();

@@ -17,10 +17,11 @@
             <td class='epl-left'>{{m.name}}</td>
             <td class='epl-left'>{{m.position}}</td>
             <td>
-                <button type="button" class="btn btn-default">
+                <button type="button" class="btn btn-default btn-xs"
+                    ng-click='vm.gotoEdit(m.id)'>
                     <span class="glyphicon glyphicon-pencil"/>
                 </button>
-                <button type="button" class="btn btn-default">
+                <button type="button" class="btn btn-default btn-xs">
                     <span class="glyphicon glyphicon-remove"/>
                 </button>
                 

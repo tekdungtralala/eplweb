@@ -51,6 +51,7 @@
         }
 
         function processAuth(results) {
+            console.log("processAuth")
             var hasAccess = _.find(results, function(r){
                 return 200 === r.status;
             });
