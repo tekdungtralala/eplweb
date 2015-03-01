@@ -9,11 +9,11 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.wiwit.eplweb.model.Phase;
 import com.wiwit.eplweb.model.Rank;
 import com.wiwit.eplweb.model.view.FiveBigTeamModelView;
@@ -21,7 +21,7 @@ import com.wiwit.eplweb.model.view.TeamStatModelView;
 import com.wiwit.eplweb.service.PhaseService;
 import com.wiwit.eplweb.service.RankService;
 
-@Controller
+@RestController
 public class ChartDataController extends BaseController {
 
 	private static final Logger logger = LoggerFactory
@@ -32,8 +32,7 @@ public class ChartDataController extends BaseController {
 	private RankService rankService;
 
 	@RequestMapping(value = "/api/chart/week/{weekNumber}/team/{teamId}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public @ResponseBody
-	String getChartTeamStat(@PathVariable("weekNumber") int weekNumber,
+	public TeamStatModelView getChartTeamStat(@PathVariable("weekNumber") int weekNumber,
 			@PathVariable("teamId") int teamId) throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/chart/week/" + weekNumber + "/team/" + teamId);
@@ -42,12 +41,11 @@ public class ChartDataController extends BaseController {
 		TeamStatModelView tsmv = new TeamStatModelView();
 		tsmv.addData(teamId, weekNumber, ranks);
 
-		return generateJson(tsmv);
+		return tsmv;
 	}
 
 	@RequestMapping(value = "/api/chart/fiveBigestTeam", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public @ResponseBody
-	String getFiveBigestTeam() throws JsonGenerationException,
+	public FiveBigTeamModelView getFiveBigestTeam() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/chart/fiveBigestTeam");
 
@@ -77,7 +75,7 @@ public class ChartDataController extends BaseController {
 			result.addData(i, tmp);
 		}
 
-		return generateJson(result);
+		return result;
 	}
 
 	@Autowired(required = true)

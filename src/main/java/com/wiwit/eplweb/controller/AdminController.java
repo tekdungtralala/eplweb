@@ -10,18 +10,18 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.wiwit.eplweb.model.User;
 import com.wiwit.eplweb.model.UserSession;
 import com.wiwit.eplweb.model.view.SimpleResult;
 import com.wiwit.eplweb.service.UserService;
 import com.wiwit.eplweb.service.UserSessionService;
 
-@Controller
+@RestController
 public class AdminController extends BaseController {
 
 	private static final Logger logger = LoggerFactory
@@ -31,18 +31,17 @@ public class AdminController extends BaseController {
 	private UserSessionService sessionService;
 
 	@RequestMapping(value = "/api/admin/login/{session}", method = RequestMethod.DELETE, produces = "application/json; charset=utf-8")
-	public @ResponseBody String removeSession(@PathVariable("session") String session)
+	public String removeSession(@PathVariable("session") String session)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("DELETE /api/admin/login/" + session);
 
 		sessionService.deleteSession(session);
-		
+
 		return "ok";
 	}
 
 	@RequestMapping(value = "/api/admin/login/{session}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public @ResponseBody
-	String checkSession(@PathVariable("session") String session)
+	public SimpleResult checkSession(@PathVariable("session") String session)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /api/admin/login/" + session);
 
@@ -51,12 +50,11 @@ public class AdminController extends BaseController {
 		if (us == null)
 			throw404();
 
-		return generateJson(SimpleResult.generateResult(us));
+		return SimpleResult.generateResult(us);
 	}
 
 	@RequestMapping(value = "/api/admin/login", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-	public @ResponseBody
-	String createSession(HttpServletRequest request)
+	public SimpleResult createSession(HttpServletRequest request)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("POST /api/admin/login");
 
@@ -80,7 +78,7 @@ public class AdminController extends BaseController {
 
 		if (u.getPassword().equals(adminPaswdEncode)) {
 			UserSession session = sessionService.doLogin(u);
-			return generateJson(SimpleResult.generateResult(session));
+			return SimpleResult.generateResult(session);
 		}
 
 		throw404();
