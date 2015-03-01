@@ -1,7 +1,8 @@
 (function() {
-    'use strict';
+	'use strict';
 
-    angular.module('app.core', [
-        'ngCookies'
-    ]);
+	angular.module('app.core', [
+		'ngCookies'
+	]);
+
 })();

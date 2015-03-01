@@ -1,105 +1,105 @@
 (function() {
-    'use strict';
+	'use strict';
 
-    angular
-        .module('app.squads')
-        .controller('Squads', Squads)
-        .controller('SquadsTeam', SquadsTeam)
-        .controller('SquadsTeamEdit', SquadsTeamEdit);
+	angular
+		.module('app.squads')
+		.controller('Squads', Squads)
+		.controller('SquadsTeam', SquadsTeam)
+		.controller('SquadsTeamEdit', SquadsTeamEdit);
 
-    function SquadsTeamEdit(xhrSquads, $stateParams, $state) {
-        var vm = this;
+	function SquadsTeamEdit(xhrSquads, $stateParams, $state) {
+		var vm = this;
 
-        vm.curr = null;
-        var defCurr = null;
-        var formElmt = $('#playerEdit');
-        
-        vm.playerId = $stateParams.playerId;
-        vm.positions = [
-            { label: "Goalkeeper", value: "GOALKEEPER"}, 
-            { label: "Defender", value: "DEFENDER"},
-            { label: "Midfielder", value: "MIDFIELDER"},
-            { label: "Forward", value: "FORWARD"}
-        ];
-        vm.selectedPos = null;
+		vm.curr = null;
+		var defCurr = null;
+		var formElmt = $('#playerEdit');
 
-        vm.backToSquads = backToSquads;
-        vm.submit = submit;
-        vm.reset = reset;
+		vm.playerId = $stateParams.playerId;
+		vm.positions = [
+			{ label: "Goalkeeper", value: "GOALKEEPER"}, 
+			{ label: "Defender", value: "DEFENDER"},
+			{ label: "Midfielder", value: "MIDFIELDER"},
+			{ label: "Forward", value: "FORWARD"}
+		];
+		vm.selectedPos = null;
 
-        formElmt.validate({ 
-            rules: {
-                playerName: {
-                    required: true
-                }
-            },
-            messages: {
-                playerName: getErrorFormat()
-            },
-            onkeyup: false,
-            showErrors: showErrors
-        });
+		vm.backToSquads = backToSquads;
+		vm.submit = submit;
+		vm.reset = reset;
 
-        activate();
-        function activate() {
-            var squads = xhrSquads.result;
+		formElmt.validate({ 
+			rules: {
+				playerName: {
+					required: true
+				}
+			},
+			messages: {
+				playerName: getErrorFormat()
+			},
+			onkeyup: false,
+			showErrors: showErrors
+		});
 
-            vm.curr = _.find(squads, function(s){
-                return s.id == vm.playerId;
-            });
+		activate();
+		function activate() {
+			var squads = xhrSquads.result;
 
-            if (!vm.curr) backToSquads();
+			vm.curr = _.find(squads, function(s){
+				return s.id == vm.playerId;
+			});
 
-            vm.curr.selectedPos = _.find(vm.positions, function(e){
-                return e.value === vm.curr.position;
-            });
-            defCurr = jQuery.extend({}, vm.curr);
-        }
+			if (!vm.curr) backToSquads();
 
-        function showErrors(errorMap, errors) {
-            formElmt.children('.form-group').removeClass('has-error');
+			vm.curr.selectedPos = _.find(vm.positions, function(e){
+				return e.value === vm.curr.position;
+			});
+			defCurr = jQuery.extend({}, vm.curr);
+		}
 
-            for (var i in errors) {
-                var parent = $(errors[i].element).parent();
-                parent.addClass('has-error');
-            }
+		function showErrors(errorMap, errors) {
+			formElmt.children('.form-group').removeClass('has-error');
 
-            this.defaultShowErrors();
-        }
+			for (var i in errors) {
+				var parent = $(errors[i].element).parent();
+				parent.addClass('has-error');
+			}
 
-        function getErrorFormat() {
-            return "<i class='fa fa-times-circle-o'></i> Please fill fieald above.";
-        }
+			this.defaultShowErrors();
+		}
 
-        function submit() {
-            if(formElmt.valid()){
-                console.log("YES VALID")
-            }
-        }
+		function getErrorFormat() {
+			return "<i class='fa fa-times-circle-o'></i> Please fill fieald above.";
+		}
 
-        function reset() {
-            vm.curr = jQuery.extend({}, defCurr);
-        }
+		function submit() {
+			if(formElmt.valid()){
+				console.log("YES VALID")
+			}
+		}
 
-        function backToSquads() {
-            $state.go('^');
-        }
-    }
+		function reset() {
+			vm.curr = jQuery.extend({}, defCurr);
+		}
 
-    function SquadsTeam(xhrSquads, $state) {
-        var vm = this;
-        vm.squads = xhrSquads.result;
+		function backToSquads() {
+			$state.go('^');
+		}
+	}
 
-        vm.gotoEdit = gotoEdit;
+	function SquadsTeam(xhrSquads, $state) {
+		var vm = this;
+		vm.squads = xhrSquads.result;
 
-        function gotoEdit(playerId) {
-            $state.go('.edit', { playerId: playerId });
-        }
-    }
+		vm.gotoEdit = gotoEdit;
 
-    function Squads(xhrTeams) {
-        var vm = this;
-        vm.teams = xhrTeams.result;
-    }
+		function gotoEdit(playerId) {
+			$state.go('.edit', { playerId: playerId });
+		}
+	}
+
+	function Squads(xhrTeams) {
+		var vm = this;
+		vm.teams = xhrTeams.result;
+	}
 
 })();

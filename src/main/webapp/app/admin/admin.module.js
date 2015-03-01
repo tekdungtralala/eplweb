@@ -1,15 +1,15 @@
 (function() {
 
-    var admin = angular.module('app.admin', []);
+	var admin = angular.module('app.admin', []);
 
-    admin.config(configRoute);
+	admin.config(configRoute);
 
-    function configRoute($stateProvider) {
-        $stateProvider
-            .state("admin", {
-                url: '/admin',
-                template: "<span ui-view><span>"
-            });
-    }
+	function configRoute($stateProvider) {
+		$stateProvider
+			.state("admin", {
+				url: '/admin',
+				template: "<span ui-view><span>"
+			});
+	}
 
 })();

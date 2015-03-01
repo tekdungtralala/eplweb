@@ -1,12 +1,12 @@
 <div class='epl-team'>
 <div class='epl-all-team'>
-    <span class='epl-center epl-logo' data-ng-repeat='t in vm.teams'
-    	data-toggle='tooltip' data-placement='bottom' title='{{t.name}}'>
-        <a href="#team/{{t.id}}/{{t.simpleName}}">
-            <img class='image epl-mini-team-logo' alt='' 
-                ng-src='eplweb_components/image/logo/150x150/{{t.id}}.png' >
-        </a>
-    </span>
+	<span class='epl-center epl-logo' data-ng-repeat='t in vm.teams'
+		data-toggle='tooltip' data-placement='bottom' title='{{t.name}}'>
+		<a href="#team/{{t.id}}/{{t.simpleName}}">
+			<img class='image epl-mini-team-logo' alt='' 
+				ng-src='eplweb_components/image/logo/150x150/{{t.id}}.png' >
+		</a>
+	</span>
 </div>
 
 <!-- Info -->
@@ -14,12 +14,11 @@
 	<tbody>
 		<tr>
 			<td class='epl-center'>
-                <span class='epl-team-name'>{{vm.currTeam.name}}</span>
-                <br/>
-		    	<img class='epl-main-logo' 
-		    		ng-src='eplweb_components/image/logo/150x150/{{vm.currTeam.id}}.png' 
-                    alt=''/>
-		    </td>
+				<span class='epl-team-name'>{{vm.currTeam.name}}</span>
+				<br/>
+				<img class='epl-main-logo' alt=''
+					ng-src='eplweb_components/image/logo/150x150/{{vm.currTeam.id}}.png' />
+				</td>
 			<td class='epl-center'>
 				Established<br/>
 				{{vm.currTeam.established}}
@@ -62,12 +61,12 @@
 
 <!-- Tab Menu -->
 <div class='epl-div-tab'>
-    <div ng-repeat='(key,value) in vm.containerLbl' >
-        <button ng-click='vm.selectContainer(key)'
-            class="btn btn-block btn-sm btn-{{vm.container[key] ? 'default' : 'primary'}}">
-            {{value}}
-        </button>
-    </div>
+	<div ng-repeat='(key,value) in vm.containerLbl' >
+		<button ng-click='vm.selectContainer(key)'
+			class="btn btn-block btn-sm btn-{{vm.container[key] ? 'default' : 'primary'}}">
+			{{value}}
+		</button>
+	</div>
 </div>
 
 <div class='clearfix'></div>

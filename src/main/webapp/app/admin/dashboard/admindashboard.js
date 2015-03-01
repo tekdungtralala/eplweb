@@ -1,15 +1,15 @@
 (function() {
-    'use strict';
+	'use strict';
 
-    angular
-        .module('app.admin.dashboard')
-        .controller('AdminDashboard', AdminDashboard);
+	angular
+		.module('app.admin.dashboard')
+		.controller('AdminDashboard', AdminDashboard);
 
-    function AdminDashboard(dataservice) {
-    	var vm = this;
+	function AdminDashboard(dataservice) {
+		var vm = this;
 
-        activate();
-        function activate() {
-        }
-    }
+		activate();
+		function activate() {
+		}
+	}
 })();
