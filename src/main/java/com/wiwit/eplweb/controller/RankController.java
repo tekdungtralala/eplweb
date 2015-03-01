@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,21 +25,21 @@ public class RankController extends BaseController {
 			.getLogger(RankController.class);
 
 	private RankService rankService;
-	
+
 	@RequestMapping(value = "/api/highestRanks", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
-	String getFiveHighestRank(Model model) throws JsonGenerationException,
+	String getFiveHighestRank() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/highestRanks");
 
 		List<Rank> ranks = rankService.getFiveHighestLastRank();
 
 		return generateJson(RankModelView.getModelView(ranks));
-	}	
+	}
 
 	@RequestMapping(value = "/api/ranks", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
-	String getLatestRank(Model model) throws JsonGenerationException,
+	String getLatestRank() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/ranks");
 
@@ -51,8 +50,7 @@ public class RankController extends BaseController {
 
 	@RequestMapping(value = "/api/ranks/{weekNumber}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
-	String getSelectedRank(Model model,
-			@PathVariable("weekNumber") int weekNumber)
+	String getSelectedRank(@PathVariable("weekNumber") int weekNumber)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /api/ranks/" + weekNumber);
 

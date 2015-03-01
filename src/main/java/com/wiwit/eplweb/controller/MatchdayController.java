@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +25,7 @@ public class MatchdayController extends BaseController {
 
 	@RequestMapping(value = "/api/matchday", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
-	String getCurrentMatchday(Model model) throws JsonGenerationException,
+	String getCurrentMatchday() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /matchday");
 
@@ -35,8 +34,7 @@ public class MatchdayController extends BaseController {
 
 	@RequestMapping(value = "/api/matchday/{weekNumber}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
-	String getSelectedMatchday(Model model,
-			@PathVariable("weekNumber") int weekNumber)
+	String getSelectedMatchday(@PathVariable("weekNumber") int weekNumber)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /matchday/" + weekNumber);
 

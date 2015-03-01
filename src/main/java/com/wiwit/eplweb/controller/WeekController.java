@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,7 +27,7 @@ public class WeekController extends BaseController {
 
 	@RequestMapping(value = "/api/passedWeeks", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
-	String getAllPassedWeek(Model model) throws JsonGenerationException,
+	String getAllPassedWeek() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/passedWeeks");
 
@@ -38,7 +37,7 @@ public class WeekController extends BaseController {
 	
 	@RequestMapping(value = "/api/weeks", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
-	String getAllWeek(Model model) throws JsonGenerationException,
+	String getAllWeek() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/weeks");
 

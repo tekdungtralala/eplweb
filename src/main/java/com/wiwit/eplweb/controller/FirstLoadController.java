@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,10 +47,11 @@ public class FirstLoadController extends BaseController {
 			@PathVariable("simpleName") String simpleName)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /api/page/team/" + teamId + "/" + simpleName);
-		
+
 		Team team = teamService.findByIdAndSimppleName(teamId, simpleName);
-		if (team == null) throw404();
-		
+		if (team == null)
+			throw404();
+
 		TeamPageModelView result = new TeamPageModelView();
 		result.setTeams(teamService.findAll());
 		result.setRanks(rankService.getLatestRank());
@@ -62,7 +62,7 @@ public class FirstLoadController extends BaseController {
 
 	@RequestMapping(value = "/api/page/matchday", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
-	String getDataMatchdayPage(Model model) throws JsonGenerationException,
+	String getDataMatchdayPage() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/page/matchday");
 
@@ -74,7 +74,7 @@ public class FirstLoadController extends BaseController {
 
 	@RequestMapping(value = "/api/page/rank", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
-	String getDataRankPage(Model model) throws JsonGenerationException,
+	String getDataRankPage() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/page/rank");
 
@@ -89,7 +89,7 @@ public class FirstLoadController extends BaseController {
 
 	@RequestMapping(value = "/api/page/dashboard", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
-	String getDataDashboardPage(Model model) throws JsonGenerationException,
+	String getDataDashboardPage() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/page/dashboard");
 
@@ -130,7 +130,7 @@ public class FirstLoadController extends BaseController {
 
 		return generateJson(result);
 	}
-	
+
 	@Autowired(required = true)
 	public void setTeamService(TeamService teamService) {
 		this.teamService = teamService;

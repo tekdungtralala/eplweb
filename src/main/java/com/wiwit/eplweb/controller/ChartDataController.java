@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,8 +33,7 @@ public class ChartDataController extends BaseController {
 
 	@RequestMapping(value = "/api/chart/week/{weekNumber}/team/{teamId}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
-	String getChartTeamStat(Model model,
-			@PathVariable("weekNumber") int weekNumber,
+	String getChartTeamStat(@PathVariable("weekNumber") int weekNumber,
 			@PathVariable("teamId") int teamId) throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/chart/week/" + weekNumber + "/team/" + teamId);
@@ -49,7 +47,7 @@ public class ChartDataController extends BaseController {
 
 	@RequestMapping(value = "/api/chart/fiveBigestTeam", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody
-	String getFiveBigestTeam(Model model) throws JsonGenerationException,
+	String getFiveBigestTeam() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/chart/fiveBigestTeam");
 
