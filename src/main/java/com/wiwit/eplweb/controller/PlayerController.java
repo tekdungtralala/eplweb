@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,19 +24,28 @@ public class PlayerController extends BaseController {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(PlayerController.class);
-	
+
 	public PlayerService playerService;
 
+	@RequestMapping(value = ApiPath.SQUAD, method = RequestMethod.PUT)
+	public void putPlayer(@PathVariable("playerId") int playerId, @RequestBody final Player player) {
+		logger.info("PUT /api/players/" + playerId);
+		
+		logger.info(player.getName());
+		logger.info(player.getPosition());
+		logger.info(String.valueOf(player.getId()));
+	}
+
 	@RequestMapping(value = ApiPath.SQUADS_BY_TEAM, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public SimpleResult getFiveHighestRank(@PathVariable("teemId") int teamId) throws JsonGenerationException,
-			JsonMappingException, IOException {
+	public SimpleResult getFiveHighestRank(@PathVariable("teemId") int teamId)
+			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /api/players/team/" + teamId);
-		
+
 		List<Player> result = playerService.getSquadsByTeamId(teamId);
-		
+
 		return SimpleResult.generateResult(result);
 	}
-	
+
 	@Autowired(required = true)
 	public void setPlayerService(PlayerService playerService) {
 		this.playerService = playerService;

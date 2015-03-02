@@ -6,16 +6,32 @@
 		.factory('adminauth', AdminAuth);
 
 	function AdminAuth($cookieStore, $rootScope, $state) {
-		var AMIN_SESSION_KEY = 'epl-admin-session';
+		var ADMIN_SESSION_KEY = 'epl-admin-session';
+		var EPL_AUTH_HEADER = 'epl-authentication';
 
 		var service = {
 			putAdminSession: putAdminSession,
 			getAdminSession: getAdminSession,
 			delAdminSession: delAdminSession,
-			adminMustLogedIn: adminMustLogedIn
+			adminMustLogedIn: adminMustLogedIn,
+			getConf: getConf
 		};
 
 		return service;
+
+		function getConf(o, method, url) {
+			var req = {
+				method: method,
+				url: url + o.id,
+				headers: {
+					"Content-Type": "application/json"
+				},
+				data: JSON.stringify(o)
+			}
+			req.headers[EPL_AUTH_HEADER] = getAdminSession();
+
+			return req;
+		}
 
 		function adminMustLogedIn() {
 			if (!$rootScope.isAdminLogged) {
@@ -24,15 +40,15 @@
 		}
 
 		function delAdminSession() {
-			$cookieStore.remove(AMIN_SESSION_KEY);
+			$cookieStore.remove(ADMIN_SESSION_KEY);
 		}
 
 		function getAdminSession() {
-			return $cookieStore.get(AMIN_SESSION_KEY);
+			return $cookieStore.get(ADMIN_SESSION_KEY);
 		}
 
 		function putAdminSession(session) {
-			$cookieStore.put(AMIN_SESSION_KEY, session);
+			$cookieStore.put(ADMIN_SESSION_KEY, session);
 		}
 	}
 	

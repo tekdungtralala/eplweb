@@ -7,7 +7,7 @@
 		.controller('SquadsTeam', SquadsTeam)
 		.controller('SquadsTeamEdit', SquadsTeamEdit);
 
-	function SquadsTeamEdit(xhrSquads, $stateParams, $state) {
+	function SquadsTeamEdit(xhrSquads, dataservice, $stateParams, $state) {
 		var vm = this;
 
 		vm.curr = null;
@@ -72,8 +72,12 @@
 		}
 
 		function submit() {
-			if(formElmt.valid()){
-				console.log("YES VALID")
+			if(formElmt.valid()) {
+				
+				var data = angular.copy(vm.curr);
+				delete data['selectedPos']; 
+
+				dataservice.doEditPlayer(data);
 			}
 		}
 

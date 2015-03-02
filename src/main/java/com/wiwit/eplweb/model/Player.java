@@ -1,5 +1,7 @@
 package com.wiwit.eplweb.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,7 +17,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 @Entity
 @Table(name = "player")
-public class Player {
+public class Player implements Serializable{
 
 	@Id
 	@Column(name = "id")
@@ -44,7 +46,6 @@ public class Player {
 		return team;
 	}
 
-	@JsonProperty
 	public int getPlayerNumber() {
 		return playerNumber;
 	}

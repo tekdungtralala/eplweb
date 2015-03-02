@@ -16,6 +16,9 @@
 			adminLogin: adminLogin,
 			adminCekLogin: adminCekLogin,
 			adminLogout: adminLogout,
+			// admin resource only
+			doEditPlayer: doEditPlayer,
+
 			// Page /team
 			getPlayersByTeamId: getPlayersByTeamId,
 			getAllTeam: getAllTeam,
@@ -32,6 +35,22 @@
 		};
 
 		return service;
+
+		function doEditPlayer(player) {
+			var req = adminauth.getConf(player, "PUT", "api/players/");
+
+			$rootScope.promise = $http(req)
+					.then(process)
+					.catch(process);
+			return $rootScope.promise;
+
+			function process(result) {
+				console.log('result : ', result);
+
+				return result;
+			}
+
+		}
 
 		function authentication(role) {
 			if ('admin' === role)
