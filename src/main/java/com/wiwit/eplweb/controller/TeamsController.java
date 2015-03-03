@@ -23,6 +23,7 @@ public class TeamsController extends BaseController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(TeamsController.class);
 
+	@Autowired
 	public TeamService teamService;
 
 	@RequestMapping(value = ApiPath.TEAMS, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -33,10 +34,5 @@ public class TeamsController extends BaseController {
 		List<Team> result = teamService.findAll();
 
 		return SimpleResult.generateResult(result);
-	}
-
-	@Autowired(required = true)
-	public void setTeamService(TeamService teamService) {
-		this.teamService = teamService;
 	}
 }

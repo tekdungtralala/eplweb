@@ -28,7 +28,9 @@ public class AdminController extends BaseController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(AdminController.class);
 
+	@Autowired
 	private UserService userService;
+	@Autowired
 	private UserSessionService sessionService;
 	
 	@RequestMapping(value = ApiPath.ADMIN_SESSION, method = RequestMethod.DELETE, produces = "application/json; charset=utf-8")
@@ -84,15 +86,5 @@ public class AdminController extends BaseController {
 
 		throw404();
 		return null;
-	}
-
-	@Autowired(required = true)
-	public void setSessionService(UserSessionService sessionService) {
-		this.sessionService = sessionService;
-	}
-
-	@Autowired(required = true)
-	public void setUserService(UserService userService) {
-		this.userService = userService;
 	}
 }

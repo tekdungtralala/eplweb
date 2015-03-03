@@ -28,8 +28,9 @@ public class ChartDataController extends BaseController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(ChartDataController.class);
 
+	@Autowired
 	private PhaseService phaseService;
-
+	@Autowired
 	private RankService rankService;
 
 	@RequestMapping(value = ApiPath.CHART_TEAM_STAT, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -77,15 +78,5 @@ public class ChartDataController extends BaseController {
 		}
 
 		return result;
-	}
-
-	@Autowired(required = true)
-	public void setRankService(RankService rankService) {
-		this.rankService = rankService;
-	}
-
-	@Autowired(required = true)
-	public void setPhaseService(PhaseService phaseService) {
-		this.phaseService = phaseService;
 	}
 }

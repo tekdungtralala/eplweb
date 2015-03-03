@@ -14,15 +14,16 @@ import com.wiwit.eplweb.service.SeasonService;
 
 @Controller
 public class HomeController {
-
+	
+	@Autowired
 	private RankService rankService;
-
+	@Autowired
 	private MatchdayService matchdayService;
-
+	@Autowired
 	private BestWeekSquadService bestWeekSquadService;
-	
+	@Autowired
 	private PhaseService phaseService;
-	
+	@Autowired
 	private SeasonService seasonService;
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
@@ -44,31 +45,5 @@ public class HomeController {
 		
 		// TODO uniform on index.html still default
 		return "index";
-	}
-	
-	@Autowired(required = true)
-	public void setSeasonService(SeasonService seasonService) {
-		this.seasonService = seasonService;
-	}
-	
-	@Autowired(required = true)
-	public void setPhaseService(PhaseService phaseService) {
-		this.phaseService = phaseService;
-	}
-
-	@Autowired(required = true)
-	public void setBestWeekSquadService(
-			BestWeekSquadService bestWeekSquadService) {
-		this.bestWeekSquadService = bestWeekSquadService;
-	}
-
-	@Autowired(required = true)
-	public void setRankService(RankService rankService) {
-		this.rankService = rankService;
-	}
-
-	@Autowired(required = true)
-	public void setMatchdayService(MatchdayService matchdayService) {
-		this.matchdayService = matchdayService;
 	}
 }

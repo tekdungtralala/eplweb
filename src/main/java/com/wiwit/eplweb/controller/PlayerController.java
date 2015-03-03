@@ -25,6 +25,7 @@ public class PlayerController extends BaseController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(PlayerController.class);
 
+	@Autowired
 	public PlayerService playerService;
 
 	@RequestMapping(value = ApiPath.SQUAD, method = RequestMethod.PUT)
@@ -45,10 +46,4 @@ public class PlayerController extends BaseController {
 
 		return SimpleResult.generateResult(result);
 	}
-
-	@Autowired(required = true)
-	public void setPlayerService(PlayerService playerService) {
-		this.playerService = playerService;
-	}
-
 }

@@ -42,7 +42,7 @@ public class CustomFilter implements Filter {
 		PathPattern p = PathPatternUtil.getPathPattern(path);
 		if (p != null) {
 			if (p.isSecuredPath() && p.getMethods().contains(method)) {
-				logger.info(method + " CORRECT : " + path);
+				logger.info(method + " SECURED : " + path);
 
 				Resource resource = new ClassPathResource("webapp.properties");
 				Properties props = PropertiesLoaderUtils

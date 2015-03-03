@@ -23,6 +23,7 @@ public class WeekController extends BaseController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(WeekController.class);
 
+	@Autowired
 	private WeekService weekService;
 
 	@RequestMapping(value = ApiPath.PASSED_WEEK, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -41,10 +42,5 @@ public class WeekController extends BaseController {
 
 		List<Week> weeks = weekService.getAllWeek();
 		return WeekModelView.getModelView(weeks);
-	}
-
-	@Autowired(required = true)
-	public void setWeekService(WeekService weekService) {
-		this.weekService = weekService;
 	}
 }

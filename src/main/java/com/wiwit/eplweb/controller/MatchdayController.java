@@ -22,6 +22,7 @@ public class MatchdayController extends BaseController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(MatchdayController.class);
 
+	@Autowired
 	private MatchdayService matchdayService;
 
 	@RequestMapping(value = ApiPath.MATCHDAYS, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -39,10 +40,5 @@ public class MatchdayController extends BaseController {
 		logger.info("GET /matchday/" + weekNumber);
 
 		return matchdayService.getMatchtdayByWeekNmr(weekNumber);
-	}
-
-	@Autowired(required = true)
-	public void setMatchdayService(MatchdayService matchdayService) {
-		this.matchdayService = matchdayService;
 	}
 }

@@ -24,6 +24,7 @@ public class RankController extends BaseController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(RankController.class);
 
+	@Autowired
 	private RankService rankService;
 
 	@RequestMapping(value = ApiPath.HIGHEST_RANK, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -55,10 +56,5 @@ public class RankController extends BaseController {
 		List<Rank> ranks = rankService.getRankByWeekNumber(weekNumber);
 
 		return RankModelView.getModelView(ranks);
-	}
-
-	@Autowired(required = true)
-	public void setRankService(RankService rankService) {
-		this.rankService = rankService;
 	}
 }

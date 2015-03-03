@@ -35,10 +35,15 @@ public class FirstLoadController extends BaseController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(FirstLoadController.class);
 
+	@Autowired
 	private PhaseService phaseService;
+	@Autowired
 	private RankService rankService;
+	@Autowired
 	private MatchdayService matchdayService;
+	@Autowired
 	private WeekService weekService;
+	@Autowired
 	private TeamService teamService;
 
 	@RequestMapping(value = ApiPath.INIT_TEAM_PAGE, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -125,30 +130,5 @@ public class FirstLoadController extends BaseController {
 		result.setCurrentWeek(weekService.findCurrWeek());
 
 		return result;
-	}
-
-	@Autowired(required = true)
-	public void setTeamService(TeamService teamService) {
-		this.teamService = teamService;
-	}
-
-	@Autowired(required = true)
-	public void setWeekService(WeekService weekService) {
-		this.weekService = weekService;
-	}
-
-	@Autowired(required = true)
-	public void setMatchdayService(MatchdayService matchdayService) {
-		this.matchdayService = matchdayService;
-	}
-
-	@Autowired(required = true)
-	public void setPhaseService(PhaseService phaseService) {
-		this.phaseService = phaseService;
-	}
-
-	@Autowired(required = true)
-	public void setRankService(RankService rankService) {
-		this.rankService = rankService;
 	}
 }
