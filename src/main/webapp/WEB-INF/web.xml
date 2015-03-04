@@ -5,14 +5,12 @@
 
 	<filter>
 		<filter-name>custom-filter</filter-name>
-		<filter-class>com.wiwit.eplweb.util.CustomFilter</filter-class>
-		<!-- Other options -->
+		<filter-class>com.wiwit.eplweb.filter.CustomFilter</filter-class>
 	</filter>
 
 	<filter-mapping>
 		<filter-name>custom-filter</filter-name>
 		<url-pattern>/*</url-pattern>
-		<!-- Other options -->
 	</filter-mapping>
 
 	<!-- The definition of the Root Spring Container shared by all Servlets 

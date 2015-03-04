@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wiwit.eplweb.dao.UserSessionDAO;
 import com.wiwit.eplweb.model.User;
@@ -17,10 +18,12 @@ public class UserSessionService {
 	@Autowired
 	private UserSessionDAO userSessionDAO;
 
+	@Transactional
 	public List<UserSession> findAll() {
 		return userSessionDAO.findAll();
 	}
 
+	@Transactional
 	public UserSession doLogin(User user) {
 		UserSession us = new UserSession();
 		us.setUser(user);
@@ -34,10 +37,12 @@ public class UserSessionService {
 		return us;
 	}
 
+	@Transactional
 	public UserSession findBySession(String session) {
 		return userSessionDAO.findBySession(session);
 	}
 
+	@Transactional
 	public void deleteSession(String session) {
 		userSessionDAO.deleteSession(session);
 	}
