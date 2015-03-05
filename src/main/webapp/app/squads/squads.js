@@ -10,24 +10,28 @@
 	function SquadsTeamEdit(xhrSquads, dataservice, $stateParams, $state) {
 		var vm = this;
 
+		// view variable
 		vm.curr = null;
-		var defCurr = null;
-		var formElmt = $('#playerEdit');
-
+		vm.selectedPos = null;
 		vm.playerId = $stateParams.playerId;
+
+		// ng-click listener
+		vm.close = close;
+		vm.save = save;
+		vm.reset = reset;
+
+		// controller var
+		var defCurr = null;
+
+		// static view variable
 		vm.positions = [
 			{ label: "Goalkeeper", value: "GOALKEEPER"}, 
 			{ label: "Defender", value: "DEFENDER"},
 			{ label: "Midfielder", value: "MIDFIELDER"},
 			{ label: "Forward", value: "FORWARD"}
 		];
-		vm.selectedPos = null;
 
-		vm.backToSquads = backToSquads;
-		vm.submit = submit;
-		vm.reset = reset;
-
-		formElmt.validate({ 
+		var formValidateOpt = { 
 			rules: {
 				playerName: {
 					required: true
@@ -38,7 +42,7 @@
 			},
 			onkeyup: false,
 			showErrors: showErrors
-		});
+		};
 
 		activate();
 		function activate() {
@@ -57,6 +61,7 @@
 		}
 
 		function showErrors(errorMap, errors) {
+			var formElmt = $('#playerEdit');
 			formElmt.children('.form-group').removeClass('has-error');
 
 			for (var i in errors) {
@@ -71,13 +76,16 @@
 			return "<i class='fa fa-times-circle-o'></i> Please fill fieald above.";
 		}
 
-		function submit() {
+		function save() {
+			var formElmt = $('#playerEdit');
+			formElmt.validate(formValidateOpt);
 			if(formElmt.valid()) {
 				
 				var data = angular.copy(vm.curr);
+				data.position = data.selectedPos.value;
 				delete data['selectedPos']; 
 
-				dataservice.doEditPlayer(data);
+				dataservice.doEditPlayer(data).then(close);
 			}
 		}
 
@@ -85,10 +93,15 @@
 			vm.curr = jQuery.extend({}, defCurr);
 		}
 
-		function backToSquads() {
-			$state.go('^');
+		function close() {
+			backToSquads();
+		}
+
+		function backToSquads(result) {
+			$state.go('^', $stateParams, {reload: true});
 		}
 	}
+	// end of controller SquadsTeamEdit
 
 	function SquadsTeam(xhrSquads, $state) {
 		var vm = this;
@@ -100,6 +113,7 @@
 			$state.go('.edit', { playerId: playerId });
 		}
 	}
+	// end of controller SquadsTeam
 
 	function Squads(xhrTeams) {
 		var vm = this;

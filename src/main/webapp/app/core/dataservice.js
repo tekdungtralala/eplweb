@@ -45,8 +45,6 @@
 			return $rootScope.promise;
 
 			function process(result) {
-				console.log('result : ', result);
-
 				return result;
 			}
 

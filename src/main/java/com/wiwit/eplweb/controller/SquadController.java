@@ -20,10 +20,10 @@ import com.wiwit.eplweb.service.PlayerService;
 import com.wiwit.eplweb.util.ApiPath;
 
 @RestController
-public class PlayerController extends BaseController {
+public class SquadController extends BaseController {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(PlayerController.class);
+			.getLogger(SquadController.class);
 
 	@Autowired
 	public PlayerService playerService;
@@ -32,9 +32,7 @@ public class PlayerController extends BaseController {
 	public void putPlayer(@PathVariable("playerId") int playerId, @RequestBody final Player player) {
 		logger.info("PUT /api/players/" + playerId);
 		
-		logger.info(player.getName());
-		logger.info(player.getPosition());
-		logger.info(String.valueOf(player.getId()));
+		playerService.updateSquad(playerId, player);
 	}
 
 	@RequestMapping(value = ApiPath.SQUADS_BY_TEAM, method = RequestMethod.GET, produces = "application/json; charset=utf-8")

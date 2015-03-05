@@ -13,9 +13,20 @@ import com.wiwit.eplweb.model.Player;
 public class PlayerService {
 
 	@Autowired
-	private PlayerDAO squadDAO;
-	
-	public List<Player> getSquadsByTeamId(int teamId){
-		return squadDAO.getSquadsByTeamId(teamId);
+	private PlayerDAO playerDAO;
+
+	public List<Player> getSquadsByTeamId(int teamId) {
+		return playerDAO.getSquadsByTeamId(teamId);
 	}
+
+	public void updateSquad(int id, Player player) {
+		Player curr = playerDAO.findById(id);
+		curr.copyValue(player);
+		playerDAO.updateSquad(curr);
+	}
+	
+	public Player findById(int id) {
+		return playerDAO.findById(id);
+	}
+	
 }

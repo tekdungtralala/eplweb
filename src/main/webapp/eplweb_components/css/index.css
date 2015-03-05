@@ -26,17 +26,20 @@
 	transition: none;
 }
 /*Arrangement box padding*/
-.content, .box{
+.content, .box {
 	padding: 0px;
 }
-.box-body{
+.box-body {
 	padding-top: 10px;
 	padding-left: 10px;
+}
+.navbar-custom-menu > .navbar-nav > li > .dropdown-menu {
+	right: 0px;
 }
 
 @media (max-width: 767px) {
 	.fixed .content-wrapper.epl-isAdmin {
-	padding-top: 50px;
+		padding-top: 50px;
 	}
 }
 

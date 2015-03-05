@@ -17,23 +17,23 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 @Entity
 @Table(name = "player")
-public class Player implements Serializable{
+public class Player implements Serializable {
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "team_id", nullable = false)
 	private Team team;
-	
+
 	@Column(name = "player_number")
 	private int playerNumber;
-	
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "position")
 	private String position;
 
@@ -76,5 +76,10 @@ public class Player implements Serializable{
 
 	public void setPosition(String position) {
 		this.position = position;
+	}
+
+	public void copyValue(Player p) {
+		this.name = p.getName();
+		this.position = p.getPosition();
 	}
 }

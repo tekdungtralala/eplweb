@@ -20,6 +20,21 @@ public class PlayerDAO {
 	@Transactional
 	public List<Player> getSquadsByTeamId(int teamId) {
 		Session session = this.sessionFactory.getCurrentSession();
-		return session.createQuery("from Player where team.id=" + teamId + " order by playerNumber asc").list();
+		return session.createQuery(
+				"from Player where team.id=" + teamId
+						+ " order by playerNumber asc").list();
+	}
+	
+	@Transactional
+	public Player findById(int id){
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Player> result = session.createQuery("from Player where id=" + id).list();
+		return result.get(0);
+	}
+
+	@Transactional
+	public void updateSquad(Player player) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.update(player);
 	}
 }

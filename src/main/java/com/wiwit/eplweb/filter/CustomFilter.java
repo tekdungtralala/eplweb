@@ -6,7 +6,6 @@ import java.util.Properties;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -15,21 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.wiwit.eplweb.dao.UserSessionDAO;
-import com.wiwit.eplweb.service.UserService;
-import com.wiwit.eplweb.service.UserSessionService;
 import com.wiwit.eplweb.util.PathPattern;
 import com.wiwit.eplweb.util.PathPatternUtil;
 import com.wiwit.eplweb.util.WebappProps;
@@ -40,7 +30,7 @@ public class CustomFilter implements Filter {
 			.getLogger(CustomFilter.class);
 
 	private SessionService service;
-	
+
 	@Override
 	public void destroy() {
 	}
@@ -66,18 +56,13 @@ public class CustomFilter implements Filter {
 				Properties props = PropertiesLoaderUtils
 						.loadProperties(resource);
 
-				String authKey = props.getProperty(WebappProps.ADMIN_SESSION_KEY.toString());
+				String authKey = props
+						.getProperty(WebappProps.ADMIN_SESSION_KEY.toString());
 				String authVal = req.getHeader(authKey);
 
-				logger.info(method + " authKey : " + authKey);
-				logger.info(method + " authVal : " + authVal);
-				
 				if (service.findBySession(authVal) != null) {
-					logger.info(method + " not null" );
 					chain.doFilter(rq, rs);
-				}else{
-					logger.info(method + " null" );
-					
+				} else {
 					res.setStatus(HttpStatus.FORBIDDEN.value());
 				}
 			} else {
@@ -85,7 +70,7 @@ public class CustomFilter implements Filter {
 			}
 		} else {
 			logger.info(method + " FAIL : " + path);
-		}		
+		}
 	}
 
 	@Override

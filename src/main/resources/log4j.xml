@@ -11,30 +11,20 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.wiwit.eplweb">
+	<logger name="com.wiwit.eplweb.controller">
 		<level value="info" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
-	<logger name="org.springframework.core">
-		
-	</logger>
+	<logger name="org.springframework.core"></logger>
 	
-	<logger name="org.hibernate">
-		
-	</logger>
+	<logger name="org.hibernate"></logger>
 	
-	<logger name="org.springframework.beans">
-		
-	</logger>
+	<logger name="org.springframework.beans"></logger>
 	
-	<logger name="org.springframework.context">
-		
-	</logger>
+	<logger name="org.springframework.context"></logger>
 
-	<logger name="org.springframework.web">
-		
-	</logger>
+	<logger name="org.springframework.web"></logger>
 
 	<!-- Root Logger -->
 	<root>
