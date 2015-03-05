@@ -233,6 +233,7 @@ table.epl-table > tbody > tr > td {
 	padding-right: 3px;
 	padding-left: 3px;
 }
+.epl-squads .epl-logo:hover img,
 .epl-team .epl-logo:hover img {
 	-webkit-transform:scale(1.80); /* Safari and Chrome */
 	-moz-transform:scale(1.80); /* Firefox */
