@@ -5,7 +5,30 @@
 		.module('app.squads')
 		.controller('Squads', Squads)
 		.controller('SquadsTeam', SquadsTeam)
-		.controller('SquadsTeamEdit', SquadsTeamEdit);
+		.controller('SquadsTeamEdit', SquadsTeamEdit)
+		.controller('SquadsTeamView', SquadsTeamView);
+
+	function SquadsTeamView(xhrSquads, $stateParams, $state) {
+		var vm = this;
+
+		// view variable
+		vm.curr = null;
+
+		vm.backToSquads = backToSquads;
+		
+		activate();
+		function activate() {
+			var squads = xhrSquads.result;
+
+			vm.curr = _.find(squads, function(s){
+				return s.id == $stateParams.playerId;
+			});
+		}
+
+		function backToSquads() {
+			$state.go('^', $stateParams, {reload: true});
+		}
+	}
 
 	function SquadsTeamEdit(xhrSquads, dataservice, $stateParams, $state) {
 		var vm = this;
@@ -97,7 +120,7 @@
 			backToSquads();
 		}
 
-		function backToSquads(result) {
+		function backToSquads() {
 			$state.go('^', $stateParams, {reload: true});
 		}
 	}
@@ -108,9 +131,14 @@
 		vm.squads = xhrSquads.result;
 
 		vm.gotoEdit = gotoEdit;
+		vm.gotoView = gotoView;
 
 		function gotoEdit(playerId) {
 			$state.go('.edit', { playerId: playerId });
+		}
+
+		function gotoView(playerId) {
+			$state.go('.view', { playerId: playerId });
 		}
 	}
 	// end of controller SquadsTeam

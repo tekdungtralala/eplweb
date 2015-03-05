@@ -27,7 +27,7 @@
 				}
 			})
 			.state("squads.team.edit", {
-				url: '/player/{playerId:[0-9]{1,10}}',
+				url: '/player/edit/{playerId:[0-9]{1,10}}',
 				views: {
 					'@squads': {
 						templateUrl: 'app/squads/editsquad.html',
@@ -36,7 +36,16 @@
 					}
 				}
 			})
-			;
+			.state("squads.team.view", {
+				url: '/player/view/{playerId:[0-9]{1,10}}',
+				views: {
+					'@squads': {
+						templateUrl: 'app/squads/viewsquad.html',
+						controller: 'SquadsTeamView',
+						controllerAs: 'vm'
+					}
+				}
+			});
 
 		function getallTeam(dataservice) {
 			return dataservice.getAllTeam();

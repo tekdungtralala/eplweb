@@ -17,7 +17,8 @@
 			<td class='epl-left'>{{m.name}}</td>
 			<td class='epl-left'>{{m.position}}</td>
 			<td>
-				<button type="button" class="btn btn-default btn-xs">
+				<button type="button" class="btn btn-default btn-xs"
+					ng-click='vm.gotoView(m.id)'>
 					<span class="glyphicon glyphicon-eye-open"/>
 				</button>
 				<button type="button" class="btn btn-default btn-xs"
