@@ -12,48 +12,65 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.wiwit.eplweb.model.view.SimpleResult;
 
 public class BaseController {
+	
+	public static final String CONTENT_TYPE_JSON = "application/json";
 
-	public String generateJson(Object result) throws JsonGenerationException, JsonMappingException, IOException{
-		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+	public String generateJson(Object result) throws JsonGenerationException,
+			JsonMappingException, IOException {
+		ObjectWriter ow = new ObjectMapper().writer()
+				.withDefaultPrettyPrinter();
 		return ow.writeValueAsString(result);
 	}
-	
-	public String generateSimpleResult(Object result) throws JsonGenerationException, JsonMappingException, IOException{
-		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+
+	public String generateSimpleResult(Object result)
+			throws JsonGenerationException, JsonMappingException, IOException {
+		ObjectWriter ow = new ObjectMapper().writer()
+				.withDefaultPrettyPrinter();
 		SimpleResult sr = SimpleResult.generateResult(result);
 		return ow.writeValueAsString(sr);
 	}
-	
+
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public class ResourceNotFoundException extends RuntimeException {
 	}
-	
+
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	public class ResourceBadRequestExceptidon extends RuntimeException {
-	}
-	
-	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-	public class ResourceInternalErrorExceptidon extends RuntimeException {
-	}
-	
-	@ResponseStatus(value = HttpStatus.FORBIDDEN)
-	public class ResourceForbiddenExceptidon extends RuntimeException {
-	}
-	
-	public void throw400(){
-		throw new ResourceBadRequestExceptidon();
-	}
-	
-	public void throw403(){
-		throw new ResourceForbiddenExceptidon();
-	}
-	
-	public void throw404(){
-		throw new ResourceNotFoundException();
-	}
-	
-	public void throw500(){
-		throw new ResourceInternalErrorExceptidon();
+	public class ResourceBadRequestException extends RuntimeException {
 	}
 
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	public class ResourceInternalErrorException extends RuntimeException {
+	}
+
+	@ResponseStatus(value = HttpStatus.FORBIDDEN)
+	public class ResourceForbiddenException extends RuntimeException {
+	}
+
+	@ResponseStatus(value = HttpStatus.CONFLICT)
+	public class ResourceConflictException extends RuntimeException {
+		public ResourceConflictException(String message) {
+			super(message);
+		}
+
+	}
+
+	public void throw400() {
+		throw new ResourceBadRequestException();
+	}
+
+	public void throw403() {
+		throw new ResourceForbiddenException();
+	}
+
+	public void throw404() {
+		throw new ResourceNotFoundException();
+	}
+
+	public void throw500() {
+		throw new ResourceInternalErrorException();
+	}
+
+	public void throw409(String message) {
+		throw new ResourceConflictException(message);
+	}
 }

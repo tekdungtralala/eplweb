@@ -33,7 +33,8 @@ public enum PathPattern {
 	BOWER_DIR(null, null, "/bower_components/.+", false),
 	
 	// Secured path	
-	SQUAD(ApiPath.SQUAD, new String[]{"PUT"}, "/api/players/[\\d]+", true);
+	SQUAD_BY_ID(ApiPath.SQUAD_BY_ID, new String[]{"PUT, DELETE"}, "/api/players/[\\d]+", true),
+	SQUAD(ApiPath.SQUAD, new String[]{"POST"}, "/api/players", true);
 
 	private final String requestMapping;
 	private final String requestPattern;

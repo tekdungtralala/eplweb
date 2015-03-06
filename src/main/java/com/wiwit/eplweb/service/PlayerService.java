@@ -19,14 +19,26 @@ public class PlayerService {
 		return playerDAO.getSquadsByTeamId(teamId);
 	}
 
-	public void updateSquad(int id, Player player) {
+	public void updatePlayer(int id, Player player) {
 		Player curr = playerDAO.findById(id);
 		curr.copyValue(player);
-		playerDAO.updateSquad(curr);
+		playerDAO.updatePlayer(curr);
+	}
+	
+	public void savePlayer(Player player) {
+		playerDAO.savePlayer(player);
 	}
 	
 	public Player findById(int id) {
 		return playerDAO.findById(id);
+	}
+	
+	public Player findByTeamAndNumber(int teamId, int playerNumber){
+		return playerDAO.findByTeamAndNumber(teamId, playerNumber);
+	}
+	
+	public void deletePlayer(Player player) {
+		playerDAO.deletePlayer(player);
 	}
 	
 }

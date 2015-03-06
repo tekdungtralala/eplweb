@@ -17,7 +17,9 @@
 			adminCekLogin: adminCekLogin,
 			adminLogout: adminLogout,
 			// admin resource only
-			doEditPlayer: doEditPlayer,
+			editPlayer: editPlayer,
+			savePlayer: savePlayer,
+			deletePlayer: deletePlayer,
 
 			// Page /team
 			getPlayersByTeamId: getPlayersByTeamId,
@@ -36,8 +38,34 @@
 
 		return service;
 
-		function doEditPlayer(player) {
-			var req = adminauth.getConf(player, "PUT", "api/players/");
+		function deletePlayer(playerId) {
+			var req = adminauth.getConf(null, "DELETE", "api/players/" + playerId);
+
+			$rootScope.promise = $http(req)
+					.then(process)
+					.catch(process);
+			return $rootScope.promise;
+
+			function process(result) {
+				return result;
+			}
+		}
+
+		function savePlayer(player) {
+			var req = adminauth.getConf(player, "POST", "api/players");
+
+			$rootScope.promise = $http(req)
+					.then(process)
+					.catch(process);
+			return $rootScope.promise;
+
+			function process(result) {
+				return result;
+			}
+		}
+
+		function editPlayer(player) {
+			var req = adminauth.getConf(player, "PUT", "api/players/" + player.id);
 
 			$rootScope.promise = $http(req)
 					.then(process)

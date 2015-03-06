@@ -69,7 +69,7 @@ public class CustomFilter implements Filter {
 				chain.doFilter(rq, rs);
 			}
 		} else {
-			logger.info(method + " FAIL : " + path);
+			res.setStatus(HttpStatus.NOT_FOUND.value());
 		}
 	}
 

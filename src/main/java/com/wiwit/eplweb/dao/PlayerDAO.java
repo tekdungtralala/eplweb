@@ -33,8 +33,32 @@ public class PlayerDAO {
 	}
 
 	@Transactional
-	public void updateSquad(Player player) {
+	public void updatePlayer(Player player) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(player);
+	}
+	
+	@Transactional
+	public void savePlayer(Player player) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.persist(player);		
+	}
+	
+	@Transactional
+	public Player findByTeamAndNumber(int teamId, int playerNumber){
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Player> result = session.createQuery("from Player where team.id=" + teamId 
+				+ " and playerNumber=" + playerNumber).list();
+		
+		if (result == null || result.size() == 0)
+			return null;
+		
+		return result.get(0);
+	}
+	
+	@Transactional
+	public void deletePlayer(Player player) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.delete(player);		
 	}
 }

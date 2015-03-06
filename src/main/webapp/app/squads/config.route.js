@@ -17,31 +17,37 @@
 					xhrTeams: getallTeam
 				}
 			})
-			.state("squads.team", {
-				url: '/team/{teamId}/{simpleName}',
+			.state("squads.create-player", {
+				url: '/create-player',
+				templateUrl: 'app/squads/newsquad.html',
+				controller: 'SquadsCreatePlayer',
+				controllerAs: 'vm'
+			})
+			.state("squads.show-team", {
+				url: '/show-teams/{teamId}',
 				templateUrl: 'app/squads/allsquads.html',
-				controller: 'SquadsTeam',
+				controller: 'SquadsShowTeam',
 				controllerAs: 'vm',
 				resolve: {
 					xhrSquads: getAllSquadByTeam
 				}
 			})
-			.state("squads.team.edit", {
-				url: '/player/edit/{playerId:[0-9]{1,10}}',
+			.state("squads.show-team.edit-player", {
+				url: '/edit-player/{playerId}',
 				views: {
 					'@squads': {
 						templateUrl: 'app/squads/editsquad.html',
-						controller: 'SquadsTeamEdit',
+						controller: 'SquadsEditPlayer',
 						controllerAs: 'vm'
 					}
 				}
 			})
-			.state("squads.team.view", {
-				url: '/player/view/{playerId:[0-9]{1,10}}',
+			.state("squads.show-team.show-player", {
+				url: '/player/view/{playerId}',
 				views: {
 					'@squads': {
 						templateUrl: 'app/squads/viewsquad.html',
-						controller: 'SquadsTeamView',
+						controller: 'SquadsShowPlayer',
 						controllerAs: 'vm'
 					}
 				}

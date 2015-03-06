@@ -22,12 +22,16 @@
 		function getConf(o, method, url) {
 			var req = {
 				method: method,
-				url: url + o.id,
+				url: url,
 				headers: {
 					"Content-Type": "application/json"
-				},
-				data: JSON.stringify(o)
+				}
 			}
+
+			if (o) {
+				req.data = JSON.stringify(o);
+			}
+
 			req.headers[EPL_AUTH_HEADER] = getAdminSession();
 
 			return req;

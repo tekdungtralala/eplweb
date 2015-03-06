@@ -8,6 +8,8 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import com.wiwit.eplweb.model.Player;
 import com.wiwit.eplweb.model.view.SimpleResult;
 import com.wiwit.eplweb.service.PlayerService;
 import com.wiwit.eplweb.util.ApiPath;
+import com.wiwit.eplweb.util.ErrorResult;
 
 @RestController
 public class SquadController extends BaseController {
@@ -27,15 +30,56 @@ public class SquadController extends BaseController {
 
 	@Autowired
 	public PlayerService playerService;
-
-	@RequestMapping(value = ApiPath.SQUAD, method = RequestMethod.PUT)
-	public void putPlayer(@PathVariable("playerId") int playerId, @RequestBody final Player player) {
-		logger.info("PUT /api/players/" + playerId);
+	
+	@RequestMapping(value = ApiPath.SQUAD_BY_ID, method = RequestMethod.DELETE)
+	public ResponseEntity<String> deletePlayer(@PathVariable("playerId") int playerId) {
+		logger.info("DELETE /api/players/" + playerId);
 		
-		playerService.updateSquad(playerId, player);
+		Player p = playerService.findById(playerId);
+		
+		if (p == null) {
+			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+		} else {
+			playerService.deletePlayer(p);
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}
 	}
 
-	@RequestMapping(value = ApiPath.SQUADS_BY_TEAM, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.SQUAD, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
+	public ResponseEntity<String> postPlayer(@RequestBody final Player player)
+			throws JsonGenerationException, JsonMappingException, IOException {
+		logger.info("POST /api/players");
+
+		int teamId = player.getTeam().getId();
+		int playerNumber = player.getPlayerNumber();
+
+		Player p = playerService.findByTeamAndNumber(teamId, playerNumber);
+
+		if (p != null) {
+			String errorMsg = "Player with player number = " + playerNumber
+					+ " on team id = " + teamId + " already exist!";
+
+			ErrorResult er = new ErrorResult(HttpStatus.CONFLICT.value(),
+					errorMsg);
+
+			String json = generateSimpleResult(er);
+
+			return new ResponseEntity<String>(json, HttpStatus.CONFLICT);
+		} else {
+			playerService.savePlayer(player);
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}
+	}
+
+	@RequestMapping(value = ApiPath.SQUAD_BY_ID, method = RequestMethod.PUT, consumes = CONTENT_TYPE_JSON)
+	public void putPlayer(@PathVariable("playerId") int playerId,
+			@RequestBody final Player player) {
+		logger.info("PUT /api/players/" + playerId);
+
+		playerService.updatePlayer(playerId, player);
+	}
+
+	@RequestMapping(value = ApiPath.SQUADS_BY_TEAM, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
 	public SimpleResult getFiveHighestRank(@PathVariable("teemId") int teamId)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /api/players/team/" + teamId);

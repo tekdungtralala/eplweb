@@ -16,7 +16,8 @@ public class ApiPath {
 	public static final String MATCHDAYS = "/api/matchday";
 	public static final String MATCHDAYS_BY_WEEK = "/api/matchday/{weekNumber}";
 	
-	public static final String SQUAD = "/api/players/{playerId}";
+	public static final String SQUAD_BY_ID = "/api/players/{playerId}";
+	public static final String SQUAD = "/api/players";
 	public static final String SQUADS_BY_TEAM =  "/api/players/team/{teemId}";
 	
 	public static final String RANKS = "/api/ranks";

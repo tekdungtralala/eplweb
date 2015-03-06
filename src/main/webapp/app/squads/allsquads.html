@@ -25,10 +25,33 @@
 					ng-click='vm.gotoEdit(m.id)'>
 					<span class="glyphicon glyphicon-pencil"/>
 				</button>
-				<button type="button" class="btn btn-default btn-xs">
+				<button type="button" class="btn btn-default btn-xs"
+					ng-click='vm.preDelete(m.id)'>
 					<span class="glyphicon glyphicon-remove-circle"/>
 				</button>				
 			</td>
 		</tr>
 	</tbody>
 </table>
+
+
+<div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Delete Confirmation</h3>
+        </div>
+        <div class="modal-body">
+           Are you sure want to delete id {{vm.playerId}} ?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" ng-click="vm.cancelDelete()">
+              <span class="glyphicon glyphicon-ban-circle"></span>
+              Cancel
+            </button>
+            <button class="btn btn-danger" ng-click="vm.doDelete()">
+              <span class="glyphicon glyphicon-remove-circle"></span>
+              Delete
+            </button>
+        </div>
+    </script>
+</div>
