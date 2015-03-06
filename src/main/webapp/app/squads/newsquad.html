@@ -17,7 +17,9 @@
 		</div>
 
 		<div class="form-group">
-			<label>Select Team</label>
+			<label>Select Team</label>&nbsp;&nbsp;
+			<img class="image epl-mini-team-logo" alt="" ng-hide="vm.team === null"
+				src="eplweb_components/image/logo/150x150/{{vm.team.id}}.png"/>
 			<select class="form-control" name='team' 
 				ng-model="vm.team"
 				ng-options="v.name for (k , v) in vm.teams">
