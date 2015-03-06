@@ -8,11 +8,14 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiwit.eplweb.model.Week;
+import com.wiwit.eplweb.model.view.MatchdayModelView;
 import com.wiwit.eplweb.model.view.WeekModelView;
 import com.wiwit.eplweb.service.WeekService;
 import com.wiwit.eplweb.util.ApiPath;
@@ -26,21 +29,25 @@ public class WeekController extends BaseController {
 	@Autowired
 	private WeekService weekService;
 
-	@RequestMapping(value = ApiPath.PASSED_WEEK, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public WeekModelView getAllPassedWeek() throws JsonGenerationException,
+	@RequestMapping(value = ApiPath.PASSED_WEEK, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
+	public ResponseEntity<WeekModelView> getAllPassedWeek() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/passedWeeks");
 
 		List<Week> weeks = weekService.getAllPassedWeek();
-		return WeekModelView.getModelView(weeks);
+		
+		WeekModelView result =  WeekModelView.getModelView(weeks);
+		return new ResponseEntity<WeekModelView>(result, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = ApiPath.WEEKS, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public WeekModelView getAllWeek() throws JsonGenerationException,
+	@RequestMapping(value = ApiPath.WEEKS, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
+	public ResponseEntity<WeekModelView> getAllWeek() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/weeks");
 
 		List<Week> weeks = weekService.getAllWeek();
-		return WeekModelView.getModelView(weeks);
+		
+		WeekModelView result =  WeekModelView.getModelView(weeks);
+		return new ResponseEntity<WeekModelView>(result, HttpStatus.OK);
 	}
 }

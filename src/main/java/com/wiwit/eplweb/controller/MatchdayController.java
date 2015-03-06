@@ -7,6 +7,8 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,20 +27,22 @@ public class MatchdayController extends BaseController {
 	@Autowired
 	private MatchdayService matchdayService;
 
-	@RequestMapping(value = ApiPath.MATCHDAYS, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public MatchdayModelView getCurrentMatchday()
+	@RequestMapping(value = ApiPath.MATCHDAYS, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
+	public ResponseEntity<MatchdayModelView> getCurrentMatchday()
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /matchday");
 
-		return matchdayService.getMatchtdayOnCurrWeek();
+		MatchdayModelView result =  matchdayService.getMatchtdayOnCurrWeek();
+		return new ResponseEntity<MatchdayModelView>(result, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = ApiPath.MATCHDAYS_BY_WEEK, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public MatchdayModelView getSelectedMatchday(
+	@RequestMapping(value = ApiPath.MATCHDAYS_BY_WEEK, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
+	public ResponseEntity<MatchdayModelView> getSelectedMatchday(
 			@PathVariable("weekNumber") int weekNumber)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /matchday/" + weekNumber);
 
-		return matchdayService.getMatchtdayByWeekNmr(weekNumber);
+		MatchdayModelView result =  matchdayService.getMatchtdayByWeekNmr(weekNumber);
+		return new ResponseEntity<MatchdayModelView>(result, HttpStatus.OK);
 	}
 }

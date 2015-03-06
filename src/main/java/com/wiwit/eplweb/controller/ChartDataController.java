@@ -9,6 +9,8 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,8 +35,8 @@ public class ChartDataController extends BaseController {
 	@Autowired
 	private RankService rankService;
 
-	@RequestMapping(value = ApiPath.CHART_TEAM_STAT, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public TeamStatModelView getChartTeamStat(@PathVariable("weekNumber") int weekNumber,
+	@RequestMapping(value = ApiPath.CHART_TEAM_STAT, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
+	public ResponseEntity<TeamStatModelView> getChartTeamStat(@PathVariable("weekNumber") int weekNumber,
 			@PathVariable("teamId") int teamId) throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/chart/week/" + weekNumber + "/team/" + teamId);
@@ -43,11 +45,11 @@ public class ChartDataController extends BaseController {
 		TeamStatModelView tsmv = new TeamStatModelView();
 		tsmv.addData(teamId, weekNumber, ranks);
 
-		return tsmv;
+		return new ResponseEntity<TeamStatModelView>(tsmv, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = ApiPath.CHART_FIVE_BIGGEST_TEAM, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public FiveBigTeamModelView getFiveBigestTeam() throws JsonGenerationException,
+	@RequestMapping(value = ApiPath.CHART_FIVE_BIGGEST_TEAM, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
+	public ResponseEntity<FiveBigTeamModelView> getFiveBigestTeam() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/chart/fiveBigestTeam");
 
@@ -76,7 +78,6 @@ public class ChartDataController extends BaseController {
 			// then put them to model view
 			result.addData(i, tmp);
 		}
-
-		return result;
+		return new ResponseEntity<FiveBigTeamModelView>(result, HttpStatus.OK);
 	}
 }

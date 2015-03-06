@@ -10,6 +10,8 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,31 +35,31 @@ public class AdminController extends BaseController {
 	@Autowired
 	private UserSessionService sessionService;
 	
-	@RequestMapping(value = ApiPath.ADMIN_SESSION, method = RequestMethod.DELETE, produces = "application/json; charset=utf-8")
-	public String removeSession(@PathVariable("session") String session)
+	@RequestMapping(value = ApiPath.ADMIN_SESSION, method = RequestMethod.DELETE, produces = CONTENT_TYPE_JSON)
+	public ResponseEntity<String> removeSession(@PathVariable("session") String session)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("DELETE /api/admin/login/" + session);
 
 		sessionService.deleteSession(session);
 
-		return "ok";
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
-	@RequestMapping(value = ApiPath.ADMIN_SESSION, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public SimpleResult checkSession(@PathVariable("session") String session)
+	@RequestMapping(value = ApiPath.ADMIN_SESSION, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
+	public ResponseEntity<SimpleResult> checkSession(@PathVariable("session") String session)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /api/admin/login/" + session);
 
 		UserSession us = sessionService.findBySession(session);
 
 		if (us == null)
-			throw404();
+			return new ResponseEntity<SimpleResult>(HttpStatus.NOT_FOUND);
 
-		return SimpleResult.generateResult(us);
+		return new ResponseEntity<SimpleResult>(SimpleResult.generateResult(us), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = ApiPath.ADMIN_LOGIN, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-	public SimpleResult createSession(HttpServletRequest request)
+	@RequestMapping(value = ApiPath.ADMIN_LOGIN, method = RequestMethod.POST, produces = CONTENT_TYPE_JSON)
+	public ResponseEntity<SimpleResult> createSession(HttpServletRequest request)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("POST /api/admin/login");
 
@@ -69,7 +71,7 @@ public class AdminController extends BaseController {
 
 		if (adminEmailEncode == null || adminEmailEncode.isEmpty()
 				|| adminPaswdEncode == null || adminPaswdEncode.isEmpty()) {
-			throw404();
+			return new ResponseEntity<SimpleResult>(HttpStatus.NOT_FOUND);
 		}
 		byte[] decodedBytes = Base64.decodeBase64(adminEmailEncode);
 		String decodedEmail = new String(decodedBytes);
@@ -77,14 +79,13 @@ public class AdminController extends BaseController {
 		User u = userService.findUserByEmail(decodedEmail);
 
 		if (u == null)
-			throw404();
+			return new ResponseEntity<SimpleResult>(HttpStatus.NOT_FOUND);
 
 		if (u.getPassword().equals(adminPaswdEncode)) {
 			UserSession session = sessionService.doLogin(u);
-			return SimpleResult.generateResult(session);
+			return new ResponseEntity<SimpleResult>(SimpleResult.generateResult(session), HttpStatus.OK);
 		}
 
-		throw404();
-		return null;
+		return new ResponseEntity<SimpleResult>(HttpStatus.NOT_FOUND);
 	}
 }

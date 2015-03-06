@@ -9,6 +9,8 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,8 +48,8 @@ public class FirstLoadController extends BaseController {
 	@Autowired
 	private TeamService teamService;
 
-	@RequestMapping(value = ApiPath.INIT_TEAM_PAGE, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public TeamPageModelView getDataTeamPage(@PathVariable("id") int teamId,
+	@RequestMapping(value = ApiPath.INIT_TEAM_PAGE, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
+	public ResponseEntity<TeamPageModelView> getDataTeamPage(@PathVariable("id") int teamId,
 			@PathVariable("simpleName") String simpleName)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /api/page/team/" + teamId + "/" + simpleName);
@@ -61,22 +63,22 @@ public class FirstLoadController extends BaseController {
 		result.setRanks(rankService.getLatestRank());
 		result.setMatchdays(matchdayService.getLastAndNextMatchday(teamId));
 
-		return result;
+		return new ResponseEntity<TeamPageModelView>(result, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = ApiPath.INIT_MATCHDAY_PAGE, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public MatchdayPageModelView getDataMatchdayPage()
+	@RequestMapping(value = ApiPath.INIT_MATCHDAY_PAGE, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
+	public ResponseEntity<MatchdayPageModelView> getDataMatchdayPage()
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /api/page/matchday");
 
 		MatchdayPageModelView result = new MatchdayPageModelView();
 		result.setWeeks(weekService.getAllWeek());
 		result.setMatchdayModelView(matchdayService.getMatchtdayOnCurrWeek());
-		return result;
+		return new ResponseEntity<MatchdayPageModelView>(result, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = ApiPath.INIT_RANK_PAGE, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public RankPageModelView getDataRankPage() throws JsonGenerationException,
+	@RequestMapping(value = ApiPath.INIT_RANK_PAGE, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
+	public ResponseEntity<RankPageModelView> getDataRankPage() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/page/rank");
 
@@ -86,11 +88,11 @@ public class FirstLoadController extends BaseController {
 
 		result.setWeeks(weekService.getAllPassedWeek());
 
-		return result;
+		return new ResponseEntity<RankPageModelView>(result, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = ApiPath.INIT_DASHBOARD_PAGE, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public DashboardPageModelView getDataDashboardPage()
+	@RequestMapping(value = ApiPath.INIT_DASHBOARD_PAGE, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
+	public ResponseEntity<DashboardPageModelView> getDataDashboardPage()
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /api/page/dashboard");
 
@@ -129,6 +131,6 @@ public class FirstLoadController extends BaseController {
 
 		result.setCurrentWeek(weekService.findCurrWeek());
 
-		return result;
+		return new ResponseEntity<DashboardPageModelView>(result, HttpStatus.OK);
 	}
 }
