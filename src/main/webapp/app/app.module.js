@@ -3,13 +3,11 @@
 
 	angular.module('app', [
 		// Angular module
+		'ngAnimate',
+		// Third party module
 		'ui.router',
 		'ui.bootstrap',
-		// 'ui-templates',
-
-
-		// Third party module
-		'ngAnimate',
+		'ui.slider',
 		'cgBusy',
 
 		// App Module

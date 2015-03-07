@@ -5,8 +5,9 @@
 		.module('app.rank')
 		.controller('Rank', Rank);
 
-	function Rank(dataservice, datautil) {
+	function Rank(dataservice, datautil, $scope) {
 		var vm = this;
+
 		vm.ranks = [];
 		vm.weeks = [];
 		vm.nextRankDisable = true;
@@ -14,8 +15,14 @@
 		vm.currWeek = null;
 		vm.selectedWeek = null;
 		vm.currTeam = null;
+		vm.maxWeek = null;
+
 		vm.changeWeek = changeWeek;
 		vm.showChart = showChart;
+
+    vm.slideroptions = {
+      stop: sliderStop
+    }
 
 		activate();
 		function activate() {
@@ -23,7 +30,13 @@
 				processWeekData(result.weeks);
 				var lastWeek = parseInt(vm.weeks[0].weekNumber);
 				processRankData(result.ranks, lastWeek);
+
+				vm.maxWeek = vm.currWeek;
 			});
+		}
+
+		function sliderStop() {
+			changeWeek(vm.currWeek);
 		}
 
 		function showChart(teamIndex){

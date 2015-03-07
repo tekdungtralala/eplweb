@@ -134,6 +134,9 @@ body{
 	width: 100%;
 	margin-bottom: 5px;
 }
+.epl-phase-nav .epl-slider {
+	margin: 10px;
+}
 .epl-phase-nav .epl-season-label,
 .epl-phase-nav .epl-week-label {
 	width: 80px;
