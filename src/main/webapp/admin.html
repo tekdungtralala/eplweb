@@ -104,7 +104,60 @@ folder instead of downloading all of them to reduce the load. -->
 <script src="app/app.module.js"></script>
 
   </head>
+  <style>
+#slider label {
+    position: absolute;
+    width: 20px;
+    margin-left: -10px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* below is not necessary, just for style */
+#slider {
+    width: 50%;
+    margin: 2em auto;
+}
+  </style>
 <body>
+<div id="slider"></div>
+<script type="text/javascript">
+$( document ).ready(function() {
+$( "#slider" ).slider({
+    value: 4,
+    min: 1,
+    max: 7,
+    step: 1
+})
+.each(function() {
+
+  //
+  // Add labels to slider whose values 
+  // are specified by min, max and whose
+  // step is set to 1
+  //
+
+  // Get the options for this slider
+  console.log(" : ", $(this).data()['ui-slider']);
+  var opt = $(this).data()['ui-slider'].options;
+  console.log("opt : ", opt);
+  
+  // Get the number of possible values
+  var vals = opt.max - opt.min;
+  
+  // Space out values
+  for (var i = 0; i <= vals; i++) {
+    
+    var el = $('<label>'+(i+1)+'</label>').css('left',(i/vals*100)+'%');
+  
+    $( "#slider" ).append(el);
+    
+  }
+  
+});
+}); //JQUERY ON LOAD
+
+</script>
 </body>
 </html>
 

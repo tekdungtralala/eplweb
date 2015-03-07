@@ -15,14 +15,11 @@
 		vm.currWeek = null;
 		vm.selectedWeek = null;
 		vm.currTeam = null;
-		vm.maxWeek = null;
 
 		vm.changeWeek = changeWeek;
 		vm.showChart = showChart;
 
-    vm.slideroptions = {
-      stop: sliderStop
-    }
+		var sliderElmt = $("#epl-slider");
 
 		activate();
 		function activate() {
@@ -31,12 +28,31 @@
 				var lastWeek = parseInt(vm.weeks[0].weekNumber);
 				processRankData(result.ranks, lastWeek);
 
-				vm.maxWeek = vm.currWeek;
+				initSlideOpt()
+			});
+		}
+
+		function initSlideOpt() {
+			sliderElmt.slider({
+					value: vm.currWeek,
+					min: 1,
+					max: vm.currWeek,
+					step: 1,
+					stop: sliderStop
+			})
+			.each(function() {
+				var opt = $(this).data()['ui-slider'].options;
+				var vals = opt.max - opt.min;
+				for (var i = 0; i <= vals; i++) {
+					var el = $('<label>'+(i+1)+'</label>').css('left',(i/vals*100)+'%');
+					sliderElmt.append(el);
+				}
 			});
 		}
 
 		function sliderStop() {
-			changeWeek(vm.currWeek);
+			var sliderValue = sliderElmt.slider('value');
+			changeWeek(sliderValue);
 		}
 
 		function showChart(teamIndex){
@@ -119,6 +135,9 @@
 		}
 
 		function changeWeek(otherWeek){
+			// Change slider value
+			sliderElmt.slider({value: otherWeek});
+
 			otherWeek = parseInt(otherWeek);
 			getRanksByWeekNmr(otherWeek).then(function(data){
 				processRankData(data, otherWeek);
