@@ -11,6 +11,7 @@
 		vm.model = [];
 		vm.selectedWeek = null;
 		vm.currWeek = null;
+		vm.defaultWeek = null;
 		vm.nextRankDisable = false;
 		vm.prevRankDisable = false;
 
@@ -25,6 +26,7 @@
 				processMatchData(result.matchdayModelView);
 
 				initSlideOpt();
+				vm.defaultWeek = vm.currWeek;
 			});
 		}
 
