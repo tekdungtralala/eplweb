@@ -28,7 +28,7 @@
 				var lastWeek = parseInt(vm.weeks[0].weekNumber);
 				processRankData(result.ranks, lastWeek);
 
-				initSlideOpt()
+				initSlideOpt();
 			});
 		}
 

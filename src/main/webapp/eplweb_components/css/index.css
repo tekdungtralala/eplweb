@@ -179,6 +179,21 @@ body{
 	margin-bottom: 5px;
 	}
 }
+#epl-slider label {
+	position: absolute;
+	width: 20px;
+	margin-left: -10px;
+	text-align: center;
+	margin-top: 20px;
+	font-size:8px;
+}
+#epl-slider {
+	width: 95%;
+	margin-bottom: 30px;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
 table.epl-table > tbody > tr > td {
 	vertical-align: middle;
 }
@@ -296,21 +311,4 @@ table.epl-table > tbody > tr > td {
 	margin-left: auto;
 	margin-right: auto;
 	width: 520px;
-}
-
-
-#epl-slider label {
-    position: absolute;
-    width: 20px;
-    margin-left: -10px;
-    text-align: center;
-    margin-top: 20px;
-    font-size:8px;
-}
-#epl-slider {
-	width: 95%;
-	margin-bottom: 30px;
-	margin-top: 10px;
-	margin-left: auto;
-	margin-right: auto;
 }
