@@ -5,7 +5,7 @@
 		.module('app.matchday')
 		.controller('Matchday', Matchday);
 
-	function Matchday(dataservice, datautil) {
+	function Matchday(dataservice, datautil, $scope, $modal) {
 		var vm = this;
 		vm.weeks = [];
 		vm.model = [];
@@ -15,7 +15,15 @@
 		vm.nextRankDisable = false;
 		vm.prevRankDisable = false;
 
+		vm.isLoggedAdmin = false;
+		vm.modalInstance = null;
+		vm.currMatch = null;
+		vm.score = []; // index 0 for home, 1 for away
+
 		vm.changeWeek = changeWeek;
+		vm.preEditScore = preEditScore;
+		vm.cancelEditScore = cancelEditScore;
+		vm.doEditScore = doEditScore;
 
 		var sliderElmt = $("#epl-slider");
 
@@ -27,7 +35,46 @@
 
 				initSlideOpt();
 				vm.defaultWeek = vm.currWeek;
+
+				// check is login admin 
+				checkLoggedAdmin();
 			});
+		}
+
+		function doEditScore() {
+			// {{editScore.homeGoal.$valid}}
+			// {{editScore.$valid}}
+			vm.modalInstance.dismiss('cancel');
+		}
+
+		function cancelEditScore() {
+			vm.modalInstance.dismiss('cancel');
+		}
+
+		function preEditScore(m) {
+			vm.currMatch = m;
+
+			vm.score[0] = vm.currMatch.homeGoal;
+			vm.score[0] = vm.score[0] < 0 ? 0 : vm.score[0];
+			vm.score[1] = vm.currMatch.awayGoal;
+			vm.score[1] = vm.score[1] < 0 ? 0 : vm.score[1];
+
+			vm.modalInstance = $modal.open({
+				templateUrl: 'editScore.html',
+				size: 'sm',
+				scope: $scope
+			});			
+		}
+
+		function checkLoggedAdmin() {
+			dataservice.hasAdminRole().then(processAdmnRole);
+		}
+
+		function processAdmnRole(result) {
+			
+			if (result && result.status === 200) {
+				vm.isLoggedAdmin = true;
+			}
 		}
 
 		function initSlideOpt() {

@@ -312,3 +312,37 @@ table.epl-table > tbody > tr > td {
 	margin-right: auto;
 	width: 520px;
 }
+
+
+
+
+.epl-edit-score {
+	width: 35px;
+}
+.epl-tbl-edit-score {
+	width: 100%;
+}
+table.epl-tbl-edit-score > tbody > tr > td {
+	padding: 0px;
+	padding-right: 3px;
+	padding-left: 3px;
+	vertical-align: middle;
+}
+.epl-score-btn:active {
+	box-shadow: none;
+}
+.epl-modal-header-edit-score {
+	padding-bottom: 0px;
+}
+.epl-modal-body-edit-score {
+	height: 95px;
+	padding-top: 0px;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.epl-edit-score.ng-invalid {
+	border-color: red;
+}

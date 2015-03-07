@@ -16,6 +16,7 @@
 			adminLogin: adminLogin,
 			adminCekLogin: adminCekLogin,
 			adminLogout: adminLogout,
+			hasAdminRole: hasAdminRole,
 			// admin resource only
 			editPlayer: editPlayer,
 			savePlayer: savePlayer,
@@ -123,12 +124,25 @@
 			$('body').removeClass('sidebar-open');
 		}
 
+		function hasAdminRole() {
+			var session = adminauth.getAdminSession();
+			if (session) {
+				return checkAdminSession(session);
+			} else {
+				return $.Deferred().resolve(false);
+			}
+		}
+
+		function checkAdminSession(session){
+			return $http.get('api/admin/login/' + session);
+		}
+
 		function adminCekLogin() {
 			$rootScope.isAdminLogged = false;
 
 			var session = adminauth.getAdminSession();
 			if (session) {
-				$rootScope.promise = $http.get('api/admin/login/' + session)
+				$rootScope.promise = checkAdminSession(session)
 					.then(process)
 					.catch(process);
 				return $rootScope.promise;

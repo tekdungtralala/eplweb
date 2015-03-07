@@ -56,7 +56,7 @@
 <table class="table borderless epl-table">
 	<thead data-ng-repeat='(key,val) in vm.model'>
 		<tr>
-			<th colspan="8">{{key}}</th>
+			<th colspan="10">{{key}}</th>
 		</tr>
 		<tr class="odd gradeX" data-ng-repeat='m in val'>
 			<td class="time">
@@ -85,7 +85,96 @@
 					{{m.awayTeam.name}}
 				</a>
 			</td>
+			<td class="epl-left" ng-show="vm.isLoggedAdmin">
+				<button class="btn btn-block btn-primary btn-xs" ng-click="vm.preEditScore(m)">
+					<i class="fa fa-pencil"></i>
+				</button>
+			</td>
 		</tr>
 	</thead>    
 </table>
 </div>
+
+<script type="text/ng-template" id="editScore.html">
+	<div class="modal-header epl-modal-header-edit-score">
+		<h4 class="modal-title">
+			Update Score
+		</h4>
+	</div>
+	<div class="modal-body epl-center epl-modal-body-edit-score">
+		<form name="editScore">
+		<table class="table borderless epl-tbl-edit-score">
+			<tbody>
+				<tr>
+					<td colspan='2'></td>
+					<td>
+						<a href="" class="btn btn-link epl-score-btn"
+							ng-click="vm.score[0] = vm.score[0] + 1">
+							<i class="fa fa-angle-up"></i>
+						</a>
+					</td>
+					<td></td>
+					<td>
+						<a href="" class="btn btn-link epl-score-btn"
+							ng-click="vm.score[1] = vm.score[1] + 1">
+							<i class="fa fa-angle-up"></i>
+						</a>
+					</td>
+					<td colspan='2'></td>
+				</tr>
+				<tr>
+					<td>Arsenal</td>
+					<td>
+						<img class="image epl-mini-team-logo" 
+							ng-src="eplweb_components/image/logo/150x150/{{vm.currMatch.homeTeam.id}}.png"/>
+					</td>
+					<td>
+						<input type="number" class="epl-edit-score epl-center" autofocus 
+							required="true" name="homeGoal" min="0"
+							ng-model="vm.score[0]"/>
+					</td>
+					<td>VS</td>
+					<td>
+						<input type="number" class="epl-edit-score epl-center"
+							required="true" name="awayGoal" min="0"
+							ng-model="vm.score[1]"/>
+					</td>
+					<td>
+						<img class="image epl-mini-team-logo" 
+							ng-src="eplweb_components/image/logo/150x150/{{vm.currMatch.awayTeam.id}}.png"/>
+					</td>
+					<td>Arsenal</td>
+				</tr>
+				<tr>
+					<td colspan='2'></td>
+					<td>
+						<a href="" class="btn btn-link epl-score-btn"
+							ng-click="vm.score[0] = (vm.score[0] - 1) < 0 ? 0 : vm.score[0] - 1">
+							<i class="fa fa-angle-down"></i>
+						</a>
+					</td>
+					<td></td>
+					<td>
+						<a href="" class="btn btn-link epl-score-btn"
+							ng-click="vm.score[1] = (vm.score[1] - 1) < 0 ? 0 : vm.score[1] - 1">
+							<i class="fa fa-angle-down"></i>
+						</a>
+					</td>
+					<td colspan='2'></td>
+				</tr>
+			</tbody>
+		</table>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-default" ng-click="vm.cancelEditScore()">
+			<span class="glyphicon glyphicon-ban-circle"></span>
+			Cancel
+		</button>
+		<button class="btn btn-{{!editScore.$valid ? 'default' : 'primary'}}" 
+			ng-click="vm.doEditScore()" ng-disabled="!editScore.$valid">
+			<span class="glyphicon glyphicon-save"></span>
+			Save
+		</button>
+	</div>
+</script>
