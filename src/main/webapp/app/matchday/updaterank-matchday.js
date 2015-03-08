@@ -7,6 +7,7 @@
 
 	function UpdateRankMatchday(initData, $scope, $rootScope, $modal) {
 		$rootScope.$broadcast('state-btn', 'updaterank');
+		$rootScope.$broadcast('show-phase-nav', false);
 
 		var vm = this;
 		vm.currWeek = null;

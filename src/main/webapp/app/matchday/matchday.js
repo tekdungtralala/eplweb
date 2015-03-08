@@ -17,9 +17,10 @@
 		vm.nextRankDisable = false;
 		vm.prevRankDisable = false;
 
-		vm.activeState = 'list';
-
 		vm.isLoggedAdmin = false;
+		vm.activeState = 'list';
+		vm.showPhaseNav = false;
+
 
 		vm.changeWeek = changeWeek;
 		vm.changeState = changeState;
@@ -27,6 +28,7 @@
 		var sliderElmt = $("#epl-slider");
 
 		$scope.$on('state-btn', btnChngListener);
+		$scope.$on('show-phase-nav', phaseNavListener);
 
 		activate();
 		function activate(){
@@ -38,6 +40,10 @@
 
 			// check is login admin 
 			checkLoggedAdmin();
+		}
+
+		function phaseNavListener(e, value) {
+			vm.showPhaseNav = value;
 		}
 
 		function btnChngListener(e, value){

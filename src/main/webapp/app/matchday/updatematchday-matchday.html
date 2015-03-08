@@ -1,0 +1,33 @@
+<ul>
+	<li>
+		We can only change the matchday of the current week or the week after.
+	</li>
+	<li>
+		Matchdays before current week could not be changed because the schedule already occured and the result already submitted
+	</li>
+</ul>
+
+<div class="input-group epl-current-week">
+	<span class="input-group-addon">
+		Current Week :
+	</span>
+	<input type="text" class="form-control" disabled
+		ng-model="vm.weekStr"/>
+</div>
+<div class="input-group epl-week-number">
+	<span class="input-group-addon">
+		Week Number :
+	</span>
+	<input type="text" class="form-control" disabled
+		ng-model="vm.currWeek"/>
+	<a type="button" class="btn btn-default epl-btn-nav" 
+		ng-click="vm.currWeek=vm.currWeek-1<vm.minWeek?vm.minWeek:vm.currWeek-1">
+		<i class="fa fa-arrow-left"></i>
+	</a>
+	<a type="button" class="btn btn-default epl-btn-nav" 
+		ng-click="vm.currWeek=vm.currWeek+1>vm.maxWeek?vm.maxWeek:vm.currWeek+1">
+		<i class="fa fa-arrow-right"></i>
+	</a>
+</div>
+
+<div class='clearfix'></div>

@@ -7,6 +7,7 @@
 
 	function UpdateScoreMatchday(initData, matchdayservice, $scope, $rootScope, $modal) {
 		$rootScope.$broadcast('state-btn', 'updatescore');
+		$rootScope.$broadcast('show-phase-nav', true);
 
 		var ms = matchdayservice;
 		var vm = this;

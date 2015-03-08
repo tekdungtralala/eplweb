@@ -10,7 +10,8 @@
 		var primePromise;
 
 		var service = {
-			getFormattedWeek: getFormattedWeek
+			getFormattedWeek: getFormattedWeek,
+			getWeek: getWeek
 		};
 
 		return service;
@@ -19,6 +20,12 @@
 			var date = new Date(unixTimestamp);
 			var m = moment(date);
 			return '#' + weekNumber + ' - ' + m.format('YYYY, DD MMM');
+		}
+
+		function getWeek(unixTimestamp, pattern) {
+			var date = new Date(unixTimestamp);
+			var m = moment(date);
+			return m.format(pattern);
 		}
 	}
 })();

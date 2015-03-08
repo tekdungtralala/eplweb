@@ -364,3 +364,19 @@ input[type=number]::-webkit-outer-spin-button {
 .epl-matchday .epl-update-form input{
 	width: 50px;
 }
+.epl-matchday .epl-current-week {
+	float: left;
+	width: 240px;
+	margin-right: 10px;
+}
+.epl-matchday .epl-week-number {
+	float: left;
+	width: 260px;
+}
+.epl-matchday .epl-week-number a {
+	float: left;
+}
+.epl-matchday .epl-week-number input {
+	float: left;
+	width: 45px;
+}

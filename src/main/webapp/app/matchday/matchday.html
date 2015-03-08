@@ -1,11 +1,32 @@
 <div class='epl-matchday'>
+
 <h3 class='epl-left epl-title-page'>
 	<a class='epl-href' ui-sref="matchday.list-matchday" ui-sref-opts="{reload: true}">
 		Matchday {{vm.abc}}
 	</a>
 </h3>
 
-<div class='epl-phase-nav'>
+<div class="epl-nav" ng-show="vm.isLoggedAdmin">
+	<a class="btn btn-sm btn-{{vm.activeState === 'list' ? 'primary active' : 'default'}}"
+		ng-click="vm.changeState('list')">
+		View
+	</a>
+	<a class="btn btn-sm btn-{{vm.activeState === 'updatescore' ? 'primary active' : 'default'}}"
+		ng-click="vm.changeState('updatescore')">
+		Update Score
+	</a>
+	<a class="btn btn-sm btn-{{vm.activeState === 'updaterank' ? 'primary active' : 'default'}}"
+		ng-click="vm.changeState('updaterank')"
+		>
+		Update Rank
+	</a>
+	<a class="btn btn-sm btn-{{vm.activeState === 'updatematchday' ? 'primary active' : 'default'}}"
+		ng-click="vm.changeState('updatematchday')">
+		Update Matchday
+	</a>
+</div>
+
+<div class='epl-phase-nav' ng-show="vm.showPhaseNav">
 	<div class="input-group epl-season">
 		<div class="input-group-btn ">
 			<div type="button" class="btn btn-default epl-season-label">Season : </div>
@@ -51,28 +72,7 @@
 	<div class='clearfix'></div>
 
 	<div id="epl-slider"></div>
-
-	<div class="epl-nav" ng-show="vm.isLoggedAdmin">
-		<a class="btn btn-sm btn-{{vm.activeState === 'list' ? 'primary active' : 'default'}}"
-			ng-click="vm.changeState('list')">
-			View
-		</a>
-		<a class="btn btn-sm btn-{{vm.activeState === 'updatescore' ? 'primary active' : 'default'}}"
-			ng-click="vm.changeState('updatescore')">
-			Update Score
-		</a>
-		<a class="btn btn-sm btn-{{vm.activeState === 'updaterank' ? 'primary active' : 'default'}}"
-			ng-click="vm.changeState('updaterank')"
-			>
-			Update Rank
-		</a>
-		<a class="btn btn-sm btn-{{vm.activeState === 'updatermatchday' ? 'primary active' : 'default'}}"
-			>
-			Update Matchday
-		</a>
-	</div>
-
-	<div ui-view /></div>
-
 </div>
 
+
+<div ui-view /></div>
