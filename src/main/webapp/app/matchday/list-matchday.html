@@ -1,35 +1,35 @@
 <table class="table borderless epl-table">
-  <thead data-ng-repeat='(key,val) in vm.model'>
-    <tr>
-      <th colspan="10">{{key}}</th>
-    </tr>
-    <tr class="odd gradeX" data-ng-repeat='m in val'>
-      <td class="time">
-        {{m.time}}
-      </td>
-      <td class="epl-right">
-        <a ng-href='#/team/{{m.homeTeam.id}}/{{m.homeTeam.simpleName}}'
-          class='epl-href'>
-          {{m.homeTeam.name}}
-        </a>
-      </td>   
-      <td>
-        <img class="image epl-mini-team-logo" 
-        ng-src="eplweb_components/image/logo/150x150/{{m.homeTeam.id}}.png" alt="">
-      </td>
-      <td class="epl-center {{m.homeGoal === -1 ? 'epl-hide' : ''}}">{{m.homeGoal}}</td>
-      <td>VS</td>
-      <td class="epl-center {{m.awayGoal === -1 ? 'epl-hide' : ''}}">{{m.awayGoal}}</td>
-      <td>
-        <img class="image epl-mini-team-logo"
-        ng-src="eplweb_components/image/logo/150x150/{{m.awayTeam.id}}.png" alt="">
-      </td>
-      <td class="epl-left">
-        <a ng-href='#/team/{{m.awayTeam.id}}/{{m.awayTeam.simpleName}}'
-          class='epl-href'>
-          {{m.awayTeam.name}}
-        </a>
-      </td>
-    </tr>
-  </thead>    
+	<thead data-ng-repeat='(key,val) in vm.model'>
+		<tr>
+			<th colspan="10">{{key}}</th>
+		</tr>
+		<tr class="odd gradeX" data-ng-repeat='m in val'>
+			<td class="time">
+				{{m.time}}
+			</td>
+			<td class="epl-right">
+				<a ng-href='#/team/{{m.homeTeam.id}}/{{m.homeTeam.simpleName}}'
+					class='epl-href'>
+					{{m.homeTeam.name}}
+				</a>
+			</td>   
+			<td>
+				<img class="image epl-mini-team-logo" 
+				ng-src="eplweb_components/image/logo/150x150/{{m.homeTeam.id}}.png" alt="">
+			</td>
+			<td class="epl-center {{m.homeGoal === -1 ? 'epl-hide' : ''}}">{{m.homeGoal}}</td>
+			<td>VS</td>
+			<td class="epl-center {{m.awayGoal === -1 ? 'epl-hide' : ''}}">{{m.awayGoal}}</td>
+			<td>
+				<img class="image epl-mini-team-logo"
+				ng-src="eplweb_components/image/logo/150x150/{{m.awayTeam.id}}.png" alt="">
+			</td>
+			<td class="epl-left">
+				<a ng-href='#/team/{{m.awayTeam.id}}/{{m.awayTeam.simpleName}}'
+					class='epl-href'>
+					{{m.awayTeam.name}}
+				</a>
+			</td>
+		</tr>
+	</thead>
 </table>

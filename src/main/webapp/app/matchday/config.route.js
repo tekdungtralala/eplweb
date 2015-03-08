@@ -28,6 +28,12 @@
 				controllerAs: 'vm',
 				controller: "UpdateScoreMatchday"
 			})
+			.state("matchday.updaterank-matchday", {
+				url: "/updaterank-matchday",
+				templateUrl: "app/matchday/updaterank-matchday.html",
+				controllerAs: 'vm',
+				controller: "UpdateRankMatchday"
+			})
 			;
 
 		function getInitData(dataservice) {
