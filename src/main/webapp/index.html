@@ -73,8 +73,10 @@ folder instead of downloading all of them to reduce the load. -->
 <script src="app/rank/rank.js"></script>
 
 <script src="app/matchday/matchday.module.js"></script>
+<script src="app/matchday/matchday-service.js"></script>
 <script src="app/matchday/config.route.js"></script>
 <script src="app/matchday/matchday.js"></script>
+<script src="app/matchday/list-matchday.js"></script>
 
 <script src="app/team/team.module.js"></script>
 <script src="app/team/config.route.js"></script>
@@ -137,7 +139,8 @@ folder instead of downloading all of them to reduce the load. -->
 												<a ui-sref="rank" class="epl-menu-header">Table</a>
 										</li>
 										<li>
-												<a ui-sref="matchday" class="epl-menu-header">Matchday</a>
+												<a ui-sref="matchday.list-matchday" ui-sref-opts="{reload: true}"
+													class="epl-menu-header">Matchday</a>
 										</li>
 										<li>
 												<a ui-sref="totw" class="epl-menu-header">Team ot The Week</a>

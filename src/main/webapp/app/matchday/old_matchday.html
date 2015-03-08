@@ -1,0 +1,180 @@
+<div class='epl-matchday'>
+<h3 class='epl-left epl-title-page'>
+	<a href="#/matchday" class='epl-href'>
+		Matchday
+	</a>
+</h3>
+
+<div class='epl-phase-nav'>
+	<div class="input-group epl-season">
+		<div class="input-group-btn ">
+			<div type="button" class="btn btn-default epl-season-label">Season : </div>
+		</div>
+		<input type="text" value="2014-2015" disabled="" 
+			class="form-control epl-season-input" >
+	</div>
+
+	<div class="input-group epl-week">
+		<div class="input-group-btn epl-week-label">
+			<button type="button" class="btn btn-default ">Week</button>
+			<button type="button" class="btn btn-default dropdown-toggle" 
+				data-toggle="dropdown" aria-expanded="false">
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li data-ng-repeat='w in vm.weeks'>
+					<a ng-click='vm.changeWeek(w.weekNumber)' class='epl-cursor-pointer'>
+						{{w.dateView}}
+					</a>
+				</li>
+			</ul>
+		</div>
+		<input type="text" class="form-control epl-week-input" disabled=""
+			value='{{vm.selectedWeek}}'>
+
+		<div type='button' class='btn btn-default epl-btn-nav'
+			ng-disabled='vm.prevRankDisable' ng-click='vm.changeWeek(vm.currWeek - 1)'>
+			<i class="fa fa-arrow-left"></i>
+		</div>
+
+		<div type='button' class='btn btn-default epl-btn-nav'
+			ng-click='vm.changeWeek(vm.defaultWeek)'>
+			<i class="fa fa-cog"></i>
+		</div>
+
+		<div type='button' class='btn btn-default epl-btn-nav'
+			ng-disabled='vm.nextRankDisable' ng-click='vm.changeWeek(vm.currWeek + 1)'>
+			<i class="fa fa-arrow-right"></i>
+		</div>
+	</div>
+
+	<div class='clearfix'></div>
+
+	<div id="epl-slider"></div>
+</div>
+
+<table class="table borderless epl-table">
+	<thead data-ng-repeat='(key,val) in vm.model'>
+		<tr>
+			<th colspan="10">{{key}}</th>
+		</tr>
+		<tr class="odd gradeX" data-ng-repeat='m in val'>
+			<td class="time">
+				{{m.time}}
+			</td>
+			<td class="epl-right">
+				<a ng-href='#/team/{{m.homeTeam.id}}/{{m.homeTeam.simpleName}}'
+					class='epl-href'>
+					{{m.homeTeam.name}}
+				</a>
+			</td>   
+			<td class="rightTeamLogo">
+				<img class="image epl-mini-team-logo" 
+				ng-src="eplweb_components/image/logo/150x150/{{m.homeTeam.id}}.png" alt="">
+			</td>
+			<td class="epl-center {{m.homeGoal === -1 ? 'epl-hide' : ''}}">{{m.homeGoal}}</td>
+			<td>VS</td>
+			<td class="epl-center {{m.awayGoal === -1 ? 'epl-hide' : ''}}">{{m.awayGoal}}</td>
+			<td class="leftTeamLogo">
+				<img class="image epl-mini-team-logo"
+				ng-src="eplweb_components/image/logo/150x150/{{m.awayTeam.id}}.png" alt="">
+			</td>
+			<td class="epl-left">
+				<a ng-href='#/team/{{m.awayTeam.id}}/{{m.awayTeam.simpleName}}'
+					class='epl-href'>
+					{{m.awayTeam.name}}
+				</a>
+			</td>
+			<td class="epl-left" ng-show="vm.isLoggedAdmin">
+				<button class="btn btn-block btn-primary btn-xs" ng-click="vm.preEditScore(m)">
+					<i class="fa fa-pencil"></i>
+				</button>
+			</td>
+		</tr>
+	</thead>    
+</table>
+</div>
+
+<script type="text/ng-template" id="editScore.html">
+	<div class="modal-header epl-modal-header-edit-score">
+		<h4 class="modal-title">
+			Update Score
+		</h4>
+	</div>
+	<div class="modal-body epl-center epl-modal-body-edit-score">
+		<form name="editScore">
+		<table class="table borderless epl-tbl-edit-score">
+			<tbody>
+				<tr>
+					<td colspan='2'></td>
+					<td>
+						<a href="" class="btn btn-link epl-score-btn"
+							ng-click="vm.score[0] = vm.score[0] + 1">
+							<i class="fa fa-angle-up"></i>
+						</a>
+					</td>
+					<td></td>
+					<td>
+						<a href="" class="btn btn-link epl-score-btn"
+							ng-click="vm.score[1] = vm.score[1] + 1">
+							<i class="fa fa-angle-up"></i>
+						</a>
+					</td>
+					<td colspan='2'></td>
+				</tr>
+				<tr>
+					<td>Arsenal</td>
+					<td>
+						<img class="image epl-mini-team-logo" 
+							ng-src="eplweb_components/image/logo/150x150/{{vm.currMatch.homeTeam.id}}.png"/>
+					</td>
+					<td>
+						<input type="number" class="epl-edit-score epl-center" autofocus 
+							required="true" name="homeGoal" min="0"
+							ng-model="vm.score[0]"/>
+					</td>
+					<td>VS</td>
+					<td>
+						<input type="number" class="epl-edit-score epl-center"
+							required="true" name="awayGoal" min="0"
+							ng-model="vm.score[1]"/>
+					</td>
+					<td>
+						<img class="image epl-mini-team-logo" 
+							ng-src="eplweb_components/image/logo/150x150/{{vm.currMatch.awayTeam.id}}.png"/>
+					</td>
+					<td>Arsenal</td>
+				</tr>
+				<tr>
+					<td colspan='2'></td>
+					<td>
+						<a href="" class="btn btn-link epl-score-btn"
+							ng-click="vm.score[0] = (vm.score[0] - 1) < 0 ? 0 : vm.score[0] - 1">
+							<i class="fa fa-angle-down"></i>
+						</a>
+					</td>
+					<td></td>
+					<td>
+						<a href="" class="btn btn-link epl-score-btn"
+							ng-click="vm.score[1] = (vm.score[1] - 1) < 0 ? 0 : vm.score[1] - 1">
+							<i class="fa fa-angle-down"></i>
+						</a>
+					</td>
+					<td colspan='2'></td>
+				</tr>
+			</tbody>
+		</table>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-default" ng-click="vm.cancelEditScore()">
+			<span class="glyphicon glyphicon-ban-circle"></span>
+			Cancel
+		</button>
+		<button class="btn btn-{{!editScore.$valid ? 'default' : 'primary'}}" 
+			ng-click="vm.doEditScore()" ng-disabled="!editScore.$valid">
+			<span class="glyphicon glyphicon-save"></span>
+			Save
+		</button>
+	</div>
+</script>
