@@ -5,7 +5,7 @@
 		.module('app.matchday')
 		.controller('Matchday', Matchday);
 
-	function Matchday(initData, matchdayservice, dataservice, $rootScope) {
+	function Matchday(initData, matchdayservice, dataservice, $scope, $rootScope, $state) {
 		var ms = matchdayservice;
 		var vm = this;
 
@@ -17,9 +17,16 @@
 		vm.nextRankDisable = false;
 		vm.prevRankDisable = false;
 
+		vm.activeState = 'list';
+
+		vm.isLoggedAdmin = false;
+
 		vm.changeWeek = changeWeek;
+		vm.changeState = changeState;
 
 		var sliderElmt = $("#epl-slider");
+
+		$scope.$on('state-btn', btnChngListener);
 
 		activate();
 		function activate(){
@@ -28,6 +35,29 @@
 
 			initSlideOpt();
 			vm.defaultWeek = vm.currWeek;
+
+			// check is login admin 
+			checkLoggedAdmin();
+		}
+
+		function btnChngListener(e, value){
+			vm.activeState = value;
+		}
+
+		function changeState(state) {
+			vm.activeState = state;
+			$state.go('matchday.' + state + '-matchday');
+		}
+
+		function checkLoggedAdmin() {
+			dataservice.hasAdminRole().then(processAdmnRole);
+		}
+
+		function processAdmnRole(result) {
+			
+			if (result && result.status === 200) {
+				vm.isLoggedAdmin = true;
+			}
 		}
 
 		function initSlideOpt() {

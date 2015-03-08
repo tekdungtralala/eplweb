@@ -5,9 +5,12 @@
 		.module('app.matchday')
 		.controller('ListMatchday', ListMatchday);
 
-	function ListMatchday(initData, matchdayservice, $scope) {
+	function ListMatchday(initData, matchdayservice, $scope, $rootScope) {
+		$rootScope.$broadcast('state-btn', 'list');
+
 		var ms = matchdayservice;
 		var vm = this;
+
 		vm.model = null;
 
 		$scope.$on('vm.model', modelChangeListener);

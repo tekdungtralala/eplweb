@@ -313,13 +313,20 @@ table.epl-table > tbody > tr > td {
 	width: 520px;
 }
 
-
-
+/* Page matchday*/
+.epl-matchday .epl-nav {
+	width: 480px;
+	margin: auto;
+	margin-bottom: 10px;
+}
+.epl-matchday .epl-nav a {
+	width: 115px;
+}
 
 .epl-edit-score {
 	width: 35px;
 }
-.epl-tbl-edit-score {
+.epl-matchday .epl-tbl-edit-score {
 	width: 100%;
 }
 table.epl-tbl-edit-score > tbody > tr > td {
@@ -334,7 +341,7 @@ table.epl-tbl-edit-score > tbody > tr > td {
 .epl-modal-header-edit-score {
 	padding-bottom: 0px;
 }
-.epl-modal-body-edit-score {
+.epl-matchday .epl-modal-body-edit-score {
 	height: 95px;
 	padding-top: 0px;
 }

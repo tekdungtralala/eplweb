@@ -22,6 +22,12 @@
 				controllerAs: 'vm',
 				controller: "ListMatchday"
 			})
+			.state("matchday.updatescore-matchday", {
+				url: "/updatescore-matchday",
+				templateUrl: "app/matchday/updatescore-matchday.html",
+				controllerAs: 'vm',
+				controller: "UpdateScoreMatchday"
+			})
 			;
 
 		function getInitData(dataservice) {
