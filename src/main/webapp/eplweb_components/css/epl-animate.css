@@ -1,0 +1,21 @@
+.epl-animate-tr.ng-move,
+.epl-animate-tr.ng-enter,
+.epl-animate-tr.ng-leave {
+  -webkit-transition: all linear 0.2s;
+  -moz-transition: all linear 0.2s;
+  -ms-transition: all linear 0.2s;
+  -o-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+}
+.epl-animate-tr.ng-leave.ng-leave-active,
+.epl-animate-tr.ng-move,
+.epl-animate-tr.ng-enter {
+  opacity: 0;
+  background-color: red;
+}
+.epl-animate-tr.ng-leave,
+.epl-animate-tr.ng-move.ng-move-active,
+.epl-animate-tr.ng-enter.ng-enter-active {
+  opacity: 1;
+  background-color: green;
+}

@@ -124,7 +124,7 @@
 					time: m2.format("HH:mm:ss"),
 					timeStr: m2.format("HH:mm")
 				}
-				vm.models.push(newData);
+				vm.models.unshift(newData);
 			} else {
 				_.find(vm.models, function(m) {
 					if (m.id === vm.updateMatchdayId) {
