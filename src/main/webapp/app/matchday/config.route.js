@@ -13,7 +13,8 @@
 				controller: "Matchday",
 				controllerAs: 'vm',
 				resolve: {
-					initData: getInitData
+					initData: getInitData,
+					xhrTeams: getallTeam
 				}
 			})
 			.state("matchday.list-matchday", {
@@ -46,6 +47,10 @@
 			return dataservice.getInitData("matchday").then(function(data) {
 				return data;
 			});
+		}
+
+		function getallTeam(dataservice) {
+			return dataservice.getAllTeam();
 		}
 	}
 	

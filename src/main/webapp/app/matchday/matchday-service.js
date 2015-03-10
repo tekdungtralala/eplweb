@@ -10,10 +10,26 @@
 		var service = {
 			processWeekData: processWeekData,
 			getFormattedWeek: getFormattedWeek,
-			getMatchdayByWeekNmr: getMatchdayByWeekNmr
+			getMatchdayByWeekNmr: getMatchdayByWeekNmr,
+			convertModelViewToModel: convertModelViewToModel
 		};
 
 		return service;
+
+		function convertModelViewToModel(modelviews) {
+			var result = [];
+			_.each(modelviews, function(datas) {
+				_.each(datas, function(d) {
+					result.push(d);
+					var m1 = moment(d.date);
+					d.dateStr = m1.format("ddd, DD MMM");
+
+					var m2 = moment(d.time, "HH:mm:ss");
+					d.timeStr = m2.format("HH:mm");
+				})
+			});
+			return result;
+		}
 
 		function processWeekData(weeks) {
 			

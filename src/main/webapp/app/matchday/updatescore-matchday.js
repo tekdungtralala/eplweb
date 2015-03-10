@@ -27,6 +27,10 @@
 			convertModel(initData.matchdayModelView.model);
 		}
 
+		function modelChangeListener(event, modelViews) {
+			convertModel(modelViews);
+		}
+
 		function doEditScore() {
 			vm.modalInstance.dismiss('cancel');
 		}
@@ -50,17 +54,8 @@
 			});     
 		}
 
-		function modelChangeListener(event, models) {
-			convertModel(models);
-		}
-
-		function convertModel(models){
-			vm.datas = [];
-			_.each(models, function(datas){
-				_.each(datas, function(d) {
-					vm.datas.push(d);
-				})
-			});
+		function convertModel(modelViews){
+			vm.datas = ms.convertModelViewToModel(modelViews);
 		}
 	}
 	
