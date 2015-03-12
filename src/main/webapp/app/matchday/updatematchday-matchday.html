@@ -160,88 +160,93 @@
 	</div>
 	<div class="modal-body">
 
-	<div class="input-group">
-		<span class="input-group-addon epl-matchday-label">Time : </span>
-		<timepicker 
-			ng-model="vm.matchdayTime" 
-			hour-step="1" 
-			minute-step="15" show-meridian="true">
-		</timepicker>
-	</div>
+	<form id='matchdayForm'>
+		<div class="input-group">
+			<span class="input-group-addon epl-matchday-label">Time : </span>
+			<timepicker 
+				ng-model="vm.matchdayTime" 
+				hour-step="1" 
+				minute-step="15" show-meridian="true">
+			</timepicker>
+		</div>
 
- 	<div class="input-group input-group-sm epl-input-group">
-		<span class="input-group-addon epl-matchday-label">Time : </span>
-		<span class="input-group-addon epl-left form-control">
-			{{vm.matchdayDate | date:'fullDate' }}
-		</span>
-		<span class="input-group-btn">
-			<button class="btn btn-primary" type="button"
-				ng-click="vm.showDatepicker = !vm.showDatepicker">
-				Toggle datepicker
-			</button>
-		</span>
-	</div>
+	 	<div class="input-group input-group-sm epl-input-group">
+			<span class="input-group-addon epl-matchday-label">Date : </span>
+			<span class="input-group-addon epl-left form-control">
+				{{vm.matchdayDate | date:'fullDate' }}
+			</span>
+			<span class="input-group-btn">
+				<button class="btn btn-primary" type="button"
+					ng-click="vm.showDatepicker = !vm.showDatepicker">
+					Toggle datepicker
+				</button>
+			</span>
+		</div>
 
-	<div class="input-group input-group-sm" ng-show="vm.showDatepicker">
-		<span class="input-group-addon epl-matchday-label"></span>
-		<div style="display:inline-block;">
-			<datepicker ng-model="vm.matchdayDate" 
-				show-weeks="true" class="well well-sm">
-			</datepicker>
+		<div class="input-group input-group-sm" 
+			ng-show="vm.showDatepicker">
+			<span class="input-group-addon epl-matchday-label"></span>
+			<div style="display:inline-block;">
+				<datepicker ng-model="vm.matchdayDate" 
+					show-weeks="true" class="well well-sm">
+				</datepicker>
+			</div>
 		</div>
-	</div>
 
-	<div class="input-group input-group-sm epl-input-group">
-		<span class="input-group-addon epl-matchday-label">Home Team : </span>
-		<div class="input-group-btn">
-			<button type="button" class="btn btn-default dropdown-toggle" 
-				data-toggle="dropdown" aria-expanded="false">
-				<span class="fa fa-caret-down"></span>
-			</button>
-			<ul class="dropdown-menu">
-				<li>
-					<a href="" ng-repeat="(k , v) in vm.allTeams"
-						ng-click="vm.homeTeam = v">
-						<img class="image epl-mini-team-logo" alt=""
-							ng-src="eplweb_components/image/logo/150x150/{{v.id}}.png"/>
-						&nbsp;
-						{{v.name}}
-					</a>
-				</li>
-			</ul>
+		<div class="input-group input-group-sm epl-input-group">
+			<span class="input-group-addon epl-matchday-label">Home Team : </span>
+			<div class="input-group-btn">
+				<button type="button" class="btn btn-default dropdown-toggle" 
+					data-toggle="dropdown" aria-expanded="false">
+					<span class="fa fa-caret-down"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li>
+						<a href="" ng-repeat="(k , v) in vm.allTeams"
+							ng-click="vm.homeTeam = v">
+							<img class="image epl-mini-team-logo" alt=""
+								ng-src="eplweb_components/image/logo/150x150/{{v.id}}.png"/>
+							&nbsp;
+							{{v.name}}
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="form-control epl-update-matchday-form">
+					<input type="hidden" name="homeTeam" value="{{vm.homeTeam.id}}"/>
+					<img class="image epl-mini-team-logo" alt="" ng-hide="vm.homeTeam === null"
+						ng-src="eplweb_components/image/logo/150x150/{{vm.homeTeam.id}}.png"/>
+					{{vm.homeTeam.name}}
+			</div>
 		</div>
-		<div class="form-control">
-				<img class="image epl-mini-team-logo" alt="" ng-hide="vm.homeTeam === null"
-					ng-src="eplweb_components/image/logo/150x150/{{vm.homeTeam.id}}.png"/>
-				{{vm.homeTeam.name}}
-		</div>
-	</div>
 
-	<div class="input-group input-group-sm epl-input-group">
-		<span class="input-group-addon epl-matchday-label">Away Team : </span>
-		<div class="input-group-btn">
-			<button type="button" class="btn btn-default dropdown-toggle" 
-				data-toggle="dropdown" aria-expanded="false">
-				<span class="fa fa-caret-down"></span>
-			</button>
-			<ul class="dropdown-menu">
-				<li>
-					<a href="" ng-repeat="(k , v) in vm.allTeams"
-						ng-click="vm.awayTeam = v">
-						<img class="image epl-mini-team-logo" alt=""
-							ng-src="eplweb_components/image/logo/150x150/{{v.id}}.png"/>
-						&nbsp;
-						{{v.name}}
-					</a>
-				</li>
-			</ul>
+		<div class="input-group input-group-sm epl-input-group">
+			<span class="input-group-addon epl-matchday-label">Away Team : </span>
+			<div class="input-group-btn">
+				<button type="button" class="btn btn-default dropdown-toggle" 
+					data-toggle="dropdown" aria-expanded="false">
+					<span class="fa fa-caret-down"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li>
+						<a href="" ng-repeat="(k , v) in vm.allTeams"
+							ng-click="vm.awayTeam = v">
+							<img class="image epl-mini-team-logo" alt=""
+								ng-src="eplweb_components/image/logo/150x150/{{v.id}}.png"/>
+							&nbsp;
+							{{v.name}}
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="form-control epl-update-matchday-form">
+					<input type="hidden" name="awayTeam" value="{{vm.awayTeam.id}}"/>
+					<img class="image epl-mini-team-logo" alt="" ng-hide="vm.awayTeam === null"
+						ng-src="eplweb_components/image/logo/150x150/{{vm.awayTeam.id}}.png"/>
+					{{vm.awayTeam.name}}
+			</div>
 		</div>
-		<div class="form-control">
-				<img class="image epl-mini-team-logo" alt="" ng-hide="vm.awayTeam === null"
-					ng-src="eplweb_components/image/logo/150x150/{{vm.awayTeam.id}}.png"/>
-				{{vm.awayTeam.name}}
-		</div>
-	</div>
+	</form>
 
 	<div class="modal-footer">
 		<button class="btn btn-default" ng-click="vm.dismisModal()">

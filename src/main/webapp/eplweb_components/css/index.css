@@ -401,3 +401,6 @@ input[type=number]::-webkit-outer-spin-button {
 .epl-input-group > .epl-team-logo {
 	width: 50px;
 }
+.epl-update-matchday-form.has-error {
+	border-color: red;	
+}

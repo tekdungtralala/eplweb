@@ -17,7 +17,7 @@
 		var maxWeek = 38;
 		var minWeek = null;
 
-		vm.matchdayState = "rearrange";
+		vm.matchdayState = "saved";
 		vm.models = null; // the models which will be showed on view
 		vm.savedModels = null; // saved models
 		vm.unSavedModels = null; // editable models
@@ -111,38 +111,67 @@
 			openModal('addModal.html');
 		}
 
-		function doUpdate() {
-			// validate before save
-			var m1 = moment(vm.matchdayDate);
-			var m2 = moment(vm.matchdayTime);
-			if (vm.isNewData) {
-				var newData = {
-					homeTeam: vm.homeTeam,
-					awayTeam: vm.awayTeam,
-					date: m1.unix() * 1000,
-					dateStr: m1.format("ddd, DD MMM"),
-					time: m2.format("HH:mm:ss"),
-					timeStr: m2.format("HH:mm")
-				}
-				vm.models.unshift(newData);
-			} else {
-				_.find(vm.models, function(m) {
-					if (m.id === vm.updateMatchdayId) {
-						m.homeTeam = vm.homeTeam;
-						m.awayTeam = vm.awayTeam;
+		var formValidateOpt = { 
+			rules: {
+				awayTeam: { required: true },
+				homeTeam: { required: true }
+			},
+			ignore: [],
+			onkeyup: false,
+			showErrors: showErrors
+		};
 
-						m.date = m1.unix() * 1000;
-						m.dateStr = m1.format("ddd, DD MMM");
-						
-						m.time = m2.format("HH:mm:ss");
-						m.timeStr = m2.format("HH:mm");
-
-						return true;
-					}
-				});
+		function showErrors(errorMap, errors) {
+			var formElmt = $('#matchdayForm');
+			formElmt.find('.form-control').removeClass('has-error');
+			for (var i in errors) {
+				var parent = $(errors[i].element).parent();
+				parent.addClass('has-error');
 			}
-			vm.unSavedModels = angular.copy(vm.models);
-			dismisModal();
+		}
+
+		function doUpdate() {
+			var formElmt = $('#matchdayForm');
+			formElmt.validate(formValidateOpt);
+
+			var isValid = false;
+			if(formElmt.valid()) {
+				isValid = vm.homeTeam.id !== vm.awayTeam.id;
+				if (!isValid) $('.epl-update-matchday-form').addClass('has-error');
+			}
+
+			if (isValid) {
+				var m1 = moment(vm.matchdayDate);
+				var m2 = moment(vm.matchdayTime);
+				if (vm.isNewData) {
+					var newData = {
+						homeTeam: vm.homeTeam,
+						awayTeam: vm.awayTeam,
+						date: m1.unix() * 1000,
+						dateStr: m1.format("ddd, DD MMM"),
+						time: m2.format("HH:mm:ss"),
+						timeStr: m2.format("HH:mm")
+					}
+					vm.models.unshift(newData);
+				} else {
+					_.find(vm.models, function(m) {
+						if (m.id === vm.updateMatchdayId) {
+							m.homeTeam = vm.homeTeam;
+							m.awayTeam = vm.awayTeam;
+
+							m.date = m1.unix() * 1000;
+							m.dateStr = m1.format("ddd, DD MMM");
+							
+							m.time = m2.format("HH:mm:ss");
+							m.timeStr = m2.format("HH:mm");
+
+							return true;
+						}
+					});
+				}
+				vm.unSavedModels = angular.copy(vm.models);
+				dismisModal();
+			}
 		}
 
 		function doSave() {
