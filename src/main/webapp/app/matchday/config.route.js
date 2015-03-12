@@ -27,19 +27,22 @@
 				url: "/updatescore-matchday",
 				templateUrl: "app/matchday/updatescore-matchday.html",
 				controllerAs: 'vm',
-				controller: "UpdateScoreMatchday"
+				controller: "UpdateScoreMatchday",
+				roles: ['admin']
 			})
 			.state("matchday.updaterank-matchday", {
 				url: "/updaterank-matchday",
 				templateUrl: "app/matchday/updaterank-matchday.html",
 				controllerAs: 'vm',
-				controller: "UpdateRankMatchday"
+				controller: "UpdateRankMatchday",
+				roles: ['admin']
 			})
 			.state("matchday.updatematchday-matchday", {
 				url: "/updatematchday-matchday",
 				templateUrl: "app/matchday/updatematchday-matchday.html",
 				controllerAs: 'vm',
-				controller: "UpdateMatchday"
+				controller: "UpdateMatchday",
+				roles: ['admin']
 			})
 			;
 
