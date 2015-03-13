@@ -17,7 +17,7 @@
 		activate();
 		function activate() {
 			// There are two way to call service, 
-			// First one using more of service, 
+			// First one using two or more service, 
 			//  and the other one using one service
 
 			// var promises = [getInitData()];

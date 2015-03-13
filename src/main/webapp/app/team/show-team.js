@@ -13,6 +13,7 @@
 			// Container below carousel/slideshow, false for active
 			vm.container = [false, true, true, true, true];
 
+			vm.showEditBtn = false;
 			vm.currTeam = null;
 			vm.rank = null;
 			vm.position = null;
@@ -26,6 +27,7 @@
 		
 			vm.changeCarousel = changeCarousel;
 			vm.selectContainer = selectContainer;
+			vm.gotoEditTeam = gotoEditTeam;
 
 			activate();
 			function activate() {
@@ -33,11 +35,26 @@
 					return t.id === parseInt($stateParams.id);
 				});
 
-				return getInitData().then(function(result) {
-					processRankData(result);
+				var promises = [getInitData(), dataservice.hasAdminRole()];
+				dataservice.ready(promises).then(function(result){
+					processRankData(result[0]);
 
 					$state.go('team.show-team.' + vm.containerLbl[0], $stateParams);
+
+					processAdmnRole(result[1]);
 				});
+			}
+
+			function gotoEditTeam() {
+				$state.go("team.show-team.edit-team");
+			}
+
+			function processAdmnRole(result) {
+				if (result && result.status === 200) {
+					vm.showEditBtn = true;
+				} else {
+					vm.showEditBtn = false;
+				}
 			}
 
 			function processRankData(data) {

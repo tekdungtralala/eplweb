@@ -90,7 +90,6 @@
 		}
 
 		function preEdit(m) {
-			console.log("m : ", m);
 			vm.updateMatchdayId = m.id;
 			vm.isNewData = false;
 			vm.matchdayDate = new Date(m.date);

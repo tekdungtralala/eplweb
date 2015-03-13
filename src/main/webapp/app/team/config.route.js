@@ -20,7 +20,18 @@
 				url: '/{id}/{simpleName}',
 				templateUrl: 'app/team/show-team.html',
 				controller: 'ShowTeam',
-				controllerAs: 'vm',
+				controllerAs: 'vm'
+			})
+			.state("team.show-team.edit-team", {
+				url:'/edit',
+				views: {
+					'@team': {
+						templateUrl: 'app/team/edit-team.html',
+						controller: 'EditTeam',
+						controllerAs: 'vm'
+					}
+				},
+				roles: ['admin']
 			})
 			.state("team.show-team.overview", {
 				templateUrl: 'app/team/overview.html'

@@ -7,7 +7,14 @@
 				<br/>
 				<img class='epl-main-logo' alt=''
 					ng-src='eplweb_components/image/logo/150x150/{{vm.currTeam.id}}.png' />
-				</td>
+				<br/>
+				<a ng-show="vm.showEditBtn"
+					ng-click="vm.gotoEditTeam()"
+					class="btn btn-block btn-xs btn-primary epl-edit-team-button">
+					<span class="glyphicon glyphicon-pencil"/>
+						Edit
+				</a>
+			</td>
 			<td class='epl-center'>
 				Established<br/>
 				{{vm.currTeam.established}}

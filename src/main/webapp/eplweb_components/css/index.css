@@ -247,6 +247,20 @@ table.epl-table > tbody > tr > td {
 	margin-right: auto;
 	width: 600px;
 }
+.epl-team .epl-backToView-button {
+	width: 80px;
+}
+.epl-team .epl-edit-team.has-error input {
+	border-color: red;
+}
+.epl-team .epl-edit-team {
+	margin-top: 5px;
+	width: 100%;
+}
+.epl-team .epl-edit-team span {
+	width: 150px;
+	text-align: right;
+}
 .epl-team .epl-logo {
 	padding-right: 3px;
 	padding-left: 3px;
@@ -269,6 +283,11 @@ table.epl-table > tbody > tr > td {
 }
 .epl-team .epl-main-logo {
 	width: 50px;
+}
+.epl-team .epl-edit-team-button {
+	width: 50px;
+	margin: auto;
+	margin-top: 10px;
 }
 .epl-team .epl-team-name {
 	font-size: 15px;
@@ -402,5 +421,5 @@ input[type=number]::-webkit-outer-spin-button {
 	width: 50px;
 }
 .epl-update-matchday-form.has-error {
-	border-color: red;	
+	border-color: red;
 }
