@@ -5,11 +5,13 @@
 		.module('app.matchday')
 		.controller('UpdateScoreMatchday', UpdateScoreMatchday);
 
-	function UpdateScoreMatchday(initData, matchdayservice, $scope, $rootScope, $modal) {
+	function UpdateScoreMatchday(initData, matchdayhelpwer, dataservice, $scope, 
+			$rootScope, $modal) {
+
 		$rootScope.$broadcast('state-btn', 'updatescore');
 		$rootScope.$broadcast('show-phase-nav', true);
 
-		var ms = matchdayservice;
+		var mh = matchdayhelpwer;
 		var vm = this;
 
 		vm.datas = [];
@@ -33,6 +35,19 @@
 
 		function doEditScore() {
 			vm.modalInstance.dismiss('cancel');
+
+			var matchdayId = vm.currMatch.id;
+			var updatescore = {
+				homeGoal: vm.score[0],
+				awayGoal: vm.score[1]
+			}
+
+			dataservice.updateScore(matchdayId, updatescore)
+				.then(afterSubmit);
+		}
+
+		function afterSubmit() {
+			$rootScope.$broadcast('load-matchday');
 		}
 
 		function cancelEditScore() {
@@ -55,7 +70,7 @@
 		}
 
 		function convertModel(modelViews){
-			vm.datas = ms.convertModelViewToModel(modelViews);
+			vm.datas = mh.convertModelViewToModel(modelViews);
 		}
 	}
 	

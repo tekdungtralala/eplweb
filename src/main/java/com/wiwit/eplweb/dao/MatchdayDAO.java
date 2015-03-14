@@ -48,4 +48,22 @@ public class MatchdayDAO {
 				+ result.size());
 		return result;
 	}
+	
+	@Transactional
+	public Matchday findMatchtdayById(int matchdayId) {
+		Session session = this.sessionFactory.getCurrentSession();
+
+		List<Matchday> result = session.createQuery(
+				"from Matchday as m where m.id = " + matchdayId).list();
+		if (result == null || result.size() == 0){
+			logger.info("Can't find matchday with id="+ matchdayId);
+		}
+		return result.get(0);
+	}
+	
+	@Transactional
+	public void updateMatchday(Matchday matchday) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.update(matchday);
+	}
 }

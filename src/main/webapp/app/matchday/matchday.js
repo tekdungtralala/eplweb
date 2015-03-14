@@ -5,8 +5,8 @@
 		.module('app.matchday')
 		.controller('Matchday', Matchday);
 
-	function Matchday(initData, matchdayservice, dataservice, $scope, $rootScope, $state) {
-		var ms = matchdayservice;
+	function Matchday(initData, matchdayhelpwer, dataservice, $scope, $rootScope, $state) {
+		var mh = matchdayhelpwer;
 		var vm = this;
 
 		vm.weeks = [];
@@ -29,10 +29,11 @@
 
 		$scope.$on('state-btn', btnChngListener);
 		$scope.$on('show-phase-nav', phaseNavListener);
+		$scope.$on('load-matchday', loadMatchdayListener);
 
 		activate();
 		function activate(){
-			vm.weeks = ms.processWeekData(initData.weeks);
+			vm.weeks = mh.processWeekData(initData.weeks);
 			processMatchData(initData.matchdayModelView);
 
 			initSlideOpt();
@@ -40,6 +41,10 @@
 
 			// check is login admin 
 			checkLoggedAdmin();
+		}
+
+		function loadMatchdayListener() {
+			changeWeek(vm.currWeek)
 		}
 
 		function phaseNavListener(e, value) {
@@ -60,7 +65,6 @@
 		}
 
 		function processAdmnRole(result) {
-			
 			if (result && result.status === 200) {
 				vm.isLoggedAdmin = true;
 			}
@@ -93,7 +97,7 @@
 		function processMatchData(data) {
 			vm.model = data.model;
 			vm.currWeek = parseInt(data.week.weekNumber);
-			vm.selectedWeek = ms.getFormattedWeek(data.week);
+			vm.selectedWeek = mh.getFormattedWeek(data.week);
 
 			updatePrevNexBtn();
 
@@ -105,7 +109,7 @@
 			sliderElmt.slider({value: otherWeek});
 
 			otherWeek = parseInt(otherWeek);
-			ms.getMatchdayByWeekNmr(otherWeek).then(function(data) {
+			mh.getMatchdayByWeekNmr(otherWeek).then(function(data) {
 				processMatchData(data);
 			});
 		}

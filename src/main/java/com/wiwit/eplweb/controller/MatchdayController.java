@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiwit.eplweb.model.input.UpdateScore;
 import com.wiwit.eplweb.model.view.MatchdayModelView;
 import com.wiwit.eplweb.service.MatchdayService;
 import com.wiwit.eplweb.util.ApiPath;
@@ -44,5 +46,13 @@ public class MatchdayController extends BaseController {
 
 		MatchdayModelView result =  matchdayService.getMatchtdayByWeekNmr(weekNumber);
 		return new ResponseEntity<MatchdayModelView>(result, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = ApiPath.MATCHDAYS_CHANGE_SCORE, method = RequestMethod.PUT, produces = CONTENT_TYPE_JSON)
+	public void updateScore(@PathVariable("matchdayId") int matchdayId,
+			@RequestBody UpdateScore updateScore) {
+		logger.info("PUT /api/matchday/" + matchdayId + "/updateScore");
+		
+		matchdayService.updateScore(matchdayId, updateScore);
 	}
 }

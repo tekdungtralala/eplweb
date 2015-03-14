@@ -17,9 +17,17 @@
 				<img class="image epl-mini-team-logo" 
 				ng-src="eplweb_components/image/logo/150x150/{{m.homeTeam.id}}.png" alt="">
 			</td>
-			<td class="epl-center {{m.homeGoal === -1 ? 'epl-hide' : ''}}">{{m.homeGoal}}</td>
+			<td class="epl-center">
+				<span class="{{m.homeGoal === -1 ? 'epl-hide' : ''}}">
+					{{m.homeGoal}}
+				</span>
+			</td>
 			<td>VS</td>
-			<td class="epl-center {{m.awayGoal === -1 ? 'epl-hide' : ''}}">{{m.awayGoal}}</td>
+			<td class="epl-center">
+				<span class="{{m.awayGoal === -1 ? 'epl-hide' : ''}}">
+					{{m.awayGoal}}
+				</span>
+			</td>
 			<td>
 				<img class="image epl-mini-team-logo"
 				ng-src="eplweb_components/image/logo/150x150/{{m.awayTeam.id}}.png" alt="">

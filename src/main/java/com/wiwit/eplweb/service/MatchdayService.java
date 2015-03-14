@@ -12,6 +12,7 @@ import com.wiwit.eplweb.dao.WeekDAO;
 import com.wiwit.eplweb.model.Matchday;
 import com.wiwit.eplweb.model.Phase;
 import com.wiwit.eplweb.model.Week;
+import com.wiwit.eplweb.model.input.UpdateScore;
 import com.wiwit.eplweb.model.view.MatchdayModelView;
 
 @Component
@@ -42,5 +43,12 @@ public class MatchdayService {
 		
 		List<Matchday>  listMatchday = matchdayDAO.getMatchtdayByWeekNmr(Integer.valueOf(weekNumber));
 		return new MatchdayModelView(listMatchday, week);
+	}
+	
+	public void updateScore(int matchdayId, UpdateScore us) {
+		Matchday m = matchdayDAO.findMatchtdayById(matchdayId);
+		m.setAwayGoal(us.getAwayGoal());
+		m.setHomeGoal(us.getHomeGoal());
+		matchdayDAO.updateMatchday(m);
 	}
 }

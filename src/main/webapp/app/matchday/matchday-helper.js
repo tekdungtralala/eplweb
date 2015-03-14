@@ -3,9 +3,9 @@
 	
 	angular
 		.module('app.matchday')
-		.factory('matchdayservice', MatchdayService);
+		.factory('matchdayhelpwer', MatchdayHelpwer);
 
-	function MatchdayService(dataservice, datautil) {
+	function MatchdayHelpwer(dataservice, datautil) {
 
 		var service = {
 			processWeekData: processWeekData,

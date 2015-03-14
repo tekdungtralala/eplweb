@@ -5,11 +5,11 @@
 		.module('app.matchday')
 		.controller('UpdateMatchday', UpdateMatchday);
 
-	function UpdateMatchday(initData, xhrTeams, matchdayservice, dataservice, datautil, $rootScope, $scope, $modal) {
+	function UpdateMatchday(initData, xhrTeams, matchdayhelpwer, dataservice, datautil, $rootScope, $scope, $modal) {
 		$rootScope.$broadcast('state-btn', 'updatematchday');
 		$rootScope.$broadcast('show-phase-nav', false);
 
-		var ms = matchdayservice;
+		var mh = matchdayhelpwer;
 		var vm = this;
 
 		vm.currWeek = null;
@@ -61,7 +61,7 @@
 			vm.currWeek = parseInt(week.weekNumber);
 			vm.weekStr = datautil.getWeek(week.startDay, 'YYYY, DD MMM');
 			
-			vm.savedModels =  ms.convertModelViewToModel(data.model);
+			vm.savedModels =  mh.convertModelViewToModel(data.model);
 
 			vm.savedModels = sortedModels(vm.savedModels);
 
