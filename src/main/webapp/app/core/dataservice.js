@@ -5,23 +5,13 @@
 		.module('app.core')
 		.factory('dataservice', Dataservice);
 
-	function Dataservice($http, $q, $rootScope, adminauth) {
+	function Dataservice($q, $http, $rootScope, playerservice, adminservice, adminauth) {
 		var isPrimed = false;
 		var primePromise;
 
 		var service = {
 			// auth
 			authentication: authentication,
-			// admin login
-			adminLogin: adminLogin,
-			adminCekLogin: adminCekLogin,
-			adminLogout: adminLogout,
-			hasAdminRole: hasAdminRole,
-			// admin resource only
-			editPlayer: editPlayer,
-			savePlayer: savePlayer,
-			deletePlayer: deletePlayer,
-
 			// Page /team
 			getPlayersByTeamId: getPlayersByTeamId,
 			getAllTeam: getAllTeam,
@@ -37,66 +27,16 @@
 			ready: ready
 		};
 
+		$.extend(service, adminservice);
+		$.extend(service, playerservice);
+
 		return service;
-
-		function deletePlayer(playerId) {
-			var req = adminauth.getConf(null, "DELETE", "api/players/" + playerId);
-
-			$rootScope.promise = $http(req)
-					.then(process)
-					.catch(process);
-			return $rootScope.promise;
-
-			function process(result) {
-				return result;
-			}
-		}
-
-		function savePlayer(player) {
-			var req = adminauth.getConf(player, "POST", "api/players");
-
-			$rootScope.promise = $http(req)
-					.then(process)
-					.catch(process);
-			return $rootScope.promise;
-
-			function process(result) {
-				return result;
-			}
-		}
-
-		function editPlayer(player) {
-			var req = adminauth.getConf(player, "PUT", "api/players/" + player.id);
-
-			$rootScope.promise = $http(req)
-					.then(process)
-					.catch(process);
-			return $rootScope.promise;
-
-			function process(result) {
-				return result;
-			}
-
-		}
 
 		function authentication(role) {
 			if ('admin' === role)
-				return adminCekLogin();
+				return adminservice.adminCekLogin();
 			else 
 				return true;
-		}
-
-		function getAllTeam() {
-			$rootScope.promise = $http.get('api/teams')
-					.then(getData)
-					.catch(function(message) {
-					});
-
-			return $rootScope.promise;
-
-			function getData(result) {
-				return result.data;
-			}
 		}
 
 		function getPlayersByTeamId(teamId) {
@@ -106,89 +46,15 @@
 					});
 
 			return $rootScope.promise;
-
-			function getData(result) {
-				return result.data;
-			}
 		}
 
-		function adminLogout() {
-			// Remove server authentication
-			var session = adminauth.getAdminSession();
-			$rootScope.promise = $http.delete('api/admin/login/' + session);
+		function getAllTeam() {
+			$rootScope.promise = $http.get('api/teams')
+					.then(getData)
+					.catch(function(message) {
+					});
 
-			// Remove local authentication
-			adminauth.delAdminSession();
-			$rootScope.isAdminLogged = false; 
-			$('body').removeClass('sidebar-collapse');
-			$('body').removeClass('sidebar-open');
-		}
-
-		function hasAdminRole() {
-			var session = adminauth.getAdminSession();
-			if (session) {
-				return checkAdminSession(session);
-			} else {
-				return $.Deferred().resolve(false);
-			}
-		}
-
-		function checkAdminSession(session){
-			return $http.get('api/admin/login/' + session);
-		}
-
-		function adminCekLogin() {
-			$rootScope.isAdminLogged = false;
-
-			var session = adminauth.getAdminSession();
-			if (session) {
-				$rootScope.promise = checkAdminSession(session)
-					.then(process)
-					.catch(process);
-				return $rootScope.promise;
-			} else {
-				return false;
-			}
-
-			function process(result) {
-				if (200 === result.status){
-					$rootScope.isAdminLogged = true; 
-				} else {
-					$rootScope.isAdminLogged = false; 
-				}
-				return result;
-			}
-		}
-
-		function adminLogin(email, psswd) {
-			var data = {
-				adminEmailEncode: email,
-				adminPaswdEncode: psswd
-			};
-
-			var req = {
-				method: 'POST',
-				url: 'api/admin/login',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				data: $.param(data),
-			}
-
-			$rootScope.promise = $http(req)
-					.then(process)
-					.catch(process);
 			return $rootScope.promise;
-
-			function process(result) {
-				if (200 === result.status){
-					$rootScope.isAdminLogged = true; 
-				} else {
-					$rootScope.isAdminLogged = false; 
-				}
-
-				return result;
-			}
 		}
 
 		function getInitData(page) {
@@ -198,10 +64,6 @@
 						if (message.status == 404) window.location.href = "404.jsp";
 					});
 			return $rootScope.promise;
-
-			function getData(result) {
-				return result.data;
-			}
 		}
 
 		// Page /
@@ -214,10 +76,6 @@
 				.catch(function(message) {
 				});
 			return $rootScope.promise;
-
-			function getData(result) {
-				return result.data;
-			}
 		}
 
 		// Page /ranks
@@ -227,11 +85,8 @@
 				.catch(function(message) {
 				});
 			return $rootScope.promise;
-
-			function getData(result) {
-				return result.data;
-			}
 		}
+
 		function getRanksByWeekNmr(weekNumber) {
 			var query = '';
 			if (weekNumber) 
@@ -241,10 +96,6 @@
 				.catch(function(message) {
 				});
 			return $rootScope.promise;
-
-			function getData(result) {
-				return result.data;
-			}
 		}
 
 		function getAllPassedWeek() {
@@ -253,10 +104,10 @@
 				.catch(function(message) {
 				});
 			return $rootScope.promise;
+		}
 
-			function getData(result) {
-				return result.data;
-			}
+		function getData(result) {
+			return result.data;
 		}
 
 

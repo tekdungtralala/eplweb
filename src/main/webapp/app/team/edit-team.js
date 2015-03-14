@@ -5,7 +5,7 @@
 		.module('app.team')
 		.controller('EditTeam', EditTeam);
 
-	function EditTeam(xhrTeams, $scope, $modal, $state, $stateParams) {
+	function EditTeam(xhrTeams, dataservice, $scope, $modal, $state, $stateParams) {
 		var vm = this;
 
 		vm.currTeam = null;
