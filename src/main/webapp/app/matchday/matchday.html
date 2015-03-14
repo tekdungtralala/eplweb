@@ -11,6 +11,10 @@
 		ng-click="vm.changeState('list')">
 		View
 	</a>
+	<a class="btn btn-sm btn-{{vm.activeState === 'updatematchday' ? 'primary active' : 'default'}}"
+		ng-click="vm.changeState('updatematchday')">
+		Update Matchday
+	</a>
 	<a class="btn btn-sm btn-{{vm.activeState === 'updatescore' ? 'primary active' : 'default'}}"
 		ng-click="vm.changeState('updatescore')">
 		Update Score
@@ -19,10 +23,6 @@
 		ng-click="vm.changeState('updaterank')"
 		>
 		Update Rank
-	</a>
-	<a class="btn btn-sm btn-{{vm.activeState === 'updatematchday' ? 'primary active' : 'default'}}"
-		ng-click="vm.changeState('updatematchday')">
-		Update Matchday
 	</a>
 </div>
 

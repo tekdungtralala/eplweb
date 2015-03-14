@@ -10,6 +10,8 @@ public enum PathPattern {
 	TEAMS_BY_ID(ApiPath.TEAMS_BY_ID, new String[]{"PUT"}, "/api/teams/[\\d]+", true),
 	MATCHDAYS_CHANGE_SCORE(ApiPath.MATCHDAYS_CHANGE_SCORE, new String[]{"PUT"}, 
 			"/api/matchday/[\\d]+/updateScore", true),
+	MATCHDAYS_CHANGE_SCHEDULE(ApiPath.MATCHDAYS_CHANGE_SCHEDULE, new String[]{"POST"}, 
+			"/api/updateMatchday/[\\d]+", true),
 	
 	// Unsecured path
 	ADMIN_SESSION(ApiPath.ADMIN_SESSION, null, "/api/admin/login/[\\w]+", false),

@@ -174,8 +174,36 @@
 		}
 
 		function doSave() {
-			console.log("doSave");
+			var json = JSON.stringify(vm.unSavedModels);
+
+			_.each(vm.unSavedModels, function(m) {
+				m.homeTeamId = m.homeTeam.id;
+				m.awayTeamId = m.awayTeam.id;
+
+				// Remove unused attribute
+				delete m['awayTeam'];
+				delete m['homeTeam'];
+				delete m['awayGoal'];
+				delete m['awayPoint'];
+				delete m['homeGoal'];
+				delete m['homePoint'];
+				delete m['timeStr'];
+				delete m['dateStr'];
+				delete m['id'];
+				delete m['week'];
+			});
+
+			console.log("doSave : ", vm.unSavedModels);
 			dismisModal();
+
+			dataservice.updateMatchdays(vm.currWeek, vm.unSavedModels)
+				.then(reLoadData);
+		}
+
+		function reLoadData() {
+			getMatchdayByWeekNmr(vm.currWeek).then(function(data){
+				processMatchData(data);
+			});
 		}
 
 		function preSave() {

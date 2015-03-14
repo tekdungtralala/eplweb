@@ -38,15 +38,18 @@ public class MatchdayDAO {
 	}
 
 	@Transactional
-	public List<Matchday> getMatchtdayByWeekNmr(int weekNumber) {
+	public List<Matchday> findMatchtdayByWeekNmr(int weekNumber) {
 		Session session = this.sessionFactory.getCurrentSession();
 
-		List<Matchday> result = session.createQuery(
-				"from Matchday as m where m.week.weekNumber = " + weekNumber
-						+ " order by m.date asc, m.time asc").list();
+		List<Matchday> result = session.createQuery(getMatchdayByWeekNmbr(weekNumber)).list();
 		logger.info("Matchday loaded successfully, matchdays size="
 				+ result.size());
 		return result;
+	}
+	
+	protected String getMatchdayByWeekNmbr(int weekNumber){
+		return "from Matchday as m where m.week.weekNumber = " + weekNumber
+				+ " order by m.date asc, m.time asc";
 	}
 	
 	@Transactional
@@ -65,5 +68,21 @@ public class MatchdayDAO {
 	public void updateMatchday(Matchday matchday) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(matchday);
+	}
+	
+	@Transactional
+	public void saveMoreMatchday(int weekNumber, List<Matchday> matchdays) {
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		// Delete old data
+		List<Matchday> result = session.createQuery(getMatchdayByWeekNmbr(weekNumber)).list();
+		for(Matchday m : result) {
+			session.delete(m);
+		}
+		
+		// Create new data
+		for(Matchday m : matchdays) {
+			session.persist(m);
+		}
 	}
 }

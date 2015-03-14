@@ -1,6 +1,7 @@
 package com.wiwit.eplweb.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiwit.eplweb.model.input.UpdateMatchday;
 import com.wiwit.eplweb.model.input.UpdateScore;
 import com.wiwit.eplweb.model.view.MatchdayModelView;
 import com.wiwit.eplweb.service.MatchdayService;
@@ -48,11 +50,21 @@ public class MatchdayController extends BaseController {
 		return new ResponseEntity<MatchdayModelView>(result, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = ApiPath.MATCHDAYS_CHANGE_SCORE, method = RequestMethod.PUT, produces = CONTENT_TYPE_JSON)
+	@RequestMapping(value = ApiPath.MATCHDAYS_CHANGE_SCORE, method = RequestMethod.PUT, consumes = CONTENT_TYPE_JSON)
 	public void updateScore(@PathVariable("matchdayId") int matchdayId,
 			@RequestBody UpdateScore updateScore) {
 		logger.info("PUT /api/matchday/" + matchdayId + "/updateScore");
 		
 		matchdayService.updateScore(matchdayId, updateScore);
+	}
+	
+	@RequestMapping(value = ApiPath.MATCHDAYS_CHANGE_SCHEDULE, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
+	public void updateMatchdays(@PathVariable("weekNumber") int weekNumber,
+			@RequestBody List<UpdateMatchday> matchs) {
+		logger.info("POST /api/updateMatchday/" + weekNumber);
+		
+		matchdayService.updateMatchdays(weekNumber, matchs);
+
+//		matchdayService.updateScore(matchdayId, updateScore);
 	}
 }
