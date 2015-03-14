@@ -25,6 +25,7 @@ public class ApiPath {
 	public static final String HIGHEST_RANK = "/api/highestRanks";
 	
 	public static final String TEAMS = "/api/teams";
+	public static final String TEAMS_BY_ID = "/api/teams/{teamId}";
 	
 	public static final String WEEKS = "/api/weeks";
 	public static final String PASSED_WEEK = "/api/passedWeeks";

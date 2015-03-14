@@ -87,5 +87,13 @@ public class Team {
 	public String toString() {
 		return "id=" + id + ", name=" + name;
 	}
+	
+	public void copyValue(Team t){
+		setName(t.getName());
+		setSimpleName(t.getSimpleName());
+		setEstablished(t.getEstablished());
+		setManager(t.getManager());
+		setNickname(t.getManager());
+	}
 
 }

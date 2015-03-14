@@ -49,6 +49,15 @@
 
 		function doSave() {
 			vm.modalInstance.dismiss();
+
+			delete vm.currTeam['$$hashKey'];
+			dataservice.editTeam(vm.currTeam)
+				.then(afterSave);
+		}
+
+		function afterSave() {
+			vm.savedTeam = angular.copy(vm.currTeam);
+			$state.go('^');
 		}
 
 		function dismisModal() {

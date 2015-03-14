@@ -47,9 +47,9 @@ public class CustomFilter implements Filter {
 		String path = req.getServletPath();
 		String method = req.getMethod();
 
-		PathPattern p = PathPatternUtil.getPathPattern(path);
+		PathPattern p = PathPatternUtil.getPathPattern(path, method);
 		if (p != null) {
-			if (p.isSecuredPath() && p.getMethods().contains(method)) {
+			if (p.isSecuredPath()) {
 				logger.info(method + " SECURED : " + path);
 
 				Resource resource = new ClassPathResource("webapp.properties");
@@ -66,6 +66,7 @@ public class CustomFilter implements Filter {
 					res.setStatus(HttpStatus.FORBIDDEN.value());
 				}
 			} else {
+				logger.info(method + " NOT SECURED : " + path);
 				chain.doFilter(rq, rs);
 			}
 		} else {

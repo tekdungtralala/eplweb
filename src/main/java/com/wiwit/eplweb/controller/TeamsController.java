@@ -8,10 +8,13 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiwit.eplweb.model.Player;
 import com.wiwit.eplweb.model.Team;
 import com.wiwit.eplweb.model.view.SimpleResult;
 import com.wiwit.eplweb.service.TeamService;
@@ -34,5 +37,13 @@ public class TeamsController extends BaseController {
 		List<Team> result = teamService.findAll();
 
 		return SimpleResult.generateResult(result);
+	}
+	
+	@RequestMapping(value = ApiPath.TEAMS_BY_ID, method = RequestMethod.PUT, consumes = CONTENT_TYPE_JSON)
+	public void putTeam(@PathVariable("teamId") int teamId, @RequestBody Team team){
+		logger.info("PUT /api/teams/" + teamId);
+		
+		teamService.updateTeam(teamId, team);
+		
 	}
 }

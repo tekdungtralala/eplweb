@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum PathPattern {
+	// Secured path	
+	SQUAD_BY_ID(ApiPath.SQUAD_BY_ID, new String[]{"PUT", "DELETE"}, "/api/players/[\\d]+", true),
+	SQUAD(ApiPath.SQUAD, new String[]{"POST"}, "/api/players", true),
+	TEAMS_BY_ID(ApiPath.TEAMS_BY_ID, new String[]{"PUT"}, "/api/teams/[\\d]+", true),
+	
+	// Unsecured path
 	ADMIN_SESSION(ApiPath.ADMIN_SESSION, null, "/api/admin/login/[\\w]+", false),
 	ADMIN_LOGIN(ApiPath.ADMIN_LOGIN, null, "/api/admin/login", false),
 	
@@ -24,17 +30,14 @@ public enum PathPattern {
 	RANKS_BY_WEEK(ApiPath.RANKS_BY_WEEK, null, "/api/ranks/[\\d]+", false),
 	HIGHEST_RANK(ApiPath.HIGHEST_RANK, null, "/api/highestRanks", false),
 	
-	TEAMS("/api/teams", null, ApiPath.TEAMS, false),
+	TEAMS(ApiPath.TEAMS, null, "/api/teams", false),
+	WEEKS(ApiPath.WEEKS, null, "/api/weeks", false),
 	
-	WEEKS("/api/weeks", null, ApiPath.WEEKS, false),
 	PASSED_WEEK(ApiPath.PASSED_WEEK, null,"/api/passedWeeks", false),
 	
 	STATIC_FILES(null, null, "^.*\\.(html|css|js|ico|png|jpg|map)$", false),
-	BOWER_DIR(null, null, "/bower_components/.+", false),
-	
-	// Secured path	
-	SQUAD_BY_ID(ApiPath.SQUAD_BY_ID, new String[]{"PUT, DELETE"}, "/api/players/[\\d]+", true),
-	SQUAD(ApiPath.SQUAD, new String[]{"POST"}, "/api/players", true);
+	BOWER_DIR(null, null, "/bower_components/.+", false)
+	;
 
 	private final String requestMapping;
 	private final String requestPattern;

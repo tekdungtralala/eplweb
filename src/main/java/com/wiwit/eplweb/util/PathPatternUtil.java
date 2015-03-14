@@ -30,10 +30,14 @@ public class PathPatternUtil {
 		return false;
 	}
 
-	public static PathPattern getPathPattern(String path) {
+	public static PathPattern getPathPattern(String path, String method) {
 		for (PathPattern p : getAllPath()) {
 			if (path.matches(p.getRequestPattern())) {
-				return p;
+				if (p.getMethods().size() > 0) {
+					return p.getMethods().contains(method) ? p : null;
+				} else {
+					return p;
+				}
 			}
 		}
 		return null;

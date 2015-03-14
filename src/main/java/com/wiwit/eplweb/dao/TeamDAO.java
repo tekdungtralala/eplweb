@@ -46,4 +46,26 @@ public class TeamDAO {
 		logger.info("Team loaded successfully, team.id =" + result.getId());
 		return result;
 	}
+	
+	@Transactional
+	public Team findById(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Team> list = session
+				.createQuery("from Team where id=" + id).setMaxResults(1).list();
+		
+		if (list == null || list.isEmpty()) {
+			logger.info("Can't find Team with team.id=" + id);
+			return null;
+		}
+		Team result = list.get(0);
+
+		logger.info("Team loaded successfully, team.id =" + result.getId());
+		return result;
+	}
+	
+	@Transactional
+	public void updateTeam(Team team) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.update(team);
+	}
 }

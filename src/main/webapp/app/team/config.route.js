@@ -23,7 +23,7 @@
 				controllerAs: 'vm'
 			})
 			.state("team.show-team.edit-team", {
-				url:'/edit',
+				url:'',
 				views: {
 					'@team': {
 						templateUrl: 'app/team/edit-team.html',

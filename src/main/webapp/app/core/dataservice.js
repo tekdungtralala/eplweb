@@ -5,7 +5,9 @@
 		.module('app.core')
 		.factory('dataservice', Dataservice);
 
-	function Dataservice($q, $http, $rootScope, playerservice, adminservice, adminauth) {
+	function Dataservice($q, $http, $rootScope, playerservice, adminservice, 
+		teamservice, adminauth) {
+
 		var isPrimed = false;
 		var primePromise;
 
@@ -29,6 +31,7 @@
 
 		$.extend(service, adminservice);
 		$.extend(service, playerservice);
+		$.extend(service, teamservice);
 
 		return service;
 
