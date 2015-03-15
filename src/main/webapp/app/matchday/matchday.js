@@ -43,8 +43,8 @@
 			checkLoggedAdmin();
 		}
 
-		function loadMatchdayListener() {
-			changeWeek(vm.currWeek)
+		function loadMatchdayListener(e, value) {
+			changeWeek(value);
 		}
 
 		function phaseNavListener(e, value) {

@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiwit.eplweb.model.Rank;
+import com.wiwit.eplweb.model.input.UpdateRank;
 import com.wiwit.eplweb.model.view.RankModelView;
 import com.wiwit.eplweb.service.RankService;
 import com.wiwit.eplweb.util.ApiPath;
@@ -58,5 +60,12 @@ public class RankController extends BaseController {
 		List<Rank> ranks = rankService.getRankByWeekNumber(weekNumber);
 
 		return new ResponseEntity<RankModelView>(RankModelView.getModelView(ranks), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = ApiPath.UPDATE_RANK, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
+	public void updateRank(@RequestBody UpdateRank ur) {
+		logger.info("POST /api/updateRanks weekNumber=" + ur.getWeekNumber());
+		
+		rankService.updateRanking(1, ur.getWeekNumber());
 	}
 }

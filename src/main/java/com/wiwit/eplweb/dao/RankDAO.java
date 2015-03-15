@@ -1,6 +1,8 @@
 package com.wiwit.eplweb.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -45,5 +47,15 @@ public class RankDAO {
 		Rank result = list.get(0);
 		logger.info("Rank loaded successfully, rank.id" + result.getId());
 		return result;
+	}
+	
+	@Transactional
+	public void updateMoreRank(HashMap<Integer, List<Rank>> rankMap) {
+		Session session = this.sessionFactory.getCurrentSession();
+		for (Integer key : rankMap.keySet()) {
+			for(Rank r : rankMap.get(key)) {
+				session.update(r);
+			}
+		}
 	}
 }

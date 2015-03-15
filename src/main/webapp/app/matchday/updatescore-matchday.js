@@ -13,6 +13,7 @@
 
 		var mh = matchdayhelpwer;
 		var vm = this;
+		var weekNumber = initData.matchdayModelView.week.weekNumber;
 
 		vm.datas = [];
 		vm.modalInstance = null;
@@ -47,7 +48,7 @@
 		}
 
 		function afterSubmit() {
-			$rootScope.$broadcast('load-matchday');
+			$rootScope.$broadcast('load-matchday', weekNumber);
 		}
 
 		function cancelEditScore() {

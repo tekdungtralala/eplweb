@@ -6,7 +6,7 @@
 		.factory('dataservice', Dataservice);
 
 	function Dataservice($q, $http, $rootScope, playerservice, adminservice, 
-		teamservice, matchdayservice, adminauth) {
+		teamservice, matchdayservice, rankservice, adminauth) {
 
 		var isPrimed = false;
 		var primePromise;
@@ -33,6 +33,7 @@
 		$.extend(service, playerservice);
 		$.extend(service, teamservice);
 		$.extend(service, matchdayservice);
+		$.extend(service, rankservice);
 
 		return service;
 

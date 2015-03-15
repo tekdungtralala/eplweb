@@ -17,6 +17,10 @@
 </ul>
 
 <div class="epl-update-rank">
+		<div class="callout callout-info" ng-show="vm.showInfo">
+			<p>Rank table within week 1 - {{vm.currWeek}} already udated.</p>
+			<p>Go to menu "view" to see the changes.</p>
+		</div>
 	<div class="input-group epl-update-form">
 		<span class="input-group-addon">Update Rank from week 1 to </span>
 		<form name="updateWeek">
@@ -27,11 +31,13 @@
 				/>
 		</form>
 		<div type="button" class="btn btn-default" 
-			ng-click="vm.currWeek=(vm.currWeek-1>0?vm.currWeek-1:vm.currWeek)">
+			ng-click="vm.currWeek=(vm.currWeek-1>0?vm.currWeek-1:vm.currWeek);
+			vm.showInfo=false">
 			<i class="fa fa-arrow-left"></i>
 		</div>
 		<div type="button" class="btn btn-default" 
-			ng-click="vm.currWeek=(vm.currWeek+1<=vm.maxWeek?vm.currWeek+1:vm.currWeek)">
+			ng-click="vm.currWeek=(vm.currWeek+1<=vm.maxWeek?vm.currWeek+1:vm.currWeek);
+			vm.showInfo=false">
 			<i class="fa fa-arrow-right"></i>
 		</div>
 	</div>

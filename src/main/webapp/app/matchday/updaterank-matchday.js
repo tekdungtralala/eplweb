@@ -5,11 +5,14 @@
 		.module('app.matchday')
 		.controller('UpdateRankMatchday', UpdateRankMatchday);
 
-	function UpdateRankMatchday(initData, $scope, $rootScope, $modal) {
+	function UpdateRankMatchday(initData, dataservice, $scope, $rootScope, 
+		$modal) {
+
 		$rootScope.$broadcast('state-btn', 'updaterank');
 		$rootScope.$broadcast('show-phase-nav', false);
 
 		var vm = this;
+		vm.showInfo = false;
 		vm.currWeek = null;
 		vm.maxWeek =  0;
 		vm.currWeek = 0;
@@ -20,18 +23,30 @@
 		vm.doUpdateRank = doUpdateRank;
 
 		activate();
-		function activate(){
+		function activate() {
 			vm.maxWeek = initData.matchdayModelView.week.weekNumber - 1;
 			vm.maxWeek = parseInt(vm.maxWeek);
 			vm.currWeek = vm.maxWeek;
 		}
 
 		function doUpdateRank() {
-			vm.modalInstance.dismiss('cancel');
+			vm.modalInstance.dismiss();
+			vm.showInfo = true;
+
+			var object = {
+				weekNumber: vm.currWeek
+			}
+			dataservice.updateRank(object)
+				.then(afterSubmit);
+
+		}
+
+		function afterSubmit() {
+			vm.showInfo = true;
 		}
 
 		function closeModal() {
-			vm.modalInstance.dismiss('cancel');
+			vm.modalInstance.dismiss();
 		}
 
 		function openModal() {
