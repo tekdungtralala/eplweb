@@ -1,15 +1,15 @@
 (function() {
-	'use strict';
+	"use strict";
 
 	angular
-		.module('app.core')
-		.factory('dataservice', Dataservice);
+		.module("app.core")
+		.factory("dataservice", Dataservice);
 
 	/**
 	 *	- All http requests and responses have to go through this factory
 	 *  - Dataservice must extend all other service, so any module 
 	 *    just need to call this factory.
-	 *  - Some service that can't be classified should be placed here
+	 *  - Some service that can"t be classified should be placed here
 	 *  - All http request must be placed on $rootScope.promise variable, 
 	 *    because it will used by cgBusy module (third party module) to show
 	 *    the spinner loading until the request finished.
@@ -47,14 +47,14 @@
 		return service;
 
 		function authentication(role) {
-			if ('admin' === role)
+			if ("admin" === role)
 				return adminservice.adminCekLogin();
 			else 
 				return true;
 		}
 
 		function getInitData(page) {
-			$rootScope.promise = $http.get('api/page/' + page)
+			$rootScope.promise = $http.get("api/page/" + page)
 					.then(getData)
 					.catch(function(message) {
 						if (message.status == 404) window.location.href = "404.jsp";
@@ -63,7 +63,7 @@
 		}
 
 		function getTeamStat(weekNumber, teamId) {
-			$rootScope.promise = $http.get('api/chart/week/' + weekNumber + '/team/' + teamId)
+			$rootScope.promise = $http.get("api/chart/week/" + weekNumber + "/team/" + teamId)
 				.then(getData)
 				.catch(function(message) {
 				});
@@ -71,7 +71,7 @@
 		}
 
 		function getAllPassedWeek() {
-			$rootScope.promise = $http.get('api/passedWeeks')
+			$rootScope.promise = $http.get("api/passedWeeks")
 				.then(getData)
 				.catch(function(message) {
 				});

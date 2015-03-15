@@ -1,9 +1,9 @@
 (function() {
-	'use strict';
+	"use strict";
 	
 	angular
-		.module('app.matchday')
-		.factory('matchdayhelpwer', MatchdayHelpwer);
+		.module("app.matchday")
+		.factory("matchdayhelpwer", MatchdayHelpwer);
 
 	function MatchdayHelpwer(dataservice, datautil) {
 

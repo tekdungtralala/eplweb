@@ -1,6 +1,6 @@
 (function() {
-	'use strict';
+	"use strict";
 
-	angular.module('app.squads', []);
+	angular.module("app.squads", []);
 
 })();

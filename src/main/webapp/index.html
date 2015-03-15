@@ -61,60 +61,61 @@ folder instead of downloading all of them to reduce the load. -->
 
 <!-- core module -->
 <script src="app/core/core.module.js"></script>
-<script src="app/core/config.js"></script>
-<script src="app/core/datautil.js"></script>
-<script src="app/core/adminauth.js"></script>
-<script src="app/core/adminservice.js"></script>
-<script src="app/core/matchdayservice.js"></script>
-<script src="app/core/playerservice.js"></script>
-<script src="app/core/teamservice.js"></script>
-<script src="app/core/rankservice.js"></script>
 <script src="app/core/dataservice.js"></script>
 
+<script src="app/core/helper/adminauth.helper.js"></script>
+<script src="app/core/helper/datautil.helper.js"></script>
+
+<script src="app/core/service/admin.service.js"></script>
+<script src="app/core/service/matchday.service.js"></script>
+<script src="app/core/service/player.service.js"></script>
+<script src="app/core/service/team.service.js"></script>
+<script src="app/core/service/rank.service.js"></script>
+
 <script src="app/dashboard/dashboard.module.js"></script>
-<script src="app/dashboard/config.route.js"></script>
+<script src="app/dashboard/dashboard.route.js"></script>
 <script src="app/dashboard/dashboard.js"></script>
 
 <script src="app/rank/rank.module.js"></script>
-<script src="app/rank/config.route.js"></script>
-<script src="app/rank/rank.js"></script>
+<script src="app/rank/rank.route.js"></script>
+<script src="app/rank/rank.controller.js"></script>
 
 <script src="app/matchday/matchday.module.js"></script>
+<script src="app/matchday/matchday.route.js"></script>
+<script src="app/matchday/matchday.controller.js"></script>
 <script src="app/matchday/matchday-helper.js"></script>
-<script src="app/matchday/config.route.js"></script>
-<script src="app/matchday/matchday.js"></script>
-<script src="app/matchday/list-matchday.js"></script>
-<script src="app/matchday/edit-score.js"></script>
-<script src="app/matchday/edit-rank.js"></script>
-<script src="app/matchday/edit-matchday.js"></script>
+
+<script src="app/matchday/list-matchday/list-matchday.js"></script>
+<script src="app/matchday/edit-score/edit-score.js"></script>
+<script src="app/matchday/edit-rank/edit-rank.js"></script>
+<script src="app/matchday/edit-matchday/edit-matchday.js"></script>
 
 <script src="app/team/team.module.js"></script>
-<script src="app/team/config.route.js"></script>
-<script src="app/team/team.js"></script>
-<script src="app/team/show-team.js"></script>
-<script src="app/team/edit-team.js"></script>
+<script src="app/team/team.route.js"></script>
+<script src="app/team/team.controller.js"></script>
+<script src="app/team/show-team/show-team.js"></script>
+<script src="app/team/edit-team/edit-team.js"></script>
 
 <script src="app/squads/squads.module.js"></script>
-<script src="app/squads/config.route.js"></script>
-<script src="app/squads/create-player.js"></script>
-<script src="app/squads/edit-player.js"></script>
-<script src="app/squads/list-player.js"></script>
-<script src="app/squads/show-player.js"></script>
-<script src="app/squads/squads.js"></script>
+<script src="app/squads/squads.route.js"></script>
+<script src="app/squads/squads.controller.js"></script>
+<script src="app/squads/create-player/create-player.js"></script>
+<script src="app/squads/edit-player/edit-player.js"></script>
+<script src="app/squads/list-player/list-player.js"></script>
+<script src="app/squads/show-player/show-player.js"></script>
 
 <script src="app/totw/totw.module.js"></script>
-<script src="app/totw/config.route.js"></script>
-<script src="app/totw/totw.js"></script>
+<script src="app/totw/totw.route.js"></script>
+<script src="app/totw/totw.controller.js"></script>
 
 <script src="app/admin/admin.module.js"></script>
-
 <script src="app/admin/login/adminauth.module.js"></script>
-<script src="app/admin/login/config.route.js"></script>
-<script src="app/admin/login/adminauth.js"></script>
-
+<script src="app/admin/login/adminauth.controller.js"></script>
+<script src="app/admin/login/adminauth.route.js"></script>
 <script src="app/admin/dashboard/admindashboard.module.js"></script>
-<script src="app/admin/dashboard/config.route.js"></script>
-<script src="app/admin/dashboard/admindashboard.js"></script>
+<script src="app/admin/dashboard/admindashboard.controller.js"></script>
+<script src="app/admin/dashboard/admindashboard.route.js"></script>
+
 
 <!-- AdminLTE App -->
 <script src="eplweb_components/js/app.js" type="text/javascript"></script>

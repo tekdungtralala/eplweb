@@ -1,6 +1,6 @@
 (function() {
-		'use strict';
+		"use strict";
 
-		angular.module('app.admin.dashboard', []);
+		angular.module("app.admin.dashboard", []);
 		
 })();

@@ -1,11 +1,11 @@
 (function() {
-	'use strict';
+	"use strict";
 
 	angular
-		.module('app.dashboard')
-		.controller('Dashboard', Dashboard);
+		.module("app.dashboard")
+		.controller("Dashboard", Dashboard);
 
-	// Dashboard.$inject = ['dataservice', 'datautil','$state'];
+	// Dashboard.$inject = ["dataservice", "datautil","$state"];
 	function Dashboard(dataservice, datautil, $state) {
 		// console.log("state : ", $state.get());
 		var vm = this;
@@ -40,37 +40,37 @@
 		}
 
 		function initChart(){
-			$('#epl-chart-container').highcharts({
+			$("#epl-chart-container").highcharts({
 				series: vm.chartData.series,
 				title: {
-					text: 'Five Biggest Teams',
+					text: "Five Biggest Teams",
 					style: {
-						display: 'none'
+						display: "none"
 					}
 				},
 				xAxis: {
 					title: {
-						text: 'Week'
+						text: "Week"
 					},
 					categories: vm.chartData.categories
 				},
 				yAxis: {
 					title: {
-						text: 'Point'
+						text: "Point"
 					},
 					plotLines: [{
 						value: 0,
 						width: 1,
-						color: '#808080'
+						color: "#808080"
 					}]
 				},
 				tooltip: {
-					valueSuffix: ' Pts'
+					valueSuffix: " Pts"
 				},
 				legend: {
-					layout: 'horizontal',
+					layout: "horizontal",
 					
-					verticalAlign: 'top',
+					verticalAlign: "top",
 					borderWidth: 0
 				},
 				exporting: { enabled: false }
@@ -82,7 +82,7 @@
 		}
 
 		function getInitData() {
-			return dataservice.getInitData('dashboard').then(function(data) {
+			return dataservice.getInitData("dashboard").then(function(data) {
 				return data;
 			});
 		}

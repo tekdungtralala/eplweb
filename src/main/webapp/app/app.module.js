@@ -1,32 +1,36 @@
 (function() {
-	'use strict';
+	"use strict";
 
-	angular.module('app', [
+	angular.module("app", [
 		// Angular module
-		'ngAnimate',
-		'ngCookies',
+		"ngAnimate",
+		"ngCookies",
+		
 		// Third party module
-		'ui.router',
-		'ui.bootstrap',
-		'ui.slider',
-		'cgBusy',
+		"ui.router",
+		"ui.bootstrap",
+		"ui.slider",
+		"cgBusy",
 
 		// App Module
-		'app.core',
-		'app.dashboard',
-		'app.rank',
-		'app.matchday',
-		'app.team',
-		'app.totw',
-		// admin page
-		'app.admin',
-		'app.admin.auth',
-		'app.admin.dashboard',
-		'app.squads',
-		// 'app.news'
+		"app.core",
+		"app.dashboard",
+		"app.rank",
+		"app.matchday",
+		"app.team",
+		"app.totw",
+		"app.squads",
+		"app.admin",
+		"app.admin.auth",
+		"app.admin.dashboard",
+		// "app.news"
 	])
 	.config(configRoute)
 	.run(appRun);
+
+	function configRoute($urlRouterProvider) {
+		$urlRouterProvider.otherwise("/");
+	};
 
 	function appRun(adminauth, dataservice, $rootScope, $state){
 		var adminSession = adminauth.getAdminSession();
@@ -34,8 +38,11 @@
 			dataservice.adminCekLogin();
 		}
 
-		$rootScope.$on('$stateChangeStart', stateChangeStart);
+		// Any changed on state is going through this section
+		$rootScope.$on("$stateChangeStart", stateChangeStart);
 
+		// Some state has "roles" attribute, it means before going those state 
+		//  we must validate the user who using the app.
 		function stateChangeStart(event, toState, toParams, fromState, fromParams) {
 			var stateName = toState.name;
 			var nextState = findState(stateName);
@@ -55,7 +62,7 @@
 				return 200 === r.status;
 			});
 
-			if (!hasAccess) $state.go('dashboard');
+			if (!hasAccess) $state.go("dashboard");
 		}
 
 		function findState(stateName) {
@@ -64,9 +71,5 @@
 			});
 		}
 	}
-
-	function configRoute($urlRouterProvider) {
-		$urlRouterProvider.otherwise('/');
-	};
 
 })();

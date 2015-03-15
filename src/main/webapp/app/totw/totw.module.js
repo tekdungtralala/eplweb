@@ -1,5 +1,6 @@
 (function() {
-    'use strict';
+		'use strict';
 
-    angular.module('app.totw', []);    
+		angular.module('app.totw', []);    
+		
 })();
