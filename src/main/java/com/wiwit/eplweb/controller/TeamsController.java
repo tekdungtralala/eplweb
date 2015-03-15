@@ -29,7 +29,7 @@ public class TeamsController extends BaseController {
 	@Autowired
 	public TeamService teamService;
 
-	@RequestMapping(value = ApiPath.TEAMS, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = ApiPath.TEAMS, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
 	public SimpleResult getFiveHighestRank() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/teams");

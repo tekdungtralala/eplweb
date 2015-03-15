@@ -5,16 +5,28 @@
 		.module('app.core')
 		.factory('playerservice', PlayerService);
 
+	// Note: Please read dataservice.js factory before using this factory
 	function PlayerService($http, $rootScope, adminauth) {
-		var service = {
 
+		var service = {
+			// Get all players in a team
+			getPlayersByTeamId: getPlayersByTeamId,
+			// Edit, delete and save palyer
 			editPlayer: editPlayer,
 			savePlayer: savePlayer,
 			deletePlayer: deletePlayer
-			
-		}
+		};
 
 		return service;
+
+		function getPlayersByTeamId(teamId) {
+			$rootScope.promise = $http.get('api/players/team/' + teamId)
+					.then(getData)
+					.catch(function(message) {
+					});
+
+			return $rootScope.promise;
+		}
 
 		function deletePlayer(playerId) {
 			var req = adminauth.getConf(null, "DELETE", "api/players/" + playerId);
@@ -45,6 +57,10 @@
 
 		function process(result) {
 			return result;
+		}
+
+		function getData(result) {
+			return result.data;
 		}
 	}
 })();

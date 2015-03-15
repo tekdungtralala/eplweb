@@ -3,12 +3,12 @@
 	
 	angular
 		.module('app.matchday')
-		.controller('UpdateScoreMatchday', UpdateScoreMatchday);
+		.controller('Edit-Score', EditScore);
 
-	function UpdateScoreMatchday(initData, matchdayhelpwer, dataservice, $scope, 
+	function EditScore(initData, matchdayhelpwer, dataservice, $scope, 
 			$rootScope, $modal) {
 
-		$rootScope.$broadcast('state-btn', 'updatescore');
+		$rootScope.$broadcast('state-btn', 'edit-score');
 		$rootScope.$broadcast('show-phase-nav', true);
 
 		var mh = matchdayhelpwer;

@@ -10,10 +10,13 @@
 		var EPL_AUTH_HEADER = 'epl-authentication';
 
 		var service = {
+			// Save admin session into cookie
 			putAdminSession: putAdminSession,
+			// Take admin session from cookie 
 			getAdminSession: getAdminSession,
+			// Remove admin session on cookies
 			delAdminSession: delAdminSession,
-			adminMustLogedIn: adminMustLogedIn,
+			// Generate http conf for admin
 			getConf: getConf
 		};
 
@@ -35,12 +38,6 @@
 			req.headers[EPL_AUTH_HEADER] = getAdminSession();
 
 			return req;
-		}
-
-		function adminMustLogedIn() {
-			if (!$rootScope.isAdminLogged) {
-				$state.go('dashboard');
-			}
 		}
 
 		function delAdminSession() {

@@ -5,22 +5,21 @@
 		Matchday {{vm.abc}}
 	</a>
 </h3>
-
 <div class="epl-nav" ng-show="vm.isLoggedAdmin">
-	<a class="btn btn-sm btn-{{vm.activeState === 'list' ? 'primary active' : 'default'}}"
-		ng-click="vm.changeState('list')">
+	<a class="btn btn-sm btn-{{vm.activeState === 'list-matchday' ? 'primary active' : 'default'}}"
+		ng-click="vm.changeState('list-matchday')">
 		View
 	</a>
-	<a class="btn btn-sm btn-{{vm.activeState === 'updatematchday' ? 'primary active' : 'default'}}"
-		ng-click="vm.changeState('updatematchday')">
+	<a class="btn btn-sm btn-{{vm.activeState === 'edit-matchday' ? 'primary active' : 'default'}}"
+		ng-click="vm.changeState('edit-matchday')">
 		Update Matchday
 	</a>
-	<a class="btn btn-sm btn-{{vm.activeState === 'updatescore' ? 'primary active' : 'default'}}"
-		ng-click="vm.changeState('updatescore')">
+	<a class="btn btn-sm btn-{{vm.activeState === 'edit-score' ? 'primary active' : 'default'}}"
+		ng-click="vm.changeState('edit-score')">
 		Update Score
 	</a>
-	<a class="btn btn-sm btn-{{vm.activeState === 'updaterank' ? 'primary active' : 'default'}}"
-		ng-click="vm.changeState('updaterank')"
+	<a class="btn btn-sm btn-{{vm.activeState === 'edit-rank' ? 'primary active' : 'default'}}"
+		ng-click="vm.changeState('edit-rank')"
 		>
 		Update Rank
 	</a>

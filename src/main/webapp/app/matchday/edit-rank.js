@@ -3,12 +3,11 @@
 	
 	angular
 		.module('app.matchday')
-		.controller('UpdateRankMatchday', UpdateRankMatchday);
+		.controller('Edit-Rank', EditRank);
 
-	function UpdateRankMatchday(initData, dataservice, $scope, $rootScope, 
-		$modal) {
+	function EditRank(initData, dataservice, $scope, $rootScope, $modal) {
 
-		$rootScope.$broadcast('state-btn', 'updaterank');
+		$rootScope.$broadcast('state-btn', 'edit-rank');
 		$rootScope.$broadcast('show-phase-nav', false);
 
 		var vm = this;

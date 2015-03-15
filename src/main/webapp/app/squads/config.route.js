@@ -19,14 +19,14 @@
 			})
 			.state("squads.create-player", {
 				url: '/create-player',
-				templateUrl: 'app/squads/newsquad.html',
-				controller: 'SquadsCreatePlayer',
+				templateUrl: 'app/squads/create-player.html',
+				controller: 'Create-Player',
 				controllerAs: 'vm'
 			})
 			.state("squads.show-team", {
 				url: '/show-teams/{teamId}',
-				templateUrl: 'app/squads/allsquads.html',
-				controller: 'SquadsShowTeam',
+				templateUrl: 'app/squads/list-player.html',
+				controller: 'List-Player',
 				controllerAs: 'vm',
 				resolve: {
 					xhrSquads: getAllSquadByTeam
@@ -36,18 +36,18 @@
 				url: '/edit-player/{playerId}',
 				views: {
 					'@squads': {
-						templateUrl: 'app/squads/editsquad.html',
-						controller: 'SquadsEditPlayer',
+						templateUrl: 'app/squads/edit-player.html',
+						controller: 'Edit-Player',
 						controllerAs: 'vm'
 					}
 				}
 			})
 			.state("squads.show-team.show-player", {
-				url: '/player/view/{playerId}',
+				url: '/player/show-player/{playerId}',
 				views: {
 					'@squads': {
-						templateUrl: 'app/squads/viewsquad.html',
-						controller: 'SquadsShowPlayer',
+						templateUrl: 'app/squads/show-player.html',
+						controller: 'Show-Player',
 						controllerAs: 'vm'
 					}
 				}

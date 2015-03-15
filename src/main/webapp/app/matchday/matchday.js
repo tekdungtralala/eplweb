@@ -5,7 +5,9 @@
 		.module('app.matchday')
 		.controller('Matchday', Matchday);
 
-	function Matchday(initData, matchdayhelpwer, dataservice, $scope, $rootScope, $state) {
+	function Matchday(initData, matchdayhelpwer, dataservice, $scope, $rootScope, 
+		$state) {
+		
 		var mh = matchdayhelpwer;
 		var vm = this;
 
@@ -18,7 +20,7 @@
 		vm.prevRankDisable = false;
 
 		vm.isLoggedAdmin = false;
-		vm.activeState = 'list';
+		vm.activeState = 'list-matchday';
 		vm.showPhaseNav = false;
 
 
@@ -57,7 +59,7 @@
 
 		function changeState(state) {
 			vm.activeState = state;
-			$state.go('matchday.' + state + '-matchday');
+			$state.go('matchday.' + state);
 		}
 
 		function checkLoggedAdmin() {

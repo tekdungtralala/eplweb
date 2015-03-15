@@ -3,10 +3,10 @@
 	
 	angular
 		.module('app.matchday')
-		.controller('ListMatchday', ListMatchday);
+		.controller('List-Matchday', ListMatchday);
 
 	function ListMatchday(initData, $scope, $rootScope) {
-		$rootScope.$broadcast('state-btn', 'list');
+		$rootScope.$broadcast('state-btn', 'list-matchday');
 		$rootScope.$broadcast('show-phase-nav', true);
 		var vm = this;
 

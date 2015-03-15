@@ -4,6 +4,7 @@
 	angular.module('app', [
 		// Angular module
 		'ngAnimate',
+		'ngCookies',
 		// Third party module
 		'ui.router',
 		'ui.bootstrap',

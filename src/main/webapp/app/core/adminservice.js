@@ -5,11 +5,16 @@
 		.module('app.core')
 		.factory('adminservice', AdminService);
 
+	// Note: Please read dataservice.js factory before using this factory
 	function AdminService($http, $rootScope, adminauth) {
 		var service = {
+			// Send admin login request
 			adminLogin: adminLogin,
+			// Check admin session
 			adminCekLogin: adminCekLogin,
+			// Send admin logout request
 			adminLogout: adminLogout,
+			// Validate admin role
 			hasAdminRole: hasAdminRole
 		}
 		return service;

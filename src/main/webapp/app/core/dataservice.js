@@ -5,6 +5,15 @@
 		.module('app.core')
 		.factory('dataservice', Dataservice);
 
+	/**
+	 *	- All http requests and responses have to go through this factory
+	 *  - Dataservice must extend all other service, so any module 
+	 *    just need to call this factory.
+	 *  - Some service that can't be classified should be placed here
+	 *  - All http request must be placed on $rootScope.promise variable, 
+	 *    because it will used by cgBusy module (third party module) to show
+	 *    the spinner loading until the request finished.
+	 */
 	function Dataservice($q, $http, $rootScope, playerservice, adminservice, 
 		teamservice, matchdayservice, rankservice, adminauth) {
 
@@ -12,23 +21,23 @@
 		var primePromise;
 
 		var service = {
-			// auth
+			// Some state which has roles attribute will be authentication through
+			//  this function
 			authentication: authentication,
-			// Page /team
-			getPlayersByTeamId: getPlayersByTeamId,
-			getAllTeam: getAllTeam,
-			// First load
+			// Load json data from server, usually used in state that does not 
+			//  required server verification. The idea is Instead of sending 
+			//  multiple requests, it's better to send one request at a time.
 			getInitData: getInitData,
-			// Page /matchday
-			// Page / {dashboard}
-			getMatchdayByWeekNmr: getMatchdayByWeekNmr,
-			// Page /ranks
+			// Get chart data
 			getTeamStat: getTeamStat,
-			getRanksByWeekNmr: getRanksByWeekNmr,
+			// Get all passed week
 			getAllPassedWeek: getAllPassedWeek,
+			// Used when calling multiple service at once,  will be wait until all
+			//  request completed and then return the result
 			ready: ready
 		};
 
+		// Include all service
 		$.extend(service, adminservice);
 		$.extend(service, playerservice);
 		$.extend(service, teamservice);
@@ -44,24 +53,6 @@
 				return true;
 		}
 
-		function getPlayersByTeamId(teamId) {
-			$rootScope.promise = $http.get('api/players/team/' + teamId)
-					.then(getData)
-					.catch(function(message) {
-					});
-
-			return $rootScope.promise;
-		}
-
-		function getAllTeam() {
-			$rootScope.promise = $http.get('api/teams')
-					.then(getData)
-					.catch(function(message) {
-					});
-
-			return $rootScope.promise;
-		}
-
 		function getInitData(page) {
 			$rootScope.promise = $http.get('api/page/' + page)
 					.then(getData)
@@ -71,32 +62,8 @@
 			return $rootScope.promise;
 		}
 
-		// Page /
-		function getMatchdayByWeekNmr(weekNumber) {
-			var query = '';
-			if (weekNumber) 
-				query = '/' + weekNumber;
-			$rootScope.promise = $http.get('api/matchday' + query)
-				.then(getData)
-				.catch(function(message) {
-				});
-			return $rootScope.promise;
-		}
-
-		// Page /ranks
 		function getTeamStat(weekNumber, teamId) {
 			$rootScope.promise = $http.get('api/chart/week/' + weekNumber + '/team/' + teamId)
-				.then(getData)
-				.catch(function(message) {
-				});
-			return $rootScope.promise;
-		}
-
-		function getRanksByWeekNmr(weekNumber) {
-			var query = '';
-			if (weekNumber) 
-				query = '/' + weekNumber;
-			$rootScope.promise = $http.get('api/ranks' + query)
 				.then(getData)
 				.catch(function(message) {
 				});
@@ -115,8 +82,6 @@
 			return result.data;
 		}
 
-
-		// Default
 		function ready(nextPromises) {
 			var readyPromise = primePromise || prime();
 
