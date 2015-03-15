@@ -21,7 +21,7 @@
 
 		activate();
 		function activate(){
-			vm.maxWeek = initData.matchdayModelView.week.weekNumber;
+			vm.maxWeek = initData.matchdayModelView.week.weekNumber - 1;
 			vm.maxWeek = parseInt(vm.maxWeek);
 			vm.currWeek = vm.maxWeek;
 		}
