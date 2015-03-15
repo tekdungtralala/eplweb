@@ -27,7 +27,7 @@
 
 		activate();
 		function activate() {
-			convertModel(initData.matchdayModelView.model);
+			$rootScope.$broadcast('load-matchday', weekNumber);
 		}
 
 		function modelChangeListener(event, modelViews) {
@@ -42,7 +42,7 @@
 				homeGoal: vm.score[0],
 				awayGoal: vm.score[1]
 			}
-
+			
 			dataservice.updateScore(matchdayId, updatescore)
 				.then(afterSubmit);
 		}

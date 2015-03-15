@@ -60,6 +60,7 @@ public class MatchdayDAO {
 				"from Matchday as m where m.id = " + matchdayId).list();
 		if (result == null || result.size() == 0){
 			logger.info("Can't find matchday with id="+ matchdayId);
+			return null;
 		}
 		return result.get(0);
 	}
