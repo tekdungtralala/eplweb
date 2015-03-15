@@ -31,17 +31,17 @@ public class HomeController {
 
 		model.addAttribute("ranks", rankService.getFiveHighestLastRank());
 
-		model.addAttribute("matchday", matchdayService.getMatchtdayOnCurrWeek()
+		model.addAttribute("matchday", matchdayService.findMatchtdayOnCurrWeek()
 				.getModel());
 
-		model.addAttribute("squad", bestWeekSquadService.getBestSquadLastWeek());
+		model.addAttribute("squad", bestWeekSquadService.findBestSquadLastWeek());
 		
 		// TODO if this is first match day hide time of the week on index
-		int previousWeek = Integer.valueOf(phaseService.getCurrentMatchday().getValue()) - 1;
+		int previousWeek = Integer.valueOf(phaseService.findCurrentMatchday().getValue()) - 1;
 		model.addAttribute("previousWeek", previousWeek);
 		
-		String seasonId = phaseService.getCurrentSeason().getValue();
-		model.addAttribute("currentSeason", seasonService.getSeasonById(seasonId).getYears());
+		String seasonId = phaseService.findCurrentSeason().getValue();
+		model.addAttribute("currentSeason", seasonService.findSeasonById(seasonId).getYears());
 		
 		// TODO uniform on index.html still default
 		return "index";

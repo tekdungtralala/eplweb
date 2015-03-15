@@ -32,7 +32,7 @@ public class MatchDayTest {
 		ObjectWriter ow = new ObjectMapper().writer()
 				.withDefaultPrettyPrinter();
 		
-		System.out.println(ow.writeValueAsString(md.getMatchtdayOnCurrWeek()));
+		System.out.println(ow.writeValueAsString(md.findMatchtdayOnCurrWeek()));
 //		showMatchdayOnCurrWeek(md.getMatchtdayOnCurrWeek());
 		
 

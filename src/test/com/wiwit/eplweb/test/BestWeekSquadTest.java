@@ -11,7 +11,7 @@ public class BestWeekSquadTest {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				"servlet-context.xml");
 		BestWeekSquadService bs = context.getBean(BestWeekSquadService.class);
-		for (BestWeekSquad b : bs.getBestSquadByWeekId(23)) {
+		for (BestWeekSquad b : bs.findBestSquadByWeekId(23)) {
 			System.out.println(b.getNumber() + " - " + b.getPlayer().getName()
 					+ " - " + b.getPlayer().getTeam().getName());
 		}

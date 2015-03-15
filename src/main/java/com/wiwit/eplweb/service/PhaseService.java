@@ -13,11 +13,11 @@ public class PhaseService {
 	@Autowired
 	private PhaseDAO phaseDAO;
 
-	public Phase getCurrentMatchday() {
-		return phaseDAO.getCurrentMatchday();
+	public Phase findCurrentMatchday() {
+		return phaseDAO.findCurrentMatchday();
 	}
 
-	public Phase getCurrentSeason() {
-		return phaseDAO.getCurrentSeason();
+	public Phase findCurrentSeason() {
+		return phaseDAO.findCurrentSeason();
 	}
 }

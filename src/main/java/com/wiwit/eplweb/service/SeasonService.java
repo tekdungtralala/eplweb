@@ -15,11 +15,11 @@ public class SeasonService {
 	@Autowired
 	private SeasonDAO seasonDAO;
 	
-	public List<Season> getAllSeason(){
-		return seasonDAO.getAllSeason();
+	public List<Season> findAllSeason(){
+		return seasonDAO.findAllSeason();
 	}
 	
-	public Season getSeasonById(Object id) {
-		return seasonDAO.getSeasonById(id);
+	public Season findSeasonById(Object id) {
+		return seasonDAO.findSeasonById(id);
 	}
 }

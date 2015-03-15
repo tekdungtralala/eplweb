@@ -24,7 +24,7 @@ public class RankDAO {
 	private SessionFactory sessionFactory;
 
 	@Transactional
-	public List<Rank> getRankByWeekNumber(int weekNumber) {
+	public List<Rank> findRankByWeekNumber(int weekNumber) {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Rank> result = session.createQuery(
 				"from Rank as r where r.week.weekNumber = " + weekNumber

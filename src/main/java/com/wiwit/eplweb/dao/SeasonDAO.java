@@ -20,12 +20,12 @@ public class SeasonDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public List<Season> getAllSeason() {
+	public List<Season> findAllSeason() {
 		Session session = this.sessionFactory.getCurrentSession();
 		return session.createQuery("from Season").list();
 	}
 
-	public Season getSeasonById(Object id) {
+	public Season findSeasonById(Object id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		return (Season) session.createQuery("from Season where id = " + id)
 				.list().get(0);

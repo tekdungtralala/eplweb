@@ -1,11 +1,11 @@
 package com.wiwit.eplweb.model.input;
 
-public class UpdateScore {
+public class ScoreModelInput {
 
 	private int homeGoal;
 	private int awayGoal;
 	
-	public UpdateScore() {
+	public ScoreModelInput() {
 	}
 
 	public int getHomeGoal() {

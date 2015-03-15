@@ -18,7 +18,7 @@ public class RankTest {
 
 	public static void showLatestRank(RankService rs, ObjectWriter ow)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		String json = ow.writeValueAsString(rs.getLatestRank());
+		String json = ow.writeValueAsString(rs.findLatestRank());
 		System.out.println(json);
 	}
 

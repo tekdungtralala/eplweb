@@ -12,7 +12,7 @@ public class SeasonTest {
 	}
 	
 	public static void getAllSeason(SeasonService sd){
-		for(Season s: sd.getAllSeason()){
+		for(Season s: sd.findAllSeason()){
 			System.out.println(s.getId());
 			System.out.println(s.getYears());
 			System.out.println(s.getWeeks().size());
@@ -20,7 +20,7 @@ public class SeasonTest {
 	}
 	
 	public static void getSeasonById(SeasonService sd){
-		System.out.println(sd.getSeasonById(1).getYears());
+		System.out.println(sd.findSeasonById(1).getYears());
 	}
 
 	public static void main(String[] args) {

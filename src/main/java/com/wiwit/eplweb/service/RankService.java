@@ -32,32 +32,32 @@ public class RankService {
 	private WeekDAO weekDAO;
 
 	public List<Rank> getFiveHighestLastRank() {
-		return getLatestRank().subList(0, 5);
+		return findLatestRank().subList(0, 5);
 	}
 
 	public Rank findLatestTeamRank(int teamId) {
-		String currentMatchday = phaseDAO.getCurrentMatchday().getValue();
+		String currentMatchday = phaseDAO.findCurrentMatchday().getValue();
 		int prevWeek = Integer.valueOf(currentMatchday) - 1;
 
 		return rankDAO.findTeamRankByWeeknumber(teamId, prevWeek);
 	}
 
-	public List<Rank> getLatestRank() {
-		String currentMatchday = phaseDAO.getCurrentMatchday().getValue();
+	public List<Rank> findLatestRank() {
+		String currentMatchday = phaseDAO.findCurrentMatchday().getValue();
 
 		// last rank must be on previous week
 		int prevWeek = Integer.valueOf(currentMatchday) - 1;
 		// TODO - check if prevWeek == 0
 
-		return getRankByWeekNumber(prevWeek);
+		return findRankByWeekNumber(prevWeek);
 	}
 
-	public List<Rank> getRankByWeekNumber(int weekNumber) {
-		return this.rankDAO.getRankByWeekNumber(weekNumber);
+	public List<Rank> findRankByWeekNumber(int weekNumber) {
+		return this.rankDAO.findRankByWeekNumber(weekNumber);
 	}
 
 	public List<Rank> getRankByWeekNumber(String weekNumber) {
-		return getRankByWeekNumber(Integer.valueOf(weekNumber));
+		return findRankByWeekNumber(Integer.valueOf(weekNumber));
 	}
 
 	public void updateRanking(int startingWeek, int endingWeek) {
@@ -73,7 +73,7 @@ public class RankService {
 
 		for (int i = startingWeek; i <= endingWeek; i++) {
 			// All rank on a week
-			List<Rank> ranks = this.getRankByWeekNumber(i);
+			List<Rank> ranks = this.findRankByWeekNumber(i);
 			
 			// All matchday on a week
 			List<Matchday> matchsOnWeek = matchdayDAO.findMatchtdayByWeekNmr(i);

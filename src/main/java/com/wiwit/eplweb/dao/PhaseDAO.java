@@ -22,7 +22,7 @@ public class PhaseDAO {
 	private SessionFactory sessionFactory;
 
 	@Transactional
-	private Phase getPhaseByKey(PhaseKey phaseKey) {
+	private Phase findPhaseByKey(PhaseKey phaseKey) {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Phase> results = session
 				.createQuery("from Phase where key like '" + phaseKey.toString()+"'")
@@ -31,12 +31,12 @@ public class PhaseDAO {
 	}
 
 	@Transactional
-	public Phase getCurrentMatchday() {
-		return this.getPhaseByKey(PhaseKey.CURRENT_MATCHDAY);
+	public Phase findCurrentMatchday() {
+		return this.findPhaseByKey(PhaseKey.CURRENT_MATCHDAY);
 	}
 
 	@Transactional
-	public Phase getCurrentSeason() {
-		return this.getPhaseByKey(PhaseKey.CURRENT_SEASON);
+	public Phase findCurrentSeason() {
+		return this.findPhaseByKey(PhaseKey.CURRENT_SEASON);
 	}
 }

@@ -19,12 +19,12 @@ public class WeekService {
 	@Autowired
 	private PhaseDAO phaseDAO;
 	
-	public List<Week> getLastFiveWeek(){
-		return weekDAO.getLastFiveWeek();
+	public List<Week> findLastFiveWeek(){
+		return weekDAO.findLastFiveWeek();
 	}
 	
 	public Week findCurrWeek(){
-		String currentMatchday = phaseDAO.getCurrentMatchday().getValue();
+		String currentMatchday = phaseDAO.findCurrentMatchday().getValue();
 		
 		return weekDAO.findByWeekNmr(Integer.valueOf(currentMatchday) - 1);
 	}
@@ -33,17 +33,17 @@ public class WeekService {
 		return weekDAO.findByWeekNmr(weekNumber);
 	}
 	
-	public List<Week> getAllPassedWeek(){
-		String currentMatchday = phaseDAO.getCurrentMatchday().getValue();
+	public List<Week> findAllPassedWeek(){
+		String currentMatchday = phaseDAO.findCurrentMatchday().getValue();
 
 		// last rank must be on previous week
 		int prevWeek = Integer.valueOf(currentMatchday) - 1;
 		// TODO - check if prevWeek == 0
 		
-		return weekDAO.getAllPassedWeek(prevWeek);
+		return weekDAO.findAllPassedWeek(prevWeek);
 	}
 	
 	public List<Week> getAllWeek(){
-		return weekDAO.getAllWeek();
+		return weekDAO.findAllWeek();
 	}
 }

@@ -23,7 +23,7 @@ public class MatchdayDAO {
 	private SessionFactory sessionFactory;
 
 	@Transactional
-	public List<Matchday> getLastAndNextMatchday(int teamId, int weekNumber,
+	public List<Matchday> findClosestMatch(int teamId, int weekNumber,
 			int totalMatch) {
 		Session session = this.sessionFactory.getCurrentSession();
 
@@ -41,13 +41,13 @@ public class MatchdayDAO {
 	public List<Matchday> findMatchtdayByWeekNmr(int weekNumber) {
 		Session session = this.sessionFactory.getCurrentSession();
 
-		List<Matchday> result = session.createQuery(getMatchdayByWeekNmbr(weekNumber)).list();
+		List<Matchday> result = session.createQuery(findMatchdayByWeekNmr(weekNumber)).list();
 		logger.info("Matchday loaded successfully, matchdays size="
 				+ result.size());
 		return result;
 	}
 	
-	protected String getMatchdayByWeekNmbr(int weekNumber){
+	protected String findMatchdayByWeekNmr(int weekNumber){
 		return "from Matchday as m where m.week.weekNumber = " + weekNumber
 				+ " order by m.date asc, m.time asc";
 	}
@@ -75,7 +75,7 @@ public class MatchdayDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		
 		// Delete old data
-		List<Matchday> result = session.createQuery(getMatchdayByWeekNmbr(weekNumber)).list();
+		List<Matchday> result = session.createQuery(findMatchdayByWeekNmr(weekNumber)).list();
 		for(Matchday m : result) {
 			session.delete(m);
 		}

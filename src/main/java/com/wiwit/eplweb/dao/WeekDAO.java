@@ -22,7 +22,7 @@ public class WeekDAO {
 	private SessionFactory sessionFactory;
 
 	@Transactional
-	public List<Week> getLastFiveWeek() {
+	public List<Week> findLastFiveWeek() {
 		Session session = this.sessionFactory.getCurrentSession();
 		return session.createQuery("from Week order by startDay")
 				.setMaxResults(5).list();
@@ -37,7 +37,7 @@ public class WeekDAO {
 	}
 
 	@Transactional
-	public List<Week> getAllWeek() {
+	public List<Week> findAllWeek() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Week> result = session.createQuery(
 				"from Week order by startDay desc").list();
@@ -46,7 +46,7 @@ public class WeekDAO {
 	}
 
 	@Transactional
-	public List<Week> getAllPassedWeek(int prevWeek) {
+	public List<Week> findAllPassedWeek(int prevWeek) {
 		Session session = this.sessionFactory.getCurrentSession();
 
 		List<Week> result = session.createQuery(

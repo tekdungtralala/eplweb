@@ -1,6 +1,6 @@
 package com.wiwit.eplweb.model.input;
 
-public class UpdateRank {
+public class RankModelInput {
 
 	private int weekNumber;
 

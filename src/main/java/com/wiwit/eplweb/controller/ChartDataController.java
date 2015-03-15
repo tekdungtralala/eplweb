@@ -41,7 +41,7 @@ public class ChartDataController extends BaseController {
 			JsonMappingException, IOException {
 		logger.info("GET /api/chart/week/" + weekNumber + "/team/" + teamId);
 
-		List<Rank> ranks = rankService.getRankByWeekNumber(weekNumber);
+		List<Rank> ranks = rankService.findRankByWeekNumber(weekNumber);
 		TeamStatModelView tsmv = new TeamStatModelView();
 		tsmv.addData(teamId, weekNumber, ranks);
 
@@ -53,7 +53,7 @@ public class ChartDataController extends BaseController {
 			JsonMappingException, IOException {
 		logger.info("GET /api/chart/fiveBigestTeam");
 
-		Phase p = phaseService.getCurrentMatchday();
+		Phase p = phaseService.findCurrentMatchday();
 		int currWeek = Integer.valueOf(p.getValue());
 
 		FiveBigTeamModelView result = new FiveBigTeamModelView();
@@ -63,7 +63,7 @@ public class ChartDataController extends BaseController {
 			List<Rank> tmp = new ArrayList<Rank>();
 
 			// Get rank every week from beginning until current week
-			List<Rank> rankEveryWeek = rankService.getRankByWeekNumber(i);
+			List<Rank> rankEveryWeek = rankService.findRankByWeekNumber(i);
 
 			// From rankEveryWeek only get selected team and put them on tmp
 			for (Rank br : bigestRank) {

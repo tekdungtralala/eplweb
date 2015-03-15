@@ -18,7 +18,7 @@ public class PlayerDAO {
 	private SessionFactory sessionFactory;
 
 	@Transactional
-	public List<Player> getSquadsByTeamId(int teamId) {
+	public List<Player> findSquadsByTeamId(int teamId) {
 		Session session = this.sessionFactory.getCurrentSession();
 		return session.createQuery(
 				"from Player where team.id=" + teamId

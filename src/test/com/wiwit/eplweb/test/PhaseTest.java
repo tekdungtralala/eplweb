@@ -11,10 +11,10 @@ public class PhaseTest {
 				"servlet-context.xml");
 		PhaseDAO pd = context.getBean(PhaseDAO.class);
 		System.out.println("CURRENT MATCHDAY : ");
-		System.out.println(pd.getCurrentMatchday().getValue());
+		System.out.println(pd.findCurrentMatchday().getValue());
 		
 		System.out.println("CURRENT SEASON : ");
-		System.out.println(pd.getCurrentSeason().getValue());
+		System.out.println(pd.findCurrentSeason().getValue());
 		context.close();
 	}
 }

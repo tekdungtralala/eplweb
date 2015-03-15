@@ -20,15 +20,15 @@ public class BestWeekSquadService {
 	private PhaseDAO phaseDAO;
 
 	@Transactional
-	public List<BestWeekSquad> getBestSquadByWeekId(int weekId) {
-		return bestWeekSquadDAO.getBestSquadByWeekId(weekId);
+	public List<BestWeekSquad> findBestSquadByWeekId(int weekId) {
+		return bestWeekSquadDAO.findBestSquadByWeekId(weekId);
 	}
 
 	@Transactional
-	public List<BestWeekSquad> getBestSquadLastWeek() {
+	public List<BestWeekSquad> findBestSquadLastWeek() {
 		int lastWeek = Integer
-				.valueOf(phaseDAO.getCurrentMatchday().getValue()) - 1;
+				.valueOf(phaseDAO.findCurrentMatchday().getValue()) - 1;
 		// TODO what must we do if last week = 0
-		return this.getBestSquadByWeekId(lastWeek);
+		return this.findBestSquadByWeekId(lastWeek);
 	}
 }

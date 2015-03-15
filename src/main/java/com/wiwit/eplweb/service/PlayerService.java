@@ -16,7 +16,7 @@ public class PlayerService {
 	private PlayerDAO playerDAO;
 
 	public List<Player> getSquadsByTeamId(int teamId) {
-		return playerDAO.getSquadsByTeamId(teamId);
+		return playerDAO.findSquadsByTeamId(teamId);
 	}
 
 	public void updatePlayer(int id, Player player) {

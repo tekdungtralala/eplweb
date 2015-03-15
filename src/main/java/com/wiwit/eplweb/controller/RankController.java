@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiwit.eplweb.model.Rank;
-import com.wiwit.eplweb.model.input.UpdateRank;
+import com.wiwit.eplweb.model.input.RankModelInput;
 import com.wiwit.eplweb.model.view.RankModelView;
 import com.wiwit.eplweb.service.RankService;
 import com.wiwit.eplweb.util.ApiPath;
@@ -46,7 +46,7 @@ public class RankController extends BaseController {
 			JsonMappingException, IOException {
 		logger.info("GET /api/ranks");
 
-		List<Rank> ranks = rankService.getLatestRank();
+		List<Rank> ranks = rankService.findLatestRank();
 
 		return new ResponseEntity<RankModelView>(RankModelView.getModelView(ranks), HttpStatus.OK);
 	}
@@ -57,13 +57,13 @@ public class RankController extends BaseController {
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /api/ranks/" + weekNumber);
 
-		List<Rank> ranks = rankService.getRankByWeekNumber(weekNumber);
+		List<Rank> ranks = rankService.findRankByWeekNumber(weekNumber);
 
 		return new ResponseEntity<RankModelView>(RankModelView.getModelView(ranks), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = ApiPath.UPDATE_RANK, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
-	public void updateRank(@RequestBody UpdateRank ur) {
+	public void updateRank(@RequestBody RankModelInput ur) {
 		logger.info("POST /api/updateRanks weekNumber=" + ur.getWeekNumber());
 		
 		rankService.updateRanking(1, ur.getWeekNumber());

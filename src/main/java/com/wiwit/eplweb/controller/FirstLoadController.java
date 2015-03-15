@@ -60,8 +60,8 @@ public class FirstLoadController extends BaseController {
 
 		TeamPageModelView result = new TeamPageModelView();
 		result.setTeams(teamService.findAll());
-		result.setRanks(rankService.getLatestRank());
-		result.setMatchdays(matchdayService.getLastAndNextMatchday(teamId));
+		result.setRanks(rankService.findLatestRank());
+		result.setMatchdays(matchdayService.findClosestMatch(teamId));
 
 		return new ResponseEntity<TeamPageModelView>(result, HttpStatus.OK);
 	}
@@ -73,7 +73,7 @@ public class FirstLoadController extends BaseController {
 
 		MatchdayPageModelView result = new MatchdayPageModelView();
 		result.setWeeks(weekService.getAllWeek());
-		result.setMatchdayModelView(matchdayService.getMatchtdayOnCurrWeek());
+		result.setMatchdayModelView(matchdayService.findMatchtdayOnCurrWeek());
 		return new ResponseEntity<MatchdayPageModelView>(result, HttpStatus.OK);
 	}
 
@@ -84,9 +84,9 @@ public class FirstLoadController extends BaseController {
 
 		RankPageModelView result = new RankPageModelView();
 
-		result.setRanks(rankService.getLatestRank());
+		result.setRanks(rankService.findLatestRank());
 
-		result.setWeeks(weekService.getAllPassedWeek());
+		result.setWeeks(weekService.findAllPassedWeek());
 
 		return new ResponseEntity<RankPageModelView>(result, HttpStatus.OK);
 	}
@@ -98,7 +98,7 @@ public class FirstLoadController extends BaseController {
 
 		DashboardPageModelView result = new DashboardPageModelView();
 
-		Phase p = phaseService.getCurrentMatchday();
+		Phase p = phaseService.findCurrentMatchday();
 		int currWeek = Integer.valueOf(p.getValue());
 
 		FiveBigTeamModelView fiveBitTeam = new FiveBigTeamModelView();
@@ -108,7 +108,7 @@ public class FirstLoadController extends BaseController {
 			List<Rank> tmp = new ArrayList<Rank>();
 
 			// Get rank every week from beginning until current week
-			List<Rank> rankEveryWeek = rankService.getRankByWeekNumber(i);
+			List<Rank> rankEveryWeek = rankService.findRankByWeekNumber(i);
 
 			// From rankEveryWeek only get selected team and put them on tmp
 			for (Rank br : bigestRank) {
@@ -127,7 +127,7 @@ public class FirstLoadController extends BaseController {
 
 		result.setHighestRank(rankService.getFiveHighestLastRank());
 
-		result.setMatchday(matchdayService.getMatchtdayOnCurrWeek());
+		result.setMatchday(matchdayService.findMatchtdayOnCurrWeek());
 
 		result.setCurrentWeek(weekService.findCurrWeek());
 

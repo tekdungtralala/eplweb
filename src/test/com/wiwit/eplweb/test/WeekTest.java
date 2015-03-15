@@ -9,7 +9,7 @@ import com.wiwit.eplweb.service.WeekService;
 
 public class WeekTest {
 	public static void showLastFiveWeek(WeekService wd, ObjectWriter ow) throws Exception {
-		for (Week w : wd.getLastFiveWeek()) {
+		for (Week w : wd.findLastFiveWeek()) {
 			System.out.println("week : " + w.getWeekNumber());
 			System.out.println(w.getId());
 			System.out.println(w.getStartDay());
@@ -21,7 +21,7 @@ public class WeekTest {
 	}
 	
 	public static void showAllPassedWeek(WeekService wd, ObjectWriter ow) throws Exception {
-		String json = ow.writeValueAsString(wd.getAllPassedWeek());
+		String json = ow.writeValueAsString(wd.findAllPassedWeek());
 		System.out.println(json);
 	}
 

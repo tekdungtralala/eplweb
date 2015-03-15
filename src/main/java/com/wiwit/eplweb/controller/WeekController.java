@@ -34,7 +34,7 @@ public class WeekController extends BaseController {
 			JsonMappingException, IOException {
 		logger.info("GET /api/passedWeeks");
 
-		List<Week> weeks = weekService.getAllPassedWeek();
+		List<Week> weeks = weekService.findAllPassedWeek();
 		
 		WeekModelView result =  WeekModelView.getModelView(weeks);
 		return new ResponseEntity<WeekModelView>(result, HttpStatus.OK);

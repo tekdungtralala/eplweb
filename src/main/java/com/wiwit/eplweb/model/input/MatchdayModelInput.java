@@ -3,7 +3,7 @@ package com.wiwit.eplweb.model.input;
 import java.sql.Time;
 import java.util.Date;
 
-public class UpdateMatchday {
+public class MatchdayModelInput {
 
 	private Date date;
 	private Time time;

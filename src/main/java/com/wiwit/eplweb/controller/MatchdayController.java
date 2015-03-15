@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wiwit.eplweb.model.input.UpdateMatchday;
-import com.wiwit.eplweb.model.input.UpdateScore;
+import com.wiwit.eplweb.model.input.MatchdayModelInput;
+import com.wiwit.eplweb.model.input.ScoreModelInput;
 import com.wiwit.eplweb.model.view.MatchdayModelView;
 import com.wiwit.eplweb.service.MatchdayService;
 import com.wiwit.eplweb.util.ApiPath;
@@ -36,7 +36,7 @@ public class MatchdayController extends BaseController {
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /matchday");
 
-		MatchdayModelView result =  matchdayService.getMatchtdayOnCurrWeek();
+		MatchdayModelView result =  matchdayService.findMatchtdayOnCurrWeek();
 		return new ResponseEntity<MatchdayModelView>(result, HttpStatus.OK);
 	}
 
@@ -46,13 +46,13 @@ public class MatchdayController extends BaseController {
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /matchday/" + weekNumber);
 
-		MatchdayModelView result =  matchdayService.getMatchtdayByWeekNmr(weekNumber);
+		MatchdayModelView result =  matchdayService.findMatchtdayByWeekNmr(weekNumber);
 		return new ResponseEntity<MatchdayModelView>(result, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = ApiPath.MATCHDAYS_CHANGE_SCORE, method = RequestMethod.PUT, consumes = CONTENT_TYPE_JSON)
 	public void updateScore(@PathVariable("matchdayId") int matchdayId,
-			@RequestBody UpdateScore updateScore) {
+			@RequestBody ScoreModelInput updateScore) {
 		logger.info("PUT /api/matchday/" + matchdayId + "/updateScore");
 		
 		matchdayService.updateScore(matchdayId, updateScore);
@@ -60,7 +60,7 @@ public class MatchdayController extends BaseController {
 	
 	@RequestMapping(value = ApiPath.MATCHDAYS_CHANGE_SCHEDULE, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
 	public void updateMatchdays(@PathVariable("weekNumber") int weekNumber,
-			@RequestBody List<UpdateMatchday> matchs) {
+			@RequestBody List<MatchdayModelInput> matchs) {
 		logger.info("POST /api/updateMatchday/" + weekNumber);
 		
 		matchdayService.updateMatchdays(weekNumber, matchs);
