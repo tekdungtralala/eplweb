@@ -17,10 +17,16 @@
 			// Remove admin session on cookies
 			delAdminSession: delAdminSession,
 			// Generate http conf for admin
-			getConf: getConf
+			getConf: getConf,
+			// Get authentication key
+			getAuthKey: getAuthKey
 		};
 
 		return service;
+
+		function getAuthKey() {
+			return EPL_AUTH_HEADER;
+		}
 
 		function getConf(o, method, url) {
 			var req = {

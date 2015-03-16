@@ -20,7 +20,15 @@
 
 		function getUploadURL(type, object) {
 			if ('slideshow' === type)
-				return "api/upload/slideshow/teamId/" + object.teamId;
+				var result = [
+					"api/upload/slideshow/teamId/",
+					object.teamId,
+					"?",
+					adminauth.getAuthKey(),
+					"=",
+					adminauth.getAdminSession()
+				];
+				return result.join('');
 		}
 
 		function getAllTeam() {

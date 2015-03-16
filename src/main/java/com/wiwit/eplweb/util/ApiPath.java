@@ -32,4 +32,6 @@ public class ApiPath {
 	
 	public static final String WEEKS = "/api/weeks";
 	public static final String PASSED_WEEK = "/api/passedWeeks";
+	
+	public static final String UPLOAD_SLIDE_SHOW = "/api/upload/slideshow/teamId/{teamId}";
 }

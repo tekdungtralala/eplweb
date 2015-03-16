@@ -14,6 +14,9 @@ public enum PathPattern {
 			"/api/updateMatchday/[\\d]+", true),
 	UPDATE_RANK(ApiPath.UPDATE_RANK, new String[]{"POST"}, "/api/updateRanks", true),
 	
+	// Upload path
+	UPLOAD_FILES(null, new String[]{"POST"}, "/api/upload/[\\w\\/]+", true),
+	
 	// Unsecured path
 	ADMIN_SESSION(ApiPath.ADMIN_SESSION, null, "/api/admin/login/[\\w]+", false),
 	ADMIN_LOGIN(ApiPath.ADMIN_LOGIN, null, "/api/admin/login", false),

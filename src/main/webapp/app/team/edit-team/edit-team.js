@@ -26,6 +26,7 @@
 			vm.savedTeam = angular.copy(vm.currTeam);
 
 			initFormUpload();
+
 		}
 
 		function initFormUpload() {

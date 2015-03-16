@@ -52,13 +52,12 @@ public class CustomFilter implements Filter {
 			if (p.isSecuredPath()) {
 				logger.info(method + " SECURED : " + path);
 
-				Resource resource = new ClassPathResource("webapp.properties");
-				Properties props = PropertiesLoaderUtils
-						.loadProperties(resource);
-
-				String authKey = props
-						.getProperty(WebappProps.ADMIN_SESSION_KEY.toString());
+				String authKey = WebappProps.getAdminSessionKey();
 				String authVal = req.getHeader(authKey);
+
+				if (authVal == null) {
+					authVal = req.getParameter(authKey);
+				}
 
 				if (service.findBySession(authVal) != null) {
 					chain.doFilter(rq, rs);
