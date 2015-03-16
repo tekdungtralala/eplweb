@@ -11,10 +11,17 @@
 			// Get all team
 			getAllTeam: getAllTeam,
 			// Edit team information
-			editTeam: editTeam
+			editTeam: editTeam,
+			// Get uploadURL
+			getUploadURL: getUploadURL
 		}
 
 		return service;
+
+		function getUploadURL(type, object) {
+			if ('slideshow' === type)
+				return "api/upload/slideshow/teamId/" + object.teamId;
+		}
 
 		function getAllTeam() {
 			$rootScope.promise = $http.get("api/teams")

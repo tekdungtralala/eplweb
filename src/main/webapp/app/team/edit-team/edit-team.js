@@ -10,6 +10,7 @@
 
 		vm.currTeam = null;
 		vm.modalInstance = null;
+		vm.disableBtn = true;
 
 		vm.backToParentState = backToParentState;
 		vm.resetTeamInfo = resetTeamInfo;
@@ -23,6 +24,60 @@
 					return t.id === parseInt($stateParams.id);
 			});
 			vm.savedTeam = angular.copy(vm.currTeam);
+
+			initFormUpload();
+		}
+
+		function initFormUpload() {
+			$("#fileupload").fileupload({
+					url: dataservice.getUploadURL("slideshow", {teamId: vm.currTeam.id}),
+					dataType: "image/jpg",
+					autoUpload: false,
+					add: function (e, data) {
+						$("#uploadBtn").unbind("click");
+								data.context = $("#uploadBtn").bind("click", function () {
+								console.log("upload")
+								data.submit();
+						});
+					},
+					done: function (e, data) {
+						console.log("done : ", e);
+						console.log(data);
+					},
+					fail: function(e, data) {
+						console.log("fail : ", e);
+						console.log(data);
+					},
+					progressall: function (e, data) {
+						var progress = parseInt(data.loaded / data.total * 100, 10);
+						$(".epl-progress .progress-bar").css("width",progress + "%");
+					}
+			});
+
+			$("#fileupload").change(function() {
+				renderImage(this);
+			});
+		}
+
+		function renderImage(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				var parts = input.files[0].name.split('.');
+				var fileExt = parts[parts.length - 1];
+				switch (fileExt.toLowerCase()) {
+					case 'jpg':case 'gif':case 'bmp':case 'png':
+						reader.onload = function (e) {
+							$("#epl-sample-image").attr("src", e.target.result).show();
+							$("#uploadBtn").removeClass('disabled');
+						}
+						break;
+					default:
+						$("#epl-sample-image").hide();
+						$("#uploadBtn").addClass('disabled');
+						break;
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
 		}
 
 		var formValidateOpt = { 

@@ -56,7 +56,22 @@
 </div>
 
 <h3 class="box-title">Slide Show</h3>
-
+<span class="btn btn-success epl-select-file-btn">
+	<i class="glyphicon glyphicon-plus"></i>
+	<span>Select files...</span>	
+	<input id="fileupload" type="file" name="filename"/>
+</span>
+<button type="submit" class="btn btn-primary disabled" 
+	id="uploadBtn">
+	<i class="glyphicon glyphicon-upload"></i>
+	<span>Start upload</span>
+</button>
+<br/>
+<img id="epl-sample-image" src="#" alt="your image"/>
+<!-- The global progress bar -->
+<div class="progress epl-progress">
+	<div class="progress-bar progress-bar-success"></div>
+</div>
 <script type="text/ng-template" id="saveModal.html">
 	<div class="modal-header">
 		<h3 class="modal-title">Saving Confirmation</h3>
