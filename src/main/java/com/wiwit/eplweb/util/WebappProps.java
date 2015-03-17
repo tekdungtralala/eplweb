@@ -9,7 +9,7 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 public class WebappProps {
 	public enum WebappEnum {
-		ADMIN_SESSION_KEY, IMAGE_FILE_DIRECTORY
+		ADMIN_SESSION_KEY, IMAGE_FILE_DIRECTORY, THUMBNAIL_FILE_DIRECTORY
 	}
 
 	public static String getAdminSessionKey() {
@@ -18,6 +18,10 @@ public class WebappProps {
 
 	public static String getImageFileDir() {
 		return getValue(WebappEnum.IMAGE_FILE_DIRECTORY);
+	}
+
+	public static String getThumbnailFileDir() {
+		return getValue(WebappEnum.THUMBNAIL_FILE_DIRECTORY);
 	}
 
 	public static String getValue(WebappEnum e) {

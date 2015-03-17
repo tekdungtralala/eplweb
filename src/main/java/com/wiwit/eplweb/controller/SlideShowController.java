@@ -52,6 +52,9 @@ public class SlideShowController extends BaseController {
 				stream.write(bytes);
 				stream.close();
 				fos.close();
+				
+
+				ImageUtil.saveScaledImage(f);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
