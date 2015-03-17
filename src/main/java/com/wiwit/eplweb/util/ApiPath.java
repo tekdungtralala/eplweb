@@ -33,5 +33,8 @@ public class ApiPath {
 	public static final String WEEKS = "/api/weeks";
 	public static final String PASSED_WEEK = "/api/passedWeeks";
 	
-	public static final String UPLOAD_SLIDE_SHOW = "/api/upload/slideshow/teamId/{teamId}";
+	public static final String SLIDE_SHOW_UPLOAD = "/api/upload/slideshow/teamId/{teamId}";
+	public static final String SLIDE_SHOW = "/api/images/slideshow/teamId/{teamId}";
+	
+	public static final String IMAGES = "/api/images/{imageId}";
 }

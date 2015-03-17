@@ -40,7 +40,7 @@
 	<div class='carousel-inner' role='listbox'>
 		<div ng-repeat='(k,v) in vm.carousel' 
 			class="item {{v.isActive ? 'active' : ''}}">
-			<img ng-src='eplweb_components/image/slideshow/default/slideshow-{{k + 1}}.jpg'/>
+			<img ng-src='{{v.src}}'/>
 		</div>
 	</div>
 	<a class='left carousel-control' role='button' href=''

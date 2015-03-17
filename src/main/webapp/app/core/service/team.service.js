@@ -13,10 +13,27 @@
 			// Edit team information
 			editTeam: editTeam,
 			// Get uploadURL
-			getUploadURL: getUploadURL
+			getUploadURL: getUploadURL,
+			// Get list slideshow
+			getSlideShows: getSlideShows,
+			// Get image uri by imageId
+			getImageById: getImageById
 		}
 
 		return service;
+
+		function getImageById(imageId) {
+			return "api/images/" + imageId;
+		}
+
+		function getSlideShows(teamId) {
+			$rootScope.promise = $http.get("api/images/slideshow/teamId/" + teamId)
+					.then(getData)
+					.catch(function(message) {
+					});
+
+			return $rootScope.promise;
+		}
 
 		function getUploadURL(type, object) {
 			if ('slideshow' === type)

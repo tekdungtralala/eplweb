@@ -21,10 +21,14 @@ public class TeamService {
 	public Team findByIdAndSimppleName(int id, String simpleName) {
 		return teamDAO.findByIdAndName(id, simpleName);
 	}
-	
+
 	public void updateTeam(int id, Team team) {
 		Team t = teamDAO.findById(id);
 		t.copyValue(team);
 		teamDAO.updateTeam(t);
+	}
+
+	public Team findById(int teamId) {
+		return teamDAO.findById(teamId);
 	}
 }

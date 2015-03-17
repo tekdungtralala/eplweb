@@ -14,10 +14,15 @@ public enum PathPattern {
 			"/api/updateMatchday/[\\d]+", true),
 	UPDATE_RANK(ApiPath.UPDATE_RANK, new String[]{"POST"}, "/api/updateRanks", true),
 	
-	// Upload path
+	// Upload path secure
 	UPLOAD_FILES(null, new String[]{"POST"}, "/api/upload/[\\w\\/]+", true),
 	
 	// Unsecured path
+	STATIC_FILES(null, null, "^.*\\.(html|css|js|ico|png|jpg|map)$", false),
+	BOWER_DIR(null, null, "/bower_components/.+", false),
+	
+	SLIDE_SHOW(ApiPath.SLIDE_SHOW, new String[]{"GET"}, "/api/images/[\\w\\/]+", false),
+	
 	ADMIN_SESSION(ApiPath.ADMIN_SESSION, null, "/api/admin/login/[\\w]+", false),
 	ADMIN_LOGIN(ApiPath.ADMIN_LOGIN, null, "/api/admin/login", false),
 	
@@ -41,10 +46,7 @@ public enum PathPattern {
 	TEAMS(ApiPath.TEAMS, null, "/api/teams", false),
 	WEEKS(ApiPath.WEEKS, null, "/api/weeks", false),
 	
-	PASSED_WEEK(ApiPath.PASSED_WEEK, null,"/api/passedWeeks", false),
-	
-	STATIC_FILES(null, null, "^.*\\.(html|css|js|ico|png|jpg|map)$", false),
-	BOWER_DIR(null, null, "/bower_components/.+", false)
+	PASSED_WEEK(ApiPath.PASSED_WEEK, null,"/api/passedWeeks", false)
 	;
 
 	private final String requestMapping;

@@ -17,6 +17,7 @@
 			vm.currTeam = null;
 			vm.rank = null;
 			vm.position = null;
+			vm.carousel = [];
 
 			vm.nextMatchday = [];
 			vm.prevMatchday = [];
@@ -35,13 +36,27 @@
 					return t.id === parseInt($stateParams.id);
 				});
 
-				var promises = [getInitData(), dataservice.hasAdminRole()];
+				var promises = [
+					getInitData(), 
+					dataservice.hasAdminRole(),
+					getSlideShows()
+				];
+
 				dataservice.ready(promises).then(function(result){
 					processRankData(result[0]);
 
 					$state.go("team.show-team." + vm.containerLbl[0], $stateParams);
 
 					processAdmnRole(result[1]);
+
+					// Initialize slide show
+					var allImage = result[2].result;
+					_.each(allImage, function(image, i) {
+						vm.carousel.push({
+							isActive: i == 0,
+							src: dataservice.getImageById(image.id)
+						});
+					});
 				});
 			}
 
@@ -185,6 +200,13 @@
 				});
 			}
 
+			function getSlideShows() {
+				return dataservice.getSlideShows($stateParams.id)
+					.then(function(data) {
+						return data;
+					});				
+			}
+
 			function getInitData(){
 				var id = $stateParams.id;
 				var simpleName = $stateParams.simpleName;
@@ -193,19 +215,5 @@
 						return data;
 					});
 			}
-
-			vm.carousel = [];
-			vm.carousel[0] = {
-				isActive: true,
-				src:"eplweb_components/image/slideshow/default/slideshow-1.jpg"
-			};
-			vm.carousel[1] = {
-				isActive: false,
-				src:"eplweb_components/image/slideshow/default/slideshow-1.jpg"
-			};
-			vm.carousel[2] = {
-				isActive: false,
-				src:"eplweb_components/image/slideshow/default/slideshow-1.jpg"
-			};
 		}
 })();

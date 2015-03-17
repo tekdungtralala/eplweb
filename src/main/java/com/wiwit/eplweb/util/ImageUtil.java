@@ -11,6 +11,10 @@ import javax.imageio.ImageIO;
 import org.imgscalr.Scalr;
 
 public class ImageUtil {
+	
+	public enum ImageType {
+		SLIDE_SHOW
+	}
 
 	public static String getFileName(String originalFileName) {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss_");
