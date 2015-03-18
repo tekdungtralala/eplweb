@@ -32,12 +32,8 @@ public class PathPatternUtil {
 
 	public static PathPattern getPathPattern(String path, String method) {
 		for (PathPattern p : getAllPath()) {
-			if (path.matches(p.getRequestPattern())) {
-				if (p.getMethods().size() > 0) {
-					return p.getMethods().contains(method) ? p : null;
-				} else {
-					return p;
-				}
+			if (path.matches(p.getRequestPattern()) && p.getMethods().contains(method)) {
+				return p;
 			}
 		}
 		return null;

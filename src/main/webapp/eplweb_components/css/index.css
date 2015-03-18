@@ -267,6 +267,10 @@ table.epl-table > tbody > tr > td {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+.epl-modal.epl-sample-image {
+	max-width: 125px;
+	max-height: 125px;
+}
 .epl-team .epl-sample-image {
 	max-width: 125px;
 	max-height: 125px;
@@ -287,8 +291,8 @@ table.epl-table > tbody > tr > td {
 .epl-team .epl-item-del-btn {
 	display: block;
 	position: absolute;
-	top: 2px;
-	right: 2px;
+	top: 5px;
+	right: 5px;
 }
 .epl-team .epl-all-team {
 	margin-bottom: 20px;

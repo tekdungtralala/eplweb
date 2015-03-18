@@ -5,72 +5,66 @@ import java.util.List;
 
 public enum PathPattern {
 	// Secured path	
-	SQUAD_BY_ID(ApiPath.SQUAD_BY_ID, new String[]{"PUT", "DELETE"}, "/api/players/[\\d]+", true),
-	SQUAD(ApiPath.SQUAD, new String[]{"POST"}, "/api/players", true),
-	TEAMS_BY_ID(ApiPath.TEAMS_BY_ID, new String[]{"PUT"}, "/api/teams/[\\d]+", true),
-	MATCHDAYS_CHANGE_SCORE(ApiPath.MATCHDAYS_CHANGE_SCORE, new String[]{"PUT"}, 
+	SQUAD_BY_ID(new String[]{"PUT", "DELETE"}, "/api/players/[\\d]+", true),
+	SQUAD(new String[]{"POST"}, "/api/players", true),
+	TEAMS_BY_ID(new String[]{"PUT"}, "/api/teams/[\\d]+", true),
+	MATCHDAYS_CHANGE_SCORE(new String[]{"PUT"}, 
 			"/api/matchday/[\\d]+/updateScore", true),
-	MATCHDAYS_CHANGE_SCHEDULE(ApiPath.MATCHDAYS_CHANGE_SCHEDULE, new String[]{"POST"}, 
+	MATCHDAYS_CHANGE_SCHEDULE(new String[]{"POST"}, 
 			"/api/updateMatchday/[\\d]+", true),
-	UPDATE_RANK(ApiPath.UPDATE_RANK, new String[]{"POST"}, "/api/updateRanks", true),
+	UPDATE_RANK(new String[]{"POST"}, "/api/updateRanks", true),
 	
-	// Upload path secure
-	UPLOAD_FILES(null, new String[]{"POST"}, "/api/upload/[\\w\\/]+", true),
+	UPLOAD_FILES(new String[]{"POST"}, "/api/upload/[\\w\\/]+", true),	
+	DELETE_IMAGE(new String[]{"DELETE"}, "/api/images/[\\d]+", true),
 	
 	// Unsecured path
-	STATIC_FILES(null, null, "^.*\\.(html|css|js|ico|png|jpg|map)$", false),
-	BOWER_DIR(null, null, "/bower_components/.+", false),
+	STATIC_FILES(new String[]{"GET"}, "^.*\\.(html|css|js|ico|png|jpg|map)$", false),
+	BOWER_DIR(new String[]{"GET"}, "/bower_components/.+", false),
 	
-	SLIDE_SHOW(ApiPath.SLIDE_SHOW, new String[]{"GET"}, "/api/images/[\\w\\/]+", false),
+	SLIDE_SHOW(new String[]{"GET"}, "/api/images/[\\w\\/]+", false),
 	
-	ADMIN_SESSION(ApiPath.ADMIN_SESSION, null, "/api/admin/login/[\\w]+", false),
-	ADMIN_LOGIN(ApiPath.ADMIN_LOGIN, null, "/api/admin/login", false),
+	ADMIN_SESSION(new String[]{"GET"}, "/api/admin/login/[\\w]+", false),
+	ADMIN_LOGIN(new String[]{"GET"}, "/api/admin/login", false),
 	
-	CHART_TEAM_STAT(ApiPath.CHART_TEAM_STAT, null, "/api/chart/week/[\\d]+/team/[\\d]+", false),
-	CHART_FIVE_BIGGEST_TEAM(ApiPath.CHART_FIVE_BIGGEST_TEAM, null, "/api/chart/fiveBigestTeam", false),
+	CHART_TEAM_STAT(new String[]{"GET"}, "/api/chart/week/[\\d]+/team/[\\d]+", false),
+	CHART_FIVE_BIGGEST_TEAM(new String[]{"GET"}, "/api/chart/fiveBigestTeam", false),
 	
-	INIT_DASHBOARD_PAGE(ApiPath.INIT_DASHBOARD_PAGE, null, "/api/page/dashboard", false),
-	INIT_RANK_PAGE(ApiPath.INIT_RANK_PAGE, null, "/api/page/rank", false),
-	INIT_MATCHDAY_PAGE(ApiPath.INIT_MATCHDAY_PAGE, null, "/api/page/matchday", false),
-	INIT_TEAM_PAGE(ApiPath.INIT_TEAM_PAGE, null, "/api/page/team/[\\d]+/[\\w]+", false),
+	INIT_DASHBOARD_PAGE(new String[]{"GET"}, "/api/page/dashboard", false),
+	INIT_RANK_PAGE(new String[]{"GET"}, "/api/page/rank", false),
+	INIT_MATCHDAY_PAGE(new String[]{"GET"}, "/api/page/matchday", false),
+	INIT_TEAM_PAGE(new String[]{"GET"}, "/api/page/team/[\\d]+/[\\w]+", false),
 	
-	MATCHDAYS(ApiPath.MATCHDAYS, null, "/api/matchday", false),
-	MATCHDAYS_BY_WEEK(ApiPath.MATCHDAYS_BY_WEEK, null, "/api/matchday/[\\d]+", false),
+	MATCHDAYS(new String[]{"GET"}, "/api/matchday", false),
+	MATCHDAYS_BY_WEEK(new String[]{"GET"}, "/api/matchday/[\\d]+", false),
 	
-	SQUADS_BY_TEAM(ApiPath.SQUADS_BY_TEAM, null, "/api/players/team/[\\d]+", false),
+	SQUADS_BY_TEAM(new String[]{"GET"}, "/api/players/team/[\\d]+", false),
 	
-	RANKS(ApiPath.RANKS, null, "/api/ranks", false),
-	RANKS_BY_WEEK(ApiPath.RANKS_BY_WEEK, null, "/api/ranks/[\\d]+", false),
-	HIGHEST_RANK(ApiPath.HIGHEST_RANK, null, "/api/highestRanks", false),
+	RANKS(new String[]{"GET"}, "/api/ranks", false),
+	RANKS_BY_WEEK(new String[]{"GET"}, "/api/ranks/[\\d]+", false),
+	HIGHEST_RANK(new String[]{"GET"}, "/api/highestRanks", false),
 	
-	TEAMS(ApiPath.TEAMS, null, "/api/teams", false),
-	WEEKS(ApiPath.WEEKS, null, "/api/weeks", false),
+	TEAMS(new String[]{"GET"}, "/api/teams", false),
+	WEEKS(new String[]{"GET"}, "/api/weeks", false),
 	
-	PASSED_WEEK(ApiPath.PASSED_WEEK, null,"/api/passedWeeks", false)
+	PASSED_WEEK(new String[]{"GET"},"/api/passedWeeks", false)
 	;
 
-	private final String requestMapping;
 	private final String requestPattern;
 	private final List<String> methods;
 	private final boolean securedPath;
 
-	private PathPattern(String requestMapping, String[] methods, String requestPattern,
+	private PathPattern(String[] methods, String requestPattern,
 			boolean securedPath) {
 		
 		this.methods = new ArrayList<String>();
-		if (methods != null && methods.length > 0) {
+		if (methods != new String[]{"GET"} && methods.length > 0) {
 			for(String m : methods){
 				this.methods.add(m);
 			}			
 		}
 		
-		this.requestMapping = requestMapping;
 		this.requestPattern = requestPattern;
 		this.securedPath = securedPath;
-	}
-
-	public String getRequestMapping() {
-		return requestMapping;
 	}
 
 	public String getRequestPattern() {

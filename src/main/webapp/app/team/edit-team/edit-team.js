@@ -5,31 +5,29 @@
 		.module("app.team")
 		.controller("EditTeam", EditTeam);
 
-	function EditTeam(xhrTeams, xhrSlideShow, dataservice, $scope, $modal, 
-		$state, $stateParams) {
+	function EditTeam(xhrTeams, dataservice, $scope, $modal, $state, 
+		$stateParams) {
 
 		var vm = this;
 
 		vm.currTeam = null;
-		vm.imagesTeam = null;
+		vm.imagesTeam = [];
 		vm.modalInstance = null;
 		vm.disableBtn = true;
+		vm.selectedImage = null;
+		vm.hideImages = true;
+		var selectedImageId = null;
 
 		vm.backToParentState = backToParentState;
 		vm.resetTeamInfo = resetTeamInfo;
 		vm.preSave = preSave;
 		vm.dismisModal = dismisModal;
 		vm.doSave = doSave;
+		vm.preDeleteImage = preDeleteImage;
+		vm.doDelete = doDelete;
 
 		activate();
 		function activate() {
-			// Set team images
-			vm.imagesTeam = xhrSlideShow.result;
-			_.each(vm.imagesTeam, function(m) {
-				m.src = dataservice.getImageById(m.id);
-			});
-			console.log("vm.imagesTeam : ", vm.imagesTeam);
-
 			// Find current team
 			vm.currTeam = _.find(xhrTeams.result, function(t) {
 					return t.id === parseInt($stateParams.id);
@@ -38,6 +36,16 @@
 
 			initFormUpload();
 
+			getSlideShows().then(processData);
+		}
+
+		function processData(data) {
+			// Set team images
+			vm.imagesTeam  = data.result;
+
+			_.each(vm.imagesTeam, function(m) {
+				m.src = dataservice.getImageById(m.id);
+			});
 		}
 
 		function initFormUpload() {
@@ -90,6 +98,28 @@
 				}
 				reader.readAsDataURL(input.files[0]);
 			}
+		}
+
+		function preDeleteImage(imageId) {
+			vm.selectedImage = dataservice.getImageById(imageId);
+			selectedImageId = imageId;
+
+			vm.modalInstance = $modal.open({
+				templateUrl: "delImageModal.html",
+				scope: $scope,
+				size: "sm"
+			});
+		}
+
+		function doDelete() {
+			vm.modalInstance.dismiss();
+
+			dataservice.deleteImage(selectedImageId, "SLIDESHOW")
+				.then(afterDelete);
+		}
+
+		function afterDelete() {
+			getSlideShows().then(processData);
 		}
 
 		var formValidateOpt = { 
@@ -149,6 +179,13 @@
 
 		function backToParentState() {
 			$state.go("^");
+		}
+
+		function getSlideShows() {
+			return dataservice.getSlideShows($stateParams.id)
+				.then(function(data) {
+					return data;
+				});
 		}
 	}
 

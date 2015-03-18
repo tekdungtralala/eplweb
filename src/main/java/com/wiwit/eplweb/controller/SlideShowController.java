@@ -11,7 +11,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 import org.apache.commons.io.IOUtils;
 import org.codehaus.jackson.JsonGenerationException;
@@ -39,6 +41,7 @@ import com.wiwit.eplweb.service.ImageService;
 import com.wiwit.eplweb.service.TeamService;
 import com.wiwit.eplweb.util.ApiPath;
 import com.wiwit.eplweb.util.ImageUtil;
+import com.wiwit.eplweb.util.ImageUtil.ImageType;
 import com.wiwit.eplweb.util.WebappProps;
 
 @RestController
@@ -51,6 +54,67 @@ public class SlideShowController extends BaseController {
 	private TeamService teamService;
 	@Autowired
 	private ImageService imageService;
+
+	@RequestMapping(value = ApiPath.IMAGES, method = RequestMethod.DELETE)
+	@ResponseBody
+	public void deleteImageById(@PathVariable("imageId") int imageId,
+			HttpServletResponse res, HttpServletRequest req) throws IOException {
+		logger.info("DELETE /api/images/" + imageId);
+		String it = req.getParameter(WebappProps.getImageTypeKey());
+
+		if (it == null) {
+			res.sendError(404);
+			return;
+		}
+
+		ImageType imageType = null;
+		try {
+			imageType = ImageType.valueOf(it.toUpperCase());
+		} catch (Exception e) {
+			res.sendError(404);
+			return;
+		}
+		
+		if (imageType == null) {
+			res.sendError(404);
+			return;
+		}
+
+		Image image = imageService.findById(imageId);
+		if (image == null) {
+			res.sendError(200);
+			return;
+		}
+		
+		String imagePath = WebappProps.getImageFileDir() + image.getLocalFileName();
+		String thumbnailPath = WebappProps.getImageFileDir() + image.getLocalFileName();
+		
+		try {
+			imageService.deleteImage(image);
+			
+			File imageFile = new File(imagePath);
+			if (imageFile.isFile()) {
+				try {
+					imageFile.delete();
+				} catch (Exception e) {
+				}
+			}
+			
+			File thumbnailFile = new File(thumbnailPath);
+			if (thumbnailFile.isFile()) {
+				try {
+					thumbnailFile.delete();
+				} catch (Exception e) {
+				}
+			}
+			
+			logger.info("DELETE /api/images/" + imageId + ", success");
+
+		} catch (Exception e) {
+			res.sendError(200);
+			return;
+		}
+	}
 
 	@RequestMapping(value = ApiPath.IMAGES, method = RequestMethod.GET)
 	@ResponseBody
@@ -121,7 +185,7 @@ public class SlideShowController extends BaseController {
 				image.setFileType(contentType);
 				image.setLocalFileName(localFileName);
 				image.setOutputFileName(originalFileName);
-				image.setImageType(ImageUtil.ImageType.SLIDE_SHOW.toString());
+				image.setImageType(ImageUtil.ImageType.SLIDESHOW.toString());
 				imageService.saveImage(image);
 
 			} catch (Exception e) {

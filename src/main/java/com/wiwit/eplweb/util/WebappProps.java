@@ -9,7 +9,17 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 public class WebappProps {
 	public enum WebappEnum {
-		ADMIN_SESSION_KEY, IMAGE_FILE_DIRECTORY, THUMBNAIL_FILE_DIRECTORY
+		ADMIN_SESSION_KEY, 				// Placed in the header, used for validation request which come in
+										//  for upload file placed on query param
+		
+		IMAGE_FILE_DIRECTORY, 			// images directory
+		THUMBNAIL_FILE_DIRECTORY, 		// thumbnail directory
+		
+		QUERY_PARAM_IMAGE_TYPE			// query param for image_type attribute on table image
+	}
+
+	public static String getImageTypeKey() {
+		return getValue(WebappEnum.QUERY_PARAM_IMAGE_TYPE);
 	}
 
 	public static String getAdminSessionKey() {

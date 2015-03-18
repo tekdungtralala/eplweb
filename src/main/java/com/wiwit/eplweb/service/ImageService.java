@@ -20,10 +20,14 @@ public class ImageService {
 	}
 
 	public List<Image> findAllSlideShowByTeam(int teamId) {
-		return imageDAO.findAllByTeamId(teamId, ImageType.SLIDE_SHOW);
+		return imageDAO.findAllByTeamId(teamId, ImageType.SLIDESHOW);
 	}
 
 	public Image findById(int id) {
 		return imageDAO.findById(id);
+	}
+	
+	public void deleteImage(Image image) {
+		imageDAO.deleteImage(image);
 	}
 }

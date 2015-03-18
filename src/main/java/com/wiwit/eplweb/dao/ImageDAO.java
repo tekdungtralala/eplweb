@@ -57,4 +57,10 @@ public class ImageDAO {
 		logger.info("Image loaded successfully, image id=" + id);
 		return result.get(0);
 	}
+	
+	@Transactional
+	public void deleteImage(Image image) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.delete(image);
+	}
 }

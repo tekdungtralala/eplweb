@@ -13,7 +13,7 @@ import org.imgscalr.Scalr;
 public class ImageUtil {
 	
 	public enum ImageType {
-		SLIDE_SHOW
+		SLIDESHOW
 	}
 
 	public static String getFileName(String originalFileName) {

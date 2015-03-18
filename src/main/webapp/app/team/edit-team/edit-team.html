@@ -83,10 +83,10 @@
 </div>
 
 <div class="epl-list-image">
-	<div ng-repeat="(k,v) in vm.imagesTeam" class="thumbnail epl-thumbnail">
-		<img ng-src="{{v.src}}" class="epl-item-image"/>
-		<a class="btn btn-default btn-xs epl-item-del-btn" role="button" 
-			ng-click="vm.deleteImage(v.id)">
+	<div data-ng-repeat="(k,v) in vm.imagesTeam" class="epl-thumbnail">
+		<img ng-src="{{v.src}}" class="epl-item-image thumbnail" />
+		<a class="btn btn-default btn-flat btn-xs epl-item-del-btn" role="button" 
+			ng-click="vm.preDeleteImage(v.id)">
 			<span class="glyphicon glyphicon-remove" />
 		</a>
 	</div>
@@ -109,6 +109,27 @@
 		<button class="btn btn-primary" ng-click="vm.doSave()">
 			<span class="glyphicon glyphicon-floppy-disk"></span>
 			Save
+		</button>
+	</div>
+</script>
+
+<script type="text/ng-template" id="delImageModal.html">
+	<div class="modal-header">
+		<h3 class="modal-title">Delete Confirmation</h3>
+	</div>
+	<div class="modal-body">
+		Are you sure want to remove this image ?
+		<br/>
+		<img ng-src="{{vm.selectedImage}}" class="epl-modal epl-sample-image"/>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-default" ng-click="vm.dismisModal()">
+			<span class="glyphicon glyphicon-ban-circle"></span>
+			Cancel
+		</button>
+		<button class="btn btn-danger" ng-click="vm.doDelete()">
+			<span class="glyphicon glyphicon-remove-circle"></span>
+			Delete
 		</button>
 	</div>
 </script>

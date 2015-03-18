@@ -17,10 +17,22 @@
 			// Get list slideshow
 			getSlideShows: getSlideShows,
 			// Get image uri by imageId
-			getImageById: getImageById
+			getImageById: getImageById,
+			// Delete image by Id
+			deleteImage: deleteImage
 		}
 
 		return service;
+
+		function deleteImage(imageId, imageType) {
+			var url = "api/images/" + imageId + "?imageType=" + imageType;
+			var req = adminauth.getConf(null, "DELETE", url);
+
+			$rootScope.promise = $http(req)
+					.then(process)
+					.catch(process);
+			return $rootScope.promise;
+		}
 
 		function getImageById(imageId) {
 			return "api/images/" + imageId;
