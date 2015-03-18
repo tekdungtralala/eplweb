@@ -87,7 +87,7 @@ public class SlideShowController extends BaseController {
 		}
 		
 		String imagePath = WebappProps.getImageFileDir() + image.getLocalFileName();
-		String thumbnailPath = WebappProps.getImageFileDir() + image.getLocalFileName();
+		String thumbnailPath = WebappProps.getThumbnailFileDir() + image.getLocalFileName();
 		
 		try {
 			imageService.deleteImage(image);

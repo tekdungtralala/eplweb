@@ -5,8 +5,8 @@
 		.module("app.team")
 		.controller("EditTeam", EditTeam);
 
-	function EditTeam(xhrTeams, dataservice, $scope, $modal, $state, 
-		$stateParams) {
+	function EditTeam(xhrTeams, dataservice, $rootScope, $scope, $modal, $state, 
+		$stateParams, $q, $timeout) {
 
 		var vm = this;
 
@@ -15,7 +15,6 @@
 		vm.modalInstance = null;
 		vm.disableBtn = true;
 		vm.selectedImage = null;
-		vm.hideImages = true;
 		var selectedImageId = null;
 
 		vm.backToParentState = backToParentState;
@@ -25,6 +24,7 @@
 		vm.doSave = doSave;
 		vm.preDeleteImage = preDeleteImage;
 		vm.doDelete = doDelete;
+		vm.initDeferred = initDeferred;
 
 		activate();
 		function activate() {
@@ -34,9 +34,10 @@
 			});
 			vm.savedTeam = angular.copy(vm.currTeam);
 
-			initFormUpload();
-
 			getSlideShows().then(processData);
+
+			initFormUpload();
+			
 		}
 
 		function processData(data) {
@@ -48,6 +49,16 @@
 			});
 		}
 
+		var deferredObj = null;
+		function doResolve() {
+			deferredObj.resolve();
+			$(".epl-progress .progress-bar").css("width", "0%");
+		}
+		function initDeferred() {
+			deferredObj = $q.defer();
+			$rootScope.promise = deferredObj.promise;
+		}
+
 		function initFormUpload() {
 			$("#fileupload").fileupload({
 					url: dataservice.getUploadURL("slideshow", {teamId: vm.currTeam.id}),
@@ -55,22 +66,21 @@
 					autoUpload: false,
 					add: function (e, data) {
 						$("#uploadBtn").unbind("click");
-								data.context = $("#uploadBtn").bind("click", function () {
-								console.log("upload")
-								data.submit();
+						data.context = $("#uploadBtn").bind("click", function () {
+							$('#epl-hidden-btn').trigger('click');
+							$(".epl-progress .progress-bar").css("width", "0%");
+							$("#uploadBtn").addClass('disabled');
+							data.submit();
 						});
 					},
-					done: function (e, data) {
-						console.log("done : ", e);
-						console.log(data);
-					},
-					fail: function(e, data) {
-						console.log("fail : ", e);
-						console.log(data);
+					stop: function() {
+						$("#epl-sample-image").hide();
+						doResolve();
+						getSlideShows().then(processData);
 					},
 					progressall: function (e, data) {
 						var progress = parseInt(data.loaded / data.total * 100, 10);
-						$(".epl-progress .progress-bar").css("width",progress + "%");
+						$(".epl-progress .progress-bar").css("width", progress + "%");
 					}
 			});
 
@@ -81,6 +91,7 @@
 
 		function renderImage(input) {
 			if (input.files && input.files[0]) {
+
 				var reader = new FileReader();
 				var parts = input.files[0].name.split('.');
 				var fileExt = parts[parts.length - 1];
@@ -175,6 +186,7 @@
 
 		function resetTeamInfo() {
 			vm.currTeam = angular.copy(vm.savedTeam);
+			initDeferred();
 		}
 
 		function backToParentState() {

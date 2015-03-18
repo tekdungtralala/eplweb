@@ -65,16 +65,20 @@
 		</span>
 	</div>	
 	<div>
-		<button type="submit" class="btn btn-primary disabled" id="uploadBtn">
+		<button type="submit" class="btn btn-primary disabled" id="uploadBtn"
+		ng-click="vm.initDeferred()">
 			<i class="glyphicon glyphicon-upload"></i>
 			<span>Start upload</span>
+		</button>
+		<button type="submit" class="btn btn-primary epl-hide" id="epl-hidden-btn"
+			ng-click="vm.initDeferred()">
 		</button>
 	</div>
 </div>
 
 <div class='clearfix'></div>
 
-<div class="progress epl-progress">
+<div class="progress epl-progress" ng-hide="vm.hideProgress">
 	<div class="progress-bar progress-bar-success"></div>
 </div>
 

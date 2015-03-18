@@ -274,7 +274,11 @@ table.epl-table > tbody > tr > td {
 .epl-team .epl-sample-image {
 	max-width: 125px;
 	max-height: 125px;
+	margin-top: 10px;
 	display: none;
+}
+.epl-team .epl-list-image {
+	margin-top: 10px;
 }
 .epl-team .epl-thumbnail {
 	position: relative;

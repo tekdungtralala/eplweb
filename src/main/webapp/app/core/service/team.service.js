@@ -50,7 +50,7 @@
 		function getUploadURL(type, object) {
 			if ('slideshow' === type)
 				var result = [
-					"api/upload/slideshow/teamId--/",
+					"api/upload/slideshow/teamId/",
 					object.teamId,
 					"?",
 					adminauth.getAuthKey(),
