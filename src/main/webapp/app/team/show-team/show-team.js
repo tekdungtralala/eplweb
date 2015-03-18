@@ -5,7 +5,9 @@
 		.module("app.team")
 		.controller("ShowTeam", ShowTeam);
 
-		function ShowTeam(xhrTeams, dataservice, datautil, $state, $stateParams) {
+		function ShowTeam(xhrTeams, xhrSlideShow, dataservice, datautil, $state, 
+			$stateParams) {
+
 			var vm = this;
 
 			vm.containerLbl = ["overview", "squad", "statistic", "map", "video"];
@@ -32,14 +34,23 @@
 
 			activate();
 			function activate() {
+				// Find current team
 				vm.currTeam = _.find(xhrTeams.result, function(t) {
 					return t.id === parseInt($stateParams.id);
 				});
 
+				// Initialize slide show
+				var allImage = xhrSlideShow.result;
+				_.each(allImage, function(image, i) {
+					vm.carousel.push({
+						isActive: i == 0,
+						src: dataservice.getImageById(image.id)
+					});
+				});
+
 				var promises = [
 					getInitData(), 
-					dataservice.hasAdminRole(),
-					getSlideShows()
+					dataservice.hasAdminRole()
 				];
 
 				dataservice.ready(promises).then(function(result){
@@ -48,15 +59,6 @@
 					$state.go("team.show-team." + vm.containerLbl[0], $stateParams);
 
 					processAdmnRole(result[1]);
-
-					// Initialize slide show
-					var allImage = result[2].result;
-					_.each(allImage, function(image, i) {
-						vm.carousel.push({
-							isActive: i == 0,
-							src: dataservice.getImageById(image.id)
-						});
-					});
 				});
 			}
 
@@ -198,13 +200,6 @@
 				return dataservice.getTeamStat(weekNumber, teamId).then(function(data) {
 					return data;
 				});
-			}
-
-			function getSlideShows() {
-				return dataservice.getSlideShows($stateParams.id)
-					.then(function(data) {
-						return data;
-					});				
 			}
 
 			function getInitData(){

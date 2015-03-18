@@ -56,22 +56,44 @@
 </div>
 
 <h3 class="box-title">Slide Show</h3>
-<span class="btn btn-success epl-select-file-btn">
-	<i class="glyphicon glyphicon-plus"></i>
-	<span>Select files...</span>	
-	<input id="fileupload" type="file" name="filename"/>
-</span>
-<button type="submit" class="btn btn-primary disabled" 
-	id="uploadBtn">
-	<i class="glyphicon glyphicon-upload"></i>
-	<span>Start upload</span>
-</button>
-<br/>
-<img id="epl-sample-image" src="#" alt="your image"/>
-<!-- The global progress bar -->
+<div class="epl-upload-image-button">
+	<div>
+		<span class="btn btn-success epl-select-file-btn">
+			<i class="glyphicon glyphicon-plus"></i>
+			<span>Select files...</span>	
+			<input id="fileupload" type="file" name="filename"/>
+		</span>
+	</div>	
+	<div>
+		<button type="submit" class="btn btn-primary disabled" id="uploadBtn">
+			<i class="glyphicon glyphicon-upload"></i>
+			<span>Start upload</span>
+		</button>
+	</div>
+</div>
+
+<div class='clearfix'></div>
+
 <div class="progress epl-progress">
 	<div class="progress-bar progress-bar-success"></div>
 </div>
+
+<div>
+	<img id="epl-sample-image" class="epl-sample-image" src="#"/>
+</div>
+
+<div class="epl-list-image">
+	<div ng-repeat="(k,v) in vm.imagesTeam" class="thumbnail epl-thumbnail">
+		<img ng-src="{{v.src}}" class="epl-item-image"/>
+		<a class="btn btn-default btn-xs epl-item-del-btn" role="button" 
+			ng-click="vm.deleteImage(v.id)">
+			<span class="glyphicon glyphicon-remove" />
+		</a>
+	</div>
+</div>
+
+<div class='clearfix'></div>
+
 <script type="text/ng-template" id="saveModal.html">
 	<div class="modal-header">
 		<h3 class="modal-title">Saving Confirmation</h3>

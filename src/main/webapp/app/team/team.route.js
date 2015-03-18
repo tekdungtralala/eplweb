@@ -20,7 +20,10 @@
 				url: "/{id}/{simpleName}",
 				templateUrl: "app/team/show-team/show-team.html",
 				controller: "ShowTeam",
-				controllerAs: "vm"
+				controllerAs: "vm",
+				resolve: {
+					xhrSlideShow: getSlideShows
+				}
 			})
 			.state("team.show-team.edit-team", {
 				url:"/edit",
@@ -50,6 +53,12 @@
 			})
 			;
 
+		function getSlideShows(dataservice, $stateParams) {
+			return dataservice.getSlideShows($stateParams.id)
+				.then(function(data) {
+					return data;
+				});
+		}
 
 		function getallTeam(dataservice) {
 			return dataservice.getAllTeam();

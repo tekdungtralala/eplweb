@@ -259,13 +259,36 @@ table.epl-table > tbody > tr > td {
 	cursor: inherit;
 	display: block;
 }
+.epl-team .epl-upload-image-button div {
+	float: left;
+	margin-right: 10px;
+}
 .epl-team .epl-progress {
 	margin-top: 10px;
+	margin-bottom: 10px;
 }
-#epl-sample-image {
+.epl-team .epl-sample-image {
 	max-width: 125px;
 	max-height: 125px;
 	display: none;
+}
+.epl-team .epl-thumbnail {
+	position: relative;
+	max-width: 150px;
+	max-height: 150px;
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+.epl-team .epl-item-image {
+	width:100%;
+	height:100%;
+}
+.epl-team .epl-item-del-btn {
+	display: block;
+	position: absolute;
+	top: 2px;
+	right: 2px;
 }
 .epl-team .epl-all-team {
 	margin-bottom: 20px;

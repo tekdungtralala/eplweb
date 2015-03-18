@@ -5,10 +5,13 @@
 		.module("app.team")
 		.controller("EditTeam", EditTeam);
 
-	function EditTeam(xhrTeams, dataservice, $scope, $modal, $state, $stateParams) {
+	function EditTeam(xhrTeams, xhrSlideShow, dataservice, $scope, $modal, 
+		$state, $stateParams) {
+
 		var vm = this;
 
 		vm.currTeam = null;
+		vm.imagesTeam = null;
 		vm.modalInstance = null;
 		vm.disableBtn = true;
 
@@ -20,6 +23,14 @@
 
 		activate();
 		function activate() {
+			// Set team images
+			vm.imagesTeam = xhrSlideShow.result;
+			_.each(vm.imagesTeam, function(m) {
+				m.src = dataservice.getImageById(m.id);
+			});
+			console.log("vm.imagesTeam : ", vm.imagesTeam);
+
+			// Find current team
 			vm.currTeam = _.find(xhrTeams.result, function(t) {
 					return t.id === parseInt($stateParams.id);
 			});
