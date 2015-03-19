@@ -287,6 +287,19 @@ table.epl-table > tbody > tr > td {
 	margin-right: 10px;
 	margin-bottom: 10px;
 }
+.epl-team .epl-image-sorting ul {
+	max-width: 181px;
+}
+.epl-team .epl-image-sorting ul div {
+	position: relative;
+	top: 4px;
+}
+.epl-team .epl-image-sorting .epl-item {
+	max-width: 100px;
+	max-height: 100px;
+	float:left;
+	margin-right: 10px;
+}
 .epl-team .epl-item-image {
 	width:100%;
 	height:100%;
@@ -296,6 +309,9 @@ table.epl-table > tbody > tr > td {
 	position: absolute;
 	top: 5px;
 	right: 5px;
+}
+.epl-team .epl-image-sorting {
+	margin-top: 10px;
 }
 .epl-team .epl-all-team {
 	margin-bottom: 20px;

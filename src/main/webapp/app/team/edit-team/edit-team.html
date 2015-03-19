@@ -58,7 +58,7 @@
 <h3 class="box-title">Slide Show</h3>
 <div class="epl-upload-image-button">
 	<div>
-		<span class="btn btn-success epl-select-file-btn">
+		<span class="btn btn-success epl-select-file-btn {{vm.slideShowMode!='editable'?'disabled':''}}">
 			<i class="glyphicon glyphicon-plus"></i>
 			<span>Select files...</span>	
 			<input type="file" ng-file-select name="fileName" 
@@ -68,34 +68,73 @@
 	</div>	
 	<div>
 		<button type="submit" 
-			class="btn btn-primary {{vm.dataUrl==null?'disabled':''}}"
+			class="btn btn-primary {{(vm.dataUrl==null||vm.slideShowMode!='editable')?'disabled':''}}"
 			ng-click="vm.uploadImage()">
 			<i class="glyphicon glyphicon-upload"></i>
 			<span>Start upload</span>
 		</button>
 	</div>
+	<div>
+		<a type="submit" 
+			role="button"
+			class="btn btn-primary"
+			ng-click="vm.toggleImageMode()">
+			<i class="glyphicon {{vm.slideShowMode=='editable'?'glyphicon-sort':'glyphicon-pencil'}} "></i>
+			<span>{{vm.slideShowMode == "editable"?"Rearrange Mode":"Edit Mode"}}</span>
+		</a>
+	</div>
 </div>
 
 <div class='clearfix'></div>
 
-<div class="progress epl-progress" ng-hide="vm.hideProgress">
-	<div class="progress-bar progress-bar-success"></div>
-</div>
-
-<div>
-	<img ng-show="vm.dataUrl != null" class="epl-sample-image" 
-		ng-src="{{vm.dataUrl}}"/>
-</div>
-
-<div class="epl-list-image">
-	<div data-ng-repeat="(k,v) in vm.imagesTeam" class="epl-thumbnail">
-		<img ng-src="{{v.src}}" class="epl-item-image thumbnail" />
-		<a class="btn btn-default btn-flat btn-xs epl-item-del-btn" role="button" 
-			ng-click="vm.preDeleteImage(v.id)">
-			<span class="glyphicon glyphicon-remove" />
-		</a>
+<!-- Edit Mode -->
+<div ng-show="vm.slideShowMode=='editable'">
+	<div class="progress epl-progress" ng-hide="vm.hideProgress">
+		<div class="progress-bar progress-bar-success"></div>
 	</div>
-	{{}}
+
+	<div>
+		<img ng-show="vm.dataUrl != null" class="epl-sample-image" 
+			ng-src="{{vm.dataUrl}}"/>
+	</div>
+
+	<div class="epl-list-image">
+		<div data-ng-repeat="(k,v) in vm.imagesTeam" class="epl-thumbnail">
+			<img ng-src="{{v.src}}" class="epl-item-image thumbnail" />
+			<a class="btn btn-default btn-flat btn-xs epl-item-del-btn" role="button" 
+				ng-click="vm.preDeleteImage(v.id)">
+				<span class="glyphicon glyphicon-remove" />
+			</a>
+		</div>
+		<div ng-show="vm.imagesTeam == null" >
+			Empty images.
+		</div>
+	</div>
+</div>
+
+<div class='clearfix'></div>
+
+<!-- Sorting Mode -->
+<div ng-show="vm.slideShowMode=='sorting'" class="epl-image-sorting">
+	<ul class="list-group">
+		<li class="list-group-item" data-ng-repeat="(k,v) in vm.imagesTeam">
+			<img ng-src="{{v.src}}" class="epl-item"/>
+			<div>
+				<button type="submit" 
+					class="btn btn-default btn-sm"
+					ng-click="vm.changePosition(k-1,v)">
+					<i class="glyphicon glyphicon-arrow-up"></i>
+				</button>
+				<button type="submit" 
+					class="btn btn-default btn-sm"
+					ng-click="vm.changePosition(k+1,v)">
+					<i class="glyphicon glyphicon-arrow-down"></i>
+				</button>
+			</div>
+			<div class='clearfix'></div>
+
+		</li>
+	</ul>
 	<div ng-show="vm.imagesTeam == null" >
 		Empty images.
 	</div>

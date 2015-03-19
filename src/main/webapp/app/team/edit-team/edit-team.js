@@ -17,6 +17,7 @@
 		vm.selectedImage = null;
 		vm.imageFile = null;
 		vm.dataUrl = null;
+		vm.slideShowMode = "sorting"; // editable/sorting mode
 		var selectedImageId = null;
 
 		vm.backToParentState = backToParentState;
@@ -28,6 +29,8 @@
 		vm.doDelete = doDelete;
 		vm.generateThumb = generateThumb;
 		vm.uploadImage = uploadImage;
+		vm.toggleImageMode = toggleImageMode;
+		vm.changePosition = changePosition;
 
 		activate();
 		function activate() {
@@ -38,7 +41,35 @@
 			vm.savedTeam = angular.copy(vm.currTeam);
 
 			getSlideShows().then(processDataImages);
-			
+		}
+
+		function changePosition(newIndex, image) {
+			if (newIndex >= 0 && vm.imagesTeam.length > newIndex) {
+				var newArray = [];
+				var totalIndex = 0;
+				_.each(vm.imagesTeam, function(im) {
+					if (totalIndex === newIndex) newArray.push(image);
+					if (im.id !== image.id) {
+						newArray.push(im);
+						totalIndex++;
+					}
+				});
+				if (totalIndex === newIndex) newArray.push(image);
+
+				vm.imagesTeam = angular.copy(newArray);
+			}
+		}
+
+		function movingDown() {
+
+		}
+
+		function toggleImageMode() {
+			if ("editable" === vm.slideShowMode) {
+				vm.slideShowMode = "sorting";
+			} else if ("sorting" === vm.slideShowMode) {
+				vm.slideShowMode = "editable";
+			}
 		}
 
 		function uploadImage() {
