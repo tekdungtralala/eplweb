@@ -37,4 +37,5 @@ public class ApiPath {
 	public static final String SLIDE_SHOW = "/api/images/slideshow/teamId/{teamId}";
 	
 	public static final String IMAGES = "/api/images/{imageId}";
+	public static final String IMAGES_SORTED = "/api/images/sortedImage";
 }

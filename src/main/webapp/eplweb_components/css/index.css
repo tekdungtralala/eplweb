@@ -288,7 +288,9 @@ table.epl-table > tbody > tr > td {
 	margin-bottom: 10px;
 }
 .epl-team .epl-image-sorting ul {
-	max-width: 181px;
+	width: 181px;
+	float: left;
+	margin-right: 20px;
 }
 .epl-team .epl-image-sorting ul div {
 	position: relative;

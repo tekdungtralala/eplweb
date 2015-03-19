@@ -16,6 +16,7 @@ public enum PathPattern {
 	
 	UPLOAD_FILES(new String[]{"POST"}, "/api/upload/[\\w\\/]+", true),	
 	DELETE_IMAGE(new String[]{"DELETE"}, "/api/images/[\\d]+", true),
+	SORTED_IMAGE(new String[]{"PUT"}, "/api/images/sortedImage", true),
 	
 	// Unsecured path
 	STATIC_FILES(new String[]{"GET"}, "^.*\\.(html|css|js|ico|png|jpg|map)$", false),

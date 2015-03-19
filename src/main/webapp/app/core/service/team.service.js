@@ -19,10 +19,21 @@
 			// Get image uri by imageId
 			getImageById: getImageById,
 			// Delete image by Id
-			deleteImage: deleteImage
+			deleteImage: deleteImage,
+			// Saving image order
+			saveSlideShowOrder: saveSlideShowOrder,
 		}
-
 		return service;
+
+		function saveSlideShowOrder(obj) {
+			var url = "api/images/sortedImage";
+			var req = adminauth.getConf(obj, "PUT", url);
+
+			$rootScope.promise = $http(req)
+					.then(process)
+					.catch(process);
+			return $rootScope.promise;
+		}
 
 		function deleteImage(imageId, imageType) {
 			var url = "api/images/" + imageId + "?imageType=" + imageType;

@@ -132,9 +132,20 @@
 				</button>
 			</div>
 			<div class='clearfix'></div>
-
 		</li>
 	</ul>
+
+	<button class="btn btn-danger btn-sm" ng-click="vm.resetOrder()">
+		<span class="glyphicon glyphicon-refresh"></span>
+		Reset Order
+	</button>
+	<button class="btn btn-primary btn-sm" ng-click="vm.saveOrder()">
+		<span class="glyphicon glyphicon-save"></span>
+		Save Order
+	</button>
+
+	<div class='clearfix'></div>
+
 	<div ng-show="vm.imagesTeam == null" >
 		Empty images.
 	</div>

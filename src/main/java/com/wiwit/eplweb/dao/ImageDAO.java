@@ -34,7 +34,7 @@ public class ImageDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Image> result = session.createQuery(
 				"from Image where team.id=" + teamId + " and imageType='"
-						+ imageType.toString() + "'").list();
+						+ imageType.toString() + "' order by position asc").list();
 
 		if (result == null || result.size() == 0) {
 			logger.info("Can't find slide show with teamId=" + teamId);
@@ -57,10 +57,18 @@ public class ImageDAO {
 		logger.info("Image loaded successfully, image id=" + id);
 		return result.get(0);
 	}
-	
+
 	@Transactional
 	public void deleteImage(Image image) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.delete(image);
+	}
+
+	@Transactional
+	public void updateMore(List<Image> images) {
+		Session session = this.sessionFactory.getCurrentSession();
+		for (Image i : images) {
+			session.update(i);
+		}
 	}
 }

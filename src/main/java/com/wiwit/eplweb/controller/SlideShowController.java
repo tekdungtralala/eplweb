@@ -6,28 +6,20 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
-import org.apache.commons.io.IOUtils;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.wiwit.eplweb.model.Image;
+import com.wiwit.eplweb.model.input.SortedImageModelInput;
 import com.wiwit.eplweb.model.view.SimpleResult;
 import com.wiwit.eplweb.service.ImageService;
 import com.wiwit.eplweb.service.TeamService;
@@ -54,6 +47,13 @@ public class SlideShowController extends BaseController {
 	private TeamService teamService;
 	@Autowired
 	private ImageService imageService;
+
+	@RequestMapping(value = ApiPath.IMAGES_SORTED, method = RequestMethod.PUT, consumes = CONTENT_TYPE_JSON)
+	public void sortedImage(
+			@RequestBody List<SortedImageModelInput> sortedImages) {
+		logger.info("PUT /api/images/sortedImage size=" + sortedImages.size());
+		imageService.saveImageOrder(sortedImages);
+	}
 
 	@RequestMapping(value = ApiPath.IMAGES, method = RequestMethod.DELETE)
 	@ResponseBody
@@ -74,7 +74,7 @@ public class SlideShowController extends BaseController {
 			res.sendError(404);
 			return;
 		}
-		
+
 		if (imageType == null) {
 			res.sendError(404);
 			return;
@@ -85,13 +85,15 @@ public class SlideShowController extends BaseController {
 			res.sendError(200);
 			return;
 		}
-		
-		String imagePath = WebappProps.getImageFileDir() + image.getLocalFileName();
-		String thumbnailPath = WebappProps.getThumbnailFileDir() + image.getLocalFileName();
-		
+
+		String imagePath = WebappProps.getImageFileDir()
+				+ image.getLocalFileName();
+		String thumbnailPath = WebappProps.getThumbnailFileDir()
+				+ image.getLocalFileName();
+
 		try {
 			imageService.deleteImage(image);
-			
+
 			File imageFile = new File(imagePath);
 			if (imageFile.isFile()) {
 				try {
@@ -99,7 +101,7 @@ public class SlideShowController extends BaseController {
 				} catch (Exception e) {
 				}
 			}
-			
+
 			File thumbnailFile = new File(thumbnailPath);
 			if (thumbnailFile.isFile()) {
 				try {
@@ -107,7 +109,7 @@ public class SlideShowController extends BaseController {
 				} catch (Exception e) {
 				}
 			}
-			
+
 			logger.info("DELETE /api/images/" + imageId + ", success");
 
 		} catch (Exception e) {
@@ -150,7 +152,7 @@ public class SlideShowController extends BaseController {
 		return new ResponseEntity<SimpleResult>(result, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = ApiPath.SLIDE_SHOW_UPLOAD, method = RequestMethod.POST)
+	@RequestMapping(value = ApiPath.SLIDE_SHOW_UPLOAD, method = RequestMethod.POST, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<String> uploadSlideShow(
 			@PathVariable("teamId") int teamId,
 			@RequestParam("file") MultipartFile file)
@@ -186,6 +188,7 @@ public class SlideShowController extends BaseController {
 				image.setLocalFileName(localFileName);
 				image.setOutputFileName(originalFileName);
 				image.setImageType(ImageUtil.ImageType.SLIDESHOW.toString());
+				image.setPosition(0);
 				imageService.saveImage(image);
 
 			} catch (Exception e) {

@@ -17,8 +17,9 @@
 		vm.selectedImage = null;
 		vm.imageFile = null;
 		vm.dataUrl = null;
-		vm.slideShowMode = "sorting"; // editable/sorting mode
+		vm.slideShowMode = "editable"; // editable/sorting mode
 		var selectedImageId = null;
+		var baseImages = null;
 
 		vm.backToParentState = backToParentState;
 		vm.resetTeamInfo = resetTeamInfo;
@@ -31,6 +32,8 @@
 		vm.uploadImage = uploadImage;
 		vm.toggleImageMode = toggleImageMode;
 		vm.changePosition = changePosition;
+		vm.resetOrder = resetOrder;
+		vm.saveOrder = saveOrder;
 
 		activate();
 		function activate() {
@@ -41,6 +44,26 @@
 			vm.savedTeam = angular.copy(vm.currTeam);
 
 			getSlideShows().then(processDataImages);
+		}
+
+		function saveOrder() {
+			var savedObj = [];
+
+			var sortedId = _.pluck(vm.imagesTeam, "id");
+			_.each(sortedId, function(id, index) {
+				savedObj.push({id:id, position: index});
+			});
+
+			dataservice.saveSlideShowOrder(savedObj)
+				.then(afterSaveOrder);
+		}
+
+		function afterSaveOrder() {
+			getSlideShows().then(processDataImages);
+		}
+
+		function resetOrder() {
+			vm.imagesTeam  = angular.copy(baseImages);
 		}
 
 		function changePosition(newIndex, image) {
@@ -60,11 +83,9 @@
 			}
 		}
 
-		function movingDown() {
-
-		}
-
 		function toggleImageMode() {
+			vm.imagesTeam  = angular.copy(baseImages);
+			console.log(vm.imagesTeam)
 			if ("editable" === vm.slideShowMode) {
 				vm.slideShowMode = "sorting";
 			} else if ("sorting" === vm.slideShowMode) {
@@ -122,11 +143,13 @@
 
 		function processDataImages(data) {
 			// Set team images
-			vm.imagesTeam  = data.result;
+			baseImages = data.result;
 
-			_.each(vm.imagesTeam, function(m) {
+			_.each(baseImages, function(m) {
 				m.src = dataservice.getImageById(m.id);
 			});
+
+			vm.imagesTeam  = angular.copy(baseImages);
 		}
 
 		function preDeleteImage(imageId) {

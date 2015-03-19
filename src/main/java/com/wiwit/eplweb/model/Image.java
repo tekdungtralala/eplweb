@@ -32,6 +32,9 @@ public class Image {
 
 	@Column(name = "file_type")
 	private String fileType;
+	
+	@Column(name = "position")
+	private int position;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "team_id", nullable = false)
@@ -57,6 +60,10 @@ public class Image {
 	public String getFileType() {
 		return fileType;
 	}
+	
+	public int getPosition() {
+		return position;
+	}
 
 	@JsonIgnore
 	public Team getTeam() {
@@ -81,6 +88,10 @@ public class Image {
 
 	public void setFileType(String fileType) {
 		this.fileType = fileType;
+	}
+	
+	public void setPosition(int position) {
+		this.position = position;
 	}
 
 	public void setTeam(Team team) {
