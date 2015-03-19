@@ -54,11 +54,14 @@ folder instead of downloading all of them to reduce the load. -->
 <script src="bower_components/slimScroll/jquery.slimscroll.js"></script>
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 
+<script src="bower_components/ng-file-upload/angular-file-upload-shim.min.js"></script>
+<script src="bower_components/ng-file-upload/angular-file-upload.min.js"></script>
+
 <!-- other module -->
 <script src="eplweb_components/js/highcharts.js"></script>
 <script src="eplweb_components/js/exporting.js"></script>
 <script src="eplweb_components/js/slider.js"></script>
-<script src="eplweb_components/js/jquery.fileupload.js"></script>
+
 
 <!-- core module -->
 <script src="app/core/core.module.js"></script>
@@ -66,6 +69,7 @@ folder instead of downloading all of them to reduce the load. -->
 
 <script src="app/core/helper/adminauth.helper.js"></script>
 <script src="app/core/helper/datautil.helper.js"></script>
+<script src="app/core/helper/messagedialog.helper.js"></script>
 
 <script src="app/core/service/admin.service.js"></script>
 <script src="app/core/service/matchday.service.js"></script>
@@ -246,9 +250,26 @@ folder instead of downloading all of them to reduce the load. -->
 		</div>
 		<!-- ./wrapper -->
 
-		<div>
-
-		</div>
+		<script type="text/ng-template" id="errorModal.html">
+			<div class="modal-header">
+				<h3 class="modal-title">
+					<i class="icon fa fa-warning"></i>
+					Server Error
+				</h3>
+			</div>
+			<div class="modal-body">
+				Something bad happen, please contact administrator for the future 
+				information.
+				<br/>
+				{{message}}
+				<img ng-src="{{vm.selectedImage}}" class="epl-modal epl-sample-image"/>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" ng-click="close()">
+					Close
+				</button>
+			</div>
+		</script>
 	</body>
 
 	<script>

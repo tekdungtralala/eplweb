@@ -153,7 +153,7 @@ public class SlideShowController extends BaseController {
 	@RequestMapping(value = ApiPath.SLIDE_SHOW_UPLOAD, method = RequestMethod.POST)
 	public ResponseEntity<String> uploadSlideShow(
 			@PathVariable("teamId") int teamId,
-			@RequestParam("filename") MultipartFile file)
+			@RequestParam("file") MultipartFile file)
 			throws JsonGenerationException, JsonMappingException, IOException {
 
 		logger.info("POST /api/upload/slideshow/teamId/" + teamId);

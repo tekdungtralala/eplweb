@@ -5,8 +5,8 @@
 		.module("app.team")
 		.controller("EditTeam", EditTeam);
 
-	function EditTeam(xhrTeams, dataservice, $rootScope, $scope, $modal, $state, 
-		$stateParams, $q, $timeout) {
+	function EditTeam(xhrTeams, dataservice, messagedialog, $rootScope, $scope, 
+		$modal, $state, $stateParams, $upload, $timeout) {
 
 		var vm = this;
 
@@ -15,6 +15,8 @@
 		vm.modalInstance = null;
 		vm.disableBtn = true;
 		vm.selectedImage = null;
+		vm.imageFile = null;
+		vm.dataUrl = null;
 		var selectedImageId = null;
 
 		vm.backToParentState = backToParentState;
@@ -24,7 +26,8 @@
 		vm.doSave = doSave;
 		vm.preDeleteImage = preDeleteImage;
 		vm.doDelete = doDelete;
-		vm.initDeferred = initDeferred;
+		vm.generateThumb = generateThumb;
+		vm.uploadImage = uploadImage;
 
 		activate();
 		function activate() {
@@ -34,81 +37,65 @@
 			});
 			vm.savedTeam = angular.copy(vm.currTeam);
 
-			getSlideShows().then(processData);
-
-			initFormUpload();
+			getSlideShows().then(processDataImages);
 			
 		}
 
-		function processData(data) {
+		function uploadImage() {
+			var file = vm.imageFile[0];
+
+			file.upload = $upload.upload({
+				url: dataservice.getUploadURL("slideshow", {teamId: vm.currTeam.id}),
+				method: "POST",
+				file: file
+			});
+
+			file.upload
+				.success(processDataUpload)
+				.error(processDataUpload)
+				.progress(function(evt) {
+					var percent = parseInt(100.0 * evt.loaded / evt.total);
+					$(".epl-progress .progress-bar").css("width", percent+"%");
+				});
+
+			$rootScope.promise = file.upload.then();
+		}
+
+		function processDataUpload(data, status, headers, config) {
+			
+			getSlideShows().then(processDataImages);
+
+			if (200 != status) {
+				var url = 
+					dataservice.getUploadURL("slideshow", {teamId: vm.currTeam.id}, true);
+				messagedialog.showErrorDialog(status, config.method, url);
+			}
+
+			vm.dataUrl = null;
+		}
+
+		function generateThumb() {
+			if (vm.imageFile != null && vm.imageFile.length > 0) {
+				if (vm.imageFile[0].type.indexOf('image') > -1) {
+					var fileReader = new FileReader();
+					fileReader.readAsDataURL(vm.imageFile[0]);
+					fileReader.onload = function(e) {
+						$timeout(function() {
+							vm.dataUrl = e.target.result;
+						});
+						$(".epl-progress .progress-bar").css("width", "0%");
+					}
+				}
+			}
+		}
+
+		function processDataImages(data) {
 			// Set team images
 			vm.imagesTeam  = data.result;
 
 			_.each(vm.imagesTeam, function(m) {
 				m.src = dataservice.getImageById(m.id);
 			});
-		}
-
-		var deferredObj = null;
-		function doResolve() {
-			deferredObj.resolve();
-			$(".epl-progress .progress-bar").css("width", "0%");
-		}
-		function initDeferred() {
-			deferredObj = $q.defer();
-			$rootScope.promise = deferredObj.promise;
-		}
-
-		function initFormUpload() {
-			$("#fileupload").fileupload({
-					url: dataservice.getUploadURL("slideshow", {teamId: vm.currTeam.id}),
-					dataType: "image/jpg",
-					autoUpload: false,
-					add: function (e, data) {
-						$("#uploadBtn").unbind("click");
-						data.context = $("#uploadBtn").bind("click", function () {
-							$('#epl-hidden-btn').trigger('click');
-							$(".epl-progress .progress-bar").css("width", "0%");
-							$("#uploadBtn").addClass('disabled');
-							data.submit();
-						});
-					},
-					stop: function() {
-						$("#epl-sample-image").hide();
-						doResolve();
-						getSlideShows().then(processData);
-					},
-					progressall: function (e, data) {
-						var progress = parseInt(data.loaded / data.total * 100, 10);
-						$(".epl-progress .progress-bar").css("width", progress + "%");
-					}
-			});
-
-			$("#fileupload").change(function() {
-				renderImage(this);
-			});
-		}
-
-		function renderImage(input) {
-			if (input.files && input.files[0]) {
-
-				var reader = new FileReader();
-				var parts = input.files[0].name.split('.');
-				var fileExt = parts[parts.length - 1];
-				switch (fileExt.toLowerCase()) {
-					case 'jpg':case 'gif':case 'bmp':case 'png':
-						reader.onload = function (e) {
-							$("#epl-sample-image").attr("src", e.target.result).show();
-							$("#uploadBtn").removeClass('disabled');
-						}
-						break;
-					default:
-						$("#epl-sample-image").hide();
-						$("#uploadBtn").addClass('disabled');
-						break;
-				}
-				reader.readAsDataURL(input.files[0]);
-			}
 		}
 
 		function preDeleteImage(imageId) {
@@ -130,7 +117,8 @@
 		}
 
 		function afterDelete() {
-			getSlideShows().then(processData);
+			getSlideShows().then(processDataImages);
+			$(".epl-progress .progress-bar").css("width", "0%");
 		}
 
 		var formValidateOpt = { 
@@ -186,7 +174,6 @@
 
 		function resetTeamInfo() {
 			vm.currTeam = angular.copy(vm.savedTeam);
-			initDeferred();
 		}
 
 		function backToParentState() {

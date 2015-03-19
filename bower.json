@@ -24,6 +24,7 @@
     "jquery-validation": "~1.13.1",
     "angular-ui": "~0.4.0",
     "angular-bootstrap": "~0.12.1",
-    "jquery-ui": "~1.11.3"
+    "jquery-ui": "~1.11.3",
+    "ng-file-upload": "~3.2.4"
   }
 }

@@ -47,15 +47,18 @@
 			return $rootScope.promise;
 		}
 
-		function getUploadURL(type, object) {
+		function getUploadURL(type, object, withoutAuthKey) {
 			if ('slideshow' === type)
+				var authKey = [
+						"?", adminauth.getAuthKey(), "=", adminauth.getAdminSession()
+					].join('');
+
+				if (withoutAuthKey) authKey = "";
+
 				var result = [
 					"api/upload/slideshow/teamId/",
 					object.teamId,
-					"?",
-					adminauth.getAuthKey(),
-					"=",
-					adminauth.getAdminSession()
+					authKey
 				];
 				return result.join('');
 		}

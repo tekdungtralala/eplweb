@@ -11,6 +11,7 @@
 		"ui.bootstrap",
 		"ui.slider",
 		"cgBusy",
+		"angularFileUpload",
 
 		// App Module
 		"app.core",

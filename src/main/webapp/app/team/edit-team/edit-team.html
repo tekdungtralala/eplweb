@@ -61,17 +61,17 @@
 		<span class="btn btn-success epl-select-file-btn">
 			<i class="glyphicon glyphicon-plus"></i>
 			<span>Select files...</span>	
-			<input id="fileupload" type="file" name="filename"/>
+			<input type="file" ng-file-select name="fileName" 
+				ng-model="vm.imageFile" 
+				ng-file-change="vm.generateThumb()"/>
 		</span>
 	</div>	
 	<div>
-		<button type="submit" class="btn btn-primary disabled" id="uploadBtn"
-		ng-click="vm.initDeferred()">
+		<button type="submit" 
+			class="btn btn-primary {{vm.dataUrl==null?'disabled':''}}"
+			ng-click="vm.uploadImage()">
 			<i class="glyphicon glyphicon-upload"></i>
 			<span>Start upload</span>
-		</button>
-		<button type="submit" class="btn btn-primary epl-hide" id="epl-hidden-btn"
-			ng-click="vm.initDeferred()">
 		</button>
 	</div>
 </div>
@@ -83,7 +83,8 @@
 </div>
 
 <div>
-	<img id="epl-sample-image" class="epl-sample-image" src="#"/>
+	<img ng-show="vm.dataUrl != null" class="epl-sample-image" 
+		ng-src="{{vm.dataUrl}}"/>
 </div>
 
 <div class="epl-list-image">
