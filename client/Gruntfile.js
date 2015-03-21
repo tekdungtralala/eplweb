@@ -1,4 +1,16 @@
 module.exports = function(grunt) {
+
+	var appjsFiles = [
+		// Firstly, init app module 
+		'webapp/app/app.module.js',
+		// Then all sub module
+		'webapp/app/**/*.module.js',
+		// Core app
+		'webapp/app/core/**/*.js',
+		// And the last is all other .js
+		'webapp/app/**/*.js',
+	];
+
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		watch: {
@@ -7,25 +19,16 @@ module.exports = function(grunt) {
 		},
 		concat: {
 			options: {
-				separator: ''
+				separator: '\n\n'
 			},
 			dist: {
 				src: ['webapp/app/app.module.js'],
 				dest: 'webapp/eplweb.js'
 			},
-			css: {
-				src: [
-					'bower_components/bootstrap/dist/css/bootstrap.css',
-					'bower_components/font-awesome/css/font-awesome.min.css',
-					'bower_components/ionicons/css/ionicons.min.css',
-					'bower_components/angular-busy/dist/angular-busy.min.css',
-					'bower_components/jquery-ui/themes/smoothness/jquery-ui.css',
-					'webapp/eplweb_components/css/AdminLTE.css',
-					'webapp/eplweb_components/css/skin-purple.css',
-					'webapp/eplweb_components/css/index.css',
-					'webapp/eplweb_components/css/epl-animate.css'
-				],
-				dest: 'webapp/eplweb_components/css/eplweb.css'
+			appjs: {
+				// src: 'webapp/app/**/*.js',
+				src: appjsFiles,
+				dest: 'webapp/eplweb_components/js/eplweb.js'
 			}
 		}
 	});
