@@ -11,22 +11,46 @@ module.exports = function(grunt) {
 		'webapp/app/**/*.js',
 	];
 
+	var jsVendorFiles = [
+		'webapp/bower_components/jquery/dist/jquery.min.js',
+		'webapp/bower_components/jquery-ui/jquery-ui.min.js',
+		'webapp/bower_components/jquery-validation/dist/jquery.validate.min.js',
+		'webapp/bower_components/jquery-validation/dist/additional-methods.min.js',
+		'webapp/bower_components/bootstrap/dist/js/bootstrap.min.js',
+		'webapp/bower_components/angular/angular.min.js',
+		'webapp/bower_components/angular-animate/angular-animate.min.js',
+		'webapp/bower_components/angular-cookies/angular-cookies.min.js',
+		'webapp/bower_components/angular-ui-router/release/angular-ui-router.min.js',
+		'webapp/bower_components/angular-busy/dist/angular-busy.min.js',
+		'webapp/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+		'webapp/bower_components/underscore/underscore.js',
+		'webapp/bower_components/moment/moment.js',
+		'webapp/bower_components/slimScroll/jquery.slimscroll.js',
+		'webapp/bower_components/fastclick/lib/fastclick.js',
+		'webapp/bower_components/ng-file-upload/angular-file-upload-shim.min.js',
+		'webapp/bower_components/ng-file-upload/angular-file-upload.min.js',
+
+		'webapp/eplweb_components/js/highcharts.js',
+		'webapp/eplweb_components/js/exporting.js',
+		'webapp/eplweb_components/js/slider.js',
+		'webapp/eplweb_components/js/app.js', //Admin LTE
+	];
+
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		watch: {
-			files: ['webapp/app/app.module.js'],
-			tasks: ['concat:dist']
+			files: appjsFiles,
+			tasks: ['concat:appjs']
 		},
 		concat: {
 			options: {
 				separator: '\n\n'
 			},
-			dist: {
-				src: ['webapp/app/app.module.js'],
-				dest: 'webapp/eplweb.js'
+			vendorjs: {
+				src: jsVendorFiles,
+				dest: 'webapp/eplweb_components/js/vendors.js'
 			},
 			appjs: {
-				// src: 'webapp/app/**/*.js',
 				src: appjsFiles,
 				dest: 'webapp/eplweb_components/js/eplweb.js'
 			}
