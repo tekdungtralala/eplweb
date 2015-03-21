@@ -3,3 +3,6 @@
 .settings/
 target/
 src/main/webapp/bower_components/*
+client/bower_components/*
+client/webapp/eplweb_components/css/eplweb.css
+client/webapp/eplweb.js
