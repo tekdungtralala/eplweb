@@ -12,23 +12,23 @@ module.exports = function(grunt) {
 	];
 
 	var jsVendorFiles = [
-		'webapp/bower_components/jquery/dist/jquery.min.js',
-		'webapp/bower_components/jquery-ui/jquery-ui.min.js',
-		'webapp/bower_components/jquery-validation/dist/jquery.validate.min.js',
-		'webapp/bower_components/jquery-validation/dist/additional-methods.min.js',
-		'webapp/bower_components/bootstrap/dist/js/bootstrap.min.js',
-		'webapp/bower_components/angular/angular.min.js',
-		'webapp/bower_components/angular-animate/angular-animate.min.js',
-		'webapp/bower_components/angular-cookies/angular-cookies.min.js',
-		'webapp/bower_components/angular-ui-router/release/angular-ui-router.min.js',
-		'webapp/bower_components/angular-busy/dist/angular-busy.min.js',
-		'webapp/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-		'webapp/bower_components/underscore/underscore.js',
-		'webapp/bower_components/moment/moment.js',
-		'webapp/bower_components/slimScroll/jquery.slimscroll.js',
-		'webapp/bower_components/fastclick/lib/fastclick.js',
-		'webapp/bower_components/ng-file-upload/angular-file-upload-shim.min.js',
-		'webapp/bower_components/ng-file-upload/angular-file-upload.min.js',
+		'bower_components/jquery/dist/jquery.min.js',
+		'bower_components/jquery-ui/jquery-ui.min.js',
+		'bower_components/jquery-validation/dist/jquery.validate.min.js',
+		'bower_components/jquery-validation/dist/additional-methods.min.js',
+		'bower_components/bootstrap/dist/js/bootstrap.min.js',
+		'bower_components/angular/angular.min.js',
+		'bower_components/angular-animate/angular-animate.min.js',
+		'bower_components/angular-cookies/angular-cookies.min.js',
+		'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+		'bower_components/angular-busy/dist/angular-busy.min.js',
+		'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+		'bower_components/underscore/underscore.js',
+		'bower_components/moment/moment.js',
+		'bower_components/slimScroll/jquery.slimscroll.js',
+		'bower_components/fastclick/lib/fastclick.js',
+		'bower_components/ng-file-upload/angular-file-upload-shim.min.js',
+		'bower_components/ng-file-upload/angular-file-upload.min.js',
 
 		'webapp/eplweb_components/js/highcharts.js',
 		'webapp/eplweb_components/js/exporting.js',
@@ -36,11 +36,37 @@ module.exports = function(grunt) {
 		'webapp/eplweb_components/js/app.js', //Admin LTE
 	];
 
+	var cssFiles = [
+	'bower_components/jquery-ui/themes/smoothness/jquery-ui.css',
+		'bower_components/bootstrap/dist/css/bootstrap.css',
+		'bower_components/font-awesome/css/font-awesome.min.css',
+		'bower_components/ionicons/css/ionicons.min.css',
+		'bower_components/angular-busy/dist/angular-busy.min.css',
+		'webapp/eplweb_components/css/AdminLTE.css',
+		'webapp/eplweb_components/css/skin-purple.css',
+		'webapp/eplweb_components/css/index.css',
+		'webapp/eplweb_components/css/epl-animate.css'
+	];
+
+	var fontFiles = [
+		'bower_components/bootstrap/dist/fonts/**',
+		'bower_components/font-awesome/fonts/**',
+	];
+
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		watch: {
 			files: appjsFiles,
 			tasks: ['concat:appjs']
+		},
+		copy: {
+			fonts: {
+				expand: true,
+				flatten: true,
+				src: fontFiles,
+				dest: 'webapp/eplweb_components/fonts',
+				filter: 'isFile'
+			}
 		},
 		concat: {
 			options: {
@@ -53,12 +79,17 @@ module.exports = function(grunt) {
 			appjs: {
 				src: appjsFiles,
 				dest: 'webapp/eplweb_components/js/eplweb.js'
+			}, 
+			css: {
+				src: cssFiles,
+				dest: 'webapp/eplweb_components/css/eplweb.css'
 			}
 		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	grunt.registerTask('default', []);
 }

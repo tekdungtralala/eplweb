@@ -21,6 +21,7 @@ public enum PathPattern {
 	// Unsecured path
 	STATIC_FILES(new String[]{"GET"}, "^.*\\.(html|css|js|ico|png|jpg|map)$", false),
 	BOWER_DIR(new String[]{"GET"}, "/bower_components/.+", false),
+	EPLWEB_DIR(new String[]{"GET"}, "/eplweb_components/.+", false),
 	
 	SLIDE_SHOW(new String[]{"GET"}, "/api/images/[\\w\\/]+", false),
 	
