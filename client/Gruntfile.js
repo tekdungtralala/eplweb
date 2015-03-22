@@ -92,4 +92,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	grunt.registerTask('default', []);
+	
+	grunt.registerTask('all', [
+		'concat:vendorjs',
+		'concat:appjs',
+		'concat:css',
+		'copy:fonts'
+	]);
+
 }
