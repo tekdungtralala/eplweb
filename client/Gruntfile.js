@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
 
-	var appjsFiles = [
+	var angularJsFiles = [
 		// Firstly, init app module 
 		'webapp/app/app.module.js',
 		// Then all sub module
@@ -36,16 +36,18 @@ module.exports = function(grunt) {
 		'webapp/eplweb_components/js/app.js', //Admin LTE
 	];
 
+	var customCss = 'webapp/eplweb_components/css/index.css';
+
 	var cssFiles = [
-	'bower_components/jquery-ui/themes/smoothness/jquery-ui.css',
+		'bower_components/jquery-ui/themes/smoothness/jquery-ui.css',
 		'bower_components/bootstrap/dist/css/bootstrap.css',
 		'bower_components/font-awesome/css/font-awesome.min.css',
 		'bower_components/ionicons/css/ionicons.min.css',
 		'bower_components/angular-busy/dist/angular-busy.min.css',
 		'webapp/eplweb_components/css/AdminLTE.css',
 		'webapp/eplweb_components/css/skin-purple.css',
-		'webapp/eplweb_components/css/index.css',
-		'webapp/eplweb_components/css/epl-animate.css'
+		'webapp/eplweb_components/css/epl-animate.css',
+		customCss
 	];
 
 	var fontFiles = [
@@ -56,8 +58,14 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		watch: {
-			files: appjsFiles,
-			tasks: ['concat:appjs']
+			angularJs: {
+				files: angularJsFiles,
+				tasks: ['concat:appjs']
+			},
+			customCss: {
+				files: [customCss],
+				tasks: ['concat:css']
+			}
 		},
 		copy: {
 			fonts: {
@@ -77,7 +85,7 @@ module.exports = function(grunt) {
 				dest: 'webapp/eplweb_components/js/vendors.js'
 			},
 			appjs: {
-				src: appjsFiles,
+				src: angularJsFiles,
 				dest: 'webapp/eplweb_components/js/eplweb.js'
 			}, 
 			css: {
@@ -92,7 +100,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	grunt.registerTask('default', []);
-	
+
 	grunt.registerTask('all', [
 		'concat:vendorjs',
 		'concat:appjs',
