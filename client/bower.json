@@ -26,5 +26,8 @@
     "angular-bootstrap": "~0.12.1",
     "jquery-ui": "~1.11.3",
     "ng-file-upload": "~3.2.4"
+  },
+  "devDependencies": {
+    "angular-google-maps": "~2.0.17"
   }
 }

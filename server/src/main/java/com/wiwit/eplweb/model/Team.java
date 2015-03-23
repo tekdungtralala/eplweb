@@ -33,6 +33,12 @@ public class Team {
 	
 	@Column(name = "stadium")
 	private String stadium;
+	
+	@Column(name = "longitude")
+	private String longitude;
+	
+	@Column(name = "latitude")
+	private String latitude;
 
 	public int getId() {
 		return id;
@@ -81,6 +87,20 @@ public class Team {
 	}
 	public void setStadium(String stadium) {
 		this.stadium = stadium;
+	}
+	
+	public String getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+	
+	public String getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
 	}
 
 	@Override
