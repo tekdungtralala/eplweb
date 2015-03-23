@@ -10,6 +10,7 @@
 		"ui.router",
 		"ui.bootstrap",
 		"ui.slider",
+		'uiGmapgoogle-maps',
 		"cgBusy",
 		"angularFileUpload",
 

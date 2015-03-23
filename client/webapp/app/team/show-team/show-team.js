@@ -5,7 +5,9 @@
 		.module("app.team")
 		.controller("ShowTeam", ShowTeam);
 
-		function ShowTeam(xhrTeams, dataservice, datautil, $state, $stateParams) {
+		function ShowTeam(xhrTeams, dataservice, datautil, uiGmapIsReady, $state, 
+			$stateParams, $rootScope) {
+
 			var vm = this;
 
 			vm.containerLbl = ["overview", "squad", "statistic", "map", "video"];
@@ -35,6 +37,7 @@
 				vm.currTeam = _.find(xhrTeams.result, function(t) {
 					return t.id === parseInt($stateParams.id);
 				});
+				initMapAttr(vm.currTeam);
 
 				var promises = [
 					getInitData(), 
@@ -59,6 +62,25 @@
 						});
 					});
 				});
+			}
+
+			function initMapAttr(team) {
+				vm.map = {
+					center: { latitude: team.latitude, longitude: team.longitude}, 
+					zoom: 7 
+				};
+				vm.marker = {
+					id: 0,
+					coords: {
+						latitude: team.latitude,
+						longitude: team.longitude
+					},
+					options: {
+						draggable: false,
+						labelContent: "Stadium Location",
+						labelClass: "epl-marker-labels"
+					}
+				};
 			}
 
 			function gotoEditTeam() {
@@ -115,6 +137,9 @@
 					getTeamStat(vm.currWeek.weekNumber, vm.currTeam.id)
 						.then(processChartData);
 					$state.go("team.show-team." + vm.containerLbl[index], $stateParams);
+				} else if (3 === index) {
+					$state.go("team.show-team." + vm.containerLbl[index], $stateParams);
+					$rootScope.promise = uiGmapIsReady.promise();
 				} else {
 					$state.go("team.show-team." + vm.containerLbl[index], $stateParams);
 				}

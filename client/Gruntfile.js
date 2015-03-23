@@ -22,6 +22,7 @@ module.exports = function(grunt) {
 		'bower_components/angular-animate/angular-animate.min.js',
 		'bower_components/angular-cookies/angular-cookies.min.js',
 		'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+		'bower_components/angular-google-maps/dist/angular-google-maps.min.js',
 		'bower_components/angular-busy/dist/angular-busy.min.js',
 		'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
 		'bower_components/underscore/underscore.js',
