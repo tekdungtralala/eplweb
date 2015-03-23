@@ -62,7 +62,7 @@
 			}
 
 			function gotoEditTeam() {
-				$state.go("team.show-team.edit-team");
+				$state.go("team.show-team.edit-team.edit-teaminfo");
 			}
 
 			function processAdmnRole(result) {

@@ -1,12 +1,13 @@
 (function() {
 	"use strict";
 
-	angular
-		.module("app.team")
-		.controller("EditTeam", EditTeam);
+		angular
+			.module("app.team")
+			.controller("Edit-Image", EditImage);
 
-	function EditTeam(xhrTeams, dataservice, messagedialog, $rootScope, $scope, 
-		$modal, $state, $stateParams, $upload, $timeout) {
+		function EditImage(xhrTeams, dataservice, messagedialog, $rootScope, 
+			$scope, $modal, $state, $stateParams, $upload, $timeout) {
+			$rootScope.$broadcast("edit-team-btn-menu", "image");
 
 		var vm = this;
 
@@ -21,11 +22,6 @@
 		var selectedImageId = null;
 		var baseImages = null;
 
-		vm.backToParentState = backToParentState;
-		vm.resetTeamInfo = resetTeamInfo;
-		vm.preSave = preSave;
-		vm.dismisModal = dismisModal;
-		vm.doSave = doSave;
 		vm.preDeleteImage = preDeleteImage;
 		vm.doDelete = doDelete;
 		vm.generateThumb = generateThumb;
@@ -41,7 +37,6 @@
 			vm.currTeam = _.find(xhrTeams.result, function(t) {
 					return t.id === parseInt($stateParams.id);
 			});
-			vm.savedTeam = angular.copy(vm.currTeam);
 
 			getSlideShows().then(processDataImages);
 		}
@@ -85,7 +80,6 @@
 
 		function toggleImageMode() {
 			vm.imagesTeam  = angular.copy(baseImages);
-			console.log(vm.imagesTeam)
 			if ("editable" === vm.slideShowMode) {
 				vm.slideShowMode = "sorting";
 			} else if ("sorting" === vm.slideShowMode) {
@@ -173,65 +167,6 @@
 		function afterDelete() {
 			getSlideShows().then(processDataImages);
 			$(".epl-progress .progress-bar").css("width", "0%");
-		}
-
-		var formValidateOpt = { 
-			rules: {
-				name: { required: true },
-				simpleName: { required: true },
-				established: { required: true, number: true},
-				manager: { required: true },
-				nickname: { required: true },
-				stadium: { required: true }
-			},
-			showErrors: showErrors,
-			onkeyup: false
-		};
-
-		function showErrors(errorMap, errors) {
-			var formElmt = $("#teamInfoForm");
-			formElmt.find(".input-group").removeClass("has-error");
-			for (var i in errors) {
-				var parent = $(errors[i].element).parent();
-				parent.addClass("has-error");
-			}
-		}
-
-		function doSave() {
-			vm.modalInstance.dismiss();
-
-			delete vm.currTeam["$$hashKey"];
-			dataservice.editTeam(vm.currTeam)
-				.then(afterSave);
-		}
-
-		function afterSave() {
-			vm.savedTeam = angular.copy(vm.currTeam);
-			$state.go("^");
-		}
-
-		function dismisModal() {
-			vm.modalInstance.dismiss();
-		}
-
-		function preSave() {
-			var formElmt = $("#teamInfoForm");
-			formElmt.validate(formValidateOpt);
-			if (formElmt.valid()) {
-				vm.modalInstance = $modal.open({
-					templateUrl: "saveModal.html",
-					scope: $scope,
-					size: "sm"
-				});
-			}
-		}
-
-		function resetTeamInfo() {
-			vm.currTeam = angular.copy(vm.savedTeam);
-		}
-
-		function backToParentState() {
-			$state.go("^");
 		}
 
 		function getSlideShows() {
