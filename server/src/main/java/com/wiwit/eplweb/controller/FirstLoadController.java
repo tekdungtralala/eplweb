@@ -62,6 +62,7 @@ public class FirstLoadController extends BaseController {
 		result.setTeams(teamService.findAll());
 		result.setRanks(rankService.findLatestRank());
 		result.setMatchdays(matchdayService.findClosestMatch(teamId));
+		result.setCurrentWeek(weekService.findCurrWeek());
 
 		return new ResponseEntity<TeamPageModelView>(result, HttpStatus.OK);
 	}

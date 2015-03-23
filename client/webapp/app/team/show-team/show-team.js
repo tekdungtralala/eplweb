@@ -43,6 +43,7 @@
 				];
 
 				dataservice.ready(promises).then(function(result){
+					vm.currWeek = result[0].currentWeek;
 					processRankData(result[0]);
 
 					$state.go("team.show-team." + vm.containerLbl[0], $stateParams);
@@ -86,8 +87,6 @@
 						vm.nextMatchday.push(m);
 					} else {
 						vm.prevMatchday.push(m);
-
-						vm.currWeek = m.week;
 					}
 				});
 
