@@ -240,8 +240,15 @@ table.epl-table > tbody > tr > td {
 	margin-left: auto;
 	margin-right: auto;
 }
-.epl-team .epl-team-menu button{
+.epl-team .epl-team-menu button {
 	margin-right: 10px;
+}
+.epl-team .epl-image-order-btn button {
+	margin-right: 10px;
+}
+.epl-team .epl-image-order-btn.epl-fixed {
+	position: fixed;
+	top: 57px;
 }
 .epl-team .epl-select-file-btn {
 		position: relative;
