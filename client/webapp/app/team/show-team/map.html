@@ -1,12 +1,10 @@
 <br/>
-<!-- 
-<ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'></ui-gmap-google-map>
- -->
+
 <ui-gmap-google-map 
 		center="vm.map.center" 
 		zoom="vm.map.zoom" 
 		draggable="false" 
-		options="options">
+		options="vm.map.options">
 		<ui-gmap-marker 
 			coords="vm.marker.coords" 
 			options="vm.marker.options" 

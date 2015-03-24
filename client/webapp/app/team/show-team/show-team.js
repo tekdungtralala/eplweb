@@ -67,7 +67,8 @@
 			function initMapAttr(team) {
 				vm.map = {
 					center: { latitude: team.latitude, longitude: team.longitude}, 
-					zoom: 7 
+					zoom: 7,
+					options: {scrollwheel: false}
 				};
 				vm.marker = {
 					id: 0,

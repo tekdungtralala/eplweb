@@ -62,6 +62,12 @@
 				controller: "Edit-Image",
 				controllerAs: "vm"
 			})
+			.state("team.show-team.edit-team.edit-map", {
+				url:"/edit-map",
+				templateUrl: "app/team/edit-map/edit-map.html",
+				controller: "Edit-Map",
+				controllerAs: "vm"
+			})
 			;
 
 		function getallTeam(dataservice) {

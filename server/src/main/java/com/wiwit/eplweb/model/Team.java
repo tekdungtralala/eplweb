@@ -114,6 +114,8 @@ public class Team {
 		setEstablished(t.getEstablished());
 		setManager(t.getManager());
 		setNickname(t.getManager());
+		setLongitude(t.getLongitude());
+		setLatitude(t.getLatitude());
 	}
 
 }

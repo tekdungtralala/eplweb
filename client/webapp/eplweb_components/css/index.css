@@ -240,6 +240,11 @@ table.epl-table > tbody > tr > td {
 	margin-left: auto;
 	margin-right: auto;
 }
+.epl-marker-newlocation {
+	color: green;
+	position: relative;
+	right: 10px;
+}
 .epl-marker-labels {
 	color: red;
 	position: relative;

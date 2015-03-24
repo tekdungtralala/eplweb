@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.wiwit.eplweb.model.Player;
 import com.wiwit.eplweb.model.Team;
 import com.wiwit.eplweb.model.view.SimpleResult;
 import com.wiwit.eplweb.service.TeamService;

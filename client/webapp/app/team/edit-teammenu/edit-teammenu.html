@@ -12,7 +12,8 @@
 		class="btn btn-sm btn-{{vm.currentState=='image'?'primary':'default'}}">
 		Edit Images
 	</button>
-	<button type="button" class="btn btn-sm btn-default">
+	<button type="button" ng-click="vm.changeState('map')"
+		class="btn btn-sm btn-{{vm.currentState=='map'?'primary':'default'}}">
 		Edit Map
 	</button>
 	<button type="button" class="btn btn-sm btn-default">

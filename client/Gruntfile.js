@@ -5,7 +5,6 @@ module.exports = function(grunt) {
 		'webapp/app/app.module.js',
 		// Then all sub module
 		'webapp/app/**/*.module.js',
-		'webapp/app/**/*.controller.js',
 		// Core app
 		'webapp/app/core/**/*.js',
 		// And the last is all other .js
