@@ -5,8 +5,8 @@
 		.module("app.team")
 		.controller("ShowTeam", ShowTeam);
 
-		function ShowTeam(xhrTeams, dataservice, datautil, uiGmapIsReady, $state, 
-			$stateParams, $rootScope) {
+		function ShowTeam(xhrTeams, dataservice, datautil, uiGmapIsReady, 
+			youtubeUrl,$state, $stateParams, $rootScope, $sce) {
 
 			var vm = this;
 
@@ -17,6 +17,7 @@
 
 			vm.showEditBtn = false;
 			vm.currTeam = null;
+			vm.videoUrl = null;
 			vm.rank = null;
 			vm.position = null;
 			vm.carousel = [];
@@ -37,6 +38,7 @@
 				vm.currTeam = _.find(xhrTeams.result, function(t) {
 					return t.id === parseInt($stateParams.id);
 				});
+				vm.videoUrl = $sce.trustAsResourceUrl(youtubeUrl + vm.currTeam.videoId);
 				initMapAttr(vm.currTeam);
 
 				var promises = [

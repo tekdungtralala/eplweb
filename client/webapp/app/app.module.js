@@ -25,11 +25,13 @@
 		"app.admin",
 		"app.admin.auth",
 		"app.admin.dashboard",
+		"app.admin.config"
 		// "app.news"
 	])
 	.config(configRoute)
 	.run(appRun)
-	.directive('eplwebScrollPosition', eplwebScrollPosition);
+	.directive('eplwebScrollPosition', eplwebScrollPosition)
+	.constant("youtubeUrl", "http://www.youtube.com/embed/");
 
 	function eplwebScrollPosition($window) {
 		return {

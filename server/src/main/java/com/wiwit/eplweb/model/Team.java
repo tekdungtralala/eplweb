@@ -39,6 +39,9 @@ public class Team {
 	
 	@Column(name = "latitude")
 	private String latitude;
+	
+	@Column(name = "video_id")
+	private String videoId;
 
 	public int getId() {
 		return id;
@@ -101,6 +104,13 @@ public class Team {
 	}
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
+	}
+	
+	public String getVideoId() {
+		return videoId;
+	}
+	public void setVideoId(String videoId) {
+		this.videoId = videoId;
 	}
 
 	@Override
