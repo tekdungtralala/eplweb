@@ -14,6 +14,9 @@
 	<logger name="com.wiwit.eplweb.controller">
 		<level value="info" />
 	</logger>
+	<logger name="com.wiwit.eplweb.util.youtube.api">
+		<level value="info" />
+	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core"></logger>

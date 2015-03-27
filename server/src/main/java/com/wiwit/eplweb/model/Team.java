@@ -126,6 +126,7 @@ public class Team {
 		setNickname(t.getManager());
 		setLongitude(t.getLongitude());
 		setLatitude(t.getLatitude());
+		setVideoId(t.getVideoId());
 	}
 
 }

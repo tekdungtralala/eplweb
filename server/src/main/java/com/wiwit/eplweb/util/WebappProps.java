@@ -15,7 +15,18 @@ public class WebappProps {
 		IMAGE_FILE_DIRECTORY, 			// images directory
 		THUMBNAIL_FILE_DIRECTORY, 		// thumbnail directory
 		
-		QUERY_PARAM_IMAGE_TYPE			// query param for image_type attribute on table image
+		QUERY_PARAM_IMAGE_TYPE,			// query param for image_type attribute on table image
+		
+		GOOGLE_CLIENT_SECRET_FILE_PATH,	// google client secret location, need to manage video using youtube API
+		GOOGLE_OAUTH_CREDENTIALS_DIRECTORY		// youtube credentials file
+	}
+	
+	public static String getGoogleCredentialsDirectory() {
+		return getValue(WebappEnum.GOOGLE_OAUTH_CREDENTIALS_DIRECTORY);
+	}
+	
+	public static String getClientScret() {
+		return getValue(WebappEnum.GOOGLE_CLIENT_SECRET_FILE_PATH);
 	}
 
 	public static String getImageTypeKey() {

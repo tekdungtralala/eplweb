@@ -38,4 +38,7 @@ public class ApiPath {
 	
 	public static final String IMAGES = "/api/images/{imageId}";
 	public static final String IMAGES_SORTED = "/api/images/sortedImage";
+	
+	public static final String UPLOAD_VIDEO = "/api/upload/video/teamId/{teamId}";
+	public static final String CHANGE_VIDEO_THUMBNAIL = "/api/upload/videothumbnail/teamId/{teamId}";
 }
