@@ -77,13 +77,13 @@ public class VideoController extends BaseController {
 			try {
 				byte[] bytes = file.getBytes();
 				
-				
 				// Delete the latest video before upload the new one
 				VideoService.doDelete(team.getVideoId());
 				
 				// Upload video and get videoId from youtube
 				logger.info("doUploadVideo");
-				String videoId = VideoService.doUpload(team.getName(), new ByteArrayInputStream(bytes));
+				String videoId = null; 
+				videoId = VideoService.doUpload(team.getName(), new ByteArrayInputStream(bytes));
 				
 				// Save videoId to db
 				team.setVideoId(videoId);

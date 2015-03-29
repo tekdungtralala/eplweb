@@ -68,7 +68,12 @@
 				controller: "Edit-Map",
 				controllerAs: "vm"
 			})
-			;
+			.state("team.show-team.edit-team.edit-video", {
+				url:"/edit-video",
+				templateUrl: "app/team/edit-video/edit-video.html",
+				controller: "Edit-Video",
+				controllerAs: "vm"
+			});
 
 		function getallTeam(dataservice) {
 			return dataservice.getAllTeam();

@@ -16,7 +16,8 @@
 		class="btn btn-sm btn-{{vm.currentState=='map'?'primary':'default'}}">
 		Edit Map
 	</button>
-	<button type="button" class="btn btn-sm btn-default">
+	<button type="button" ng-click="vm.changeState('video')"
+		class="btn btn-sm btn-{{vm.currentState=='video'?'primary':'default'}}">
 		Edit Video
 	</button>
 </div>

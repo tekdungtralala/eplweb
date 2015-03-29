@@ -58,8 +58,11 @@
 			return $rootScope.promise;
 		}
 
-		function getUploadURL(type, object, withoutAuthKey) {
-			if ('slideshow' === type)
+		function getUploadURL(type, teamId, withoutAuthKey) {
+			if (type === "slideshow" ||
+					type === "videothumbnail" ||
+					type === "video") {
+
 				var authKey = [
 						"?", adminauth.getAuthKey(), "=", adminauth.getAdminSession()
 					].join('');
@@ -67,11 +70,12 @@
 				if (withoutAuthKey) authKey = "";
 
 				var result = [
-					"api/upload/slideshow/teamId/",
-					object.teamId,
+					"api/upload/" + type + "/teamId/",
+					teamId,
 					authKey
 				];
 				return result.join('');
+			}
 		}
 
 		function getAllTeam() {

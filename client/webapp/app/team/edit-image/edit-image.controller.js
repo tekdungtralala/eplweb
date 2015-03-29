@@ -97,7 +97,7 @@
 				var file = vm.imageFile[0];
 
 				file.upload = $upload.upload({
-					url: dataservice.getUploadURL("slideshow", {teamId: vm.currTeam.id}),
+					url: dataservice.getUploadURL("slideshow", vm.currTeam.id),
 					method: "POST",
 					file: file
 				});

@@ -335,6 +335,12 @@ table.epl-table > tbody > tr > td {
 .epl-team .epl-image-sorting {
 	margin-top: 10px;
 }
+.epl-team .epl-upload-button {
+	width: 200px;
+}
+.epl-team .epl-upload-button button {
+	margin-left: 10px;
+}
 .epl-team .epl-all-team {
 	margin-bottom: 20px;
 	display: block;

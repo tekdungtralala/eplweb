@@ -79,7 +79,7 @@ public class VideoService {
 //    		"/home/wiwitaditya/Documents/workspace/api-samples/java/src/main/resources/sample-video.mp4");
 //    	System.out.println("videoId : " + videoId);
     	
-    	doChangeThumbnail("fMF7-oTzAq4", new FileInputStream("/home/wiwitaditya/Downloads/eplcustomlogo.jpg"));
+//    	doChangeThumbnail("fMF7-oTzAq4", new FileInputStream("/home/wiwitaditya/Downloads/eplcustomlogo.jpg"));
     }
     
     public static void doChangeThumbnail(String videoId, InputStream imageStream) {
@@ -118,6 +118,7 @@ public class VideoService {
             // network interruption or other transmission failure, saving
             // time and bandwidth in the event of network failures.
             uploader.setDirectUploadEnabled(false);
+            uploader.setChunkSize(MediaHttpUploader.MINIMUM_CHUNK_SIZE); 
 
             // Set the upload state for the thumbnail image.
             MediaHttpUploaderProgressListener progressListener = new MediaHttpUploaderProgressListener() {
