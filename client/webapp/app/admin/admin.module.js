@@ -1,5 +1,7 @@
 (function() {
 
+	"use strict";
+	
 	var admin = angular.module("app.admin", []);
 
 	admin.config(configRoute);

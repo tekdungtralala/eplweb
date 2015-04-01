@@ -12,25 +12,43 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+
 @Entity
 @Table(name = "user_session")
 public class UserSession {
-	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
 	
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
 	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id", nullable = true)
+	private User user;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_os_id", nullable = true)
+	private UserNetwork userNetwork;
+	
+	@Column(name = "role")
+	private int role;
+	
 	@Column(name = "session")
 	private String session;
 
 	@Column(name = "login_time")
 	private Date loginTime;
-
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 	public User getUser() {
 		return user;
 	}
@@ -38,11 +56,19 @@ public class UserSession {
 		this.user = user;
 	}
 	
-	public String getId() {
-		return id;
+	@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+	public UserNetwork getUserNetwork() {
+		return userNetwork;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setUserNetwork(UserNetwork userNetwork) {
+		this.userNetwork = userNetwork;
+	}
+	
+	public int getRole() {
+		return role;
+	}
+	public void setRole(int role) {
+		this.role = role;
 	}
 
 	public String getSession() {

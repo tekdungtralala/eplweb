@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<title>EPL web app</title>
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'/>
+		<meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.profile.emails.read" />
 
 		<link href="eplweb_components/css/eplweb.css" rel="stylesheet"/>
 
@@ -21,6 +22,7 @@
 		
 		<!-- other script -->
 		<script src='http://maps.google.com/maps/api/js?sensor=false'></script>
+		<script src="https://apis.google.com/js/client:platform.js" async defer></script>
 
 	</head>
 	<body 
@@ -32,8 +34,7 @@
 		<div class="wrapper">
 			
 			<header class="main-header">
-				<div class="epl-displayblock" 
-					ng-class="{'epl-displayblock': !isAdminLogged, 'epl-displaynone': isAdminLogged}">
+				<div class="epl-displayblock" >
 					<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 						<div class="container">
 							<!-- Brand and toggle get grouped for better mobile display -->
@@ -46,68 +47,81 @@
 										<span class="icon-bar"></span>
 										<span class="icon-bar"></span>
 								</button>
-								<a class="navbar-brand epl-menu-header" 
-									ui-sref="dashboard">EPL web app</a>
+								<div class="navbar-toggle collapsed epl-user-logged-btn"
+									ng-show="isUserLogged">
+									<span ng-include src="'app/html/userprofile.html'"/>
+								</div>
+								<a class="navbar-brand epl-menu-header" ui-sref="dashboard">
+									EPL web app
+								</a>
+
+								<button type="button" class="navbar-toggle epl-toggle-menu" 
+									data-toggle="offcanvas" role="button" aria-expanded="false"
+									ng-show="isAdminLogged">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
 							</div>
 							<!-- Collect the nav links, forms, and other content for toggling -->
 							<div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 1px;">
-								<ul class="nav navbar-nav">
-										<li>
-												<a ui-sref="rank" class="epl-menu-header">Table</a>
-										</li>
-										<li>
-												<a ui-sref="matchday.list-matchday" ui-sref-opts="{reload: true}"
-													class="epl-menu-header">Matchday</a>
-										</li>
-										<li>
-												<a ui-sref="totw" class="epl-menu-header">Team ot The Week</a>
-										</li>
+								<ul class="nav navbar-nav navbar-right">
+									<li>
+										<a ui-sref="rank" class="epl-menu-header">Table</a>
+									</li>
+									<li>
+										<a ui-sref="matchday.list-matchday" ui-sref-opts="{reload: true}"
+												class="epl-menu-header">Matchday</a>
+									</li>
+									<li>
+										<a ui-sref="totw" class="epl-menu-header">Team ot The Week</a>
+									</li>
+									<li ng-show="!isUserLogged">
+										<div class="btn-group epl-signin-button">
+											<button type="button" class="btn btn-primary dropdown-toggle" 
+											data-toggle="dropdown" aria-expanded="false">
+												Sign In
+												<span class="sr-only"></span>
+											</button>
+											<ul class="dropdown-menu" role="menu">
+												<li>
+													<a class="btn btn-block btn-social btn-google-plus"
+														ng-click="userSignIn('google')">
+														<i class="fa fa-google-plus"></i>Sign in with Google
+													</a>
+												</li>
+												<li class="epl-signin-divider"></li>
+												<li>
+													<a class="btn btn-block btn-social btn-facebook"
+														ng-click="userSignIn('facebook')">
+														<i class="fa fa-facebook"></i> Sign in with Facebook
+													</a>
+												</li>
+											</ul>
+										</div>
+									</li>
+									<li class="epl-signin-onlist" ng-show="!isUserLogged">
+										<a class="btn btn-block btn-social btn-google-plus"
+											ng-click="userSignIn('google')">
+											<i class="fa fa-google-plus"></i>Sign in with Google
+										</a>
+									</li>
+									<li class="epl-signin-onlist" ng-show="!isUserLogged">
+										<a class="btn btn-block btn-social btn-facebook"
+											ng-click="userSignIn('facebook')">
+											<i class="fa fa-facebook"></i> Sign in with Facebook
+										</a>
+									</li>
+									<li class="epl-user-logged-btn" ng-show="isUserLogged">
+										<div ng-include src="'app/html/userprofile.html'"></div>
+									</li>
 								</ul>
 							</div>
 							<!-- /.navbar-collapse -->
 						</div>
 						<!-- /.container -->
 					</nav>
-				</div>
-
-				<div class="epl-displaynone"
-					ng-class="{'epl-displayblock': isAdminLogged, 'epl-displaynone': !isAdminLogged}">
-						<nav class="navbar navbar-static-top" role="navigation">
-							<a href="#/" class="logo"><b>EPL</b> web app</a>
-							<!-- Sidebar toggle button-->
-							<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</a>
-							<div class="navbar-custom-menu">
-								<ul class="nav navbar-nav">
-									<!-- User Account: style can be found in dropdown.less -->
-									<li class="dropdown user user-menu">
-										<a href="" class="dropdown-toggle" data-toggle="dropdown">
-											<span class="glyphicon glyphicon-user" />
-											<b class="caret"></b>
-										</a>
-										<ul class="dropdown-menu">
-											<li class="user-footer">
-												<button class="btn btn-block btn-default epl-profile-btn">
-													<span class="glyphicon glyphicon-lock"/>
-													Password
-												</button>
-											</li>
-											<li class="user-footer">
-												<a class="btn btn-block btn-default epl-profile-btn"
-													href="#/admin/logout">
-													<span class="glyphicon glyphicon-log-out"/>
-													Logout
-												</a>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</div>
-						</nav>
 				</div>
 			</header>
 
@@ -126,12 +140,11 @@
 			<!-- =============================================== -->
 
 			<!-- Right side column. Contains the navbar and content of the page -->
-			<div class="content-wrapper epl-isAdmin"
-				ng-class="{'epl-isAdmin': !isAdminLogged}">
+			<div class="content-wrapper epl-isAdmin">
 				<!-- Main content -->
 				<section class="content">
 					<!-- Default box -->
-					<div class="box" id='epl-main-container'> 
+					<div class="box" id='epl-main-container'>
 						<div class="box-body" ui-view>
 						</div>
 						<div id='epl-eof'/>

@@ -5,7 +5,7 @@
 		.module("app.core")
 		.factory("playerservice", PlayerService);
 
-	// Note: Please read dataservice.js factory before using this factory
+	// Note: Please read dataservice.js factory before using any factory
 	function PlayerService($http, $rootScope, adminauth) {
 
 		var service = {

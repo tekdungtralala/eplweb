@@ -41,4 +41,7 @@ public class ApiPath {
 	
 	public static final String UPLOAD_VIDEO = "/api/upload/video/teamId/{teamId}";
 	public static final String CHANGE_VIDEO_THUMBNAIL = "/api/upload/videothumbnail/teamId/{teamId}";
+	
+	public static final String USER_SESSION = "/api/usernetwork/signin/{session}";
+	public static final String USER_SIGNIN = "/api/usernetwork/signin";
 }

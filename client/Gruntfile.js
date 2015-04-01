@@ -56,6 +56,8 @@ module.exports = function(grunt) {
 		'bower_components/font-awesome/fonts/**',
 	];
 
+	var jqueryUiImages = ['bower_components/jquery-ui/themes/base/images/**']
+
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		watch: {
@@ -74,6 +76,13 @@ module.exports = function(grunt) {
 				flatten: true,
 				src: fontFiles,
 				dest: 'webapp/eplweb_components/fonts',
+				filter: 'isFile'
+			},
+			jqueryUiImages: {
+				expand: true,
+				flatten: true,
+				src: jqueryUiImages,
+				dest: 'webapp/eplweb_components/css/images',
 				filter: 'isFile'
 			}
 		},
@@ -106,7 +115,8 @@ module.exports = function(grunt) {
 		'concat:vendorjs',
 		'concat:appjs',
 		'concat:css',
-		'copy:fonts'
+		'copy:fonts',
+		'copy:jqueryUiImages'
 	]);
 
 }

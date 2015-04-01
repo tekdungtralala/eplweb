@@ -5,7 +5,7 @@
 		.module("app.core")
 		.factory("rankservice", RankService);
 
-		// Note: Please read dataservice.js factory before using this factory
+		// Note: Please read dataservice.js factory before using any factory
 		function RankService(adminauth, $http, $rootScope) {
 			var service = {
 				// Get list or ranks on one week

@@ -15,7 +15,8 @@
 	 *    the spinner loading until the request finished.
 	 */
 	function Dataservice($q, $http, $rootScope, playerservice, adminservice, 
-		teamservice, matchdayservice, rankservice, adminauth) {
+		teamservice, matchdayservice, rankservice, adminauth, socialmedia, 
+		userservice) {
 
 		var isPrimed = false;
 		var primePromise;
@@ -43,6 +44,8 @@
 		$.extend(service, teamservice);
 		$.extend(service, matchdayservice);
 		$.extend(service, rankservice);
+		$.extend(service, socialmedia);
+		$.extend(service, userservice);
 
 		return service;
 

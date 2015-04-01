@@ -6,9 +6,9 @@
 		.controller("AdminLogout", AdminLogout)
 		.controller("AdminLogin", AdminLogin);
 
-	function AdminLogout(dataservice) {
+	function AdminLogout(dataservice, $state) {
 		dataservice.adminLogout();
-		window.location.href = "#/admin/login";
+		$state.go("admin.login", {reload: false});
 	}
 
 	function AdminLogin(dataservice, adminauth) {

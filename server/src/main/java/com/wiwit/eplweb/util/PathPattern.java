@@ -27,8 +27,11 @@ public enum PathPattern {
 	
 	SLIDE_SHOW(new String[]{"GET"}, "/api/images/[\\w\\/]+", false),
 	
+	USER_SIGNUP(new String[]{"POST"}, "/api/usernetwork/signin", false),
+	USER_SESSION(new String[]{"GET", "DELETE"}, "/api/usernetwork/signin/[\\w]+", false),
+	
 	ADMIN_LOGIN(new String[]{"POST"}, "/api/admin/login", false),
-	ADMIN_SESSION(new String[]{"GET"}, "/api/admin/login/[\\w]+", false),
+	ADMIN_SESSION(new String[]{"GET", "DELETE"}, "/api/admin/login/[\\w]+", false),
 	
 	CHART_TEAM_STAT(new String[]{"GET"}, "/api/chart/week/[\\d]+/team/[\\d]+", false),
 	CHART_FIVE_BIGGEST_TEAM(new String[]{"GET"}, "/api/chart/fiveBigestTeam", false),

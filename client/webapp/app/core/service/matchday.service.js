@@ -5,7 +5,7 @@
 		.module("app.core")
 		.factory("matchdayservice", MatchdayService);
 
-		// Note: Please read dataservice.js factory before using this factory
+		// Note: Please read dataservice.js factory before using any factory
 		function MatchdayService($http, $rootScope, adminauth) {
 			
 			var service = {

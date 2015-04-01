@@ -21,7 +21,7 @@ public class User {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String id;
+	private int id;
 
 	@Column(name = "email")
 	private String email;
@@ -31,8 +31,11 @@ public class User {
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	private Set<UserSession> userSessions;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+	private Set<UserNetwork> userNetworks;
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -44,8 +47,18 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
+	
+	@JsonIgnore
+	public Set<UserSession> getUserSessions() {
+		return userSessions;
+	}
+	
+	@JsonIgnore
+	public Set<UserNetwork> getUserNetworks() {
+		return userNetworks;
+	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -58,13 +71,14 @@ public class User {
 		this.password = password;
 	}
 
-	@JsonIgnore
-	public Set<UserSession> getUserSessions() {
-		return userSessions;
-	}
-
 	@JsonProperty
 	public void setUserSessions(Set<UserSession> userSessions) {
 		this.userSessions = userSessions;
 	}
+	
+	@JsonIgnore
+	public void setUserNetworks(Set<UserNetwork> userNetworks) {
+		this.userNetworks = userNetworks;
+	}
+	
 }

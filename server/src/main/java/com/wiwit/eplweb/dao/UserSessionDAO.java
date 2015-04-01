@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.wiwit.eplweb.model.User;
 import com.wiwit.eplweb.model.UserSession;
+import com.wiwit.eplweb.util.UserRoleHelper;
 
 @Service
 public class UserSessionDAO {
@@ -44,9 +45,17 @@ public class UserSessionDAO {
 		Transaction tx = se.beginTransaction();
 
 		// Delete previous session
-		Query q = se.createQuery("DELETE UserSession where user.id = "
-				+ us.getUser().getId() + "");
-		q.executeUpdate();
+		if (us.getUser() != null){
+			Query q = se.createQuery("DELETE UserSession where user.id = "
+					+ us.getUser().getId() + "");
+			q.executeUpdate();
+			us.setRole(UserRoleHelper.getAdminRole());
+		} else if (us.getUserNetwork() != null) {
+			Query q = se.createQuery("DELETE UserSession where userNetwork.id = "
+					+ us.getUserNetwork().getId() + "");
+			q.executeUpdate();
+			us.setRole(UserRoleHelper.getUserRole());
+		}
 
 		// Save new session
 		se.persist(us);

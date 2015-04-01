@@ -2,7 +2,7 @@
 	"use strict";
 
 	angular
-		.module("app.totw")
+		.module("app")
 		.config(configRoute);
 
 	function configRoute($stateProvider) {

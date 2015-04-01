@@ -75,9 +75,9 @@ public class VideoService {
      * @throws FileNotFoundException 
      */
     public static void main(String[] args) throws FileNotFoundException {
-//    	String videoId = doUpload("Chelsea",
-//    		"/home/wiwitaditya/Documents/workspace/api-samples/java/src/main/resources/sample-video.mp4");
-//    	System.out.println("videoId : " + videoId);
+    	String videoId = doUpload("Chelsea",
+    		new FileInputStream("/home/wiwitaditya/Documents/workspace/api-samples/java/src/main/resources/sample-video.mp4"));
+    	System.out.println("videoId : " + videoId);
     	
 //    	doChangeThumbnail("fMF7-oTzAq4", new FileInputStream("/home/wiwitaditya/Downloads/eplcustomlogo.jpg"));
     }
@@ -159,6 +159,7 @@ public class VideoService {
             t.printStackTrace();
         }
     }
+    
     
     public static void doDelete(String videoId) {
         // This OAuth 2.0 access scope allows for full read/write access to the

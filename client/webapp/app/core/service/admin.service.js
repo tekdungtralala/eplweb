@@ -5,7 +5,7 @@
 		.module("app.core")
 		.factory("adminservice", AdminService);
 
-	// Note: Please read dataservice.js factory before using this factory
+	// Note: Please read dataservice.js factory before using any factory
 	function AdminService($http, $rootScope, adminauth) {
 		var service = {
 			// Send admin login request
@@ -41,9 +41,9 @@
 
 			function process(result) {
 				if (200 === result.status){
-					$rootScope.isAdminLogged = true; 
+					$rootScope.isUserLogged = true; 
 				} else {
-					$rootScope.isAdminLogged = false; 
+					$rootScope.isUserLogged = false; 
 				}
 
 				return result;
@@ -51,7 +51,7 @@
 		}
 
 		function adminCekLogin() {
-			$rootScope.isAdminLogged = false;
+			$rootScope.isUserLogged = false;
 
 			var session = adminauth.getAdminSession();
 			if (session) {
@@ -65,9 +65,9 @@
 
 			function process(result) {
 				if (200 === result.status){
-					$rootScope.isAdminLogged = true; 
+					$rootScope.isUserLogged = true; 
 				} else {
-					$rootScope.isAdminLogged = false; 
+					$rootScope.isUserLogged = false; 
 				}
 				return result;
 			}
@@ -76,13 +76,15 @@
 		function adminLogout() {
 			// Remove server authentication
 			var session = adminauth.getAdminSession();
-			$rootScope.promise = $http.delete("api/admin/login/" + session);
+			if (session) {
+				$rootScope.promise = $http.delete("api/admin/login/" + session);
 
-			// Remove local authentication
-			adminauth.delAdminSession();
-			$rootScope.isAdminLogged = false; 
-			$("body").removeClass("sidebar-collapse");
-			$("body").removeClass("sidebar-open");
+				// Remove local authentication
+				adminauth.delAdminSession();
+				$rootScope.isUserLogged = false; 
+				$("body").removeClass("sidebar-collapse");
+				$("body").removeClass("sidebar-open");
+			}
 		}
 
 		function hasAdminRole() {

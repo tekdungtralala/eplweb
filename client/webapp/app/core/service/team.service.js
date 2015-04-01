@@ -5,7 +5,7 @@
 		.module("app.core")
 		.factory("teamservice", TeamService);
 
-	// Note: Please read dataservice.js factory before using this factory
+	// Note: Please read dataservice.js factory before using any factory
 	function TeamService($http, $rootScope, adminauth) {
 		var service = {
 			// Get all team

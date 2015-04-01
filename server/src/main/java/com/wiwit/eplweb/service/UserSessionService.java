@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.wiwit.eplweb.dao.UserSessionDAO;
 import com.wiwit.eplweb.model.User;
+import com.wiwit.eplweb.model.UserNetwork;
 import com.wiwit.eplweb.model.UserSession;
 
 @Component
@@ -27,6 +28,20 @@ public class UserSessionService {
 	public UserSession doLogin(User user) {
 		UserSession us = new UserSession();
 		us.setUser(user);
+		us.setLoginTime(new Date());
+
+		String uuid = UUID.randomUUID().toString();
+		us.setSession(uuid.replace("-", ""));
+
+		userSessionDAO.saveSession(us);
+
+		return us;
+	}
+	
+	@Transactional
+	public UserSession doLogin(UserNetwork user) {
+		UserSession us = new UserSession();
+		us.setUserNetwork(user);
 		us.setLoginTime(new Date());
 
 		String uuid = UUID.randomUUID().toString();
