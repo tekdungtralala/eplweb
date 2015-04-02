@@ -527,6 +527,26 @@ table.epl-table > tbody > tr > td {
 	font-size: 12px;
 	font-style: italic;
 }
+.epl-matchday .epl-table {
+	margin-bottom: 0px;
+}
+
+.epl-matchday .epl-include-rating {
+	float: right;
+}
+.epl-matchday .epl-rating-info {
+	float: left;
+	padding: 0px 5px 0px 10px;
+	margin-bottom: 0px;
+}
+.epl-matchday .epl-ratings div {
+	float: left;
+	padding-top: 2px;
+}
+.epl-matchday .epl-ratings div button {
+	background-color: inherit;
+	border: none;
+}
 
 .epl-edit-score {
 	width: 35px;

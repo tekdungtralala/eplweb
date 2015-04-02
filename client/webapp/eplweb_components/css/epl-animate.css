@@ -1,8 +1,10 @@
-.epl-matchdays-phase-nav.ng-hide-add {
+.epl-matchdays-phase-nav.ng-hide-add,
+.epl-matchday .epl-rating-info.ng-hide-add{
 	-webkit-animation: 0.3s flipOutX ease;
 	animation: 0.3s flipOutX ease;
 }
-.epl-matchdays-phase-nav.ng-hide-remove {
+.epl-matchdays-phase-nav.ng-hide-remove ,
+.epl-matchday .epl-rating-info.ng-hide-remove{
 	-webkit-animation: 0.5s flipInX ease;
 	animation: 0.5s flipInX ease;
 }
