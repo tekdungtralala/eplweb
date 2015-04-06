@@ -15,10 +15,22 @@
 				//  by server.
 				updateMatchdays: updateMatchdays,
 				// Update score of one matchday
-				updateScore: updateScore
+				updateScore: updateScore,
+				// Update rating of one matchday
+				updateRating: updateRating
 			};
 
 			return service;
+
+			function updateRating(matchdayId, obj) {
+				var req = adminauth.getConf(obj, "POST", 
+					"api/matchday/" + matchdayId + "/updateRating");
+
+				$rootScope.promise = $http(req)
+						.then(process)
+						.catch(process);
+				return $rootScope.promise;
+			}
 
 			function getMatchdayByWeekNmr(weekNumber) {
 				var query = "";
@@ -41,8 +53,8 @@
 				return $rootScope.promise;
 			}
 
-			function updateScore(matchdayId, updateScore) {
-				var req = adminauth.getConf(updateScore, "PUT", 
+			function updateScore(matchdayId, obj) {
+				var req = adminauth.getConf(obj, "PUT", 
 					"api/matchday/" + matchdayId + "/updateScore");
 
 				$rootScope.promise = $http(req)

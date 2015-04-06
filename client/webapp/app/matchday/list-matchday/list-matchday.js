@@ -5,7 +5,7 @@
 		.module("app.matchday")
 		.controller("List-Matchday", ListMatchday);
 
-	function ListMatchday(initData, $scope, $rootScope) {
+	function ListMatchday(initData, dataservice, $scope, $rootScope) {
 		$rootScope.$broadcast("state-btn", "list-matchday");
 		$rootScope.$broadcast("show-phase-nav", true);
 
@@ -14,6 +14,7 @@
 		vm.model = null;
 
 		vm.subaAtionDiv = [];
+		var selectedMatchdayId = null;
 		
 		vm.ratings = [];
 		var maxRating = 5;
@@ -33,9 +34,17 @@
 			modifyEachMatch();
 		}
 
-		function submitRating(index) {
+		function submitRating(rating) {
 			vm.showInfoRating = false;
-			console.log("submitRating : ", index);
+
+			var ratingObj = {
+				rating: rating
+			}
+			dataservice.updateRating(selectedMatchdayId, ratingObj)
+				.then(afterSubmitRating);
+		}
+
+		function afterSubmitRating() {
 			vm.showInfoRating = true;
 		}
 
@@ -72,6 +81,7 @@
 		}
 
 		function toggleActionDiv(match) {
+			selectedMatchdayId = match.id;
 			_.each(allMatch, function(m) {
 				m.showActionDiv = false;
 			});
