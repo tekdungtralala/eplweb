@@ -14,9 +14,6 @@
 		vm.model = null;
 
 		vm.subaAtionDiv = [];
-		vm.subaAtionDiv[0] = true;
-		vm.subaAtionDiv[1] = false;
-		vm.subaAtionDiv[2] = false;
 		
 		vm.ratings = [];
 		var maxRating = 5;
@@ -33,14 +30,7 @@
 		activate();
 		function activate() {
 			vm.model = initData.matchdayModelView.model;
-			var i = 0;
-			_.each(vm.model, function(m) {
-				_.each(m, function(match) {
-					match.showActionDiv = false;
-
-					allMatch.push(match);
-				});
-			});
+			modifyEachMatch();
 		}
 
 		function submitRating(index) {
@@ -85,7 +75,7 @@
 			_.each(allMatch, function(m) {
 				m.showActionDiv = false;
 			});
-			match.showActionDiv = !match.showActionDiv;
+			match.showActionDiv = true;
 		}
 
 		function toggleSubcActionDiv(match, activeIndex) {
@@ -97,7 +87,24 @@
 
 		function modelChangeListener(event, model) {
 			vm.model = model;
+			modifyEachMatch();
 		}
+
+		function modifyEachMatch() {
+			var i = 0;
+			allMatch = [];
+			_.each(vm.model, function(m) {
+				_.each(m, function(match) {
+					match.showActionDiv = false;
+
+					allMatch[i] = match;
+					i++;
+				});
+			});
+			vm.subaAtionDiv[0] = true;
+			vm.subaAtionDiv[1] = false;
+			vm.subaAtionDiv[2] = false;
+		}
+
 	}
-	
 })();
