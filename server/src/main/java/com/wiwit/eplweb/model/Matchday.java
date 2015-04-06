@@ -13,6 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
+import com.google.api.services.youtube.YouTube.Thumbnails.Set;
+
 @Entity
 @Table(name = "matchday")
 public class Matchday {
@@ -51,6 +55,12 @@ public class Matchday {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "week_id", nullable = false)
 	private Week week;
+
+	@Column(name = "total_rating")
+	private Integer totalRating;
+	
+	@Column(name = "rating_point")
+	private Float ratingPoint;
 
 	public int getId() {
 		return id;
@@ -130,5 +140,20 @@ public class Matchday {
 
 	public void setWeek(Week week) {
 		this.week = week;
+	}
+	
+	@JsonIgnore
+	public Integer getTotalRating() {
+		return totalRating;
+	}
+	public void setTotalRating(Integer totalRating) {
+		this.totalRating = totalRating;
+	}
+	
+	public Float getRatingPoint() {
+		return ratingPoint;
+	}
+	public void setRatingPoint(Float ratingPoint) {
+		this.ratingPoint = ratingPoint;
 	}
 }

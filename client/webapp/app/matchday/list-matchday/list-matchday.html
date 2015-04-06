@@ -52,22 +52,30 @@
 				</button>
 				<button type="button" class="btn btn-warning btn-xs"
 					ng-click="vm.preUpdateRating(m);">
-					<i class="fa fa-star">&nbsp;4.5</i>
+					<i class="fa fa-star">&nbsp;{{m.ratingPoint}}</i>
 				</button>
 			</td>
 		</tr>
 		<tr ng-show="m.showActionDiv">
 			<td colspan="10" class="epl-right">
-				<div ng-include src="'app/matchday/list-matchday/update-rating.html'"
-					ng-show="vm.subaAtionDiv[0]" class="epl-include-rating">
+				<div ng-show="vm.subaAtionDiv[0]" class="epl-include-rating">
+					<div ng-include src="'app/matchday/list-matchday/update-rating.html'"
+						ng-show="isUserLogged"/>
+					<div ng-show="!isUserLogged">
+						Please Signin into web to submit the rating.
+					</div>
 				</div>
 				<div class='clearfix'></div>
 				<div ng-include src="'app/matchday/list-matchday/comments.html'"
 					ng-show="vm.subaAtionDiv[1]">
 				</div>
 				<div class='clearfix'></div>
-				<div ng-include src="'app/matchday/list-matchday/voting.html'"
-					ng-show="vm.subaAtionDiv[2]">
+				<div ng-show="vm.subaAtionDiv[2]">
+					<div ng-include src="'app/matchday/list-matchday/voting.html'"
+						ng-show="isUserLogged"/>
+					<div ng-show="!isUserLogged">
+						Please Signin into web to submit the voting.
+					</div>
 				</div>
 				<div class='clearfix'></div>
 			</td>

@@ -95,7 +95,7 @@
 			allMatch = [];
 			_.each(vm.model, function(m) {
 				_.each(m, function(match) {
-					match.showActionDiv = false;
+					match.ratingPoint = match.ratingPoint.toFixed(2);
 
 					allMatch[i] = match;
 					i++;

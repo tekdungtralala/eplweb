@@ -21,7 +21,7 @@ public class MatchDayTest {
 				System.out.println(m.getTime() + " : " + m.getHomeTeam().getName() + " vs "
 						+ m.getAwayTeam().getName());
 			}
-		}		
+		}
 	}
 
 	public static void main(String[] asdf) throws JsonGenerationException, JsonMappingException, IOException {
