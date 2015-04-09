@@ -55,7 +55,7 @@ public class MatchdayController extends BaseController {
 	}
 	
 	@RequestMapping(value = ApiPath.MATCHDAYS_CHANGE_RATING, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
-	public void updateRATING(@PathVariable("matchdayId") int matchdayId,
+	public ResponseEntity updateRATING(@PathVariable("matchdayId") int matchdayId,
 			HttpServletRequest req, @RequestBody RatingModelInput rating) {
 		logger.info("PUT /api/matchday/" + matchdayId + "/updateRating");
 		
@@ -68,21 +68,25 @@ public class MatchdayController extends BaseController {
 		
 		
 //		matchdayService.updateScore(matchdayId, updateScore);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = ApiPath.MATCHDAYS_CHANGE_SCORE, method = RequestMethod.PUT, consumes = CONTENT_TYPE_JSON)
-	public void updateScore(@PathVariable("matchdayId") int matchdayId,
+	public ResponseEntity updateScore(@PathVariable("matchdayId") int matchdayId,
 			@RequestBody ScoreModelInput updateScore) {
 		logger.info("PUT /api/matchday/" + matchdayId + "/updateScore");
 		
 		matchdayService.updateScore(matchdayId, updateScore);
+		
+		return new ResponseEntity(HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = ApiPath.MATCHDAYS_CHANGE_SCHEDULE, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
-	public void updateMatchdays(@PathVariable("weekNumber") int weekNumber,
+	public ResponseEntity updateMatchdays(@PathVariable("weekNumber") int weekNumber,
 			@RequestBody List<MatchdayModelInput> matchs) {
 		logger.info("POST /api/updateMatchday/" + weekNumber);
 		
 		matchdayService.updateMatchdays(weekNumber, matchs);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 }

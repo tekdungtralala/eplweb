@@ -72,20 +72,21 @@ public class SquadController extends BaseController {
 	}
 
 	@RequestMapping(value = ApiPath.SQUAD_BY_ID, method = RequestMethod.PUT, consumes = CONTENT_TYPE_JSON)
-	public void putPlayer(@PathVariable("playerId") int playerId,
+	public ResponseEntity putPlayer(@PathVariable("playerId") int playerId,
 			@RequestBody final Player player) {
 		logger.info("PUT /api/players/" + playerId);
 
 		playerService.updatePlayer(playerId, player);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = ApiPath.SQUADS_BY_TEAM, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
-	public SimpleResult getFiveHighestRank(@PathVariable("teemId") int teamId)
+	public ResponseEntity<SimpleResult> getFiveHighestRank(@PathVariable("teemId") int teamId)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("GET /api/players/team/" + teamId);
 
 		List<Player> result = playerService.getSquadsByTeamId(teamId);
 
-		return SimpleResult.generateResult(result);
+		return new ResponseEntity(SimpleResult.generateResult(result),HttpStatus.OK);
 	}
 }

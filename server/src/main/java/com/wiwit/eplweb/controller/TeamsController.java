@@ -8,6 +8,8 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,20 +30,21 @@ public class TeamsController extends BaseController {
 	public TeamService teamService;
 
 	@RequestMapping(value = ApiPath.TEAMS, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
-	public SimpleResult getFiveHighestRank() throws JsonGenerationException,
+	public ResponseEntity<SimpleResult> getFiveHighestRank() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/teams");
 
 		List<Team> result = teamService.findAll();
 
-		return SimpleResult.generateResult(result);
+		return new ResponseEntity(SimpleResult.generateResult(result), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = ApiPath.TEAMS_BY_ID, method = RequestMethod.PUT, consumes = CONTENT_TYPE_JSON)
-	public void putTeam(@PathVariable("teamId") int teamId, @RequestBody Team team){
+	public ResponseEntity putTeam(@PathVariable("teamId") int teamId, @RequestBody Team team){
 		logger.info("PUT /api/teams/" + teamId);
 		
 		teamService.updateTeam(teamId, team);
 		
+		return new ResponseEntity(HttpStatus.OK);
 	}
 }

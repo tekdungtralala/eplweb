@@ -49,22 +49,23 @@ public class SlideShowController extends BaseController {
 	private ImageService imageService;
 
 	@RequestMapping(value = ApiPath.IMAGES_SORTED, method = RequestMethod.PUT, consumes = CONTENT_TYPE_JSON)
-	public void sortedImage(
+	public ResponseEntity sortedImage(
 			@RequestBody List<SortedImageModelInput> sortedImages) {
 		logger.info("PUT /api/images/sortedImage size=" + sortedImages.size());
 		imageService.saveImageOrder(sortedImages);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = ApiPath.IMAGES, method = RequestMethod.DELETE)
 	@ResponseBody
-	public void deleteImageById(@PathVariable("imageId") int imageId,
+	public ResponseEntity deleteImageById(@PathVariable("imageId") int imageId,
 			HttpServletResponse res, HttpServletRequest req) throws IOException {
 		logger.info("DELETE /api/images/" + imageId);
 		String it = req.getParameter(WebappProps.getImageTypeKey());
 
 		if (it == null) {
 			res.sendError(404);
-			return;
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 
 		ImageType imageType = null;
@@ -72,18 +73,17 @@ public class SlideShowController extends BaseController {
 			imageType = ImageType.valueOf(it.toUpperCase());
 		} catch (Exception e) {
 			res.sendError(404);
-			return;
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 
 		if (imageType == null) {
 			res.sendError(404);
-			return;
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 
 		Image image = imageService.findById(imageId);
 		if (image == null) {
-			res.sendError(200);
-			return;
+			return new ResponseEntity(HttpStatus.OK);
 		}
 
 		String imagePath = WebappProps.getImageFileDir()
@@ -111,16 +111,16 @@ public class SlideShowController extends BaseController {
 			}
 
 			logger.info("DELETE /api/images/" + imageId + ", success");
+			return new ResponseEntity(HttpStatus.OK);
 
 		} catch (Exception e) {
-			res.sendError(200);
-			return;
+			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@RequestMapping(value = ApiPath.IMAGES, method = RequestMethod.GET)
 	@ResponseBody
-	public void getImageById(@PathVariable("imageId") int imageId,
+	public ResponseEntity getImageById(@PathVariable("imageId") int imageId,
 			HttpServletResponse response) throws IOException {
 
 		logger.info("GET /api/images/" + imageId);
@@ -128,8 +128,7 @@ public class SlideShowController extends BaseController {
 		Image image = imageService.findById(imageId);
 
 		if (image == null) {
-			response.sendError(404);
-			return;
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 
 		String imageDir = WebappProps.getImageFileDir();
@@ -138,6 +137,8 @@ public class SlideShowController extends BaseController {
 		InputStream is = new FileInputStream(imagePath);
 		org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
 		response.flushBuffer();
+		
+		return new ResponseEntity(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = ApiPath.SLIDE_SHOW, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)

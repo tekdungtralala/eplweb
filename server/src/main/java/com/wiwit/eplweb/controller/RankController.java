@@ -63,9 +63,10 @@ public class RankController extends BaseController {
 	}
 	
 	@RequestMapping(value = ApiPath.UPDATE_RANK, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
-	public void updateRank(@RequestBody RankModelInput ur) {
+	public ResponseEntity updateRank(@RequestBody RankModelInput ur) {
 		logger.info("POST /api/updateRanks weekNumber=" + ur.getWeekNumber());
 		
 		rankService.updateRanking(1, ur.getWeekNumber());
+		return new ResponseEntity(HttpStatus.OK);
 	}
 }
