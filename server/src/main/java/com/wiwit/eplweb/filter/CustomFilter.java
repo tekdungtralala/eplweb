@@ -58,8 +58,12 @@ public class CustomFilter implements Filter {
 
 				Session s = service.findBySession(authVal);
 				if ( s != null) {
-					req.setAttribute(SESSION_ID, s.getId());
-					chain.doFilter(rq, rs);
+					if (s.getRole() == p.getRole()) {
+						req.setAttribute(SESSION_ID, s.getId());
+						chain.doFilter(rq, rs);
+					} else {
+						res.setStatus(HttpStatus.FORBIDDEN.value());
+					}
 				} else {
 					res.setStatus(HttpStatus.FORBIDDEN.value());
 				}

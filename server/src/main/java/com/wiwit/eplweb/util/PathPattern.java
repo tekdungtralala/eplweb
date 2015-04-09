@@ -4,21 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum PathPattern {
-	// Secured path	
-	SQUAD_BY_ID(new String[]{"PUT", "DELETE"}, "/api/players/[\\d]+", true),
-	SQUAD(new String[]{"POST"}, "/api/players", true),
-	TEAMS_BY_ID(new String[]{"PUT"}, "/api/teams/[\\d]+", true),
+	// Admin Secured path	
+	SQUAD_BY_ID(new String[]{"PUT", "DELETE"}, "/api/players/[\\d]+", true, UserRoleHelper.getAdminRole()),
+	SQUAD(new String[]{"POST"}, "/api/players", true, UserRoleHelper.getAdminRole()),
+	TEAMS_BY_ID(new String[]{"PUT"}, "/api/teams/[\\d]+", true, UserRoleHelper.getAdminRole()),
 	
-	MATCHDAYS_CHANGE_SCORE(new String[]{"PUT"}, "/api/matchday/[\\d]+/updateScore", true),
-	MATCHDAYS_CHANGE_RATING(new String[]{"POST"}, "/api/matchday/[\\d]+/updateRating", true),
-	MATCHDAYS_CHANGE_SCHEDULE(new String[]{"POST"}, "/api/updateMatchday/[\\d]+", true),
+	MATCHDAYS_CHANGE_SCORE(new String[]{"PUT"}, "/api/matchday/[\\d]+/updateScore", true, UserRoleHelper.getAdminRole()),
 	
-	UPDATE_RANK(new String[]{"POST"}, "/api/updateRanks", true),
+	MATCHDAYS_CHANGE_SCHEDULE(new String[]{"POST"}, "/api/updateMatchday/[\\d]+", true, UserRoleHelper.getAdminRole()),
 	
-	UPLOAD_FILES(new String[]{"POST"}, "/api/upload/[\\w\\/]+", true),	
-	DELETE_IMAGE(new String[]{"DELETE"}, "/api/images/[\\d]+", true),
-	SORTED_IMAGE(new String[]{"PUT"}, "/api/images/sortedImage", true),
+	UPDATE_RANK(new String[]{"POST"}, "/api/updateRanks", true, UserRoleHelper.getAdminRole()),
 	
+	UPLOAD_FILES(new String[]{"POST"}, "/api/upload/[\\w\\/]+", true, UserRoleHelper.getAdminRole()),	
+	DELETE_IMAGE(new String[]{"DELETE"}, "/api/images/[\\d]+", true, UserRoleHelper.getAdminRole()),
+	SORTED_IMAGE(new String[]{"PUT"}, "/api/images/sortedImage", true, UserRoleHelper.getAdminRole()),
+	
+	// User Secured path
+	MATCHDAYS_CHANGE_RATING(new String[]{"POST"}, "/api/matchday/[\\d]+/updateRating", true, UserRoleHelper.getUserRole()),
 	
 	
 	// Unsecured path
@@ -60,6 +62,7 @@ public enum PathPattern {
 	private final String requestPattern;
 	private final List<String> methods;
 	private final boolean securedPath;
+	private final int role;
 
 	private PathPattern(String[] methods, String requestPattern,
 			boolean securedPath) {
@@ -73,6 +76,21 @@ public enum PathPattern {
 		
 		this.requestPattern = requestPattern;
 		this.securedPath = securedPath;
+		this.role = UserRoleHelper.getAnonymousRole();
+	}
+	
+	private PathPattern(String[] methods, String requestPattern,
+			boolean securedPath, int role) {
+		this.methods = new ArrayList<String>();
+		if (methods != new String[]{"GET"} && methods.length > 0) {
+			for(String m : methods){
+				this.methods.add(m);
+			}			
+		}
+		
+		this.requestPattern = requestPattern;
+		this.securedPath = securedPath;
+		this.role = role;
 	}
 
 	public String getRequestPattern() {
@@ -85,6 +103,10 @@ public enum PathPattern {
 	
 	public List<String> getMethods() {
 		return methods;
+	}
+	
+	public int getRole() {
+		return role;
 	}
 	
 }

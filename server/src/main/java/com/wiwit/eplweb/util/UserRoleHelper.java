@@ -3,16 +3,16 @@ package com.wiwit.eplweb.util;
 public class UserRoleHelper {
 
 	public enum UserRoleType {
-		ADMIN, USER
+		ANONYMOUS, ADMIN, USER
 	}
 
-	public static int getRole(UserRoleType type) {
+	protected static int getRole(UserRoleType type) {
 
 		if (type.equals(UserRoleType.ADMIN))
 			return 1;
 		else if (type.equals(UserRoleType.USER))
 			return 2;
-		return 0;
+		return 0; // ANONYMOUS
 	}
 
 	public static int getAdminRole() {
@@ -21,5 +21,9 @@ public class UserRoleHelper {
 	
 	public static int getUserRole() {
 		return getRole(UserRoleType.USER);
+	}
+	
+	public static int getAnonymousRole() {
+		return getRole(UserRoleType.ANONYMOUS);
 	}
 }

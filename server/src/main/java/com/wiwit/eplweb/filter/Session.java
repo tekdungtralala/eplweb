@@ -1,7 +1,6 @@
 package com.wiwit.eplweb.filter;
 
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,12 +24,11 @@ public class Session {
 	@Column(name = "login_time")
 	private Date loginTime;
 
+	@Column(name = "role")
+	private int role;
+
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getSession() {
@@ -41,11 +39,23 @@ public class Session {
 		return loginTime;
 	}
 
+	public int getRole() {
+		return role;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public void setSession(String session) {
 		this.session = session;
 	}
 
 	public void setLoginTime(Date loginTime) {
 		this.loginTime = loginTime;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
 	}
 }
