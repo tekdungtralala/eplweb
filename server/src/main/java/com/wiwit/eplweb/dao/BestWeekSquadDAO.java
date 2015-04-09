@@ -16,8 +16,10 @@ public class BestWeekSquadDAO {
 	private SessionFactory sessionFactory;
 
 	public List<BestWeekSquad> findBestSquadByWeekId(int weekId) {
-		Session session = this.sessionFactory.getCurrentSession();
-		return session.createQuery(
+		Session session = this.sessionFactory.openSession();
+		List<BestWeekSquad> result =  session.createQuery(
 				"from BestWeekSquad where week.id = " + weekId + " order by number asc").list();
+		session.close();
+		return result;
 	}
 }

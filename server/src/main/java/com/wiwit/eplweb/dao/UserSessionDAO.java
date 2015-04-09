@@ -24,16 +24,19 @@ public class UserSessionDAO {
 
 	@Transactional
 	public List<UserSession> findAll() {
-		Session session = this.sessionFactory.getCurrentSession();
-		return session.createQuery("from UserSession").list();
+		Session session = this.sessionFactory.openSession();
+		List<UserSession> result =  session.createQuery("from UserSession").list();
+		session.close();
+		return result;
 	}
 	
 	@Transactional
 	public UserSession findById(int id) {
-		Session se = this.sessionFactory.getCurrentSession();
+		Session se = this.sessionFactory.openSession();
 		List<UserSession> list = se.createQuery(
 				"from UserSession where id=" + id + "").list();
 
+		se.close();
 		if (list != null && list.size() > 0)
 			return list.get(0);
 		return null;
@@ -41,10 +44,10 @@ public class UserSessionDAO {
 
 	@Transactional
 	public UserSession findBySession(String session) {
-		Session se = this.sessionFactory.getCurrentSession();
+		Session se = this.sessionFactory.openSession();
 		List<UserSession> list = se.createQuery(
 				"from UserSession where session='" + session + "'").list();
-
+		se.close();
 		if (list != null && list.size() > 0)
 			return list.get(0);
 		return null;
@@ -52,7 +55,7 @@ public class UserSessionDAO {
 
 	@Transactional
 	public void saveSession(UserSession us) {
-		Session se = sessionFactory.openSession();
+		Session se = this.sessionFactory.openSession();
 		Transaction tx = se.beginTransaction();
 
 		// Delete previous session
@@ -77,10 +80,11 @@ public class UserSessionDAO {
 
 	@Transactional
 	public void deleteSession(String session) {
-		Session se = this.sessionFactory.getCurrentSession();
+		Session se = this.sessionFactory.openSession();
 		Query q = se.createQuery("DELETE UserSession where session = '"
 				+ session + "'");
 		q.executeUpdate();
+		se.close();
 	}
 
 }

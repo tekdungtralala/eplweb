@@ -21,13 +21,18 @@ public class SeasonDAO {
 	private SessionFactory sessionFactory;
 
 	public List<Season> findAllSeason() {
-		Session session = this.sessionFactory.getCurrentSession();
-		return session.createQuery("from Season").list();
+		Session session = this.sessionFactory.openSession();
+		List<Season> result = session.createQuery("from Season").list();
+		session.close();
+		return result;
 	}
 
 	public Season findSeasonById(Object id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		return (Season) session.createQuery("from Season where id = " + id)
+		Session session = this.sessionFactory.openSession();
+		Season result = (Season) session.createQuery("from Season where id = " + id)
 				.list().get(0);
+		
+		session.close();		
+		return result;
 	}
 }

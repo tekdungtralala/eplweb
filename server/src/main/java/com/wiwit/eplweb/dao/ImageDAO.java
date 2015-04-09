@@ -25,17 +25,19 @@ public class ImageDAO {
 
 	@Transactional
 	public void saveImage(Image image) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		session.persist(image);
+		session.close();
 	}
 
 	@Transactional
 	public List<Image> findAllByTeamId(int teamId, ImageType imageType) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		List<Image> result = session.createQuery(
 				"from Image where team.id=" + teamId + " and imageType='"
 						+ imageType.toString() + "' order by position asc").list();
 
+		session.close();
 		if (result == null || result.size() == 0) {
 			logger.info("Can't find slide show with teamId=" + teamId);
 			return null;
@@ -46,10 +48,11 @@ public class ImageDAO {
 
 	@Transactional
 	public Image findById(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		List<Image> result = session.createQuery("from Image where id=" + id)
 				.list();
 
+		session.close();
 		if (result == null || result.size() == 0) {
 			logger.info("Can't find slide show with id=" + id);
 			return null;
@@ -60,15 +63,17 @@ public class ImageDAO {
 
 	@Transactional
 	public void deleteImage(Image image) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		session.delete(image);
+		session.close();
 	}
 
 	@Transactional
 	public void updateMore(List<Image> images) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		for (Image i : images) {
 			session.update(i);
 		}
+		session.close();
 	}
 }

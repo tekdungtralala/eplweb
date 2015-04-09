@@ -23,37 +23,43 @@ public class WeekDAO {
 
 	@Transactional
 	public List<Week> findLastFiveWeek() {
-		Session session = this.sessionFactory.getCurrentSession();
-		return session.createQuery("from Week order by startDay")
+		Session session = this.sessionFactory.openSession();
+		List<Week> result =  session.createQuery("from Week order by startDay")
 				.setMaxResults(5).list();
+		
+		session.close();
+		return result;
 	}
 
 	@Transactional
 	public Week findByWeekNmr(int weekNumber) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		Week result = (Week) session.createQuery("from Week where weekNumber = " + weekNumber)
 				.setMaxResults(1).list().get(0);
+		session.close();
 		return result;
 	}
 
 	@Transactional
 	public List<Week> findAllWeek() {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		List<Week> result = session.createQuery(
 				"from Week order by startDay desc").list();
 		logger.info("Week loaded successfully, weeks size=" + result.size());
+		session.close();
 		return result;
 	}
 
 	@Transactional
 	public List<Week> findAllPassedWeek(int prevWeek) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 
 		List<Week> result = session.createQuery(
 				"from Week as w where w.weekNumber <= " + prevWeek
 						+ " order by w.weekNumber desc").list();
 
 		logger.info("Week loaded successfully, weeks size=" + result.size());
+		session.close();
 		return result;
 	}
 }

@@ -25,17 +25,18 @@ public class RankDAO {
 
 	@Transactional
 	public List<Rank> findRankByWeekNumber(int weekNumber) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		List<Rank> result = session.createQuery(
 				"from Rank as r where r.week.weekNumber = " + weekNumber
 						+ " ORDER BY r.points DESC").list();
 		logger.info("Rank loaded successfully, ranks size=" + result.size());
+		session.close();
 		return result;
 	}
 
 	@Transactional
 	public Rank findTeamRankByWeeknumber(int teamId, int weekNumber) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		List<Rank> list = session.createQuery(
 				"from Rank as r where r.week.weekNumber = " + weekNumber
 						+ " and r.team.id=" + teamId).list();
@@ -46,16 +47,18 @@ public class RankDAO {
 		}
 		Rank result = list.get(0);
 		logger.info("Rank loaded successfully, rank.id" + result.getId());
+		session.close();
 		return result;
 	}
 	
 	@Transactional
 	public void updateMoreRank(HashMap<Integer, List<Rank>> rankMap) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		for (Integer key : rankMap.keySet()) {
 			for(Rank r : rankMap.get(key)) {
 				session.update(r);
 			}
 		}
+		session.close();
 	}
 }

@@ -23,10 +23,11 @@ public class PhaseDAO {
 
 	@Transactional
 	private Phase findPhaseByKey(PhaseKey phaseKey) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		List<Phase> results = session
 				.createQuery("from Phase where key like '" + phaseKey.toString()+"'")
 				.setMaxResults(1).list();
+		session.close();
 		return results.get(0);
 	}
 

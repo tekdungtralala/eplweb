@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +41,12 @@ public class MatchdayDAO {
 
 	@Transactional
 	public List<Matchday> findMatchtdayByWeekNmr(int weekNumber) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 
 		List<Matchday> result = session.createQuery(findMatchdayByWeekNmr(weekNumber)).list();
 		logger.info("Matchday loaded successfully, matchdays size="
 				+ result.size());
+		session.close();
 		return result;
 	}
 	
@@ -55,7 +57,7 @@ public class MatchdayDAO {
 	
 	@Transactional
 	public Matchday findMatchtdayById(int matchdayId) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 
 		List<Matchday> result = session.createQuery(
 				"from Matchday as m where m.id = " + matchdayId).list();
@@ -63,18 +65,21 @@ public class MatchdayDAO {
 			logger.info("Can't find matchday with id="+ matchdayId);
 			return null;
 		}
+		session.close();
 		return result.get(0);
 	}
 	
 	@Transactional
 	public void updateMatchday(Matchday matchday) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		session.update(matchday);
+		session.close();
 	}
 	
 	@Transactional
 	public void saveMoreMatchday(int weekNumber, List<Matchday> matchdays) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
 		
 		// Delete old data
 		List<Matchday> result = session.createQuery(findMatchdayByWeekNmr(weekNumber)).list();
@@ -86,5 +91,7 @@ public class MatchdayDAO {
 		for(Matchday m : matchdays) {
 			session.persist(m);
 		}
+		tx.commit();
+		session.close();
 	}
 }

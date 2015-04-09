@@ -19,46 +19,55 @@ public class PlayerDAO {
 
 	@Transactional
 	public List<Player> findSquadsByTeamId(int teamId) {
-		Session session = this.sessionFactory.getCurrentSession();
-		return session.createQuery(
+		Session session = this.sessionFactory.openSession();
+		List<Player> result = session.createQuery(
 				"from Player where team.id=" + teamId
 						+ " order by playerNumber asc").list();
+		session.close();
+		return result;
 	}
-	
+
 	@Transactional
-	public Player findById(int id){
-		Session session = this.sessionFactory.getCurrentSession();
-		List<Player> result = session.createQuery("from Player where id=" + id).list();
+	public Player findById(int id) {
+		Session session = this.sessionFactory.openSession();
+		List<Player> result = session.createQuery("from Player where id=" + id)
+				.list();
+		session.close();
 		return result.get(0);
 	}
 
 	@Transactional
 	public void updatePlayer(Player player) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		session.update(player);
+		session.close();
 	}
-	
+
 	@Transactional
 	public void savePlayer(Player player) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(player);		
+		Session session = this.sessionFactory.openSession();
+		session.persist(player);
+		session.close();
 	}
-	
+
 	@Transactional
-	public Player findByTeamAndNumber(int teamId, int playerNumber){
-		Session session = this.sessionFactory.getCurrentSession();
-		List<Player> result = session.createQuery("from Player where team.id=" + teamId 
-				+ " and playerNumber=" + playerNumber).list();
-		
+	public Player findByTeamAndNumber(int teamId, int playerNumber) {
+		Session session = this.sessionFactory.openSession();
+		List<Player> result = session.createQuery(
+				"from Player where team.id=" + teamId + " and playerNumber="
+						+ playerNumber).list();
+
+		session.close();
 		if (result == null || result.size() == 0)
 			return null;
-		
+
 		return result.get(0);
 	}
-	
+
 	@Transactional
 	public void deletePlayer(Player player) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.delete(player);		
+		Session session = this.sessionFactory.openSession();
+		session.delete(player);
+		session.close();
 	}
 }

@@ -22,10 +22,13 @@ public class UserDAO {
 
 	@Transactional
 	public User findByEmail(String email) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 
 		List<User> result = session.createQuery(
 				"from User as u where u.email = '" + email + "'").list();
+
+		session.close();
+
 		if (result == null || result.size() == 0) {
 			return null;
 		}

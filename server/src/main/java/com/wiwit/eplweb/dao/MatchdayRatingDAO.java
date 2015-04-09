@@ -25,10 +25,11 @@ public class MatchdayRatingDAO {
 
 	@Transactional
 	public MatchdayRating findByUserAndMatchday(User user, Matchday match) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		List<MatchdayRating> result = session.createQuery(
 				"from MatchdayRating where user.id=" + user.getId()
 						+ " and matchday.id='" + match.getId() + "' ").list();
+		session.close();
 		if (result.size() > 0) {
 			return result.get(0);
 		}

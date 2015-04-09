@@ -26,7 +26,6 @@ public class UserNetworkDAO {
 	
 	@Transactional
 	public void create(UserNetwork userNetwork, boolean newUser) {
-		System.out.println("UNDAO: " + newUser);
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		
@@ -44,7 +43,7 @@ public class UserNetworkDAO {
 	
 	@Transactional
 	public void create(UserNetwork un, User usr) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		
 		session.persist(un);
@@ -56,9 +55,10 @@ public class UserNetworkDAO {
 	
 	@Transactional
 	public UserNetwork findByEmailAndType(String email, UserNetworkType type) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		List<UserNetwork> results = session.createQuery("from UserNetwork where " +
 				"email='" + email + "' and type='" + type.getValue() + "'").list();
+		session.close();
 		if (results != null && results.size() > 0)
 			return results.get(0);
 		return null;
@@ -66,9 +66,10 @@ public class UserNetworkDAO {
 	
 	@Transactional
 	public UserNetwork findByEmail(String email) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		List<UserNetwork> results = session.createQuery("from UserNetwork where " +
 				"email='" + email + "'").list();
+		session.close();
 		if (results != null && results.size() > 0)
 			return results.get(0);
 		return null;

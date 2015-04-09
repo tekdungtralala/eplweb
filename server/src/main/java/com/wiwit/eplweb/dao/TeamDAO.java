@@ -22,16 +22,17 @@ public class TeamDAO {
 
 	@Transactional
 	public List<Team> findAll() {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		List<Team> result = session.createQuery("from Team order by Name asc").list();
 
 		logger.info("Team loaded successfully, teams size=" + result.size());
+		session.close();
 		return result;
 	}
 
 	@Transactional
 	public Team findByIdAndName(int id, String simpleName) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		List<Team> list = session
 				.createQuery(
 						"from Team where id=" + id + " and simpleName='"
@@ -44,12 +45,13 @@ public class TeamDAO {
 		Team result = list.get(0);
 
 		logger.info("Team loaded successfully, team.id =" + result.getId());
+		session.close();
 		return result;
 	}
 	
 	@Transactional
 	public Team findById(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		List<Team> list = session
 				.createQuery("from Team where id=" + id).setMaxResults(1).list();
 		
@@ -60,12 +62,14 @@ public class TeamDAO {
 		Team result = list.get(0);
 
 		logger.info("Team loaded successfully, team.id =" + result.getId());
+		session.close();
 		return result;
 	}
 	
 	@Transactional
 	public void updateTeam(Team team) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		session.update(team);
+		session.close();
 	}
 }

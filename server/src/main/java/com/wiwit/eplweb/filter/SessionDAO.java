@@ -16,10 +16,11 @@ public class SessionDAO {
 
 	@Transactional
 	public com.wiwit.eplweb.filter.Session findBySession(String session) {
-		Session se = this.sessionFactory.getCurrentSession();
+		Session se = this.sessionFactory.openSession();
 		List<com.wiwit.eplweb.filter.Session> list = se.createQuery(
 				"from Session where session='" + session + "'").list();
 
+		se.close();
 		if (list != null && list.size() > 0)
 			return list.get(0);
 		return null;
