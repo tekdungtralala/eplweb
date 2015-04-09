@@ -3,14 +3,9 @@ package com.wiwit.eplweb.model.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.wiwit.eplweb.model.Rank;
 
 public class FiveBigTeamModelView {
-
-	private static final Logger logger = LoggerFactory
-			.getLogger(FiveBigTeamModelView.class);
 
 	private List<Integer> categories;
 	private List<ChartData> series;

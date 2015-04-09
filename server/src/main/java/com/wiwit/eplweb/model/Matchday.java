@@ -2,7 +2,6 @@ package com.wiwit.eplweb.model;
 
 import java.sql.Time;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,8 +16,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-
-import java.util.Set;
 
 @Entity
 @Table(name = "matchday")

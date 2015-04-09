@@ -15,7 +15,6 @@ import com.wiwit.eplweb.dao.WeekDAO;
 import com.wiwit.eplweb.model.Matchday;
 import com.wiwit.eplweb.model.Rank;
 import com.wiwit.eplweb.model.Team;
-import com.wiwit.eplweb.model.Week;
 
 @Component
 public class RankService {

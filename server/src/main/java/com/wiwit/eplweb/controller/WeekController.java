@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiwit.eplweb.model.Week;
-import com.wiwit.eplweb.model.view.MatchdayModelView;
 import com.wiwit.eplweb.model.view.WeekModelView;
 import com.wiwit.eplweb.service.WeekService;
 import com.wiwit.eplweb.util.ApiPath;

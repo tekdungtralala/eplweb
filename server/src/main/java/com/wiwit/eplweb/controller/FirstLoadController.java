@@ -56,7 +56,7 @@ public class FirstLoadController extends BaseController {
 
 		Team team = teamService.findByIdAndSimppleName(teamId, simpleName);
 		if (team == null)
-			throw404();
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
 
 		TeamPageModelView result = new TeamPageModelView();
 		result.setTeams(teamService.findAll());

@@ -12,7 +12,7 @@
  * the License.
  */
 
-package com.wiwit.eplweb.util.youtube.api;
+package com.wiwit.eplweb.test;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
@@ -23,6 +23,7 @@ import com.google.api.services.youtube.model.PlaylistItem;
 import com.google.api.services.youtube.model.PlaylistItemListResponse;
 import com.google.common.collect.Lists;
 import com.wiwit.eplweb.util.WebappProps;
+import com.wiwit.eplweb.util.youtube.api.Auth;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiwit.eplweb.model.UserNetwork;
 import com.wiwit.eplweb.model.UserSession;
 import com.wiwit.eplweb.model.input.UserNetworkModelInput;
-import com.wiwit.eplweb.model.view.SimpleResult;
 import com.wiwit.eplweb.service.UserNetworkService;
 import com.wiwit.eplweb.service.UserSessionService;
 import com.wiwit.eplweb.util.ApiPath;

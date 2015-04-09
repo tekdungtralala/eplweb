@@ -1,8 +1,6 @@
 package com.wiwit.eplweb.model;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,10 +22,10 @@ public class Season {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(name = "years")
 	private String years;
-	
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "season")
 	private List<Week> weeks;
 
