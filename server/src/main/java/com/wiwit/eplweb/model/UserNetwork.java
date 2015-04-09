@@ -1,5 +1,6 @@
 package com.wiwit.eplweb.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -44,7 +45,7 @@ public class UserNetwork {
 	private String userNetworkID;
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-	private Set<UserSession> userSessions;
+	private List<UserSession> userSessions;
 	
 	public UserNetwork() {
 	}
@@ -81,7 +82,7 @@ public class UserNetwork {
 	}
 	
 	@JsonIgnore
-	public Set<UserSession> getUserSessions() {
+	public List<UserSession> getUserSessions() {
 		return userSessions;
 	}
 
@@ -110,7 +111,7 @@ public class UserNetwork {
 		this.userNetworkID = userNetworkID;
 	}
 	
-	public void setUserSessions(Set<UserSession> userSessions) {
+	public void setUserSessions(List<UserSession> userSessions) {
 		this.userSessions = userSessions;
 	}
 }

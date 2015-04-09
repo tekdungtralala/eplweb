@@ -1,6 +1,7 @@
 package com.wiwit.eplweb.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -28,7 +29,7 @@ public class Season {
 	private String years;
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "season")
-	private Set<Week> weeks = new HashSet<Week>();
+	private List<Week> weeks;
 
 	public int getId() {
 		return id;
@@ -47,12 +48,12 @@ public class Season {
 	}
 
 	@JsonIgnore
-	public Set<Week> getWeeks() {
+	public List<Week> getWeeks() {
 		return weeks;
 	}
 
 	@JsonProperty
-	public void setWeek(Set<Week> weeks) {
+	public void setWeek(List<Week> weeks) {
 		this.weeks = weeks;
 	}
 }

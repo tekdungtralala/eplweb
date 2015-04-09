@@ -1,6 +1,7 @@
 package com.wiwit.eplweb.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -31,13 +32,13 @@ public class User {
 	private String password;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-	private Set<UserSession> userSessions;
+	private List<UserSession> userSessions;
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-	private Set<UserNetwork> userNetworks;
+	private List<UserNetwork> userNetworks;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	private Set<MatchdayRating> matchdayRating = new HashSet<MatchdayRating>();
+	private List<MatchdayRating> matchdayRating;
 
 	public int getId() {
 		return id;
@@ -53,12 +54,12 @@ public class User {
 	}
 	
 	@JsonIgnore
-	public Set<UserSession> getUserSessions() {
+	public List<UserSession> getUserSessions() {
 		return userSessions;
 	}
 	
 	@JsonIgnore
-	public Set<UserNetwork> getUserNetworks() {
+	public List<UserNetwork> getUserNetworks() {
 		return userNetworks;
 	}
 
@@ -76,21 +77,21 @@ public class User {
 	}
 
 	@JsonProperty
-	public void setUserSessions(Set<UserSession> userSessions) {
+	public void setUserSessions(List<UserSession> userSessions) {
 		this.userSessions = userSessions;
 	}
 	
 	@JsonIgnore
-	public void setUserNetworks(Set<UserNetwork> userNetworks) {
+	public void setUserNetworks(List<UserNetwork> userNetworks) {
 		this.userNetworks = userNetworks;
 	}
 	
 	@JsonIgnore
-	public Set<MatchdayRating> getMatchdayRating() {
+	public List<MatchdayRating> getMatchdayRating() {
 		return matchdayRating;
 	}
 	
-	public void setMatchdayRating(Set<MatchdayRating> matchdayRating) {
+	public void setMatchdayRating(List<MatchdayRating> matchdayRating) {
 		this.matchdayRating = matchdayRating;
 	}
 	
