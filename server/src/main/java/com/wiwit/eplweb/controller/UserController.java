@@ -57,7 +57,7 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = ApiPath.USER_SIGNIN, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
-	public ResponseEntity<UserSession> removeSession(
+	public ResponseEntity<UserSession> doSignin(
 			@RequestBody UserNetworkModelInput model)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("POST /api/usernetwork/signin");
