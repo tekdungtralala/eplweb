@@ -1,5 +1,6 @@
 package com.wiwit.eplweb.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -34,6 +35,9 @@ public class User {
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	private Set<UserNetwork> userNetworks;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<MatchdayRating> matchdayRating = new HashSet<MatchdayRating>();
 
 	public int getId() {
 		return id;
@@ -79,6 +83,15 @@ public class User {
 	@JsonIgnore
 	public void setUserNetworks(Set<UserNetwork> userNetworks) {
 		this.userNetworks = userNetworks;
+	}
+	
+	@JsonIgnore
+	public Set<MatchdayRating> getMatchdayRating() {
+		return matchdayRating;
+	}
+	
+	public void setMatchdayRating(Set<MatchdayRating> matchdayRating) {
+		this.matchdayRating = matchdayRating;
 	}
 	
 }

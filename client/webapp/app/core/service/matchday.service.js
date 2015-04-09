@@ -6,7 +6,7 @@
 		.factory("matchdayservice", MatchdayService);
 
 		// Note: Please read dataservice.js factory before using any factory
-		function MatchdayService($http, $rootScope, adminauth) {
+		function MatchdayService($http, $rootScope, adminauth, userauth) {
 			
 			var service = {
 				// Get matchday by week number
@@ -23,7 +23,7 @@
 			return service;
 
 			function updateRating(matchdayId, obj) {
-				var req = adminauth.getConf(obj, "POST", 
+				var req = userauth.getConf(obj, "POST", 
 					"api/matchday/" + matchdayId + "/updateRating");
 
 				$rootScope.promise = $http(req)

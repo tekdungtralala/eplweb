@@ -23,6 +23,8 @@ public class CustomFilter implements Filter {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(CustomFilter.class);
+	
+	public static final String SESSION_ID = "sessionID";
 
 	private SessionService service;
 
@@ -54,7 +56,9 @@ public class CustomFilter implements Filter {
 					authVal = req.getParameter(authKey);
 				}
 
-				if (service.findBySession(authVal) != null) {
+				Session s = service.findBySession(authVal);
+				if ( s != null) {
+					req.setAttribute(SESSION_ID, s.getId());
 					chain.doFilter(rq, rs);
 				} else {
 					res.setStatus(HttpStatus.FORBIDDEN.value());

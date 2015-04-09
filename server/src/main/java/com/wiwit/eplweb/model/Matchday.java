@@ -2,6 +2,8 @@ package com.wiwit.eplweb.model;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,12 +12,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import com.google.api.services.youtube.YouTube.Thumbnails.Set;
+import java.util.Set;
 
 @Entity
 @Table(name = "matchday")
@@ -61,6 +64,9 @@ public class Matchday {
 	
 	@Column(name = "rating_point")
 	private Float ratingPoint;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "matchday")
+	private List<MatchdayRating> matchdayRating;
 
 	public int getId() {
 		return id;
@@ -155,5 +161,13 @@ public class Matchday {
 	}
 	public void setRatingPoint(Float ratingPoint) {
 		this.ratingPoint = ratingPoint;
+	}
+	
+	@JsonIgnore
+	public List<MatchdayRating> getMatchdayRating() {
+		return matchdayRating;
+	}
+	public void setMatchdayRating(List<MatchdayRating> matchdayRating) {
+		this.matchdayRating = matchdayRating;
 	}
 }

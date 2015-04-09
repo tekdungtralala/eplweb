@@ -27,6 +27,17 @@ public class UserSessionDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		return session.createQuery("from UserSession").list();
 	}
+	
+	@Transactional
+	public UserSession findById(int id) {
+		Session se = this.sessionFactory.getCurrentSession();
+		List<UserSession> list = se.createQuery(
+				"from UserSession where id=" + id + "").list();
+
+		if (list != null && list.size() > 0)
+			return list.get(0);
+		return null;
+	}
 
 	@Transactional
 	public UserSession findBySession(String session) {

@@ -8,10 +8,11 @@ public enum PathPattern {
 	SQUAD_BY_ID(new String[]{"PUT", "DELETE"}, "/api/players/[\\d]+", true),
 	SQUAD(new String[]{"POST"}, "/api/players", true),
 	TEAMS_BY_ID(new String[]{"PUT"}, "/api/teams/[\\d]+", true),
-	MATCHDAYS_CHANGE_SCORE(new String[]{"PUT"}, 
-			"/api/matchday/[\\d]+/updateScore", true),
-	MATCHDAYS_CHANGE_SCHEDULE(new String[]{"POST"}, 
-			"/api/updateMatchday/[\\d]+", true),
+	
+	MATCHDAYS_CHANGE_SCORE(new String[]{"PUT"}, "/api/matchday/[\\d]+/updateScore", true),
+	MATCHDAYS_CHANGE_RATING(new String[]{"POST"}, "/api/matchday/[\\d]+/updateRating", true),
+	MATCHDAYS_CHANGE_SCHEDULE(new String[]{"POST"}, "/api/updateMatchday/[\\d]+", true),
+	
 	UPDATE_RANK(new String[]{"POST"}, "/api/updateRanks", true),
 	
 	UPLOAD_FILES(new String[]{"POST"}, "/api/upload/[\\w\\/]+", true),	

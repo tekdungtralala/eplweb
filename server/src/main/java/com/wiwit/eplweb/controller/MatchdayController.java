@@ -3,6 +3,8 @@ package com.wiwit.eplweb.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
@@ -16,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiwit.eplweb.filter.CustomFilter;
 import com.wiwit.eplweb.model.input.MatchdayModelInput;
+import com.wiwit.eplweb.model.input.RatingModelInput;
 import com.wiwit.eplweb.model.input.ScoreModelInput;
 import com.wiwit.eplweb.model.view.MatchdayModelView;
 import com.wiwit.eplweb.service.MatchdayService;
@@ -50,6 +54,22 @@ public class MatchdayController extends BaseController {
 		return new ResponseEntity<MatchdayModelView>(result, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = ApiPath.MATCHDAYS_CHANGE_RATING, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
+	public void updateRATING(@PathVariable("matchdayId") int matchdayId,
+			HttpServletRequest req, @RequestBody RatingModelInput rating) {
+		logger.info("PUT /api/matchday/" + matchdayId + "/updateRating");
+		
+		int sessionId = (Integer) req.getAttribute(CustomFilter.SESSION_ID);
+		logger.info("sessionId: " + sessionId);
+		logger.info("userId: " + getUser(sessionId).getId());
+		
+//		logger.info("rating : " + rating.getRating());
+//		logger.info("sessionId : " + req.getAttribute("sessionId"));
+		
+		
+//		matchdayService.updateScore(matchdayId, updateScore);
+	}
+	
 	@RequestMapping(value = ApiPath.MATCHDAYS_CHANGE_SCORE, method = RequestMethod.PUT, consumes = CONTENT_TYPE_JSON)
 	public void updateScore(@PathVariable("matchdayId") int matchdayId,
 			@RequestBody ScoreModelInput updateScore) {
@@ -64,7 +84,5 @@ public class MatchdayController extends BaseController {
 		logger.info("POST /api/updateMatchday/" + weekNumber);
 		
 		matchdayService.updateMatchdays(weekNumber, matchs);
-
-//		matchdayService.updateScore(matchdayId, updateScore);
 	}
 }

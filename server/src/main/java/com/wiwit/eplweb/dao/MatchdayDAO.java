@@ -25,7 +25,7 @@ public class MatchdayDAO {
 	@Transactional
 	public List<Matchday> findClosestMatch(int teamId, int weekNumber,
 			int totalMatch) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 
 		String query = "from Matchday as m where m.week.weekNumber > "
 				+ (weekNumber - totalMatch) + " and m.week.weekNumber < "
@@ -34,6 +34,7 @@ public class MatchdayDAO {
 		List<Matchday> result = session.createQuery(query).list();
 		logger.info("Matchday loaded successfully, matchdays size="
 				+ result.size());
+		session.close();
 		return result;
 	}
 

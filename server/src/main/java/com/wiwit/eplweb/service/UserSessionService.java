@@ -19,12 +19,10 @@ public class UserSessionService {
 	@Autowired
 	private UserSessionDAO userSessionDAO;
 
-	@Transactional
 	public List<UserSession> findAll() {
 		return userSessionDAO.findAll();
 	}
 
-	@Transactional
 	public UserSession doLogin(User user) {
 		UserSession us = new UserSession();
 		us.setUser(user);
@@ -38,7 +36,6 @@ public class UserSessionService {
 		return us;
 	}
 	
-	@Transactional
 	public UserSession doLogin(UserNetwork user) {
 		UserSession us = new UserSession();
 		us.setUserNetwork(user);
@@ -52,13 +49,16 @@ public class UserSessionService {
 		return us;
 	}
 
-	@Transactional
 	public UserSession findBySession(String session) {
 		return userSessionDAO.findBySession(session);
 	}
+	
+	public UserSession findById(int id) {
+		return userSessionDAO.findById(id);
+	}
 
-	@Transactional
 	public void deleteSession(String session) {
 		userSessionDAO.deleteSession(session);
 	}
+	
 }

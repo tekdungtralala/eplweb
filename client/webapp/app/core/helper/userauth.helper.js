@@ -19,10 +19,29 @@
 			// Set logged user
 			setLoggedUser: setLoggedUser,
 			// Set user profile picture
-			setProfilePicture: setProfilePicture
+			setProfilePicture: setProfilePicture,
+			// Generate http conf for user
+			getConf: getConf
 		};
-
 		return service;
+
+		function getConf(o, method, url) {
+			var req = {
+				method: method,
+				url: url,
+				headers: {
+					"Content-Type": "application/json"
+				}
+			}
+
+			if (o) {
+				req.data = JSON.stringify(o);
+			}
+
+			req.headers[EPL_AUTH_HEADER] = getUserSession().session;
+
+			return req;
+		}
 
 		function setProfilePicture(url) {
 			$rootScope.profileUrl = url;
