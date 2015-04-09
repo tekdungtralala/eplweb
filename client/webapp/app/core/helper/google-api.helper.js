@@ -15,17 +15,10 @@
 		};
 
 		var service = {
-			doSignInGoogle: doSignInGoogle,
-			fetchProfilePicture: fetchProfilePicture
+			doSignInGoogle: doSignInGoogle
 		};
 
 		return service;
-
-		function fetchProfilePicture() {
-			deferredObject = $.Deferred();
-		  gapi.signin.render('googleButton', additionalParams);
-		  return deferredObject;
-		}
 
 		// Google sign in flow
 		// This flow process well conducted in several phases
@@ -80,10 +73,12 @@
 				getResponse = true;
 
 				var userModel = {
-					"name" : resp.displayName,
+					"firstName" : resp.name.givenName,
+					"lastName" : resp.name.familyName,
 					"type" : "GOOGLE",
 					"userNetworkID" : resp.id,
-					"email" : primaryEmail.value
+					"email" : primaryEmail.value,
+					"imageUrl" : resp.image.url
 				}
 
 				if (deferredObject) deferredObject.resolve();
@@ -110,7 +105,7 @@
 				userauth.putUserSession(session, type);
 
 				// render logged user
-				userauth.setLoggedUser(result.data);
+				userauth.setLoggedUser(result.data.userNetwork.user);
 			}
 		}
 

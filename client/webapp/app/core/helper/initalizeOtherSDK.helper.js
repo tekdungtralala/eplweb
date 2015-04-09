@@ -38,7 +38,7 @@
 					// dataservice.adminCekLogin();
 				} else if (userSession) {
 					// If has user session then chek the user who loggin in this app
-					promise = dataservice.userCekLogin().then(prcessUserLogin);
+					promise = dataservice.me().then(prcessUserLogin);
 				} 
 
 				promise.then(resolve);
@@ -62,11 +62,6 @@
 
 				// render logged user
 				userauth.setLoggedUser(result.data);
-
-				// fetch profile picture
-				var userNetworkType = result.data.userNetwork.type;
-				var userID = result.data.userNetwork.userNetworkID;
-				return dataservice.fetchProfilePicture(userNetworkType, userID);
 			}
 		}
 

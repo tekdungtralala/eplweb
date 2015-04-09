@@ -16,11 +16,10 @@
 			<ul class="dropdown-menu">
 				<!-- User image -->
 				<li class="user-header epl-user-logged-header">
-					<img ng-src="{{profileUrl}}" 
+					<img ng-src="{{loggedUser.imageUrl}}" 
 						class="img-circle" alt="User Image">
 					<p>
-						{{loggedUser.name}}<br/>
-						{{loggedUser.email}}
+						{{loggedUser.firstName}} {{loggedUser.lastName}}
 					</p>
 				</li>
 				<!-- Menu Footer-->

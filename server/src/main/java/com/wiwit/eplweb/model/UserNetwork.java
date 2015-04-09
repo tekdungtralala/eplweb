@@ -31,9 +31,6 @@ public class UserNetwork {
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
-	@Column(name = "name")
-	private String name;
-
 	@Column(name = "email")
 	private String email;
 
@@ -50,7 +47,6 @@ public class UserNetwork {
 	}
 	
 	public UserNetwork(UserNetworkModelInput model) {
-		this.name = model.getName();
 		this.email = model.getEmail();
 		this.userNetworkID = model.getUserNetworkID();
 		this.type = model.getType().toUpperCase();
@@ -62,10 +58,6 @@ public class UserNetwork {
 	
 	public User getUser() {
 		return user;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public String getEmail() {
@@ -92,10 +84,6 @@ public class UserNetwork {
 	@JsonIgnore
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public void setEmail(String email) {

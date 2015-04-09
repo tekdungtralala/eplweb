@@ -13,9 +13,37 @@
 			// Cek user session
 			userCekLogin: userCekLogin,
 			// Send signout request
-			userSignOut: userSignOut
+			userSignOut: userSignOut, 
+			// Get whose user already login
+			me: me
 		}
 		return service;
+
+		function me() {
+			$rootScope.isUserLogged = false;
+
+			// get saved session from cookie
+			var savedSession = userauth.getUserSession();
+
+			if (savedSession) {
+				// if session exist then validity that session through our system
+
+				var req = userauth.getConf(null, "GET", "api/usernetwork/me");
+
+				$rootScope.promise = $http(req)
+					.then(process)
+					.catch(process);
+
+				return $rootScope.promise;
+			} else {
+				return false;
+			}
+
+			// return result
+			function process(result) {
+				return result;
+			}
+		}
 
 		function userSignOut() {
 			// Get user session

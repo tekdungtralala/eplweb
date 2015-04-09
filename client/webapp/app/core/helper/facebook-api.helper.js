@@ -10,16 +10,9 @@
 		var deferredObject;
 
 		var service = {
-			doSignInFacebook: doSignInFacebook,
-			fetchProfilePicture: fetchProfilePicture
+			doSignInFacebook: doSignInFacebook
 		};
 		return service;
-
-		function fetchProfilePicture(userID) {
-			deferredObject = $.Deferred();
-			FB.api("/" + userID + "/picture", processPicture);
-			return deferredObject;
-		}
 
 		function processPicture(response) {
 			if (response && !response.error) {
@@ -38,22 +31,25 @@
 		function loginResult(response) {
 			if (response.authResponse) {
 				FB.api('/me', profileResult);
-
-				fetchProfilePicture(response.authResponse.userID);
 			} else {
 				console.log('User cancelled login or did not fully authorize.');
 			}			
 		}
 
-		function profileResult(response) {
-			var userModel = {
-				"name" : response.name,
-				"type" : "FACEBOOK",
-				"userNetworkID" : response.id,
-				"email" : response.email
-			}
-			userservice.userSignIn(userModel)
-				.then(processSignIn);
+		function profileResult(profileResponse) {
+			FB.api("/" + profileResponse.id + "/picture", function(pictureResponse) {
+
+				var userModel = {
+					"firstName" : profileResponse.first_name,
+					"lastName" : profileResponse.last_name,
+					"type" : "FACEBOOK",
+					"userNetworkID" : profileResponse.id,
+					"email" : profileResponse.email,
+					"imageUrl" : pictureResponse.data.url
+				}
+
+				userservice.userSignIn(userModel).then(processSignIn);
+			});
 		}
 
 		function processSignIn(result) {
@@ -69,7 +65,7 @@
 				userauth.putUserSession(session, type);
 
 				// render logged user
-				userauth.setLoggedUser(result.data);
+				userauth.setLoggedUser(result.data.userNetwork.user);
 			}
 		}
 

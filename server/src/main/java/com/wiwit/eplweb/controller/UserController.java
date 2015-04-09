@@ -2,6 +2,8 @@ package com.wiwit.eplweb.controller;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.wiwit.eplweb.filter.CustomFilter;
+import com.wiwit.eplweb.model.User;
 import com.wiwit.eplweb.model.UserNetwork;
 import com.wiwit.eplweb.model.UserSession;
 import com.wiwit.eplweb.model.input.UserNetworkModelInput;
@@ -32,6 +37,15 @@ public class UserController extends BaseController {
 	private UserNetworkService userService;
 	@Autowired
 	private UserSessionService sessionService;
+	
+	@RequestMapping(value = ApiPath.USER_MY_PROFILE, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
+	public ResponseEntity<User> fetchMyProfile(HttpServletRequest req){
+		logger.info("GET /api/usernetwork/me");
+		
+		int sessionId = (Integer) req.getAttribute(CustomFilter.SESSION_ID);
+
+		return new ResponseEntity<User>(getUser(sessionId), HttpStatus.OK);
+	}
 	
 	@RequestMapping(value = ApiPath.USER_SESSION, method = RequestMethod.DELETE, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<String> removeSession(@PathVariable("session") String session)
@@ -70,7 +84,7 @@ public class UserController extends BaseController {
 		
 		if (user == null) {
 			user = new UserNetwork(model);
-			userService.create(user);
+			userService.create(user, model);
 		}
 		UserSession session = sessionService.doLogin(user);
 

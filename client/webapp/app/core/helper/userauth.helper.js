@@ -47,11 +47,13 @@
 			$rootScope.profileUrl = url;
 		}
 
-		function setLoggedUser(data) {
+		function setLoggedUser(userProfile) {
 			$rootScope.loggedUser = null;
-			if (data) {
-				$rootScope.loggedUser = data.userNetwork;
-				$rootScope.loggedUser["userRole"] = data.role;
+			if (userProfile) {
+				$rootScope.loggedUser = userProfile;
+
+				// used on userProfile.html - signout button
+				$rootScope.loggedUser["userRole"] = 2;
 			}
 		}
 

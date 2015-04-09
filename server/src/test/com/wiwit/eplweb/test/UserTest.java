@@ -32,7 +32,7 @@ public class UserTest {
 		
 		UserNetworkModelInput model = new UserNetworkModelInput();
 		model.setEmail("email");
-		model.setName("name");
+//		model.setName("name");
 		model.setUserNetworkID("3234234234");
 		
 		UserNetworkType type = UserNetworkType.FACEBOOK; //
@@ -42,7 +42,7 @@ public class UserTest {
 		UserNetwork user = userService.findByEmailAndType(model.getEmail(), type);
 		if (user == null) {
 			user = new UserNetwork(model);
-			userService.create(user);
+//			userService.create(user);
 		}
 		UserSession session = sessionService.doLogin(user);
 		
@@ -52,13 +52,10 @@ public class UserTest {
 			String value = ow.writeValueAsString(model);
 			System.out.println(value);
 		} catch (JsonGenerationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -69,7 +66,7 @@ public class UserTest {
 		UserSessionService uss = context.getBean(UserSessionService.class);
 		for (UserSession us : uss.findAll()) {
 			System.out.println(us.getUser().getId());
-			System.out.println(us.getUserNetwork().getName());
+//			System.out.println(us.getUserNetwork().getName());
 		}
 	}
 

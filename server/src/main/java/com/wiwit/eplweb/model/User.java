@@ -29,12 +29,21 @@ public class User {
 	@Column(name = "password")
 	private String password;
 
+	@Column(name = "first_name")
+	private String firstName;
+
+	@Column(name = "last_name")
+	private String lastName;
+
+	@Column(name = "image_url")
+	private String imageUrl;
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	private List<UserSession> userSessions;
-	
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	private List<UserNetwork> userNetworks;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<MatchdayRating> matchdayRating;
 
@@ -42,6 +51,7 @@ public class User {
 		return id;
 	}
 
+	@JsonIgnore
 	public String getEmail() {
 		return email;
 	}
@@ -50,12 +60,12 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
-	
+
 	@JsonIgnore
 	public List<UserSession> getUserSessions() {
 		return userSessions;
 	}
-	
+
 	@JsonIgnore
 	public List<UserNetwork> getUserNetworks() {
 		return userNetworks;
@@ -78,19 +88,42 @@ public class User {
 	public void setUserSessions(List<UserSession> userSessions) {
 		this.userSessions = userSessions;
 	}
-	
+
 	@JsonIgnore
 	public void setUserNetworks(List<UserNetwork> userNetworks) {
 		this.userNetworks = userNetworks;
 	}
-	
+
 	@JsonIgnore
 	public List<MatchdayRating> getMatchdayRating() {
 		return matchdayRating;
 	}
-	
+
 	public void setMatchdayRating(List<MatchdayRating> matchdayRating) {
 		this.matchdayRating = matchdayRating;
 	}
-	
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 }

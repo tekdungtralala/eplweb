@@ -4,13 +4,19 @@ import com.wiwit.eplweb.util.UserNetworkType;
 
 public class UserNetworkModelInput {
 
-	private String name;
+	private String firstName;
+	private String lastName;
 	private String email;
 	private String type;
 	private String userNetworkID;
+	private String imageUrl;
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
 	}
 
 	public String getEmail() {
@@ -24,9 +30,17 @@ public class UserNetworkModelInput {
 	public String getUserNetworkID() {
 		return userNetworkID;
 	}
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public void setEmail(String email) {
@@ -40,9 +54,15 @@ public class UserNetworkModelInput {
 	public void setUserNetworkID(String userNetworkID) {
 		this.userNetworkID = userNetworkID;
 	}
+	
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
 	public boolean isValidModel() {
-		if (name == null || name.isEmpty())
+		if (lastName == null || lastName.isEmpty())
+			return false;
+		if (firstName == null || firstName.isEmpty())
 			return false;
 		if (email == null || email.isEmpty())
 			return false;

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.wiwit.eplweb.model.User;
 import com.wiwit.eplweb.model.UserNetwork;
+import com.wiwit.eplweb.model.input.UserNetworkModelInput;
 import com.wiwit.eplweb.util.UserNetworkType;
 
 @Service
@@ -25,12 +26,17 @@ public class UserNetworkDAO {
 	private SessionFactory sessionFactory;
 	
 	@Transactional
-	public void create(UserNetwork userNetwork, boolean newUser) {
+	public void create(UserNetwork userNetwork, boolean newUser, 
+			UserNetworkModelInput model) {
+		
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		
 		if (newUser) {
 			User user = new User();
+			user.setFirstName(model.getFirstName());
+			user.setLastName(model.getLastName());
+			user.setImageUrl(model.getImageUrl());
 			session.persist(user);
 			
 			userNetwork.setUser(user);
