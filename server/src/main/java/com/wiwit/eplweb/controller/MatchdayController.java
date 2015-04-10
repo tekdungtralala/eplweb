@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiwit.eplweb.filter.CustomFilter;
+import com.wiwit.eplweb.model.Matchday;
 import com.wiwit.eplweb.model.input.MatchdayModelInput;
 import com.wiwit.eplweb.model.input.RatingModelInput;
 import com.wiwit.eplweb.model.input.ScoreModelInput;
@@ -55,7 +56,7 @@ public class MatchdayController extends BaseController {
 	}
 	
 	@RequestMapping(value = ApiPath.MATCHDAYS_CHANGE_RATING, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
-	public ResponseEntity updateRATING(@PathVariable("matchdayId") int matchdayId,
+	public ResponseEntity<Matchday> updateRATING(@PathVariable("matchdayId") int matchdayId,
 			HttpServletRequest req, @RequestBody RatingModelInput rating) {
 		logger.info("PUT /api/matchday/" + matchdayId + "/updateRating");
 		
@@ -63,12 +64,11 @@ public class MatchdayController extends BaseController {
 		logger.info("sessionId: " + sessionId);
 		logger.info("userId: " + getUser(sessionId).getId());
 		
-//		logger.info("rating : " + rating.getRating());
-//		logger.info("sessionId : " + req.getAttribute("sessionId"));
+		Matchday match = matchdayService.findMatchtdayById(matchdayId);
+		if (match == null) return new ResponseEntity(HttpStatus.NOT_FOUND);		
 		
-		
-//		matchdayService.updateScore(matchdayId, updateScore);
-		return new ResponseEntity(HttpStatus.OK);
+		matchdayService.updateRating(match, getUser(sessionId), rating.getRating());
+		return new ResponseEntity<Matchday>(match, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = ApiPath.MATCHDAYS_CHANGE_SCORE, method = RequestMethod.PUT, consumes = CONTENT_TYPE_JSON)

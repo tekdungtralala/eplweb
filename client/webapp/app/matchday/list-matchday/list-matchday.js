@@ -15,6 +15,7 @@
 
 		vm.subaAtionDiv = [];
 		var selectedMatchdayId = null;
+		var latestActionDiv = null;
 		
 		vm.ratings = [];
 		var maxRating = 5;
@@ -40,12 +41,23 @@
 			var ratingObj = {
 				rating: rating
 			}
-			dataservice.updateRating(selectedMatchdayId, ratingObj)
+
+			dataservice
+				.updateRating(selectedMatchdayId, ratingObj)
 				.then(afterSubmitRating);
 		}
 
-		function afterSubmitRating() {
+		function afterSubmitRating(resp) {
 			vm.showInfoRating = true;
+
+			if (200 === resp.status) {
+				var newMatch = resp.data;
+				var match = _.find(allMatch, function(m) {
+					return m.id === newMatch.id;
+				});
+
+				match.ratingPoint = newMatch.ratingPoint.toFixed(2);;
+			}
 		}
 
 		function mouseOverRating(index) {
@@ -57,21 +69,32 @@
 			});
 		}
 
+		function preUpdateActionDiv(match, subAction, subActionIndex) {
+			var currentActionDiv = subAction + match.id;
+			if (latestActionDiv === currentActionDiv && match.showActionDiv) {
+				match.showActionDiv = false;
+			} else {
+				toggleSubcActionDiv(match, subActionIndex);
+				latestActionDiv = currentActionDiv;
+
+				if (0 === subActionIndex) {
+					vm.showInfoRating = false;
+					initRating();
+				}
+
+			}			
+		}
+
 		function preUpdateVoting(match) {
-			toggleActionDiv(match);
-			toggleSubcActionDiv(match, 2);
+			preUpdateActionDiv(match, "voting", 2);
 		}
 
 		function preUpdateComment(match) {
-			toggleActionDiv(match);
-			toggleSubcActionDiv(match, 1);
+			preUpdateActionDiv(match, "comment", 1);
 		}
 
 		function preUpdateRating(match) {
-			toggleActionDiv(match);
-			toggleSubcActionDiv(match, 0);
-			vm.showInfoRating = false;
-			initRating();
+			preUpdateActionDiv(match, "rating", 0);
 		}
 
 		function initRating() {
@@ -89,6 +112,8 @@
 		}
 
 		function toggleSubcActionDiv(match, activeIndex) {
+			toggleActionDiv(match);
+
 			for(var i in vm.subaAtionDiv) {
 				vm.subaAtionDiv[i] = false;
 			}

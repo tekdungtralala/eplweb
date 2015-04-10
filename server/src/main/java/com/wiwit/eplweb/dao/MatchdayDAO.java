@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wiwit.eplweb.model.Matchday;
+import com.wiwit.eplweb.model.MatchdayRating;
+import com.wiwit.eplweb.model.User;
 
 @Service
 public class MatchdayDAO {
@@ -91,6 +93,22 @@ public class MatchdayDAO {
 		for(Matchday m : matchdays) {
 			session.persist(m);
 		}
+		tx.commit();
+		session.close();
+	}
+	
+	@Transactional
+	public void updateRating(Matchday matchday, MatchdayRating mr, boolean newRatingData) {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		
+		if (newRatingData) 
+			session.persist(mr); 
+		else 
+			session.update(mr); 
+		
+		session.update(matchday);
+		
 		tx.commit();
 		session.close();
 	}

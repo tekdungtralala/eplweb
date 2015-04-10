@@ -28,7 +28,7 @@ public class MatchdayRating {
 	private User user;
 	
 	@Column(name = "rating_value")
-	private Float ratingValue;
+	private int ratingValue;
 
 	public int getId() {
 		return id;
@@ -51,10 +51,10 @@ public class MatchdayRating {
 		this.user = user;
 	}
 	
-	public Float getRatingValue() {
+	public int getRatingValue() {
 		return ratingValue;
 	}
-	public void setRatingValue(Float ratingValue) {
+	public void setRatingValue(int ratingValue) {
 		this.ratingValue = ratingValue;
 	}
 }
