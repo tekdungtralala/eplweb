@@ -22,6 +22,9 @@ public class Team {
 	@Column(name = "simple_name")
 	private String simpleName;
 	
+	@Column(name = "short_name")
+	private String shortName;
+	
 	@Column(name = "established")
 	private String established;
 	
@@ -62,6 +65,13 @@ public class Team {
 	}
 	public void setSimpleName(String simpleName) {
 		this.simpleName = simpleName;
+	}
+	
+	public String getShortName() {
+		return shortName;
+	}
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
 	}
 	
 	public String getEstablished() {
