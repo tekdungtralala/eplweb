@@ -1,0 +1,16 @@
+<div class="epl-user-signin">
+	<h4>User SignIn</h4>
+	Hai {{vm.userModel.firstName}} {{vm.userModel.lastName}}, welcome into eplweb app.
+	<br/>
+	Need to complete one more step before using this site.
+
+	<div class="input-group epl-inputform">
+		<span class="input-group-addon">Input your username : </span>
+		<input type="text" class="form-control" 
+			ng-model="vm.username"
+			maxlength="16" />
+		<span class="input-group-btn epl-savebtn">
+			<button class="btn btn-primary" type="button">Save</button>
+		</span>
+	</div>
+<div>
