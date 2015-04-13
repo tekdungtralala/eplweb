@@ -5,9 +5,10 @@
 		.module("app.core")
 		.factory("fbapihelper", FBApiHelper);
 
-	function FBApiHelper(facebookAppId, userservice, userauth, $rootScope) {
+	function FBApiHelper(facebookAppId, userservice, userauth, $rootScope, $state) {
 		var getResponse = false;
 		var deferredObject;
+		var userModel = null;
 
 		var service = {
 			doSignInFacebook: doSignInFacebook
@@ -39,17 +40,30 @@
 		function profileResult(profileResponse) {
 			FB.api("/" + profileResponse.id + "/picture", function(pictureResponse) {
 
-				var userModel = {
+				var email = profileResponse.email;
+				userModel = {
 					"firstName" : profileResponse.first_name,
 					"lastName" : profileResponse.last_name,
 					"type" : "FACEBOOK",
 					"userNetworkID" : profileResponse.id,
-					"email" : profileResponse.email,
+					"email" : email,
 					"imageUrl" : pictureResponse.data.url
 				}
 
-				userservice.userSignIn(userModel).then(processSignIn);
+				userservice.isRegisteredUser(email, "FACEBOOK")
+					.then(checkRegisteredUser)
 			});
+		}
+
+		function checkRegisteredUser(result) {
+			if (404 === result.status) {
+				var str = JSON.stringify(userModel);
+				var um = encodeURIComponent(str);
+				console.log("result : ", um);
+				$state.go("user.signin", {userModel: um});
+			} else {
+				userservice.userSignIn(userModel).then(processSignIn);
+			}
 		}
 
 		function processSignIn(result) {

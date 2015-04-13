@@ -21,14 +21,11 @@ public class UserDAO {
 	private SessionFactory sessionFactory;
 
 	@Transactional
-	public User findByEmail(String email) {
+	public User findByAttribute(String key, String value) {
 		Session session = this.sessionFactory.openSession();
-
 		List<User> result = session.createQuery(
-				"from User as u where u.email = '" + email + "'").list();
-
+				"from User as u where u." + key + "= '" + value + "'").list();
 		session.close();
-
 		if (result == null || result.size() == 0) {
 			return null;
 		}

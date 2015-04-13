@@ -15,6 +15,12 @@
 			.state("user.logout", {
 				url: "/logout",
 				controller: "UserLogout"
+			})
+			.state("user.signin", {
+				url: "/signin?userModel",
+				templateUrl: "app/user/usersignin/usersignin.html",
+				controller: "UserSignin",
+				controllerAs: "vm"
 			});
 	}
 

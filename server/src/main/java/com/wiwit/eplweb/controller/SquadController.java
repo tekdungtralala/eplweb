@@ -20,7 +20,7 @@ import com.wiwit.eplweb.model.Player;
 import com.wiwit.eplweb.model.view.SimpleResult;
 import com.wiwit.eplweb.service.PlayerService;
 import com.wiwit.eplweb.util.ApiPath;
-import com.wiwit.eplweb.util.ErrorResult;
+import com.wiwit.eplweb.util.RestResult;
 
 @RestController
 public class SquadController extends BaseController {
@@ -46,7 +46,7 @@ public class SquadController extends BaseController {
 	}
 
 	@RequestMapping(value = ApiPath.SQUAD, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
-	public ResponseEntity<String> postPlayer(@RequestBody final Player player)
+	public ResponseEntity<Object> postPlayer(@RequestBody final Player player)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("POST /api/players");
 
@@ -59,15 +59,13 @@ public class SquadController extends BaseController {
 			String errorMsg = "Player with player number = " + playerNumber
 					+ " on team id = " + teamId + " already exist!";
 
-			ErrorResult er = new ErrorResult(HttpStatus.CONFLICT.value(),
+			RestResult er = new RestResult(HttpStatus.CONFLICT.value(),
 					errorMsg);
 
-			String json = generateSimpleResult(er);
-
-			return new ResponseEntity<String>(json, HttpStatus.CONFLICT);
+			return new ResponseEntity<Object>(er, HttpStatus.CONFLICT);
 		} else {
 			playerService.savePlayer(player);
-			return new ResponseEntity<String>(HttpStatus.OK);
+			return new ResponseEntity<Object>(HttpStatus.OK);
 		}
 	}
 

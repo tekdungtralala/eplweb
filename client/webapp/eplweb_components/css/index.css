@@ -622,3 +622,18 @@ input[type=number]::-webkit-outer-spin-button {
 .epl-update-matchday-form.has-error {
 	border-color: red;
 }
+
+
+/* Page user signin*/
+.epl-user-signin {
+	height: 600px;
+}
+.epl-user-signin .epl-inputform {
+	padding-top:10px;
+}
+.epl-user-signin .epl-inputform input {
+	width: 150px;
+}
+.epl-user-signin .epl-savebtn {
+	float: left;
+}

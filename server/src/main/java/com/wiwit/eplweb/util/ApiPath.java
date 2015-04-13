@@ -46,4 +46,7 @@ public class ApiPath {
 	public static final String USER_SESSION = "/api/usernetwork/signin/{session}";
 	public static final String USER_SIGNIN = "/api/usernetwork/signin";
 	public static final String USER_MY_PROFILE = "/api/usernetwork/me";
+	
+	public static final String USER_IS_USERNAME_EXIST = "/api/user/isUsernameExist";
+	public static final String USER_IS_REGISTERED_USER = "/api/user/isRegisteredUser";
 }

@@ -38,7 +38,9 @@
 				req.data = JSON.stringify(o);
 			}
 
-			req.headers[EPL_AUTH_HEADER] = getUserSession().session;
+			var userSession = getUserSession();
+			if (userSession && userSession.session)
+				req.headers[EPL_AUTH_HEADER] = getUserSession().session;
 
 			return req;
 		}

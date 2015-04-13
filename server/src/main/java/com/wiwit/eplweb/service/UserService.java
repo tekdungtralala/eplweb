@@ -13,6 +13,10 @@ public class UserService {
 	private UserDAO userDAO;
 
 	public User findUserByEmail(String email) {
-		return userDAO.findByEmail(email);
+		return userDAO.findByAttribute("email", email);
+	}
+	
+	public User findUserByUsername(String username) {
+		return userDAO.findByAttribute("username", username);
 	}
 }

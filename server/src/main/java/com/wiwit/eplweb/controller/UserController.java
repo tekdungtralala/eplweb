@@ -21,10 +21,14 @@ import com.wiwit.eplweb.filter.CustomFilter;
 import com.wiwit.eplweb.model.User;
 import com.wiwit.eplweb.model.UserNetwork;
 import com.wiwit.eplweb.model.UserSession;
+import com.wiwit.eplweb.model.input.CheckUserModelInput;
+import com.wiwit.eplweb.model.input.CheckUsernameModelInput;
 import com.wiwit.eplweb.model.input.UserNetworkModelInput;
 import com.wiwit.eplweb.service.UserNetworkService;
+import com.wiwit.eplweb.service.UserService;
 import com.wiwit.eplweb.service.UserSessionService;
 import com.wiwit.eplweb.util.ApiPath;
+import com.wiwit.eplweb.util.RestResult;
 import com.wiwit.eplweb.util.UserNetworkType;
 
 @RestController
@@ -34,9 +38,76 @@ public class UserController extends BaseController {
 			.getLogger(UserController.class);
 
 	@Autowired
-	private UserNetworkService userService;
+	private UserNetworkService userNetworkService;
 	@Autowired
 	private UserSessionService sessionService;
+	@Autowired
+	private UserService userService;
+	
+	@RequestMapping(value = ApiPath.USER_IS_REGISTERED_USER, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
+	public ResponseEntity<RestResult> isUserExist(@RequestBody CheckUserModelInput model) {
+		HttpStatus httpStatus;
+		RestResult result;
+		
+		if (model == null || 
+			model.getNetworkType() == null || model.getNetworkType().isEmpty() || 
+			model.getEmail() == null || model.getEmail().isEmpty()) {
+			
+			httpStatus =  HttpStatus.BAD_REQUEST;
+			result = new RestResult(httpStatus.value(), "Empty email or network type");
+			
+			return new ResponseEntity<RestResult>(result, httpStatus);
+		}
+		
+		UserNetworkType type = UserNetworkType.valueOf(model.getNetworkType());
+		if (type == null) {
+			httpStatus =  HttpStatus.BAD_REQUEST;
+			result = new RestResult(httpStatus.value(), "Network type is not match");
+			
+			return new ResponseEntity<RestResult>(result, httpStatus);
+		}
+		
+		UserNetwork un = userNetworkService.findByEmailAndType(model.getEmail(), type);
+		if (un != null) {
+			httpStatus =  HttpStatus.OK;
+			result = new RestResult(httpStatus.value(), "User has been registered");
+			
+			return new ResponseEntity<RestResult>(result, httpStatus);			
+		}
+
+		httpStatus =  HttpStatus.NOT_FOUND;
+		result = new RestResult(httpStatus.value(), "Can't found the user");
+		return new ResponseEntity<RestResult>(result, httpStatus);
+	}
+	
+	@RequestMapping(value = ApiPath.USER_IS_USERNAME_EXIST, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
+	public ResponseEntity<RestResult> isUserNameExist(@RequestBody CheckUsernameModelInput model) {
+		HttpStatus httpStatus;
+		RestResult result;
+		
+		if (model == null || 
+			model.getUsername() == null || 
+			model.getUsername().isEmpty()) {
+			
+			httpStatus =  HttpStatus.BAD_REQUEST;
+			result = new RestResult(httpStatus.value(), "Empty username");
+			
+			return new ResponseEntity<RestResult>(result, httpStatus);
+		}
+		
+		User user = userService.findUserByUsername(model.getUsername());
+		if (user != null) {
+			httpStatus =  HttpStatus.OK;
+			result = new RestResult(httpStatus.value(), "User has been registered");
+			
+			return new ResponseEntity<RestResult>(result, httpStatus);
+		}
+			
+		httpStatus =  HttpStatus.NOT_FOUND;
+		result = new RestResult(httpStatus.value(), "Can't find user with username='" + model.getUsername() + "'");
+		
+		return new ResponseEntity<RestResult>(result, httpStatus);
+	}
 	
 	@RequestMapping(value = ApiPath.USER_MY_PROFILE, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<User> fetchMyProfile(HttpServletRequest req){
@@ -80,11 +151,11 @@ public class UserController extends BaseController {
 			return new ResponseEntity<UserSession>(HttpStatus.BAD_REQUEST);
 
 		UserNetworkType type = UserNetworkType.valueOf(model.getType());
-		UserNetwork user = userService.findByEmailAndType(model.getEmail(), type);
+		UserNetwork user = userNetworkService.findByEmailAndType(model.getEmail(), type);
 		
 		if (user == null) {
 			user = new UserNetwork(model);
-			userService.create(user, model);
+			userNetworkService.create(user, model);
 		}
 		UserSession session = sessionService.doLogin(user);
 

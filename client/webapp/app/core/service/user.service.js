@@ -15,9 +15,40 @@
 			// Send signout request
 			userSignOut: userSignOut, 
 			// Get whose user already login
-			me: me
+			me: me,
+			// Check is username exist or not
+			isUsernameExist: isUsernameExist,
+			// Check is user has been registar
+			isRegisteredUser: isRegisteredUser
 		}
 		return service;
+
+		function isRegisteredUser(email, networkType) {
+			var model = {
+				networkType: networkType,
+				email: email
+			}
+
+			$rootScope.isUserLogged = false;
+
+			var req = userauth.getConf(model, "POST", "api/user/isRegisteredUser");
+
+			$rootScope.promise = $http(req)
+				.then(process)
+				.catch(process);
+
+			return $rootScope.promise;
+
+			// return result
+			function process(result) {
+				return result;
+			}
+
+		}
+
+		function isUsernameExist() {
+
+		}
 
 		function me() {
 			$rootScope.isUserLogged = false;

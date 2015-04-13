@@ -25,19 +25,4 @@ public class BaseController {
 		
 		return us.getUserNetwork().getUser();
 	}
-
-	public String generateJson(Object result) throws JsonGenerationException,
-			JsonMappingException, IOException {
-		ObjectWriter ow = new ObjectMapper().writer()
-				.withDefaultPrettyPrinter();
-		return ow.writeValueAsString(result);
-	}
-
-	public String generateSimpleResult(Object result)
-			throws JsonGenerationException, JsonMappingException, IOException {
-		ObjectWriter ow = new ObjectMapper().writer()
-				.withDefaultPrettyPrinter();
-		SimpleResult sr = SimpleResult.generateResult(result);
-		return ow.writeValueAsString(sr);
-	}
 }
