@@ -22,10 +22,18 @@
 				if (weekNumber) 
 					query = "/" + weekNumber;
 				$rootScope.promise = $http.get("api/ranks" + query)
-					.then(getData)
+					.then(processRankData)
 					.catch(function(message) {
 					});
 				return $rootScope.promise;
+			}
+
+			function processRankData(result) {
+				if (200 == result.status) {
+					return result.data;
+				} else {
+
+				}
 			}
 
 			function updateRank(updateRank) {
