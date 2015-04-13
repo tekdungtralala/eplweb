@@ -115,17 +115,15 @@ body{
 .epl-signin-button ul li a {
 	padding-bottom: 8px;
 }
-@media (max-width: 991px) {
-	.main-header .navbar-custom-menu a.btn-google-plus,
-	.main-header .navbar-right a.btn-google-plus {
-		color: #ffffff;
-		background-color: #dd4b39;
-	}
-	.main-header .navbar-custom-menu a.btn-facebook,
-	.main-header .navbar-right a.btn-facebook {
-		color: #ffffff;
-		background-color: #3b5998;
-	}
+.main-header .navbar-custom-menu a.btn-google-plus,
+.main-header .navbar-right a.btn-google-plus {
+	color: #ffffff;
+	background-color: #dd4b39;
+}
+.main-header .navbar-custom-menu a.btn-facebook,
+.main-header .navbar-right a.btn-facebook {
+	color: #ffffff;
+	background-color: #3b5998;
 }
 .epl-signin-divider {
 	margin: 5px;
