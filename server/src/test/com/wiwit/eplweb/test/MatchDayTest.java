@@ -41,7 +41,7 @@ public class MatchDayTest {
 		Matchday m = new Matchday();
 		m.setId(643);
 		
-		System.out.println("isMatchdayExist : " + mds.isMatchdayExist(u, m));
+//		System.out.println("isMatchdayExist : " + mds.isMatchdayExist(u, m));
 	} 
 
 	public static void main(String[] asdf) throws JsonGenerationException, JsonMappingException, IOException {

@@ -7,12 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.wiwit.eplweb.model.Matchday;
+import com.wiwit.eplweb.model.MatchdayVoting;
 import com.wiwit.eplweb.model.Week;
 
 public class MatchdayModelView {
 
 	private HashMap<String, List<Matchday>> model;
 	private Week week;
+	private List<MatchdayVoting> votings;
 
 	public MatchdayModelView(List<Matchday> list, Week week) {
 		this.model = new HashMap<String, List<Matchday>>();
@@ -35,6 +37,14 @@ public class MatchdayModelView {
 
 	public void setModel(HashMap<String, List<Matchday>> model) {
 		this.model = model;
+	}
+	
+	public List<MatchdayVoting> getVotings() {
+		return votings;
+	}
+	
+	public void setVotings(List<MatchdayVoting> votings) {
+		this.votings = votings;
 	}
 
 	private void generate(List<Matchday> list) {

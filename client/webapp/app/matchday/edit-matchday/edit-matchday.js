@@ -5,13 +5,13 @@
 		.module("app.matchday")
 		.controller("Edit-Matchday", EditMatchday);
 
-	function EditMatchday(initData, xhrTeams, matchdayhelpwer, dataservice, 
+	function EditMatchday(initData, xhrTeams, matchdayhelper, dataservice, 
 		datautil, $rootScope, $scope, $modal) {
 		
 		$rootScope.$broadcast("state-btn", "edit-matchday");
 		$rootScope.$broadcast("show-phase-nav", false);
 
-		var mh = matchdayhelpwer;
+		var mh = matchdayhelper;
 		var vm = this;
 
 		vm.currWeek = null;

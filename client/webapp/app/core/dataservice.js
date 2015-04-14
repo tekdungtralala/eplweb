@@ -15,7 +15,7 @@
 	 *    the spinner loading until the request finished.
 	 */
 	function Dataservice($q, $http, $rootScope, playerservice, adminservice, 
-		teamservice, matchdayservice, rankservice, adminauth, socialmedia, 
+		teamservice, matchdayservice, rankservice, adminauth, userauth, socialmedia, 
 		userservice) {
 
 		var isPrimed = false;
@@ -57,7 +57,9 @@
 		}
 
 		function getInitData(page) {
-			$rootScope.promise = $http.get("api/page/" + page)
+			var req = userauth.getConf(null, "GET", "api/page/" + page);
+
+			$rootScope.promise = $http(req)
 					.then(getData)
 					.catch(function(message) {
 						if (message.status == 404) window.location.href = "404.jsp";

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
@@ -16,15 +18,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiwit.eplweb.filter.CustomFilter;
+import com.wiwit.eplweb.model.Matchday;
+import com.wiwit.eplweb.model.MatchdayVoting;
 import com.wiwit.eplweb.model.Phase;
 import com.wiwit.eplweb.model.Rank;
 import com.wiwit.eplweb.model.Team;
+import com.wiwit.eplweb.model.User;
+import com.wiwit.eplweb.model.Week;
+import com.wiwit.eplweb.model.input.VotingModelInput;
 import com.wiwit.eplweb.model.view.DashboardPageModelView;
 import com.wiwit.eplweb.model.view.FiveBigTeamModelView;
+import com.wiwit.eplweb.model.view.MatchdayModelView;
 import com.wiwit.eplweb.model.view.MatchdayPageModelView;
 import com.wiwit.eplweb.model.view.RankPageModelView;
 import com.wiwit.eplweb.model.view.TeamPageModelView;
 import com.wiwit.eplweb.service.MatchdayService;
+import com.wiwit.eplweb.service.MatchdayVotingService;
 import com.wiwit.eplweb.service.PhaseService;
 import com.wiwit.eplweb.service.RankService;
 import com.wiwit.eplweb.service.TeamService;
@@ -47,6 +57,8 @@ public class FirstLoadController extends BaseController {
 	private WeekService weekService;
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private MatchdayVotingService votingService;
 
 	@RequestMapping(value = ApiPath.INIT_TEAM_PAGE, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<TeamPageModelView> getDataTeamPage(@PathVariable("id") int teamId,
@@ -68,13 +80,31 @@ public class FirstLoadController extends BaseController {
 	}
 
 	@RequestMapping(value = ApiPath.INIT_MATCHDAY_PAGE, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
-	public ResponseEntity<MatchdayPageModelView> getDataMatchdayPage()
-			throws JsonGenerationException, JsonMappingException, IOException {
+	public ResponseEntity<MatchdayPageModelView> getDataMatchdayPage(HttpServletRequest req){
 		logger.info("GET /api/page/matchday");
 
 		MatchdayPageModelView result = new MatchdayPageModelView();
 		result.setWeeks(weekService.getAllWeek());
-		result.setMatchdayModelView(matchdayService.findMatchtdayOnCurrWeek());
+		
+		Week currWeek = weekService.findCurrWeek();
+		List<Matchday> listMatchday = matchdayService.findMatchtdayByWeekNumber(Integer.valueOf(currWeek.getWeekNumber()) + 1);
+		MatchdayModelView matchdayModel = new MatchdayModelView(listMatchday, currWeek);
+		
+		User user = null;
+		Integer sessionId = (Integer) req.getAttribute(CustomFilter.SESSION_ID);
+		if (sessionId != null) {
+			user = getUser(sessionId);
+			
+			List<Integer> ids = new ArrayList<Integer>();
+			for(Matchday m : listMatchday) {
+				ids.add(m.getId());
+			}
+			List<MatchdayVoting> votings = votingService.findByMatchdayIdsAndUser(ids, user);
+			
+			matchdayModel.setVotings(votings);
+		}
+		
+		result.setMatchdayModelView(matchdayModel);
 		return new ResponseEntity<MatchdayPageModelView>(result, HttpStatus.OK);
 	}
 

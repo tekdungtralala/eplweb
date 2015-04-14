@@ -8,11 +8,13 @@ import org.springframework.stereotype.Component;
 
 import com.wiwit.eplweb.dao.MatchdayDAO;
 import com.wiwit.eplweb.dao.MatchdayRatingDAO;
+import com.wiwit.eplweb.dao.MatchdayVotingDAO;
 import com.wiwit.eplweb.dao.PhaseDAO;
 import com.wiwit.eplweb.dao.TeamDAO;
 import com.wiwit.eplweb.dao.WeekDAO;
 import com.wiwit.eplweb.model.Matchday;
 import com.wiwit.eplweb.model.MatchdayRating;
+import com.wiwit.eplweb.model.MatchdayVoting;
 import com.wiwit.eplweb.model.Phase;
 import com.wiwit.eplweb.model.Team;
 import com.wiwit.eplweb.model.User;
@@ -20,6 +22,7 @@ import com.wiwit.eplweb.model.Week;
 import com.wiwit.eplweb.model.input.MatchdayModelInput;
 import com.wiwit.eplweb.model.input.ScoreModelInput;
 import com.wiwit.eplweb.model.view.MatchdayModelView;
+import com.wiwit.eplweb.util.VoteType;
 
 @Component
 public class MatchdayService {
@@ -38,6 +41,9 @@ public class MatchdayService {
 
 	@Autowired
 	private MatchdayRatingDAO matchdayRatingDAO;
+	
+	@Autowired
+	private MatchdayVotingDAO matchdayVotingDAO;
 
 	public List<Matchday> findClosestMatch(int teamId) {
 		Phase p = phaseDAO.findCurrentMatchday();
@@ -49,12 +55,19 @@ public class MatchdayService {
 		String currentWeek = phaseDAO.findCurrentMatchday().getValue();
 		return findMatchtdayByWeekNmr(Integer.valueOf(currentWeek));
 	}
+	
+	public List<Matchday> findMatchtdayByWeekNumber(String weekNumber) {
+		return matchdayDAO.findMatchtdayByWeekNmr(Integer.valueOf(weekNumber));
+	}
+	
+	public List<Matchday> findMatchtdayByWeekNumber(int weekNumber) {
+		return matchdayDAO.findMatchtdayByWeekNmr(Integer.valueOf(weekNumber));
+	}
 
 	public MatchdayModelView findMatchtdayByWeekNmr(int weekNumber) {
 		Week week = weekDAO.findByWeekNmr(weekNumber);
 
-		List<Matchday> listMatchday = matchdayDAO
-				.findMatchtdayByWeekNmr(Integer.valueOf(weekNumber));
+		List<Matchday> listMatchday = findMatchtdayByWeekNumber(weekNumber);
 		return new MatchdayModelView(listMatchday, week);
 	}
 
@@ -67,6 +80,62 @@ public class MatchdayService {
 
 	public Matchday findMatchtdayById(int matchdayId) {
 		return matchdayDAO.findMatchtdayById(matchdayId);
+	}
+	
+	public void updateVoting(Matchday matchday, User user, VoteType vote) {
+		MatchdayVoting mv = matchdayVotingDAO.findByUserAndMatchday(user, matchday);
+		
+		
+		boolean newVotingData = true;
+		if (mv == null || mv.getId() == 0) {
+			mv = new MatchdayVoting();
+			mv.setUser(user);
+			mv.setMatchday(matchday);
+		} else {
+			newVotingData = false;
+			
+			VoteType oldVote = VoteType.getVote(mv.getVote());
+			int oldVoteValue;
+			// Reduce old vote
+			switch (oldVote) {
+				case HOME:
+					oldVoteValue = matchday.getVotingHomeWin() -1;
+					oldVoteValue = oldVoteValue < 0 ? 0 : oldVoteValue;
+					matchday.setVotingHomeWin(oldVoteValue);
+					break;
+				case AWAY:
+					oldVoteValue = matchday.getVotingAwayWin() -1;
+					oldVoteValue = oldVoteValue < 0 ? 0 : oldVoteValue;
+					matchday.setVotingAwayWin(oldVoteValue);
+					break;
+				case TIE:
+					oldVoteValue = matchday.getVotingTie() -1;
+					oldVoteValue = oldVoteValue < 0 ? 0 : oldVoteValue;
+					matchday.setVotingTie(oldVoteValue);
+					break;
+			}
+		}
+		
+		int newVoteValue;
+		// Increase new vote
+		switch (vote) {
+			case HOME:
+				newVoteValue = matchday.getVotingHomeWin() +1;
+				matchday.setVotingHomeWin(newVoteValue);
+				break;
+			case AWAY:
+				newVoteValue = matchday.getVotingAwayWin() +1;
+				matchday.setVotingAwayWin(newVoteValue);
+				break;
+			case TIE:
+				newVoteValue = matchday.getVotingTie() + 1;
+				matchday.setVotingTie(newVoteValue);
+				break;
+		}
+		
+		mv.setVote(vote.getValue());		
+		
+		matchdayDAO.updateVoting(matchday, mv, newVotingData);
 	}
 
 	public void updateRating(Matchday matchday, User user, int ratingValue) {

@@ -5,13 +5,13 @@
 		.module("app.matchday")
 		.controller("Edit-Score", EditScore);
 
-	function EditScore(initData, matchdayhelpwer, dataservice, $scope, 
+	function EditScore(initData, matchdayhelper, dataservice, $scope, 
 			$rootScope, $modal) {
 
 		$rootScope.$broadcast("state-btn", "edit-score");
 		$rootScope.$broadcast("show-phase-nav", true);
 
-		var mh = matchdayhelpwer;
+		var mh = matchdayhelper;
 		var vm = this;
 		var weekNumber = initData.matchdayModelView.week.weekNumber;
 

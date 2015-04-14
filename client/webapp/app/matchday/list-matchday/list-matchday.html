@@ -20,13 +20,13 @@
 				<img class="image epl-mini-team-logo" 
 				ng-src="eplweb_components/image/logo/150x150/{{m.homeTeam.id}}.png" alt="">
 			</td>
-			<td class="epl-center">
+			<td class="epl-right">
 				<span class="{{m.homeGoal === -1 ? 'epl-hide' : ''}}">
 					{{m.homeGoal}}
 				</span>
 			</td>
-			<td>VS</td>
-			<td class="epl-center">
+			<td class="epl-center">VS</td>
+			<td class="epl-left">
 				<span class="{{m.awayGoal === -1 ? 'epl-hide' : ''}}">
 					{{m.awayGoal}}
 				</span>
@@ -42,11 +42,11 @@
 				</a>
 			</td>
 			<td class="epl-center">
-				<button type="button" class="btn btn-success btn-xs"
+				<button type="button" class="btn btn-primary btn-xs"
 					ng-click="vm.preUpdateComment(m);">
 					<i class="fa fa-comment"></i>
 				</button>
-				<button type="button" class="btn btn-primary btn-xs"
+				<button type="button" class="btn btn-success btn-xs"
 					ng-click="vm.preUpdateVoting(m);">
 					<i class="fa fa-check-square-o"></i>
 				</button>

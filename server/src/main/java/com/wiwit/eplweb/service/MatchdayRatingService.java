@@ -14,8 +14,8 @@ public class MatchdayRatingService {
 	@Autowired
 	private MatchdayRatingDAO matchdayRatingDAO;
 	
-	public boolean isMatchdayExist(User user, Matchday match) {
-		MatchdayRating mr = matchdayRatingDAO.findByUserAndMatchday(user, match);
-		return mr != null;
-	}
+//	public boolean isMatchdayExist(User user, Matchday match) {
+//		MatchdayRating mr = matchdayRatingDAO.findByUserAndMatchday(user, match);
+//		return mr != null;
+//	}
 }

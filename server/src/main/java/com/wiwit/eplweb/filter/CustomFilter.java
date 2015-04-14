@@ -41,22 +41,31 @@ public class CustomFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) rq;
 		HttpServletResponse res = (HttpServletResponse) rs;
 
+		Session s = null;
 		String path = req.getServletPath();
 		String method = req.getMethod();
+		
+		String authKey = WebappProps.getAdminSessionKey();
+		// Get auth value from header
+		String authVal = req.getHeader(authKey);
+		if (authVal == null) {
+			// If not in header, maybe auth value placed in query paramters 
+			authVal = req.getParameter(authKey);
+		}
+		
+		if (authVal != null) {
+			s = service.findBySession(authVal);
+		}
 
 		PathPattern p = PathPatternUtil.getPathPattern(path, method);
 		if (p != null) {
 			if (p.isSecuredPath()) {
 				logger.info(method + " SECURED : " + path);
 
-				String authKey = WebappProps.getAdminSessionKey();
-				String authVal = req.getHeader(authKey);
-
 				if (authVal == null) {
 					authVal = req.getParameter(authKey);
 				}
 
-				Session s = service.findBySession(authVal);
 				if ( s != null) {
 					if (s.getRole() == p.getRole()) {
 						req.setAttribute(SESSION_ID, s.getId());
@@ -69,6 +78,9 @@ public class CustomFilter implements Filter {
 				}
 			} else {
 				logger.info(method + " NOT SECURED : " + path);
+				if ( s != null) {
+					req.setAttribute(SESSION_ID, s.getId());
+				}
 				chain.doFilter(rq, rs);
 			}
 		} else {

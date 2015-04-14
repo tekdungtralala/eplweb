@@ -14,13 +14,25 @@
 				// Post list of matchday on one week, the old matchdays will be deleted
 				//  by server.
 				updateMatchdays: updateMatchdays,
-				// Update score of one matchday
+				// Update score of a matchday
 				updateScore: updateScore,
-				// Update rating of one matchday
-				updateRating: updateRating
+				// Update rating of a matchday
+				updateRating: updateRating,
+				// Update voting of a matchday,
+				updateVoting: updateVoting
 			};
 
 			return service;
+
+			function updateVoting(matchdayId, obj) {
+				var req = userauth.getConf(obj, "POST", 
+					"api/matchday/" + matchdayId + "/updateVoting");
+
+				$rootScope.promise = $http(req)
+						.then(process)
+						.catch(process);
+				return $rootScope.promise;
+			}
 
 			function updateRating(matchdayId, obj) {
 				var req = userauth.getConf(obj, "POST", 
@@ -36,7 +48,10 @@
 				var query = "";
 				if (weekNumber) 
 					query = "/" + weekNumber;
-				$rootScope.promise = $http.get("api/matchday" + query)
+
+				var req = userauth.getConf(null, "GET", "api/matchday" + query);
+
+				$rootScope.promise = $http(req)
 					.then(getData)
 					.catch(function(message) {
 					});

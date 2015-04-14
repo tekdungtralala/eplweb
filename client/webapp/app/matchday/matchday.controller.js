@@ -5,10 +5,10 @@
 		.module("app.matchday")
 		.controller("Matchday", Matchday);
 
-	function Matchday(initData, matchdayhelpwer, dataservice, $scope, $rootScope, 
+	function Matchday(initData, matchdayhelper, dataservice, $scope, $rootScope, 
 		$state) {
 		
-		var mh = matchdayhelpwer;
+		var mh = matchdayhelper;
 		var vm = this;
 
 		vm.weeks = [];

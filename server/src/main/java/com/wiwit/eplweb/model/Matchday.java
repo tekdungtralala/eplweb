@@ -64,6 +64,18 @@ public class Matchday {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "matchday")
 	private List<MatchdayRating> matchdayRating;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "matchday")
+	private List<MatchdayVoting> matchdayVoting;
+	
+	@Column(name = "voting_home_win")
+	private Integer votingHomeWin;
+	
+	@Column(name = "voting_away_win")
+	private Integer votingAwayWin;
+	
+	@Column(name = "voting_tie")
+	private Integer votingTie;
 
 	public int getId() {
 		return id;
@@ -166,5 +178,35 @@ public class Matchday {
 	}
 	public void setMatchdayRating(List<MatchdayRating> matchdayRating) {
 		this.matchdayRating = matchdayRating;
+	}
+	
+	@JsonIgnore
+	public List<MatchdayVoting> getMatchdayVoting() {
+		return matchdayVoting;
+	}
+
+	public void setMatchdayVoting(List<MatchdayVoting> matchdayVoting) {
+		this.matchdayVoting = matchdayVoting;
+	}
+
+	public Integer getVotingAwayWin() {
+		return votingAwayWin;
+	}
+	public void setVotingAwayWin(Integer votingAwayWin) {
+		this.votingAwayWin = votingAwayWin;
+	}
+	
+	public Integer getVotingHomeWin() {
+		return votingHomeWin;
+	}
+	public void setVotingHomeWin(Integer votingHomeWin) {
+		this.votingHomeWin = votingHomeWin;
+	}
+	
+	public Integer getVotingTie() {
+		return votingTie;
+	}
+	public void setVotingTie(Integer votingTie) {
+		this.votingTie = votingTie;
 	}
 }

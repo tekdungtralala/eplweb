@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.ObjectWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,12 +108,12 @@ public class UserController extends BaseController {
 	}
 	
 	@RequestMapping(value = ApiPath.USER_MY_PROFILE, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
-	public ResponseEntity<User> fetchMyProfile(HttpServletRequest req){
+	public ResponseEntity<String> fetchMyProfile(HttpServletRequest req) throws JsonGenerationException, JsonMappingException, IOException{
 		logger.info("GET /api/usernetwork/me");
 		
 		int sessionId = (Integer) req.getAttribute(CustomFilter.SESSION_ID);
-
-		return new ResponseEntity<User>(getUser(sessionId), HttpStatus.OK);
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		return new ResponseEntity<String>(ow.writeValueAsString(getUser(sessionId)), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = ApiPath.USER_SESSION, method = RequestMethod.DELETE, produces = CONTENT_TYPE_JSON)
@@ -137,7 +139,7 @@ public class UserController extends BaseController {
 		return new ResponseEntity<UserSession>(us, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = ApiPath.USER_SIGNIN, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
+	@RequestMapping(value = ApiPath.USER_SIGNIN, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<UserSession> doSignin(
 			@RequestBody UserNetworkModelInput model)
 			throws JsonGenerationException, JsonMappingException, IOException {

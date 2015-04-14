@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.wiwit.eplweb.model.Matchday;
 import com.wiwit.eplweb.model.MatchdayRating;
+import com.wiwit.eplweb.model.MatchdayVoting;
 import com.wiwit.eplweb.model.User;
 
 @Service
@@ -93,6 +94,22 @@ public class MatchdayDAO {
 		for(Matchday m : matchdays) {
 			session.persist(m);
 		}
+		tx.commit();
+		session.close();
+	}
+	
+	@Transactional
+	public void updateVoting(Matchday matchday, MatchdayVoting mv, boolean newVotingData) {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		
+		if (newVotingData) 
+			session.persist(mv);
+		else
+			session.update(mv);
+		
+		session.update(matchday);
+		
 		tx.commit();
 		session.close();
 	}

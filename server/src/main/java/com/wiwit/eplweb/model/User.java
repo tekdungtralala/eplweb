@@ -49,6 +49,9 @@ public class User {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<MatchdayRating> matchdayRating;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private List<MatchdayVoting> matchdayVoting;
 
 	public int getId() {
 		return id;
@@ -90,17 +93,14 @@ public class User {
 		this.username = username;
 	}
 
-	@JsonProperty
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	@JsonProperty
 	public void setUserSessions(List<UserSession> userSessions) {
 		this.userSessions = userSessions;
 	}
 
-	@JsonIgnore
 	public void setUserNetworks(List<UserNetwork> userNetworks) {
 		this.userNetworks = userNetworks;
 	}
@@ -112,6 +112,15 @@ public class User {
 
 	public void setMatchdayRating(List<MatchdayRating> matchdayRating) {
 		this.matchdayRating = matchdayRating;
+	}
+	
+	@JsonIgnore
+	public List<MatchdayVoting> getMatchdayVoting() {
+		return matchdayVoting;
+	}
+	
+	public void setMatchdayVoting(List<MatchdayVoting> matchdayVoting) {
+		this.matchdayVoting = matchdayVoting;
 	}
 
 	public String getFirstName() {

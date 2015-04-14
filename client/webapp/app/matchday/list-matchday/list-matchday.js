@@ -11,10 +11,12 @@
 
 		var vm = this;
 		var allMatch = [];
+		var allVoting = [];
 		vm.model = null;
 
 		vm.subaAtionDiv = [];
 		var selectedMatchdayId = null;
+		vm.selectedVoting = null;
 		var latestActionDiv = null;
 		
 		vm.ratings = [];
@@ -28,11 +30,56 @@
 		vm.preUpdateVoting = preUpdateVoting;
 		vm.mouseOverRating = mouseOverRating;
 		vm.submitRating = submitRating;
+		vm.submitVoting = submitVoting;
 
 		activate();
 		function activate() {
 			vm.model = initData.matchdayModelView.model;
+			allVoting = initData.matchdayModelView.votings;
 			modifyEachMatch();
+		}
+
+		function submitVoting(vote, selectedVoting) {
+			vm.selectedVoting = selectedVoting;
+			var votingObj = {
+				vote: vote
+			}
+
+			dataservice
+				.updateVoting(selectedMatchdayId, votingObj)
+				.then(afterSubmitVoting);			
+		}
+
+		function afterSubmitVoting(resp) {
+			if (200 === resp.status) {
+				var match = resp.data;
+
+				updateNewMatch(match);
+				initChart(match);
+
+				var voting = _.find(allVoting, function(v) {
+					return v.matchday.id === match.id;
+				});
+				if (voting) {
+					voting.vote = vm.selectedVoting;
+				} else {
+					var newVoting = {};
+					newVoting.matchday = match;
+					newVoting.vote = vm.selectedVoting;
+
+					allVoting.push(newVoting);
+				}
+			}
+		}
+
+		function updateNewMatch(newMatch) {
+			_.each(allMatch, function(m) {
+				if (m.id === newMatch.id) {
+					m.votingAwayWin = newMatch.votingAwayWin;
+					m.votingHomeWin = newMatch.votingHomeWin;
+					m.votingTie = newMatch.votingTie;
+				}
+			});
 		}
 
 		function submitRating(rating) {
@@ -51,11 +98,7 @@
 			vm.showInfoRating = true;
 
 			if (200 === resp.status) {
-				var newMatch = resp.data;
-				var match = _.find(allMatch, function(m) {
-					return m.id === newMatch.id;
-				});
-
+				updateNewMatch(resp.data);
 				match.ratingPoint = newMatch.ratingPoint.toFixed(2);;
 			}
 		}
@@ -86,15 +129,32 @@
 		}
 
 		function preUpdateVoting(match) {
+			var voting = _.find(allVoting, function(v) {
+				return v.matchday.id === match.id;
+			});
+
+			if (voting) vm.selectedVoting = voting.vote;
+
 			preUpdateActionDiv(match, "voting", 2);
+			initChart(match);
+		}
+
+		function initChart(match) {
+			var totalVoting = match.votingHomeWin + match.votingAwayWin 
+				+ match.votingTie;
+
 			var text =  match.homeTeam.shortName + " VS " + match.awayTeam.shortName 
-				+ ", total vote = " + 23;
+				+ ", total = " + totalVoting + " vote.";
 
 			var categories = [
 				match.homeTeam.shortName + " win",
 				"TIE",
 				match.awayTeam.shortName + " win"];
-			var data = [49.9, 71.5, 2.0];
+			var data = [
+				parseFloat((match.votingHomeWin / totalVoting * 100).toFixed(2)), 
+				parseFloat((match.votingTie / totalVoting * 100).toFixed(2)), 
+				parseFloat((match.votingAwayWin / totalVoting * 100).toFixed(2))
+			];
 
 			$('.voting-' + match.id).highcharts({
 				exporting: {enabled: false},
@@ -102,8 +162,13 @@
 				title: {text: ''},
 				subtitle: { text: text},
 				xAxis: {categories: categories},
-				yAxis: {min: 0, max: 100, title: { text: ''}},
-				series: [{showInLegend: false,name: 'Vote',data: data}]
+				yAxis: {min: 0, max: 100, title: { text: 'Percent (%)'}},
+				series: [{showInLegend: false,name: 'Vote',data: data}],
+				tooltip: {
+					formatter: function() {
+						return "Total Vote : " + this.y + " %";
+					}
+				}
 			});
 		}
 

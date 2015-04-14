@@ -64,6 +64,7 @@
 				<beans:value>com.wiwit.eplweb.model.UserSession</beans:value>
 				<beans:value>com.wiwit.eplweb.model.Image</beans:value>
 				<beans:value>com.wiwit.eplweb.model.MatchdayRating</beans:value>
+				<beans:value>com.wiwit.eplweb.model.MatchdayVoting</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
