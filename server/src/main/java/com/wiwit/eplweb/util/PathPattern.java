@@ -33,7 +33,7 @@ public enum PathPattern {
 	
 	USER_SIGNUP(new String[]{"POST"}, "/api/usernetwork/signin", false),
 	USER_SESSION(new String[]{"GET", "DELETE"}, "/api/usernetwork/signin/[\\w]+", false),
-	USER_IS_USERNAME_EXIST(new String[]{"POST"}, "/api/user/isUsernameExist", false),
+	USER_IS_USERNAME_EXIST(new String[]{"POST"}, "/api/user/isUsernameAvailable", false),
 	USER_IS_REGISTERED_USER(new String[]{"POST"}, "/api/user/isRegisteredUser", false),
 	
 	ADMIN_LOGIN(new String[]{"POST"}, "/api/admin/login", false),

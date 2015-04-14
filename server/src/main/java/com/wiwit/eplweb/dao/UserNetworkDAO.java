@@ -34,6 +34,7 @@ public class UserNetworkDAO {
 		
 		if (newUser) {
 			User user = new User();
+			user.setUsername(model.getUsername());
 			user.setFirstName(model.getFirstName());
 			user.setLastName(model.getLastName());
 			user.setImageUrl(model.getImageUrl());

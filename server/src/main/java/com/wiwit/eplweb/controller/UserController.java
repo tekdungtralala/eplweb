@@ -81,7 +81,7 @@ public class UserController extends BaseController {
 	}
 	
 	@RequestMapping(value = ApiPath.USER_IS_USERNAME_EXIST, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
-	public ResponseEntity<RestResult> isUserNameExist(@RequestBody CheckUsernameModelInput model) {
+	public ResponseEntity<RestResult> isUsernameAvailable(@RequestBody CheckUsernameModelInput model) {
 		HttpStatus httpStatus;
 		RestResult result;
 		
@@ -97,16 +97,12 @@ public class UserController extends BaseController {
 		
 		User user = userService.findUserByUsername(model.getUsername());
 		if (user != null) {
-			httpStatus =  HttpStatus.OK;
-			result = new RestResult(httpStatus.value(), "User has been registered");
-			
-			return new ResponseEntity<RestResult>(result, httpStatus);
+			httpStatus =  HttpStatus.CONFLICT;			
+			return new ResponseEntity<RestResult>(httpStatus);
 		}
 			
-		httpStatus =  HttpStatus.NOT_FOUND;
-		result = new RestResult(httpStatus.value(), "Can't find user with username='" + model.getUsername() + "'");
-		
-		return new ResponseEntity<RestResult>(result, httpStatus);
+		httpStatus =  HttpStatus.OK;		
+		return new ResponseEntity<RestResult>(httpStatus);
 	}
 	
 	@RequestMapping(value = ApiPath.USER_MY_PROFILE, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
@@ -154,6 +150,10 @@ public class UserController extends BaseController {
 		UserNetwork user = userNetworkService.findByEmailAndType(model.getEmail(), type);
 		
 		if (user == null) {
+			if (model.getUsername() == null || model.getUsername().isEmpty()) {
+				return new ResponseEntity<UserSession>(HttpStatus.BAD_REQUEST);
+			}
+			
 			user = new UserNetwork(model);
 			userNetworkService.create(user, model);
 		}

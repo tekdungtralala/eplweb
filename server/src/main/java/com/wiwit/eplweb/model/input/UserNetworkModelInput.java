@@ -4,12 +4,17 @@ import com.wiwit.eplweb.util.UserNetworkType;
 
 public class UserNetworkModelInput {
 
+	private String username;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String type;
 	private String userNetworkID;
 	private String imageUrl;
+	
+	public String getUsername() {
+		return username;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -33,6 +38,10 @@ public class UserNetworkModelInput {
 	
 	public String getImageUrl() {
 		return imageUrl;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public void setFirstName(String firstName) {

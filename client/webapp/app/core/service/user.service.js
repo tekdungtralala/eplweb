@@ -17,7 +17,7 @@
 			// Get whose user already login
 			me: me,
 			// Check is username exist or not
-			isUsernameExist: isUsernameExist,
+			isUsernameAvailable: isUsernameAvailable,
 			// Check is user has been registar
 			isRegisteredUser: isRegisteredUser
 		}
@@ -29,10 +29,24 @@
 				email: email
 			}
 
-			$rootScope.isUserLogged = false;
-
 			var req = userauth.getConf(model, "POST", "api/user/isRegisteredUser");
 
+			$rootScope.promise = $http(req)
+				.then(process)
+				.catch(process);
+			return $rootScope.promise;
+
+			// return result
+			function process(result) {
+				return result;
+			}
+
+		}
+
+		function isUsernameAvailable(username) {
+			var model = {username: username}
+
+			var req = userauth.getConf(model, "POST", "api/user/isUsernameAvailable");
 			$rootScope.promise = $http(req)
 				.then(process)
 				.catch(process);
@@ -43,11 +57,6 @@
 			function process(result) {
 				return result;
 			}
-
-		}
-
-		function isUsernameExist() {
-
 		}
 
 		function me() {

@@ -21,9 +21,30 @@
 			// Set user profile picture
 			setProfilePicture: setProfilePicture,
 			// Generate http conf for user
-			getConf: getConf
+			getConf: getConf,
+			// processSignIn
+			processSignIn: processSignIn
 		};
 		return service;
+
+		function processSignIn(result) {
+			$rootScope.isUserLogged = false;
+			if (200 === result.status) {
+
+				// change userLogged flag
+				$rootScope.isUserLogged = true;
+
+				// save current session into cookie
+				var session = result.data.session;
+				var type = result.data.userNetwork.type;
+				putUserSession(session, type);
+
+				// render logged user
+				setLoggedUser(result.data.userNetwork.user);
+
+				$state.go("dashboard");
+			}
+		}
 
 		function getConf(o, method, url) {
 			var req = {

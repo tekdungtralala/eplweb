@@ -59,30 +59,11 @@
 			if (404 === result.status) {
 				var str = JSON.stringify(userModel);
 				var um = encodeURIComponent(str);
-				console.log("result : ", um);
 				$state.go("user.signin", {userModel: um});
 			} else {
-				userservice.userSignIn(userModel).then(processSignIn);
+				userservice.userSignIn(userModel).then(userauth.processSignIn);
 			}
 		}
-
-		function processSignIn(result) {
-			$rootScope.isUserLogged = false;
-			if (200 === result.status) {
-
-				// change userLogged flag
-				$rootScope.isUserLogged = true;
-
-				// save current session into cookie
-				var session = result.data.session;
-				var type = result.data.userNetwork.type;
-				userauth.putUserSession(session, type);
-
-				// render logged user
-				userauth.setLoggedUser(result.data.userNetwork.user);
-			}
-		}
-
 	}
 	
 })();

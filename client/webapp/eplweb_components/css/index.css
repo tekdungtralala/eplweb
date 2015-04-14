@@ -630,10 +630,16 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .epl-user-signin .epl-inputform {
 	padding-top:10px;
+	height: 60px;
 }
-.epl-user-signin .epl-inputform input {
+.epl-user-signin .epl-inputtext {
 	width: 150px;
-}
-.epl-user-signin .epl-savebtn {
 	float: left;
+	margin-right: 15px;
+}
+.epl-user-signin .epl-errormsg {
+	padding-top: 4px;
+}
+.epl-user-signin .epl-errormsg span {
+	color: red;
 }

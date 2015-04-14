@@ -5,9 +5,12 @@
 		.module("app.core")
 		.factory("googleapihelper", GoogleApiHelper);
 
-	function GoogleApiHelper(googleClientId, userservice, userauth, $rootScope) {
+	function GoogleApiHelper(googleClientId, userservice, userauth, $rootScope,
+		$state) {
+		
 		var getResponse = false;
 		var deferredObject;
+		var userModel;
 		var additionalParams = {
 			"clientid" : googleClientId,
 			"callback" : signinCallback,
@@ -72,20 +75,31 @@
 				});
 				getResponse = true;
 
-				var userModel = {
+				var email = primaryEmail.value;
+				userModel = {
 					"firstName" : resp.name.givenName,
 					"lastName" : resp.name.familyName,
 					"type" : "GOOGLE",
 					"userNetworkID" : resp.id,
-					"email" : primaryEmail.value,
+					"email" : email,
 					"imageUrl" : resp.image.url
 				}
 
 				if (deferredObject) deferredObject.resolve();
 
+				userservice.isRegisteredUser(email, "GOOGLE")
+					.then(checkRegisteredUser)
+			}
+		}
+
+		function checkRegisteredUser(result) {
+			if (404 === result.status) {
+				var str = JSON.stringify(userModel);
+				var um = encodeURIComponent(str);
+				$state.go("user.signin", {userModel: um});
+			} else {
 				// Process number #4-a. Sign In into our server
-				userservice.userSignIn(userModel)
-					.then(processSignIn);
+				userservice.userSignIn(userModel).then(userauth.processSignIn);
 			}
 		}
 
