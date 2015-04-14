@@ -1,1 +1,20 @@
-voting.html
+<div class="epl-voting-result voting-{{m.id}}"
+	style="width: 300px; height: 200px; margin: 0 auto">
+</div>
+
+Who will win ?
+<br/>
+	<button type="button" class="btn btn-default btn-xs">
+		{{m.homeTeam.shortName}}
+		<img class="image epl-mini-team-logo"
+			ng-src="eplweb_components/image/logo/150x150/{{m.homeTeam.id}}.png" alt=""/>
+	</button>
+	<button type="button" class="btn btn-default btn-xs">
+		Tie
+	</button>
+	<button type="button" class="btn btn-default btn-xs">
+		<img class="image epl-mini-team-logo"
+			ng-src="eplweb_components/image/logo/150x150/{{m.awayTeam.id}}.png" alt=""/>
+		{{m.awayTeam.shortName}}
+	</button>
+</div>

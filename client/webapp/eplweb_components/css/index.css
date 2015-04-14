@@ -545,6 +545,9 @@ table.epl-table > tbody > tr > td {
 	background-color: inherit;
 	border: none;
 }
+.epl-matchday .epl-voting-result {
+	float: left;
+}
 
 .epl-edit-score {
 	width: 35px;

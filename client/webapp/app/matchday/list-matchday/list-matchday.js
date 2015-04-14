@@ -87,6 +87,24 @@
 
 		function preUpdateVoting(match) {
 			preUpdateActionDiv(match, "voting", 2);
+			var text =  match.homeTeam.shortName + " VS " + match.awayTeam.shortName 
+				+ ", total vote = " + 23;
+
+			var categories = [
+				match.homeTeam.shortName + " win",
+				"TIE",
+				match.awayTeam.shortName + " win"];
+			var data = [49.9, 71.5, 2.0];
+
+			$('.voting-' + match.id).highcharts({
+				exporting: {enabled: false},
+				chart: {type: 'column'},
+				title: {text: ''},
+				subtitle: { text: text},
+				xAxis: {categories: categories},
+				yAxis: {min: 0, max: 100, title: { text: ''}},
+				series: [{showInLegend: false,name: 'Vote',data: data}]
+			});
 		}
 
 		function preUpdateComment(match) {
