@@ -23,6 +23,11 @@
 		var maxRating = 5;
 		vm.showInfoRating = false;
 
+		var maxCommentLength = 20;
+		vm.newComment = null;
+		vm.showPostCommentBtn = false;
+		vm.remainingChars = null; // Will be change when user start typing
+
 		$scope.$on("vm.model", modelChangeListener);
 		
 		vm.preUpdateRating = preUpdateRating;
@@ -31,13 +36,36 @@
 		vm.mouseOverRating = mouseOverRating;
 		vm.submitRating = submitRating;
 		vm.submitVoting = submitVoting;
+		vm.cursorFocus = cursorFocus;
+		vm.changeNewComment = changeNewComment;
+		vm.postNewComment = postNewComment;
 
 		activate();
 		function activate() {
 			vm.model = initData.matchdayModelView.model;
 			allVoting = initData.matchdayModelView.votings;
 			modifyEachMatch();
+		}
 
+		function postNewComment() {
+			console.log("postNewComment")
+		}
+
+		function changeNewComment() {
+			var length = (vm.newComment && vm.newComment.length) 
+				? vm.newComment.length
+				: 0;
+			vm.remainingChars = maxCommentLength - length;
+		}
+
+		function cursorFocus(whichText, action) {
+			if ("NEW" === whichText) {
+				if ("FOCUS" === action) {
+					vm.showPostCommentBtn = true;
+					vm.remainingChars = maxCommentLength;
+					changeNewComment();
+				} 
+			}
 		}
 
 		function submitVoting(vote, selectedVoting) {
@@ -176,6 +204,9 @@
 
 		function preUpdateComment(match) {
 			preUpdateActionDiv(match, "comment", 1);
+
+			vm.newComment = null;
+			vm.showPostCommentBtn = false;
 		}
 
 		function preUpdateRating(match) {

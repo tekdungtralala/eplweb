@@ -548,6 +548,23 @@ table.epl-table > tbody > tr > td {
 .epl-matchday .epl-voting-result {
 	float: left;
 }
+.epl-matchday .epl-comments {
+	float: left;
+}
+.epl-matchday .epl-comments .epl-userPicture {
+	float: left;
+}
+.epl-matchday .epl-comments .epl-textarea {
+	resize: none;
+	padding-top: 10px;
+	padding-left: 10px;
+	margin-left: 10px;
+}
+
+.epl-matchday .epl-comments .epl-remainingchar.has-error {
+	color: red;
+}
+
 
 .epl-edit-score {
 	width: 35px;

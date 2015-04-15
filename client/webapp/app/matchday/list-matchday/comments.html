@@ -1,1 +1,23 @@
-comments.html
+<div class="epl-comments">
+	<div>
+		<div class="epl-userPicture">
+			<img ng-src="{{loggedUser.imageUrl}}" class="img-circle" alt="User Image"/>
+		</div>
+		<textarea class="epl-textarea" 
+			placeholder="Write comments..."
+			rows="2" cols="70" 
+			ng-focus="vm.cursorFocus('NEW', 'FOCUS')"
+			ng-change="vm.changeNewComment()"
+			ng-model="vm.newComment"></textarea>
+	</div>
+	<div ng-show="vm.showPostCommentBtn">
+		<span class="epl-remainingchar {{vm.remainingChars < 0 ?'has-error':''}}">
+			{{vm.remainingChars}}
+		</span>
+		<button type="button" class="btn btn-primary btn-sm"
+			ng-disabled="vm.remainingChars < 0"
+			ng-click="">
+			Post
+		</button>
+	</div>
+<div>
