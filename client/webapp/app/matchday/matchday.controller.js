@@ -103,7 +103,7 @@
 
 			updatePrevNexBtn();
 
-			$rootScope.$broadcast("vm.model", vm.model);
+			$rootScope.$broadcast("vm.model", vm.model, data.votings);
 		}
 
 		function changeWeek(otherWeek) {

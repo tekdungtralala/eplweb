@@ -205,8 +205,9 @@
 			vm.subaAtionDiv[activeIndex] = true;
 		}
 
-		function modelChangeListener(event, model) {
+		function modelChangeListener(event, model, votings) {
 			vm.model = model;
+			allVoting = votings;
 			modifyEachMatch();
 		}
 

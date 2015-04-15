@@ -87,7 +87,7 @@ public class FirstLoadController extends BaseController {
 		result.setWeeks(weekService.getAllWeek());
 		
 		Week currWeek = weekService.findCurrWeek();
-		List<Matchday> listMatchday = matchdayService.findMatchtdayByWeekNumber(Integer.valueOf(currWeek.getWeekNumber()) + 1);
+		List<Matchday> listMatchday = matchdayService.findMatchtdayByWeekNumber(Integer.valueOf(currWeek.getWeekNumber()));
 		MatchdayModelView matchdayModel = new MatchdayModelView(listMatchday, currWeek);
 		
 		User user = null;
