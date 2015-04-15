@@ -37,6 +37,7 @@
 			vm.model = initData.matchdayModelView.model;
 			allVoting = initData.matchdayModelView.votings;
 			modifyEachMatch();
+
 		}
 
 		function submitVoting(vote, selectedVoting) {
@@ -78,6 +79,7 @@
 					m.votingAwayWin = newMatch.votingAwayWin;
 					m.votingHomeWin = newMatch.votingHomeWin;
 					m.votingTie = newMatch.votingTie;
+					m.vote = vm.selectedVoting;
 				}
 			});
 		}
@@ -214,6 +216,14 @@
 			_.each(vm.model, function(m) {
 				_.each(m, function(match) {
 					match.ratingPoint = match.ratingPoint.toFixed(2);
+
+					var voting = _.find(allVoting, function(v) {
+						return v.matchday.id === match.id;
+					});
+
+					if (voting && voting.vote) {
+						match.vote = voting.vote;
+					}
 
 					allMatch[i] = match;
 					i++;
