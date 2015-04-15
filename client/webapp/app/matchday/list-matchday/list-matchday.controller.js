@@ -87,7 +87,7 @@
 				initChart(match);
 
 				var voting = _.find(allVoting, function(v) {
-					return v.matchday.id === match.id;
+					return v.matchdayId === match.id;
 				});
 				if (voting) {
 					voting.vote = vm.selectedVoting;
@@ -160,9 +160,10 @@
 
 		function preUpdateVoting(match) {
 			var voting = _.find(allVoting, function(v) {
-				return v.matchday.id === match.id;
+				return v.matchdayId === match.id;
 			});
 
+			vm.selectedVoting = null;
 			if (voting) vm.selectedVoting = voting.vote;
 
 			preUpdateActionDiv(match, "voting", 2);
@@ -250,7 +251,7 @@
 					match.ratingPoint = match.ratingPoint.toFixed(2);
 
 					var voting = _.find(allVoting, function(v) {
-						return v.matchday.id === match.id;
+						return v.matchdayId === match.id;
 					});
 
 					if (voting && voting.vote) {

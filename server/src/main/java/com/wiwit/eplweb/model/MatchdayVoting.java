@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 @Table(name = "matchday_voting")
@@ -29,6 +32,11 @@ public class MatchdayVoting {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
+	
+	@Transient
+	private int matchdayId;
+	@Transient
+	private int userId;
 
 	public int getId() {
 		return id;
@@ -38,12 +46,26 @@ public class MatchdayVoting {
 		return vote;
 	}
 
+	@JsonIgnore
 	public Matchday getMatchday() {
 		return matchday;
 	}
 	
+	@JsonIgnore
 	public User getUser() {
 		return user;
+	}
+	
+	public int getMatchdayId() {
+		if (matchday != null && matchday.getId() != 0) 
+			return matchday.getId();
+		return matchdayId;
+	}
+	
+	public int getUserId() {
+		if (user != null && user.getId() != 0) 
+			return user.getId();
+		return userId;
 	}
 
 	public void setId(int id) {
@@ -60,5 +82,13 @@ public class MatchdayVoting {
 	
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public void setMatchdayId(int matchdayId) {
+		this.matchdayId = matchdayId;
+	}
+	
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 }
