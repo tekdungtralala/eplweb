@@ -31,10 +31,7 @@
 	])
 	.config(configRoute)
 	.run(appRun)
-	.directive("eplwebScrollPosition", eplwebScrollPosition)
-	.constant("youtubeUrl", "http://www.youtube.com/embed/")
-	.constant("googleClientId", "882702102207-s24ht598ci4dhc7mhafp1f4vu25mhfuh.apps.googleusercontent.com")
-	.constant("facebookAppId", "1615396538705155");
+	.directive("eplwebScrollPosition", eplwebScrollPosition);
 
 
 	function eplwebScrollPosition($window) {
