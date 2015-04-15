@@ -20,6 +20,9 @@ public class ApiPath {
 	public static final String MATCHDAYS_CHANGE_VOTING = "/api/matchday/{matchdayId}/updateVoting";
 	public static final String MATCHDAYS_CHANGE_SCHEDULE = "/api/updateMatchday/{weekNumber}";
 	
+	public static final String MATCHDAY_COMMENTS_BY_MATCH = "/api/matchday/{matchdayId}/comment";
+//	public static final String MATCHDAY_COMMENTS_BY_PARENT = "/api/matchday/comment/{parentId}";
+	
 	public static final String SQUAD_BY_ID = "/api/players/{playerId}";
 	public static final String SQUAD = "/api/players";
 	public static final String SQUADS_BY_TEAM =  "/api/players/team/{teemId}";

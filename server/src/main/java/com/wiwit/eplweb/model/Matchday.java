@@ -25,55 +25,58 @@ public class Matchday {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(name = "date")
 	private Date date;
-	
+
 	@Column(name = "time")
 	private Time time;
-	
+
 	@Column(name = "home_goal")
 	private Integer homeGoal;
-	
+
 	@Column(name = "away_goal")
 	private Integer awayGoal;
-	
+
 	@Column(name = "home_point")
 	private Integer homePoint;
-	
+
 	@Column(name = "away_point")
 	private Integer awayPoint;
-	
+
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "home_team_id", nullable = false)
 	private Team homeTeam;
-	
+
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "away_team_id", nullable = false)
 	private Team awayTeam;
-	
+
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "week_id", nullable = false)
 	private Week week;
 
 	@Column(name = "total_rating")
 	private Integer totalRating;
-	
+
 	@Column(name = "rating_point")
 	private Float ratingPoint;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "matchday")
 	private List<MatchdayRating> matchdayRating;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "matchday")
 	private List<MatchdayVoting> matchdayVoting;
-	
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "matchday")
+	private List<MatchdayComment> matchdayComments;
+
 	@Column(name = "voting_home_win")
 	private Integer votingHomeWin;
-	
+
 	@Column(name = "voting_away_win")
 	private Integer votingAwayWin;
-	
+
 	@Column(name = "voting_tie")
 	private Integer votingTie;
 
@@ -156,30 +159,33 @@ public class Matchday {
 	public void setWeek(Week week) {
 		this.week = week;
 	}
-	
+
 	@JsonIgnore
 	public Integer getTotalRating() {
 		return totalRating;
 	}
+
 	public void setTotalRating(Integer totalRating) {
 		this.totalRating = totalRating;
 	}
-	
+
 	public Float getRatingPoint() {
 		return ratingPoint;
 	}
+
 	public void setRatingPoint(Float ratingPoint) {
 		this.ratingPoint = ratingPoint;
 	}
-	
+
 	@JsonIgnore
 	public List<MatchdayRating> getMatchdayRating() {
 		return matchdayRating;
 	}
+
 	public void setMatchdayRating(List<MatchdayRating> matchdayRating) {
 		this.matchdayRating = matchdayRating;
 	}
-	
+
 	@JsonIgnore
 	public List<MatchdayVoting> getMatchdayVoting() {
 		return matchdayVoting;
@@ -189,23 +195,35 @@ public class Matchday {
 		this.matchdayVoting = matchdayVoting;
 	}
 
+	@JsonIgnore
+	public List<MatchdayComment> getMatchdayComments() {
+		return matchdayComments;
+	}
+
+	public void setMatchdayComments(List<MatchdayComment> matchdayComments) {
+		this.matchdayComments = matchdayComments;
+	}
+
 	public Integer getVotingAwayWin() {
 		return votingAwayWin;
 	}
+
 	public void setVotingAwayWin(Integer votingAwayWin) {
 		this.votingAwayWin = votingAwayWin;
 	}
-	
+
 	public Integer getVotingHomeWin() {
 		return votingHomeWin;
 	}
+
 	public void setVotingHomeWin(Integer votingHomeWin) {
 		this.votingHomeWin = votingHomeWin;
 	}
-	
+
 	public Integer getVotingTie() {
 		return votingTie;
 	}
+
 	public void setVotingTie(Integer votingTie) {
 		this.votingTie = votingTie;
 	}

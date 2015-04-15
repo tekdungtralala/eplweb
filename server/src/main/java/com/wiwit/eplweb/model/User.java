@@ -52,6 +52,9 @@ public class User {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<MatchdayVoting> matchdayVoting;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private List<MatchdayComment> matchdayComments;
 
 	public int getId() {
 		return id;
@@ -121,6 +124,15 @@ public class User {
 	
 	public void setMatchdayVoting(List<MatchdayVoting> matchdayVoting) {
 		this.matchdayVoting = matchdayVoting;
+	}
+	
+	@JsonIgnore
+	public List<MatchdayComment> getMatchdayComments() {
+		return matchdayComments;
+	}
+	
+	public void setMatchdayComments(List<MatchdayComment> matchdayComments) {
+		this.matchdayComments = matchdayComments;
 	}
 
 	public String getFirstName() {
