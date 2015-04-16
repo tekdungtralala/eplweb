@@ -12,8 +12,8 @@
 		$rootScope.$broadcast("show-phase-nav", true);
 
 		var vm = this;
-		vm.comment = commenthelper;
 		vm.newComment = null;
+		vm.comment = commenthelper;
 		vm.comment.initNewComment();
 
 		var allMatch = [];
@@ -94,6 +94,7 @@
 					m.votingHomeWin = newMatch.votingHomeWin;
 					m.votingTie = newMatch.votingTie;
 					m.vote = vm.selectedVoting;
+					m.ratingPoint = newMatch.ratingPoint.toFixed(2);
 				}
 			});
 		}
@@ -114,8 +115,8 @@
 			vm.showInfoRating = true;
 
 			if (200 === resp.status) {
-				updateNewMatch(resp.data);
-				match.ratingPoint = newMatch.ratingPoint.toFixed(2);;
+				var match = resp.data;
+				updateNewMatch(match);
 			}
 		}
 
