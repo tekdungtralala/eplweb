@@ -5,11 +5,17 @@
 		.module("app.matchday")
 		.controller("List-Matchday", ListMatchday);
 
-	function ListMatchday(initData, dataservice, $scope, $rootScope) {
+	function ListMatchday(initData, dataservice, commenthelper, $scope, 
+		$rootScope) {
+
 		$rootScope.$broadcast("state-btn", "list-matchday");
 		$rootScope.$broadcast("show-phase-nav", true);
 
 		var vm = this;
+		vm.comment = commenthelper;
+		vm.newComment = null;
+		vm.comment.initNewComment();
+
 		var allMatch = [];
 		var allVoting = [];
 		vm.model = null;
@@ -23,11 +29,6 @@
 		var maxRating = 5;
 		vm.showInfoRating = false;
 
-		var maxCommentLength = 20;
-		vm.newComment = null;
-		vm.showPostCommentBtn = false;
-		vm.remainingChars = null; // Will be change when user start typing
-
 		$scope.$on("vm.model", modelChangeListener);
 		
 		vm.preUpdateRating = preUpdateRating;
@@ -37,8 +38,6 @@
 		vm.submitRating = submitRating;
 		vm.submitVoting = submitVoting;
 		vm.cursorFocus = cursorFocus;
-		vm.changeNewComment = changeNewComment;
-		vm.postNewComment = postNewComment;
 
 		activate();
 		function activate() {
@@ -47,23 +46,10 @@
 			modifyEachMatch();
 		}
 
-		function postNewComment() {
-			console.log("postNewComment")
-		}
-
-		function changeNewComment() {
-			var length = (vm.newComment && vm.newComment.length) 
-				? vm.newComment.length
-				: 0;
-			vm.remainingChars = maxCommentLength - length;
-		}
-
 		function cursorFocus(whichText, action) {
 			if ("NEW" === whichText) {
 				if ("FOCUS" === action) {
-					vm.showPostCommentBtn = true;
-					vm.remainingChars = maxCommentLength;
-					changeNewComment();
+					vm.comment.focusOnNewComment();
 				} 
 			}
 		}
@@ -207,7 +193,7 @@
 			preUpdateActionDiv(match, "comment", 1);
 
 			vm.newComment = null;
-			vm.showPostCommentBtn = false;
+			vm.comment.initNewComment();
 		}
 
 		function preUpdateRating(match) {
