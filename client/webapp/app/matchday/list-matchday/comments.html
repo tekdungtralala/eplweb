@@ -6,7 +6,7 @@
 		<textarea class="epl-textarea" 
 			placeholder="Write comments..."
 			rows="2" cols="70" 
-			ng-focus="vm.cursorFocus('NEW', 'FOCUS')"
+			ng-focus="vm.comment.focusOnNewComment()"
 			ng-change="vm.comment.userTypeNewComment(vm.newComment)"
 			ng-model="vm.newComment"></textarea>
 	</div>

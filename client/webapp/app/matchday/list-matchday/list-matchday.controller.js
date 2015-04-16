@@ -5,8 +5,8 @@
 		.module("app.matchday")
 		.controller("List-Matchday", ListMatchday);
 
-	function ListMatchday(initData, dataservice, commenthelper, $scope, 
-		$rootScope) {
+	function ListMatchday(initData, dataservice, commenthelper, votinghelper,
+		$scope, $rootScope) {
 
 		$rootScope.$broadcast("state-btn", "list-matchday");
 		$rootScope.$broadcast("show-phase-nav", true);
@@ -16,13 +16,13 @@
 		vm.comment = commenthelper;
 		vm.comment.initNewComment();
 
+		vm.voting = votinghelper;
+
 		var allMatch = [];
-		var allVoting = [];
 		vm.model = null;
 
 		vm.subaAtionDiv = [];
 		var selectedMatchdayId = null;
-		vm.selectedVoting = null;
 		var latestActionDiv = null;
 		
 		vm.ratings = [];
@@ -37,25 +37,17 @@
 		vm.mouseOverRating = mouseOverRating;
 		vm.submitRating = submitRating;
 		vm.submitVoting = submitVoting;
-		vm.cursorFocus = cursorFocus;
 
 		activate();
 		function activate() {
 			vm.model = initData.matchdayModelView.model;
-			allVoting = initData.matchdayModelView.votings;
+			vm.voting.setAllVoting(initData.matchdayModelView.votings);
 			modifyEachMatch();
 		}
 
-		function cursorFocus(whichText, action) {
-			if ("NEW" === whichText) {
-				if ("FOCUS" === action) {
-					vm.comment.focusOnNewComment();
-				} 
-			}
-		}
+		function submitVoting(vote, currVoting) {
+			vm.voting.setCurrVoting(currVoting);
 
-		function submitVoting(vote, selectedVoting) {
-			vm.selectedVoting = selectedVoting;
 			var votingObj = {
 				vote: vote
 			}
@@ -68,22 +60,8 @@
 		function afterSubmitVoting(resp) {
 			if (200 === resp.status) {
 				var match = resp.data;
-
 				updateNewMatch(match);
-				initChart(match);
-
-				var voting = _.find(allVoting, function(v) {
-					return v.matchdayId === match.id;
-				});
-				if (voting) {
-					voting.vote = vm.selectedVoting;
-				} else {
-					var newVoting = {};
-					newVoting.matchday = match;
-					newVoting.vote = vm.selectedVoting;
-
-					allVoting.push(newVoting);
-				}
+				vm.voting.initChart(match);
 			}
 		}
 
@@ -93,7 +71,7 @@
 					m.votingAwayWin = newMatch.votingAwayWin;
 					m.votingHomeWin = newMatch.votingHomeWin;
 					m.votingTie = newMatch.votingTie;
-					m.vote = vm.selectedVoting;
+					m.vote = vm.voting.getCurrVoting();
 					m.ratingPoint = newMatch.ratingPoint.toFixed(2);
 				}
 			});
@@ -146,48 +124,10 @@
 		}
 
 		function preUpdateVoting(match) {
-			var voting = _.find(allVoting, function(v) {
-				return v.matchdayId === match.id;
-			});
-
-			vm.selectedVoting = null;
-			if (voting) vm.selectedVoting = voting.vote;
+			vm.voting.initCurrVoting(match);
 
 			preUpdateActionDiv(match, "voting", 2);
-			initChart(match);
-		}
-
-		function initChart(match) {
-			var totalVoting = match.votingHomeWin + match.votingAwayWin 
-				+ match.votingTie;
-
-			var text =  match.homeTeam.shortName + " VS " + match.awayTeam.shortName 
-				+ ", total = " + totalVoting + " vote.";
-
-			var categories = [
-				match.homeTeam.shortName + " win",
-				"TIE",
-				match.awayTeam.shortName + " win"];
-			var data = [
-				parseFloat((match.votingHomeWin / totalVoting * 100).toFixed(2)), 
-				parseFloat((match.votingTie / totalVoting * 100).toFixed(2)), 
-				parseFloat((match.votingAwayWin / totalVoting * 100).toFixed(2))
-			];
-
-			$('.voting-' + match.id).highcharts({
-				exporting: {enabled: false},
-				chart: {type: 'column'},
-				title: {text: ''},
-				subtitle: { text: text},
-				xAxis: {categories: categories},
-				yAxis: {min: 0, max: 100, title: { text: 'Percent (%)'}},
-				series: [{showInLegend: false,name: 'Vote',data: data}],
-				tooltip: {
-					formatter: function() {
-						return "Total Vote : " + this.y + " %";
-					}
-				}
-			});
+			vm.voting.initChart(match);
 		}
 
 		function preUpdateComment(match) {
@@ -226,7 +166,7 @@
 
 		function modelChangeListener(event, model, votings) {
 			vm.model = model;
-			allVoting = votings;
+			vm.voting.setAllVoting(votings);
 			modifyEachMatch();
 		}
 
@@ -237,7 +177,7 @@
 				_.each(m, function(match) {
 					match.ratingPoint = match.ratingPoint.toFixed(2);
 
-					var voting = _.find(allVoting, function(v) {
+					var voting = _.find(vm.voting.getAllVoting(), function(v) {
 						return v.matchdayId === match.id;
 					});
 
