@@ -42,11 +42,13 @@
 				</a>
 			</td>
 			<td class="epl-center">
-				<button type="button" class="btn btn-primary btn-xs"
+				<button type="button" 
+					class="btn btn-primary btn-xs"
 					ng-click="vm.selectActionDiv(m, 1);">
 					<i class="fa fa-comment"></i>
 				</button>
-				<button type="button" class="btn btn-success btn-xs"
+				<button type="button" 
+					class="btn btn-success btn-xs epl-voting-btn"
 					ng-click="vm.selectActionDiv(m, 2);">
 					<i class="fa fa-check-square-o"></i>
 					<img class="image epl-mini-team-logo"
@@ -58,7 +60,8 @@
 					<span ng-show="m.vote === 3"> Tie</span>
 					<span ng-show="m.vote != 1 && m.vote != 2 && m.vote != 3"> ?</span>
 				</button>
-				<button type="button" class="btn btn-warning btn-xs"
+				<button type="button" 
+					class="btn btn-warning btn-xs "
 					ng-click="vm.selectActionDiv(m, 0);">
 					<i class="fa fa-star">&nbsp;{{m.ratingPoint}}</i>
 				</button>

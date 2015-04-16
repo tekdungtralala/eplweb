@@ -548,24 +548,61 @@ table.epl-table > tbody > tr > td {
 .epl-matchday .epl-voting-result {
 	float: left;
 }
-.epl-matchday .epl-comments {
+.epl-matchday .epl-voting-btn {
+	width: 50px;	
+}
+.epl-matchday .epl-new-comment {
+	width: 100%;
+	padding-bottom: 5px;
+}
+.epl-matchday .epl-other-comment .epl-comment-group {
+	width: 100%;
+	padding-top: 10px;
+}
+.epl-matchday .epl-children-comment .epl-comment-group {
+	width: 100%;
+	padding-top: 10px;
+	padding-left: 75px;
+}
+.epl-matchday .epl-image-user {
+	border: none;
+}
+.epl-matchday .epl-children-comment .epl-image-user img {
+	max-width: 35px;
+	max-width: 35px;
+}
+.epl-matchday .epl-comment {
+	padding-left: 12px;
+}
+.epl-matchday .epl-comment .epl-user-name {
+	margin-right: 10px;
+}
+.epl-matchday .epl-comment .epl-user-name,
+.epl-matchday .epl-comment .epl-points,
+.epl-matchday .epl-comment .epl-created {
 	float: left;
 }
-.epl-matchday .epl-comments .epl-userPicture {
-	float: left;
+.epl-matchday .epl-comment .epl-value {
+	text-align: left;
 }
-.epl-matchday .epl-comments .epl-textarea {
+.epl-matchday .epl-comment .epl-action {
+	text-align: left;
+	padding-top: 5px;
+}
+.epl-matchday .epl-textarea {
+	min-height: 60px;
+	border: 2px solid rgba(0,0,0,0.1);
+	padding: 8px 10px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	outline: 0;
 	resize: none;
 	padding-top: 10px;
 	padding-left: 10px;
 	margin-left: 10px;
+	width: 100%;
 }
-
-.epl-matchday .epl-comments .epl-remainingchar.has-error {
-	color: red;
-}
-
-
 .epl-edit-score {
 	width: 35px;
 }

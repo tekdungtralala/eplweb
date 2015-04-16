@@ -95,6 +95,11 @@
 			} else {
 				toggleActionDiv(match, subActionIndex);
 				latestActionDiv = currentActionDiv;
+
+				// In comment section, we need to fetch comments from server
+				if (1 === subActionIndex) {
+					vm.comment.fetchComments(match.id);
+				}
 			}
 		}
 

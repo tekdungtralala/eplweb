@@ -1,11 +1,10 @@
 <div class="epl-comments">
-	<div>
-		<div class="epl-userPicture">
-			<img ng-src="{{loggedUser.imageUrl}}" class="img-circle" alt="User Image"/>
-		</div>
-		<textarea class="epl-textarea" 
+	<div class="input-group epl-new-comment">
+		<span class="input-group-addon epl-image-user">
+			<img ng-src="{{loggedUser.imageUrl}}" class="img-circle"/>
+		</span>
+		<textarea class="form-control epl-textarea" 
 			placeholder="Write comments..."
-			rows="2" cols="70" 
 			ng-focus="vm.comment.focusOnNewComment()"
 			ng-change="vm.comment.userTypeNewComment(vm.newComment)"
 			ng-model="vm.newComment"></textarea>
@@ -21,5 +20,76 @@
 			ng-click="vm.comment.postNewComment()">
 			Post
 		</button>
+	</div>
+
+
+	<div class='clearfix'></div>
+
+	<div data-ng-repeat='c in vm.comment.getAllComments()' 
+		class="epl-other-comment">
+		<div class="input-group epl-comment-group">
+			<div class="input-group-addon epl-image-user">
+				<img ng-src="{{c.userImageUrl}}" class="img-circle"/>
+			</div>
+			<div class="epl-comment">
+				<div class="epl-user-name"><b>{{c.username}}</b></div>
+				<div class="epl-points">{{c.points}} points - </div>
+				<div class="epl-created">1d</div>
+				<div class='clearfix'></div>
+				<div class="epl-value">{{c.value}}</div>
+				<div class='clearfix'></div>
+				<div class="epl-action">
+					<button type="button" 
+						class="btn btn-default btn-xs">
+						Reply
+					</button>
+					<button type="button" 
+						class="btn btn-default btn-xs">
+						<span class="glyphicon glyphicon-arrow-up"></span>
+					</button>
+					<button type="button" 
+						class="btn btn-default btn-xs">
+						<span class="glyphicon glyphicon-arrow-down"></span>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class='clearfix'></div>
+
+
+		<div data-ng-repeat='s in c.subComment' 
+			class="epl-children-comment">
+			<div class="input-group epl-comment-group">
+				<div class="input-group-addon epl-image-user">
+					<img ng-src="{{s.userImageUrl}}" class="img-circle"/>
+				</div>
+				<div class="epl-comment">
+					<div class="epl-user-name"><b>{{s.username}}</b></div>
+					<div class="epl-points">{{s.points}} points - </div>
+					<div class="epl-created">1d</div>
+					<div class='clearfix'></div>
+					<div class="epl-value">{{s.value}}</div>
+					<div class='clearfix'></div>
+					<div class="epl-action">
+						<button type="button" 
+							class="btn btn-default btn-xs">
+							Reply
+						</button>
+						<button type="button" 
+							class="btn btn-default btn-xs">
+							<span class="glyphicon glyphicon-arrow-up"></span>
+						</button>
+						<button type="button" 
+							class="btn btn-default btn-xs">
+							<span class="glyphicon glyphicon-arrow-down"></span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class='clearfix'></div>
+		</div>
+		
+
+
 	</div>
 <div>

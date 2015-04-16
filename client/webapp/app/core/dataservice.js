@@ -16,7 +16,7 @@
 	 */
 	function Dataservice($q, $http, $rootScope, playerservice, adminservice, 
 		teamservice, matchdayservice, rankservice, adminauth, userauth, socialmedia, 
-		userservice) {
+		userservice, matchdaycommentsrvc) {
 
 		var isPrimed = false;
 		var primePromise;
@@ -46,6 +46,7 @@
 		$.extend(service, rankservice);
 		$.extend(service, socialmedia);
 		$.extend(service, userservice);
+		$.extend(service, matchdaycommentsrvc);
 
 		return service;
 

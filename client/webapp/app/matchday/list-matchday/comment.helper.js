@@ -8,11 +8,13 @@
 		.module("app.matchday")
 		.factory("commenthelper", CommentHelper);
 
-		function CommentHelper() {
+		function CommentHelper(dataservice) {
 			var maxCommentLength = 500;
 			var newComment = null;
 			var showPostCommentBtn = false;
 			var remainingChars = null; // Will be change when user start typing
+			var deferred = null;
+			var allComments = [];
 
 			var service = {
 				initNewComment: initNewComment,
@@ -20,9 +22,29 @@
 				focusOnNewComment: focusOnNewComment,
 				userTypeNewComment: userTypeNewComment,
 				postNewComment: postNewComment,
-				getRemainingChars: getRemainingChars
+				getRemainingChars: getRemainingChars,
+				fetchComments: fetchComments,
+				getAllComments: getAllComments
 			}
 			return service;
+
+			function getAllComments() {
+				return allComments;
+			}
+
+			function fetchComments(matchdayId) {
+				allComments = null;
+				deferred = $.Deferred();
+				dataservice.fetchComments(matchdayId).then(afterFetchComments);
+				return deferred;
+			}
+
+			function afterFetchComments(resp) {
+				if (200 === resp.status) {
+					allComments = resp.data.comments;
+				}
+				deferred.resolve(resp);
+			}
 
 			function getRemainingChars() {
 				return remainingChars;
@@ -42,7 +64,7 @@
 
 			function focusOnNewComment() {
 				showPostCommentBtn = true;
-				userTypeNewComment(null);
+				userTypeNewComment(newComment);
 			}
 
 			function isShowPostCmntBtn() {
