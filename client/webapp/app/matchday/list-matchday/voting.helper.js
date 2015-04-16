@@ -8,9 +8,10 @@
 		.module("app.matchday")
 		.factory("votinghelper", VotingHelper);
 
-		function VotingHelper() {
+		function VotingHelper(dataservice) {
 			var allVoting = [];
 			var currVoting = null;
+			var deferred = null;
 
 			var service = {
 				initChart: initChart,
@@ -18,9 +19,32 @@
 				setAllVoting: setAllVoting,
 				initCurrVoting: initCurrVoting,
 				getCurrVoting: getCurrVoting,
-				setCurrVoting: setCurrVoting
+				setCurrVoting: setCurrVoting,
+				submitVoting: submitVoting
 			}
 			return service;
+
+			function submitVoting(matchdayId, vote, currVoting) {
+				setCurrVoting(currVoting);
+				deferred = $.Deferred();
+
+				var votingObj = {
+					vote: vote
+				}
+
+				dataservice
+					.updateVoting(matchdayId, votingObj)
+					.then(afterSubmitVoting);
+
+				return deferred;
+			}
+
+			function afterSubmitVoting(resp) {
+				if (200 === resp.status) {
+					initChart(resp.data);
+				}
+				deferred.resolve(resp);
+			}
 
 			function initCurrVoting(match) {
 				var voting = _.find(allVoting, function(v) {
@@ -29,6 +53,8 @@
 
 				currVoting = null;
 				if (voting) currVoting = voting.vote;
+
+				initChart(match);
 			}
 
 			function getCurrVoting() {

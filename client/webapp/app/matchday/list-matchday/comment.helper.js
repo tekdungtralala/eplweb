@@ -4,7 +4,6 @@
 	/*
 	 * This factory only can be used on List-Matchday Controller
 	 */
-
 	angular
 		.module("app.matchday")
 		.factory("commenthelper", CommentHelper);

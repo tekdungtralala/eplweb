@@ -6,7 +6,7 @@
 		.controller("List-Matchday", ListMatchday);
 
 	function ListMatchday(initData, dataservice, commenthelper, votinghelper,
-		$scope, $rootScope) {
+		ratinghelper, $scope, $rootScope) {
 
 		$rootScope.$broadcast("state-btn", "list-matchday");
 		$rootScope.$broadcast("show-phase-nav", true);
@@ -17,6 +17,7 @@
 		vm.comment.initNewComment();
 
 		vm.voting = votinghelper;
+		vm.rating = ratinghelper;
 
 		var allMatch = [];
 		vm.model = null;
@@ -24,17 +25,10 @@
 		vm.subaAtionDiv = [];
 		var selectedMatchdayId = null;
 		var latestActionDiv = null;
-		
-		vm.ratings = [];
-		var maxRating = 5;
-		vm.showInfoRating = false;
 
 		$scope.$on("vm.model", modelChangeListener);
 		
-		vm.preUpdateRating = preUpdateRating;
-		vm.preUpdateComment = preUpdateComment;
-		vm.preUpdateVoting = preUpdateVoting;
-		vm.mouseOverRating = mouseOverRating;
+		vm.selectActionDiv = selectActionDiv;
 		vm.submitRating = submitRating;
 		vm.submitVoting = submitVoting;
 
@@ -46,22 +40,26 @@
 		}
 
 		function submitVoting(vote, currVoting) {
-			vm.voting.setCurrVoting(currVoting);
-
-			var votingObj = {
-				vote: vote
-			}
-
-			dataservice
-				.updateVoting(selectedMatchdayId, votingObj)
-				.then(afterSubmitVoting);			
+			vm.voting.submitVoting(selectedMatchdayId, vote, currVoting)
+				.done(afterSubmitVoting)
 		}
 
 		function afterSubmitVoting(resp) {
 			if (200 === resp.status) {
 				var match = resp.data;
 				updateNewMatch(match);
-				vm.voting.initChart(match);
+			}
+		}
+
+		function submitRating(rating) {
+			vm.rating.submitRating(selectedMatchdayId, rating)
+				.done(afterSubmitRating)
+		}
+
+		function afterSubmitRating(resp) {
+			if (200 === resp.status) {
+				var match = resp.data;
+				updateNewMatch(match);
 			}
 		}
 
@@ -77,90 +75,44 @@
 			});
 		}
 
-		function submitRating(rating) {
-			vm.showInfoRating = false;
-
-			var ratingObj = {
-				rating: rating
+		function selectActionDiv(match, subActionIndex) {
+			var subAction = "";
+			if (0 === subActionIndex) {
+				subAction = "rating";
+				vm.rating.initRating();
+			} else if (1 === subActionIndex) {
+				subAction = "comment";
+				vm.newComment = null;
+				vm.comment.initNewComment();
+			} else if (2 === subActionIndex) {
+				subAction = "voting";
+				vm.voting.initCurrVoting(match);
 			}
 
-			dataservice
-				.updateRating(selectedMatchdayId, ratingObj)
-				.then(afterSubmitRating);
-		}
-
-		function afterSubmitRating(resp) {
-			vm.showInfoRating = true;
-
-			if (200 === resp.status) {
-				var match = resp.data;
-				updateNewMatch(match);
-			}
-		}
-
-		function mouseOverRating(index) {
-			_.each(vm.ratings, function(r) {
-				r.isEmpty = true;
-				if (r.index <= index) {
-					r.isEmpty = false;
-				} 
-			});
-		}
-
-		function preUpdateActionDiv(match, subAction, subActionIndex) {
 			var currentActionDiv = subAction + match.id;
 			if (latestActionDiv === currentActionDiv && match.showActionDiv) {
 				match.showActionDiv = false;
 			} else {
-				toggleSubcActionDiv(match, subActionIndex);
+				toggleActionDiv(match, subActionIndex);
 				latestActionDiv = currentActionDiv;
-
-				if (0 === subActionIndex) {
-					vm.showInfoRating = false;
-					initRating();
-				}
-
-			}			
-		}
-
-		function preUpdateVoting(match) {
-			vm.voting.initCurrVoting(match);
-
-			preUpdateActionDiv(match, "voting", 2);
-			vm.voting.initChart(match);
-		}
-
-		function preUpdateComment(match) {
-			preUpdateActionDiv(match, "comment", 1);
-
-			vm.newComment = null;
-			vm.comment.initNewComment();
-		}
-
-		function preUpdateRating(match) {
-			preUpdateActionDiv(match, "rating", 0);
-		}
-
-		function initRating() {
-			for(var i = 0; i < maxRating; i++) {
-				vm.ratings[i] = {index:i, isEmpty:true}
 			}
 		}
 
-		function toggleActionDiv(match) {
+		function toggleActionDiv(match, activeIndex) {
+			// Set selected matchday
 			selectedMatchdayId = match.id;
+			// Hide actionDiv in allMatch
 			_.each(allMatch, function(m) {
 				m.showActionDiv = false;
 			});
+			// Show actionDiv on selected match
 			match.showActionDiv = true;
-		}
 
-		function toggleSubcActionDiv(match, activeIndex) {
-			toggleActionDiv(match);
-
+			// Hide subActionDiv in a match
 			for(var i in vm.subaAtionDiv) {
 				vm.subaAtionDiv[i] = false;
 			}
+			// Show selected subActionDiv
 			vm.subaAtionDiv[activeIndex] = true;
 		}
 
@@ -189,9 +141,6 @@
 					i++;
 				});
 			});
-			vm.subaAtionDiv[0] = true;
-			vm.subaAtionDiv[1] = false;
-			vm.subaAtionDiv[2] = false;
 		}
 
 	}
