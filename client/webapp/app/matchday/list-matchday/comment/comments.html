@@ -55,7 +55,6 @@
 		<span class="glyphicon glyphicon-plus"/>
 	</button>
 
-
 	<div class='clearfix'></div>
 
 	<div data-ng-repeat='c in vm.comment.getAllComments()' 
@@ -91,7 +90,6 @@
 		</div>
 		<div class='clearfix'></div>
 
-
 		<div data-ng-repeat='s in c.subComment' 
 			class="epl-children-comment">
 			<div class="input-group epl-comment-group">
@@ -125,8 +123,26 @@
 			</div>
 			<div class='clearfix'></div>
 		</div>
-		
 
-
+		<div class="epl-children-comment" 
+			ng-show="c.subCommentLoaded < c.totalSubComment">
+			<div class="epl-comment-group">
+				<button type="button" 
+					class="btn btn-primary btn-xs"
+					ng-click="vm.comment.loadMoreReplies(c)"
+					ng-disabled="vm.comment.isStillDoAsc()">
+					{{c.textInfoSubCmt}}
+				</button>
+			</div>
+		</div>
 	</div>
+
+	<button type="button" 
+		class="btn btn-primary btn-xs epl-loadmorecmnt-btn"
+		ng-show="vm.comment.getCommentLoaded() < vm.comment.getTotalComment()"
+		ng-click="vm.comment.loadMoreComment()"
+		ng-disabled="vm.comment.isStillDoAsc()">
+		{{vm.comment.getTextInfoComment()}}
+	</button>
+
 <div>

@@ -14,11 +14,19 @@ public class MatchdayCommentService {
 	@Autowired
 	private MatchdayCommentDAO matchdayCommentDAO;
 
-	public List<MatchdayComment> findByMathdayId(int matchdayId) {
-		return matchdayCommentDAO.findByMatchdayId(matchdayId);
+	public List<MatchdayComment> findByMathdayId(int matchdayId, int offset, int size) {
+		return matchdayCommentDAO.findByMatchdayId(matchdayId, offset, size);
 	}
 	
 	public List<MatchdayComment> findByParentId(int parentId, int offset, int size) {
 		return matchdayCommentDAO.findByParentId(parentId, offset, size);
 	}	
+	
+	public Long countTotalCommentByMatchdayId(int matchdayId) {
+		return matchdayCommentDAO.countTotalCommentByMatchdayId(matchdayId);
+	}
+	
+	public Long countTotalCommentByParentId(int parentId) {
+		return matchdayCommentDAO.countTotalCommentByParentId(parentId);
+	}
 }

@@ -8,18 +8,29 @@
 		// Note: Please read dataservice.js factory before using any factory
 		function MatchdayCommentSrvc($http, $rootScope, userauth) {
 			var service = {
-				fetchComments: fetchComments
+				fetchComments: fetchComments,
+				fetchSubComments: fetchSubComments
 			};
 			return service;
 
-			function fetchComments(matchdayId) {
+			function fetchSubComments(matchdayId, offset) {
 				var req = userauth.getConf(null, "GET", 
-					"api/matchday/" + matchdayId + "/comment");
+					"api/matchday/comment/" + matchdayId + "/loadsubcomment?offset=" + 
+					offset);
 
-				$rootScope.promise = $http(req)
-						.then(process)
-						.catch(process);
-				return $rootScope.promise;
+				return $http(req).then(process).catch(process);
+			}
+
+			function fetchComments(matchdayId, offset, withLoading) {
+				var req = userauth.getConf(null, "GET", 
+					"api/matchday/" + matchdayId + "/comment?offset=" + offset);
+
+				var result = $http(req).then(process).catch(process);
+				if (withLoading) {
+					$rootScope.promise = result;
+					return $rootScope.promise;
+				}
+				return result;
 			}
 
 			function process(result) {

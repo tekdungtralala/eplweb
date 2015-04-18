@@ -51,7 +51,7 @@ public enum PathPattern {
 	MATCHDAYS(new String[]{"GET"}, "/api/matchday", false),
 	MATCHDAYS_BY_WEEK(new String[]{"GET"}, "/api/matchday/[\\d]+", false),
 	MATCHDAY_COMMENTS_BY_MATCH(new String[]{"GET"}, "/api/matchday/[\\d]+/comment", false),
-//	MATCHDAY_COMMENTS_BY_PARENT(new String[]{"GET"}, "/api/matchday/comment/[\\d]+", false),
+	MATCHDAY_COMMENTS_BY_PARENT(new String[]{"GET"}, "/api/matchday/comment/[\\d]+/loadsubcomment", false),
 	
 	SQUADS_BY_TEAM(new String[]{"GET"}, "/api/players/team/[\\d]+", false),
 	

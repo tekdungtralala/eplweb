@@ -61,6 +61,13 @@ public class MatchdayComment {
 	
 	@Transient
 	private List<MatchdayComment> subComment;
+	
+	@Transient
+	private Long totalSubComment;
+	
+	@Transient
+	private int parentId;
+	
 
 	public int getId() {
 		return id;
@@ -119,6 +126,16 @@ public class MatchdayComment {
 	public List<MatchdayComment> getSubComment() {
 		return subComment;
 	}
+	
+	public Long getTotalSubComment() {
+		return totalSubComment;
+	}
+	
+	public int getParentId() {
+		if (parent != null && parent.getId() != 0)
+			return parent.getId();
+		return parentId;
+	}
 
 	public void setId(int id) {
 		this.id = id;
@@ -166,5 +183,13 @@ public class MatchdayComment {
 	
 	public void setSubComment(List<MatchdayComment> subComment) {
 		this.subComment = subComment;
+	}
+	
+	public void setTotalSubComment(Long totalSubComment) {
+		this.totalSubComment = totalSubComment;
+	}
+	
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
 	}
 }

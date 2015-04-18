@@ -551,6 +551,12 @@ table.epl-table > tbody > tr > td {
 .epl-matchday .epl-voting-btn {
 	width: 50px;	
 }
+.epl-matchday .epl-comments {
+	text-align: left;
+}
+.epl-matchday .epl-loadmorecmnt-btn {
+	margin-top: 10px;
+}
 .epl-matchday .epl-new-comment-btn {
 	float: left;
 }
@@ -566,6 +572,7 @@ table.epl-table > tbody > tr > td {
 	width: 100%;
 	padding-top: 10px;
 	padding-left: 75px;
+	text-align: left;
 }
 .epl-matchday .epl-image-user {
 	border: none;

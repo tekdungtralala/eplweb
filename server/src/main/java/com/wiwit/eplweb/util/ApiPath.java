@@ -21,7 +21,7 @@ public class ApiPath {
 	public static final String MATCHDAYS_CHANGE_SCHEDULE = "/api/updateMatchday/{weekNumber}";
 	
 	public static final String MATCHDAY_COMMENTS_BY_MATCH = "/api/matchday/{matchdayId}/comment";
-//	public static final String MATCHDAY_COMMENTS_BY_PARENT = "/api/matchday/comment/{parentId}";
+	public static final String MATCHDAY_COMMENTS_BY_PARENT = "/api/matchday/comment/{commentId}/loadsubcomment";
 	
 	public static final String SQUAD_BY_ID = "/api/players/{playerId}";
 	public static final String SQUAD = "/api/players";
