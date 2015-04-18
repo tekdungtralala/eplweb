@@ -5,16 +5,17 @@
 		.module("app.matchday")
 		.controller("List-Matchday", ListMatchday);
 
-	function ListMatchday(initData, dataservice, commenthelper, votinghelper,
-		ratinghelper, $scope, $rootScope) {
+	function ListMatchday(initData, dataservice, votinghelper,
+		ratinghelper, $scope, $rootScope, $modal, $controller) {
 
 		$rootScope.$broadcast("state-btn", "list-matchday");
 		$rootScope.$broadcast("show-phase-nav", true);
 
 		var vm = this;
-		vm.newComment = null;
-		vm.comment = commenthelper;
-		vm.comment.initNewComment();
+		vm.comment = {};
+		angular.extend(vm.comment, $controller('commentctrl', {$scope: $scope}));
+
+		var modalInstance = null;
 
 		vm.voting = votinghelper;
 		vm.rating = ratinghelper;
@@ -82,8 +83,6 @@
 				vm.rating.initRating();
 			} else if (1 === subActionIndex) {
 				subAction = "comment";
-				vm.newComment = null;
-				vm.comment.initNewComment();
 			} else if (2 === subActionIndex) {
 				subAction = "voting";
 				vm.voting.initCurrVoting(match);

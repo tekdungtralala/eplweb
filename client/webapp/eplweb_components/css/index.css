@@ -551,6 +551,9 @@ table.epl-table > tbody > tr > td {
 .epl-matchday .epl-voting-btn {
 	width: 50px;	
 }
+.epl-matchday .epl-new-comment-btn {
+	float: left;
+}
 .epl-matchday .epl-new-comment {
 	width: 100%;
 	padding-bottom: 5px;
@@ -577,10 +580,8 @@ table.epl-table > tbody > tr > td {
 .epl-matchday .epl-comment .epl-user-name {
 	margin-right: 10px;
 }
-.epl-matchday .epl-comment .epl-user-name,
-.epl-matchday .epl-comment .epl-points,
-.epl-matchday .epl-comment .epl-created {
-	float: left;
+.epl-matchday .epl-comment .epl-user-name{
+	text-align: left;
 }
 .epl-matchday .epl-comment .epl-value {
 	text-align: left;
@@ -590,7 +591,7 @@ table.epl-table > tbody > tr > td {
 	padding-top: 5px;
 }
 .epl-matchday .epl-textarea {
-	min-height: 60px;
+	min-height: 90px;
 	border: 2px solid rgba(0,0,0,0.1);
 	padding: 8px 10px;
 	-webkit-border-radius: 5px;
@@ -603,6 +604,10 @@ table.epl-table > tbody > tr > td {
 	margin-left: 10px;
 	width: 100%;
 }
+.epl-remainingchar.has-error {
+	color: red;
+}
+
 .epl-edit-score {
 	width: 35px;
 }
