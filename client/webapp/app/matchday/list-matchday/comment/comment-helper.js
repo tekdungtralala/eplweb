@@ -102,6 +102,8 @@
 			if (this && this.newComment)
 				this.newComment = "";
 
+			remainingChars = maxCommentLength;
+
 			initNewComment(parentComment);
 
 			modalInstance = $modal.open({
