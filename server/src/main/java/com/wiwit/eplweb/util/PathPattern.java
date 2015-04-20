@@ -23,6 +23,7 @@ public enum PathPattern {
 	MATCHDAYS_CHANGE_RATING(new String[]{"POST"}, "/api/matchday/[\\d]+/updateRating", true, UserRoleHelper.getUserRole()),
 	MATCHDAYS_CHANGE_VOTING(new String[]{"POST"}, "/api/matchday/[\\d]+/updateVoting", true, UserRoleHelper.getUserRole()),
 	USER_MY_PROFILE(new String[]{"GET"}, "/api/usernetwork/me", true, UserRoleHelper.getUserRole()),
+	POST_MATCHDAY_COMMENTS(new String[]{"POST"}, "/api/matchday/[\\d]+/comment", true, UserRoleHelper.getUserRole()),
 	
 	
 	// Unsecured path

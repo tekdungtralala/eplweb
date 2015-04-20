@@ -8,6 +8,7 @@ public class MatchdayCommentModelView {
 
 	private List<MatchdayComment> comments;
 	private Long totalComment;
+	private List<MatchdayComment> myComments;
 
 	public List<MatchdayComment> getComments() {
 		return comments;
@@ -16,6 +17,10 @@ public class MatchdayCommentModelView {
 	public Long getTotalComment() {
 		return totalComment;
 	}
+	
+	public List<MatchdayComment> getMyComments() {
+		return myComments;
+	}
 
 	public void setComments(List<MatchdayComment> comments) {
 		this.comments = comments;
@@ -23,5 +28,9 @@ public class MatchdayCommentModelView {
 
 	public void setTotalComment(Long totalComment) {
 		this.totalComment = totalComment;
+	}
+	
+	public void setMyComments(List<MatchdayComment> myComments) {
+		this.myComments = myComments;
 	}
 }

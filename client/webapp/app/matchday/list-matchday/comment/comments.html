@@ -56,58 +56,148 @@
 	</button>
 
 	<div class='clearfix'></div>
+	<div ng-if="vm.comment.getMyComments().length > 0">
+		<div class="epl-mycomment-title">My Comments</div>
+		<div>
+			<div data-ng-repeat='c in vm.comment.getMyComments()' 
+				class="epl-other-comment">
+				<div ng-if="!c.hideThis">
+					<div class="input-group epl-comment-group">
+						<div class="input-group-addon epl-image-user">
+							<img ng-src="{{c.userImageUrl}}" class="img-circle"/>
+						</div>
+						<div class="epl-comment">
+							<div class="epl-user-name">
+								<b>{{c.username}}</b>
+								{{c.points}} points {{c.timeDiff}}
+							</div>
+							<div class='clearfix'></div>
+							<div class="epl-value">{{c.value}}</div>
+							<div class='clearfix'></div>
+							<div class="epl-action" ng-show="isUserLogged">
+								<button type="button" 
+									class="btn btn-default btn-xs"
+									ng-click="vm.comment.openCommentDialog(c, c.id)">
+									Reply
+								</button>
+								<button type="button" 
+									class="btn btn-default btn-xs">
+									<span class="glyphicon glyphicon-arrow-up"></span>
+								</button>
+								<button type="button" 
+									class="btn btn-default btn-xs">
+									<span class="glyphicon glyphicon-arrow-down"></span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class='clearfix'></div>
 
-	<div data-ng-repeat='c in vm.comment.getAllComments()' 
-		class="epl-other-comment">
-		<div class="input-group epl-comment-group">
-			<div class="input-group-addon epl-image-user">
-				<img ng-src="{{c.userImageUrl}}" class="img-circle"/>
-			</div>
-			<div class="epl-comment">
-				<div class="epl-user-name">
-					<b>{{c.username}}</b>
-					{{c.points}} points {{c.timeDiff}}
-				</div>
-				<div class='clearfix'></div>
-				<div class="epl-value">{{c.value}}</div>
-				<div class='clearfix'></div>
-				<div class="epl-action" ng-show="isUserLogged">
-					<button type="button" 
-						class="btn btn-default btn-xs"
-						ng-click="vm.comment.openCommentDialog(c)">
-						Reply
-					</button>
-					<button type="button" 
-						class="btn btn-default btn-xs">
-						<span class="glyphicon glyphicon-arrow-up"></span>
-					</button>
-					<button type="button" 
-						class="btn btn-default btn-xs">
-						<span class="glyphicon glyphicon-arrow-down"></span>
-					</button>
+					<div data-ng-repeat='s in c.subComment' 
+						class="epl-children-comment">
+						<div class="input-group epl-comment-group">
+							<div class="input-group-addon epl-image-user">
+								<img ng-src="{{s.userImageUrl}}" class="img-circle"/>
+							</div>
+							<div class="epl-comment">
+								<div class="epl-user-name">
+									<b>{{s.username}}</b>
+									{{s.points}} points {{s.timeDiff}}
+								</div>
+								<div class='clearfix'></div>
+								<div class="epl-value">{{s.value}}</div>
+								<div class='clearfix'></div>
+								<div class="epl-action" ng-show="isUserLogged">
+									<button type="button" 
+										class="btn btn-default btn-xs"
+										ng-click="vm.comment.openCommentDialog(s, s.parentId)">
+										Reply
+									</button>
+									<button type="button" 
+										class="btn btn-default btn-xs">
+										<span class="glyphicon glyphicon-arrow-up"></span>
+									</button>
+									<button type="button" 
+										class="btn btn-default btn-xs">
+										<span class="glyphicon glyphicon-arrow-down"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class='clearfix'></div>
+					</div>
+
+					<div class="epl-children-comment" 
+						ng-show="c.subCommentLoaded < c.totalSubComment">
+						<div class="epl-comment-group">
+							<button type="button" 
+								class="btn btn-primary btn-xs"
+								ng-click="vm.comment.loadMoreReplies(c)"
+								ng-disabled="vm.comment.isStillDoAsc()">
+								{{c.textInfoSubCmt}}
+							</button>
+						</div>
+					</div>
+
+					<div data-ng-repeat='s in c.myReplies' 
+						class="epl-children-comment">
+						<div class="input-group epl-comment-group">
+							<div class="input-group-addon epl-image-user">
+								<img ng-src="{{s.userImageUrl}}" class="img-circle"/>
+							</div>
+							<div class="epl-comment">
+								<div class="epl-user-name">
+									<b>{{s.username}}</b>
+									{{s.points}} points {{s.timeDiff}}
+								</div>
+								<div class='clearfix'></div>
+								<div class="epl-value">{{s.value}}</div>
+								<div class='clearfix'></div>
+								<div class="epl-action" ng-show="isUserLogged">
+									<button type="button" 
+										class="btn btn-default btn-xs"
+										ng-click="vm.comment.openCommentDialog(s, s.parentId)">
+										Reply
+									</button>
+									<button type="button" 
+										class="btn btn-default btn-xs">
+										<span class="glyphicon glyphicon-arrow-up"></span>
+									</button>
+									<button type="button" 
+										class="btn btn-default btn-xs">
+										<span class="glyphicon glyphicon-arrow-down"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class='clearfix'></div>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class='clearfix'></div>
+	</div>
 
-		<div data-ng-repeat='s in c.subComment' 
-			class="epl-children-comment">
+	<div class='clearfix'></div>
+
+	<div data-ng-repeat='c in vm.comment.getAllComments()' 
+		class="epl-other-comment">
+		<div ng-if="!c.hideThis">
 			<div class="input-group epl-comment-group">
 				<div class="input-group-addon epl-image-user">
-					<img ng-src="{{s.userImageUrl}}" class="img-circle"/>
+					<img ng-src="{{c.userImageUrl}}" class="img-circle"/>
 				</div>
 				<div class="epl-comment">
 					<div class="epl-user-name">
-						<b>{{s.username}}</b>
-						{{s.points}} points {{s.timeDiff}}
+						<b>{{c.username}}</b>
+						{{c.points}} points {{c.timeDiff}}
 					</div>
 					<div class='clearfix'></div>
-					<div class="epl-value">{{s.value}}</div>
+					<div class="epl-value">{{c.value}}</div>
 					<div class='clearfix'></div>
 					<div class="epl-action" ng-show="isUserLogged">
 						<button type="button" 
 							class="btn btn-default btn-xs"
-							ng-click="vm.comment.openCommentDialog(s)">
+							ng-click="vm.comment.openCommentDialog(c, c.id)">
 							Reply
 						</button>
 						<button type="button" 
@@ -122,17 +212,85 @@
 				</div>
 			</div>
 			<div class='clearfix'></div>
-		</div>
 
-		<div class="epl-children-comment" 
-			ng-show="c.subCommentLoaded < c.totalSubComment">
-			<div class="epl-comment-group">
-				<button type="button" 
-					class="btn btn-primary btn-xs"
-					ng-click="vm.comment.loadMoreReplies(c)"
-					ng-disabled="vm.comment.isStillDoAsc()">
-					{{c.textInfoSubCmt}}
-				</button>
+			<div data-ng-repeat='s in c.subComment' 
+				class="epl-children-comment">
+				<div class="input-group epl-comment-group">
+					<div class="input-group-addon epl-image-user">
+						<img ng-src="{{s.userImageUrl}}" class="img-circle"/>
+					</div>
+					<div class="epl-comment">
+						<div class="epl-user-name">
+							<b>{{s.username}}</b>
+							{{s.points}} points {{s.timeDiff}}
+						</div>
+						<div class='clearfix'></div>
+						<div class="epl-value">{{s.value}}</div>
+						<div class='clearfix'></div>
+						<div class="epl-action" ng-show="isUserLogged">
+							<button type="button" 
+								class="btn btn-default btn-xs"
+								ng-click="vm.comment.openCommentDialog(s, s.parentId)">
+								Reply
+							</button>
+							<button type="button" 
+								class="btn btn-default btn-xs">
+								<span class="glyphicon glyphicon-arrow-up"></span>
+							</button>
+							<button type="button" 
+								class="btn btn-default btn-xs">
+								<span class="glyphicon glyphicon-arrow-down"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class='clearfix'></div>
+			</div>
+
+			<div class="epl-children-comment" 
+				ng-show="c.subCommentLoaded < c.totalSubComment">
+				<div class="epl-comment-group">
+					<button type="button" 
+						class="btn btn-primary btn-xs"
+						ng-click="vm.comment.loadMoreReplies(c)"
+						ng-disabled="vm.comment.isStillDoAsc()">
+						{{c.textInfoSubCmt}}
+					</button>
+				</div>
+			</div>
+
+			<div data-ng-repeat='s in c.myReplies' 
+				class="epl-children-comment">
+				<div class="input-group epl-comment-group">
+					<div class="input-group-addon epl-image-user">
+						<img ng-src="{{s.userImageUrl}}" class="img-circle"/>
+					</div>
+					<div class="epl-comment">
+						<div class="epl-user-name">
+							<b>{{s.username}}</b>
+							{{s.points}} points {{s.timeDiff}}
+						</div>
+						<div class='clearfix'></div>
+						<div class="epl-value">{{s.value}}</div>
+						<div class='clearfix'></div>
+						<div class="epl-action" ng-show="isUserLogged">
+							<button type="button" 
+								class="btn btn-default btn-xs"
+								ng-click="vm.comment.openCommentDialog(s, s.parentId)">
+								Reply
+							</button>
+							<button type="button" 
+								class="btn btn-default btn-xs">
+								<span class="glyphicon glyphicon-arrow-up"></span>
+							</button>
+							<button type="button" 
+								class="btn btn-default btn-xs">
+								<span class="glyphicon glyphicon-arrow-down"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class='clearfix'></div>
 			</div>
 		</div>
 	</div>

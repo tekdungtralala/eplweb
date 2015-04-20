@@ -9,9 +9,24 @@
 		function MatchdayCommentSrvc($http, $rootScope, userauth) {
 			var service = {
 				fetchComments: fetchComments,
-				fetchSubComments: fetchSubComments
+				fetchSubComments: fetchSubComments,
+				createNewComment: createNewComment
 			};
 			return service;
+
+			function createNewComment(matchdayId, value, parentId) {
+				var newObj = {
+					value: value,
+					parentId: parentId
+				};
+
+				var req = userauth.getConf(newObj, "POST", 
+					"api/matchday/" + matchdayId + "/comment");
+
+				$rootScope.promise = $http(req).then(process).catch(process);
+
+				return $rootScope.promise;
+			}
 
 			function fetchSubComments(matchdayId, offset) {
 				var req = userauth.getConf(null, "GET", 

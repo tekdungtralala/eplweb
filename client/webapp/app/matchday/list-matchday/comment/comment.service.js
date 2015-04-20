@@ -56,6 +56,8 @@
 				var minuteDiff = ma.diff(mb, 'minute');
 
 				// Set timeDiff, and put on comment
+				if (minuteDiff === 0)
+					return " - a moment ago"
 				if (minuteDiff < 60)
 					return " - " + minuteDiff + " m";
 				else if (hourDiff < 24)

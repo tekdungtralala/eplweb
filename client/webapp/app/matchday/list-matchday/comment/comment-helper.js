@@ -2,7 +2,7 @@
 	"use strict";
 
 	/*
-	 * This ccontroller only can be used on List-Matchday Controller
+	 * This controller only can be used on List-Matchday Controller
 	 */
 	angular
 		.module("app.matchday")
@@ -14,6 +14,7 @@
 		var remainingChars = null; // Will be change when user start typing
 		var deferred = null;
 		var allComments = [];
+		var myComments = [];
 		var modalInstance = null;
 		var totalComment = 0;
 		var commentLoaded = 0;
@@ -22,21 +23,21 @@
 		var titleDialog = null;
 		var postTextBtn = null;
 		var placeHolder = null;
+		var actualParentId = null;
 		var parentComment = null;
 
 		var textInfoComment = "Load More Comment... ";
 		var stillDoAsc = false;
 
 		var service = {
-			initNewComment: initNewComment,
 			userTypeNewComment: userTypeNewComment,
-			postNewComment: postNewComment,
 			getRemainingChars: getRemainingChars,
 			fetchComments: fetchComments,
 			afterFetchComments: afterFetchComments,
 			loadMoreComment: loadMoreComment,
 			afterLoadComment: afterLoadComment,
 			getAllComments: getAllComments,
+			getMyComments: getMyComments,
 			getTitleDialog: getTitleDialog,
 			getPostTextBtn: getPostTextBtn,
 			getPlaceHolder: getPlaceHolder,
@@ -98,13 +99,13 @@
 			modalInstance.dismiss();
 		}
 
-		function openCommentDialog(parentComment) {
-			if (this && this.newComment)
-				this.newComment = "";
+		function openCommentDialog(parentComment, parentId) {
+			this.newComment = "";
+			if (parentComment) {
+				this.newComment = "@" + parentComment.username + " ";
+			}
 
-			remainingChars = maxCommentLength;
-
-			initNewComment(parentComment);
+			initNewComment(parentComment, parentId);
 
 			modalInstance = $modal.open({
 				templateUrl: "newComment.html",
@@ -131,6 +132,10 @@
 
 		function getAllComments() {
 			return allComments;
+		}
+
+		function getMyComments() {
+			return myComments;
 		}
 
 		function loadMoreComment() {
@@ -172,10 +177,25 @@
 			if (200 === resp.status) {
 				allComments = resp.data.comments;
 				totalComment = resp.data.totalComment;
+				myComments = resp.data.myComments;
+				_.each(myComments, function(c) {
+					c.myReplies = [];
+					commenthelper.initCommentObj(c);
+				});				
+
 				commentLoaded = 0;
 				_.each(allComments, function(c) {
 					commentLoaded++;
+					c.myReplies = [];
 					commenthelper.initCommentObj(c);
+
+					// Chek if it is a user comment
+					var myComment = _.find(myComments, function(mc) {
+						return c.id === mc.id;
+					});
+					if (myComment) {
+						c.hideThis = true;
+					}
 				});
 			}
 			deferred.resolve(resp);
@@ -186,8 +206,34 @@
 		}
 
 		function postNewComment() {
-			console.log("this : ", this.newComment);
 			closeCommentDialog();
+
+			dataservice.createNewComment(matchdayId ,this.newComment, actualParentId)
+				.then(afterPostComment);
+		}
+
+		function afterPostComment(resp) {
+			if (200 === resp.status) {
+
+				var newComment = resp.data;
+				commenthelper.initCommentObj(newComment);
+				if (actualParentId) {
+					var parent = _.find(myComments, function(c) {
+						return c.id === actualParentId;
+					});
+
+					if (!parent) {
+						parent = _.find(allComments, function(c) {
+							return c.id === actualParentId;
+						});
+					}
+
+					parent.myReplies.push(newComment);
+				} else {
+					newComment.myReplies = [];
+					allComments.unshift(newComment);
+				}
+			}
 		}
 
 		function userTypeNewComment() {
@@ -201,12 +247,20 @@
 			}
 		}
 
-		function initNewComment(pc) {
+		function initNewComment(pc, parentId) {
+			// Set require param to default
+			parentComment = null;
+			actualParentId = null;
+			remainingChars = maxCommentLength;
+
+			parentComment = pc;
+			if (parentId)
+				actualParentId = parentId;
+
 			// !pc is new comment, and comment is reply a comment it self
 			titleDialog = !pc ? "New Comment" : "Reply Comment";
 			postTextBtn = !pc ? "Post" : "Reply";
 			placeHolder = !pc ? "Write comments...": "Reply comments...";
-			parentComment = pc;
 		}
 	}
 })();

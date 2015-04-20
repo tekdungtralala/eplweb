@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,39 @@ public class MatchdayCommentDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Transactional
+	public void createComment(MatchdayComment comment) {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		
+		session.persist(comment);
+		
+		tx.commit();
+		session.close();
+	}
+	
+	// Find parent comment
+	@Transactional
+	public List<MatchdayComment> findByMatchAndUser(int matchdayId, int userId, 
+			int offset, int size) {
+		Session session = this.sessionFactory.openSession();
+		List<MatchdayComment> result = session
+				.createQuery(
+						"From MatchdayComment "
+								+ "where matchday.id =:matchdayId "
+								+ "AND parent is NULL "
+								+ "AND user.id =:userId "
+								+ "ORDER BY points DESC, created ASC")
+				.setParameter("matchdayId", matchdayId)
+				.setParameter("userId", userId)
+				.setFirstResult(offset)
+				.setMaxResults(size)
+				.list();
+
+		session.close();
+		return result;
+	}
 
 	// Find parent comment
 	@Transactional
@@ -82,5 +116,20 @@ public class MatchdayCommentDAO {
 				.iterate().next());
 		session.close();
 		return count;
+	}
+	
+	@Transactional
+	public MatchdayComment findById(int id) {
+		Session session = this.sessionFactory.openSession();
+
+		List<MatchdayComment> result= session.createQuery("from MatchdayComment " +
+						"where id =:id ")
+				.setParameter("id", id).list();
+		session.close();
+		
+		if (result != null && result.size() > 0)
+			return result.get(0);
+		
+		return null;
 	}
 }

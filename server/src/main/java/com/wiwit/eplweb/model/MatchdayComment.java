@@ -40,7 +40,7 @@ public class MatchdayComment {
 	@Column(name = "created")
 	private Date created;
 
-	@Column(name = "points")
+	@Column(name = "points", nullable = true)
 	private int points;
 
 	@OneToOne(fetch = FetchType.EAGER)
