@@ -50,10 +50,15 @@
 			getTotalComment: getTotalComment,
 			getCommentLoaded: getCommentLoaded,
 			getTextInfoComment: getTextInfoComment,
-			isStillDoAsc: isStillDoAsc
+			isStillDoAsc: isStillDoAsc,
+			updatePoint: updatePoint
 		}
 		angular.extend(this, service);
 		this.newComment = "";
+
+		function updatePoint(commentId, isUp) {
+			dataservice.updatePoint(commentId, isUp);
+		}
 
 		function isStillDoAsc() {
 			return stillDoAsc;

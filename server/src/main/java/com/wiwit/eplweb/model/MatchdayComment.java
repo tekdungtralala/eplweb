@@ -49,6 +49,9 @@ public class MatchdayComment {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
 	private List<MatchdayComment> children;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "matchdayComment")
+	private List<CommentPoint> commentPoints;
 
 	@Transient
 	private String username;
@@ -98,6 +101,11 @@ public class MatchdayComment {
 	@JsonIgnore
 	public List<MatchdayComment> getChildren() {
 		return children;
+	}
+	
+	@JsonIgnore
+	public List<CommentPoint> getCommentPoints() {
+		return commentPoints;
 	}
 
 	@JsonIgnore
@@ -167,6 +175,10 @@ public class MatchdayComment {
 
 	public void setChildren(List<MatchdayComment> children) {
 		this.children = children;
+	}
+	
+	public void setCommentPoints(List<CommentPoint> commentPoints) {
+		this.commentPoints = commentPoints;
 	}
 
 	public void setUsername(String username) {

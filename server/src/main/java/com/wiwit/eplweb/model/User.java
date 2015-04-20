@@ -22,7 +22,7 @@ public class User {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(name = "username")
 	private String username;
 
@@ -49,12 +49,15 @@ public class User {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<MatchdayRating> matchdayRating;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<MatchdayVoting> matchdayVoting;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<MatchdayComment> matchdayComments;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private List<CommentPoint> commentPoints;
 
 	public int getId() {
 		return id;
@@ -64,7 +67,7 @@ public class User {
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
@@ -91,7 +94,7 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -116,23 +119,32 @@ public class User {
 	public void setMatchdayRating(List<MatchdayRating> matchdayRating) {
 		this.matchdayRating = matchdayRating;
 	}
-	
+
 	@JsonIgnore
 	public List<MatchdayVoting> getMatchdayVoting() {
 		return matchdayVoting;
 	}
-	
+
 	public void setMatchdayVoting(List<MatchdayVoting> matchdayVoting) {
 		this.matchdayVoting = matchdayVoting;
 	}
-	
+
 	@JsonIgnore
 	public List<MatchdayComment> getMatchdayComments() {
 		return matchdayComments;
 	}
-	
+
 	public void setMatchdayComments(List<MatchdayComment> matchdayComments) {
 		this.matchdayComments = matchdayComments;
+	}
+
+	@JsonIgnore
+	public List<CommentPoint> getCommentPoints() {
+		return commentPoints;
+	}
+
+	public void setCommentPoints(List<CommentPoint> commentPoints) {
+		this.commentPoints = commentPoints;
 	}
 
 	public String getFirstName() {

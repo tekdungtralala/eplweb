@@ -4,6 +4,22 @@
 	angular.module("app")
 		.directive("eplwebScrollPosition", eplwebScrollPosition);
 
+	angular.module("app")
+		.directive('eplwebCommentSection', eplwebCommentSection);
+
+	function eplwebCommentSection() {
+	  return {
+			scope: {
+				comment: '=comment',
+				actualId: '=actualId',
+				isUserLogged: '=isUserLogged',
+				openDialog: '&openDialog',
+				updatePoint: '&updatePoint'
+			},
+	    templateUrl: 'app/commentAction.html'
+	  };
+	}
+
 	function eplwebScrollPosition($window) {
 		return {
 			scope: {

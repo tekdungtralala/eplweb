@@ -66,6 +66,7 @@
 				<beans:value>com.wiwit.eplweb.model.MatchdayRating</beans:value>
 				<beans:value>com.wiwit.eplweb.model.MatchdayVoting</beans:value>
 				<beans:value>com.wiwit.eplweb.model.MatchdayComment</beans:value>
+				<beans:value>com.wiwit.eplweb.model.CommentPoint</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">

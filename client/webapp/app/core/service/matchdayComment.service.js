@@ -10,9 +10,22 @@
 			var service = {
 				fetchComments: fetchComments,
 				fetchSubComments: fetchSubComments,
-				createNewComment: createNewComment
+				createNewComment: createNewComment,
+				updatePoint: updatePoint
 			};
 			return service;
+
+			function updatePoint(commentId, isup) {
+				var newObj = {
+					up: isup
+				}
+				var req = userauth.getConf(newObj, "POST", 
+					"api/matchday/comment/" + commentId + "/point");
+
+				$rootScope.promise = $http(req).then(process).catch(process);
+
+				return $rootScope.promise;				
+			}
 
 			function createNewComment(matchdayId, value, parentId) {
 				var newObj = {

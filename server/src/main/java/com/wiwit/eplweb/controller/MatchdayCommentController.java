@@ -16,10 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiwit.eplweb.filter.CustomFilter;
+import com.wiwit.eplweb.model.CommentPoint;
 import com.wiwit.eplweb.model.Matchday;
 import com.wiwit.eplweb.model.MatchdayComment;
+import com.wiwit.eplweb.model.User;
+import com.wiwit.eplweb.model.input.CommentPointModelInput;
 import com.wiwit.eplweb.model.input.MatchdayCommentModelInput;
 import com.wiwit.eplweb.model.view.MatchdayCommentModelView;
+import com.wiwit.eplweb.service.CommentPointService;
 import com.wiwit.eplweb.service.MatchdayCommentService;
 import com.wiwit.eplweb.service.MatchdayService;
 import com.wiwit.eplweb.util.ApiPath;
@@ -35,53 +39,86 @@ public class MatchdayCommentController extends BaseController {
 
 	@Autowired
 	private MatchdayCommentService commentService;
-	
+
 	@Autowired
 	private MatchdayService matchdayService;
-	
+
+	@Autowired
+	private CommentPointService pointService;
+
+	@RequestMapping(value = ApiPath.MATCHDAY_COMMENT_POINT, method = RequestMethod.POST, produces = CONTENT_TYPE_JSON, consumes = CONTENT_TYPE_JSON)
+	public ResponseEntity postPoint(@PathVariable("commentId") int commentId,
+			@RequestBody CommentPointModelInput model, HttpServletRequest req) {
+		logger.info("POST /api/matchday/comment/" + commentId + "/point ");
+
+		int sessionId = (Integer) req.getAttribute(CustomFilter.SESSION_ID);
+		User user = getUser(sessionId);
+
+		MatchdayComment comment = commentService.findById(commentId);
+		if (comment == null) {
+			return new ResponseEntity<MatchdayComment>(HttpStatus.BAD_REQUEST);
+		}
+
+		boolean isNew = false;
+		CommentPoint point = pointService.findByCommentIdAndUser(
+				comment.getId(), user.getId());
+		
+		if (point == null) {
+			isNew = true;
+			point = new CommentPoint();
+			
+			point.setMatchdayComment(comment);
+			point.setUser(user);
+		}
+
+		point.setIsUp(model.isUp());
+		pointService.updatePoint(point, isNew);
+		return new ResponseEntity(HttpStatus.OK);
+	}
+
 	@RequestMapping(value = ApiPath.MATCHDAY_COMMENTS_BY_MATCH, method = RequestMethod.POST, produces = CONTENT_TYPE_JSON, consumes = CONTENT_TYPE_JSON)
 	public ResponseEntity<MatchdayComment> postNewComment(
 			@PathVariable("matchdayId") int matchdayId,
-			@RequestBody  MatchdayCommentModelInput model,
-			HttpServletRequest req) {
+			@RequestBody MatchdayCommentModelInput model, HttpServletRequest req) {
 		logger.info("POST /api/matchday/" + matchdayId + "/comment");
-		
+
 		if (!model.isValid()) {
 			return new ResponseEntity<MatchdayComment>(HttpStatus.BAD_REQUEST);
 		}
-		
+
 		Matchday m = matchdayService.findMatchtdayById(matchdayId);
 		if (m == null) {
 			return new ResponseEntity<MatchdayComment>(HttpStatus.BAD_REQUEST);
 		}
-		
+
 		MatchdayComment entity = new MatchdayComment();
 		MatchdayComment parent = null;
 		if (model.getParentId() > 0) {
 			parent = commentService.findById(model.getParentId());
 			if (parent == null)
-				return new ResponseEntity<MatchdayComment>(HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<MatchdayComment>(
+						HttpStatus.BAD_REQUEST);
 			else
 				entity.setParent(parent);
 		}
-		
+
 		int sessionId = (Integer) req.getAttribute(CustomFilter.SESSION_ID);
-		
+
 		entity.setValue(model.getValue());
 		entity.setUser(getUser(sessionId));
 		entity.setMatchday(m);
 		entity.setCreated(new Date());
 		entity.setPoints(0);
-		
+
 		commentService.createComment(entity);
 		return new ResponseEntity<MatchdayComment>(entity, HttpStatus.OK);
 	}
-			
 
 	@RequestMapping(value = ApiPath.MATCHDAY_COMMENTS_BY_PARENT, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<MatchdayCommentModelView> getSubComments(
 			@PathVariable("commentId") int commentId, HttpServletRequest req) {
-		logger.info("GET /api/matchday/comment/" + commentId + "/loadsubcomment");
+		logger.info("GET /api/matchday/comment/" + commentId
+				+ "/loadsubcomment");
 
 		String offsetStr = req.getParameter("offset");
 		int offsetInt = 0;
@@ -93,7 +130,8 @@ public class MatchdayCommentController extends BaseController {
 						HttpStatus.BAD_REQUEST);
 			}
 		}
-		logger.info("GET /api/matchday/comment/" + commentId + "/loadsubcomment?offset="+offsetInt);
+		logger.info("GET /api/matchday/comment/" + commentId
+				+ "/loadsubcomment?offset=" + offsetInt);
 
 		MatchdayCommentModelView result = new MatchdayCommentModelView();
 		result.setComments(commentService.findByParentId(commentId, offsetInt,
@@ -136,16 +174,13 @@ public class MatchdayCommentController extends BaseController {
 		// User comments
 		if (req.getAttribute(CustomFilter.SESSION_ID) != null) {
 			int sessionId = (Integer) req.getAttribute(CustomFilter.SESSION_ID);
-			result.setMyComments(
-					commentService.findByMatchAndUser(matchdayId, 
-							getUser(sessionId), 
-							0, 
-							TOTAL_SUBCOMMANT_FIRST_LOAD));
+			result.setMyComments(commentService.findByMatchAndUser(matchdayId,
+					getUser(sessionId), 0, TOTAL_SUBCOMMANT_FIRST_LOAD));
 			for (MatchdayComment comment : result.getMyComments()) {
 				comment.setSubComment(commentService.findByParentId(
 						comment.getId(), 0, TOTAL_SUBCOMMANT_FIRST_LOAD));
 				comment.setTotalSubComment(commentService
-						.countTotalCommentByParentId(comment.getId()));				
+						.countTotalCommentByParentId(comment.getId()));
 			}
 		}
 

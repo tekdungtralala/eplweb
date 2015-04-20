@@ -62,68 +62,26 @@
 			<div data-ng-repeat='c in vm.comment.getMyComments()' 
 				class="epl-other-comment">
 				<div ng-if="!c.hideThis">
-					<div class="input-group epl-comment-group">
-						<div class="input-group-addon epl-image-user">
-							<img ng-src="{{c.userImageUrl}}" class="img-circle"/>
-						</div>
-						<div class="epl-comment">
-							<div class="epl-user-name">
-								<b>{{c.username}}</b>
-								{{c.points}} points {{c.timeDiff}}
-							</div>
-							<div class='clearfix'></div>
-							<div class="epl-value">{{c.value}}</div>
-							<div class='clearfix'></div>
-							<div class="epl-action" ng-show="isUserLogged">
-								<button type="button" 
-									class="btn btn-default btn-xs"
-									ng-click="vm.comment.openCommentDialog(c, c.id)">
-									Reply
-								</button>
-								<button type="button" 
-									class="btn btn-default btn-xs">
-									<span class="glyphicon glyphicon-arrow-up"></span>
-								</button>
-								<button type="button" 
-									class="btn btn-default btn-xs">
-									<span class="glyphicon glyphicon-arrow-down"></span>
-								</button>
-							</div>
-						</div>
-					</div>
+					<span eplweb-comment-section
+						comment="c"
+						actual-id="c.id"
+						is-user-logged="isUserLogged"
+						open-dialog="vm.comment.openCommentDialog(comment, actualId)"
+						update-point="vm.comment.updatePoint(commentId, upOrDown)" >
+					</span>
 					<div class='clearfix'></div>
 
 					<div data-ng-repeat='s in c.subComment' 
 						class="epl-children-comment">
-						<div class="input-group epl-comment-group">
-							<div class="input-group-addon epl-image-user">
-								<img ng-src="{{s.userImageUrl}}" class="img-circle"/>
-							</div>
-							<div class="epl-comment">
-								<div class="epl-user-name">
-									<b>{{s.username}}</b>
-									{{s.points}} points {{s.timeDiff}}
-								</div>
-								<div class='clearfix'></div>
-								<div class="epl-value">{{s.value}}</div>
-								<div class='clearfix'></div>
-								<div class="epl-action" ng-show="isUserLogged">
-									<button type="button" 
-										class="btn btn-default btn-xs"
-										ng-click="vm.comment.openCommentDialog(s, s.parentId)">
-										Reply
-									</button>
-									<button type="button" 
-										class="btn btn-default btn-xs">
-										<span class="glyphicon glyphicon-arrow-up"></span>
-									</button>
-									<button type="button" 
-										class="btn btn-default btn-xs">
-										<span class="glyphicon glyphicon-arrow-down"></span>
-									</button>
-								</div>
-							</div>
-						</div>
+
+						<span eplweb-comment-section
+							comment="s"
+							actual-id="s.parentId"
+							is-user-logged="isUserLogged"
+							open-dialog="vm.comment.openCommentDialog(comment, actualId)"
+							update-point="vm.comment.updatePoint(commentId, upOrDown)" >
+						</span>
+
 						<div class='clearfix'></div>
 					</div>
 
@@ -141,35 +99,15 @@
 
 					<div data-ng-repeat='s in c.myReplies' 
 						class="epl-children-comment">
-						<div class="input-group epl-comment-group">
-							<div class="input-group-addon epl-image-user">
-								<img ng-src="{{s.userImageUrl}}" class="img-circle"/>
-							</div>
-							<div class="epl-comment">
-								<div class="epl-user-name">
-									<b>{{s.username}}</b>
-									{{s.points}} points {{s.timeDiff}}
-								</div>
-								<div class='clearfix'></div>
-								<div class="epl-value">{{s.value}}</div>
-								<div class='clearfix'></div>
-								<div class="epl-action" ng-show="isUserLogged">
-									<button type="button" 
-										class="btn btn-default btn-xs"
-										ng-click="vm.comment.openCommentDialog(s, s.parentId)">
-										Reply
-									</button>
-									<button type="button" 
-										class="btn btn-default btn-xs">
-										<span class="glyphicon glyphicon-arrow-up"></span>
-									</button>
-									<button type="button" 
-										class="btn btn-default btn-xs">
-										<span class="glyphicon glyphicon-arrow-down"></span>
-									</button>
-								</div>
-							</div>
-						</div>
+
+						<span eplweb-comment-section
+							comment="s"
+							actual-id="s.parentId"
+							is-user-logged="isUserLogged"
+							open-dialog="vm.comment.openCommentDialog(comment, actualId)"
+							update-point="vm.comment.updatePoint(commentId, upOrDown)" >
+						</span>
+
 						<div class='clearfix'></div>
 					</div>
 				</div>
@@ -182,68 +120,28 @@
 	<div data-ng-repeat='c in vm.comment.getAllComments()' 
 		class="epl-other-comment">
 		<div ng-if="!c.hideThis">
-			<div class="input-group epl-comment-group">
-				<div class="input-group-addon epl-image-user">
-					<img ng-src="{{c.userImageUrl}}" class="img-circle"/>
-				</div>
-				<div class="epl-comment">
-					<div class="epl-user-name">
-						<b>{{c.username}}</b>
-						{{c.points}} points {{c.timeDiff}}
-					</div>
-					<div class='clearfix'></div>
-					<div class="epl-value">{{c.value}}</div>
-					<div class='clearfix'></div>
-					<div class="epl-action" ng-show="isUserLogged">
-						<button type="button" 
-							class="btn btn-default btn-xs"
-							ng-click="vm.comment.openCommentDialog(c, c.id)">
-							Reply
-						</button>
-						<button type="button" 
-							class="btn btn-default btn-xs">
-							<span class="glyphicon glyphicon-arrow-up"></span>
-						</button>
-						<button type="button" 
-							class="btn btn-default btn-xs">
-							<span class="glyphicon glyphicon-arrow-down"></span>
-						</button>
-					</div>
-				</div>
-			</div>
+
+			<span eplweb-comment-section
+				comment="c"
+				actual-id="c.id"
+				is-user-logged="isUserLogged"
+				open-dialog="vm.comment.openCommentDialog(comment, actualId)"
+				update-point="vm.comment.updatePoint(commentId, upOrDown)" >
+			</span>
+
 			<div class='clearfix'></div>
 
 			<div data-ng-repeat='s in c.subComment' 
 				class="epl-children-comment">
-				<div class="input-group epl-comment-group">
-					<div class="input-group-addon epl-image-user">
-						<img ng-src="{{s.userImageUrl}}" class="img-circle"/>
-					</div>
-					<div class="epl-comment">
-						<div class="epl-user-name">
-							<b>{{s.username}}</b>
-							{{s.points}} points {{s.timeDiff}}
-						</div>
-						<div class='clearfix'></div>
-						<div class="epl-value">{{s.value}}</div>
-						<div class='clearfix'></div>
-						<div class="epl-action" ng-show="isUserLogged">
-							<button type="button" 
-								class="btn btn-default btn-xs"
-								ng-click="vm.comment.openCommentDialog(s, s.parentId)">
-								Reply
-							</button>
-							<button type="button" 
-								class="btn btn-default btn-xs">
-								<span class="glyphicon glyphicon-arrow-up"></span>
-							</button>
-							<button type="button" 
-								class="btn btn-default btn-xs">
-								<span class="glyphicon glyphicon-arrow-down"></span>
-							</button>
-						</div>
-					</div>
-				</div>
+
+				<span eplweb-comment-section
+					comment="s"
+					actual-id="s.parentId"
+					is-user-logged="isUserLogged"
+					open-dialog="vm.comment.openCommentDialog(comment, actualId)"
+					update-point="vm.comment.updatePoint(commentId, upOrDown)" >
+				</span>
+
 				<div class='clearfix'></div>
 			</div>
 
@@ -261,35 +159,15 @@
 
 			<div data-ng-repeat='s in c.myReplies' 
 				class="epl-children-comment">
-				<div class="input-group epl-comment-group">
-					<div class="input-group-addon epl-image-user">
-						<img ng-src="{{s.userImageUrl}}" class="img-circle"/>
-					</div>
-					<div class="epl-comment">
-						<div class="epl-user-name">
-							<b>{{s.username}}</b>
-							{{s.points}} points {{s.timeDiff}}
-						</div>
-						<div class='clearfix'></div>
-						<div class="epl-value">{{s.value}}</div>
-						<div class='clearfix'></div>
-						<div class="epl-action" ng-show="isUserLogged">
-							<button type="button" 
-								class="btn btn-default btn-xs"
-								ng-click="vm.comment.openCommentDialog(s, s.parentId)">
-								Reply
-							</button>
-							<button type="button" 
-								class="btn btn-default btn-xs">
-								<span class="glyphicon glyphicon-arrow-up"></span>
-							</button>
-							<button type="button" 
-								class="btn btn-default btn-xs">
-								<span class="glyphicon glyphicon-arrow-down"></span>
-							</button>
-						</div>
-					</div>
-				</div>
+
+				<span eplweb-comment-section
+					comment="s"
+					actual-id="s.parentId"
+					is-user-logged="isUserLogged"
+					open-dialog="vm.comment.openCommentDialog(comment, actualId)"
+					update-point="vm.comment.updatePoint(commentId, upOrDown)" >
+				</span>
+
 				<div class='clearfix'></div>
 			</div>
 		</div>
