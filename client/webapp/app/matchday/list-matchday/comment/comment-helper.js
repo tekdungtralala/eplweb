@@ -156,7 +156,16 @@
 				_.each(allC, function(c) {
 					commentLoaded++;
 					commenthelper.initCommentObj(c);
-					allComments.push(c);
+
+					// Chek if it is a user comment
+					var myComment = _.find(myComments, function(mc) {
+						return c.id === mc.id;
+					});
+					if (myComment) {
+						c.hideThis = true;
+					} else {
+						allComments.push(c);
+					}
 				});
 			}
 			
