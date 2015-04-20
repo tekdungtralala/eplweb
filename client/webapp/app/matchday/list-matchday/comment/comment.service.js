@@ -58,7 +58,7 @@
 				// Set timeDiff, and put on comment
 				if (minuteDiff === 0)
 					return " - a moment ago"
-				if (minuteDiff < 60)
+				else if (minuteDiff < 60)
 					return " - " + minuteDiff + " m";
 				else if (hourDiff < 24)
 					return " - " + hourDiff + " h";

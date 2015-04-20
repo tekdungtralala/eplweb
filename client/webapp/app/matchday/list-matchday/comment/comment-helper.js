@@ -87,7 +87,12 @@
 			if (200 === resp.status) {
 				var comments = resp.data.comments;
 				_.each(comments, function(c) {
-					var parent = commenthelper.findParentById(c.parentId, allComments);
+
+					commenthelper.initCommentObj(c);
+
+					var parent = commenthelper.findParentById(c.parentId, myComments);
+					if (!parent)
+						parent = commenthelper.findParentById(c.parentId, allComments);
 
 					if (parent) {
 							parent.subComment.push(c);
@@ -232,16 +237,13 @@
 				var newComment = resp.data;
 				commenthelper.initCommentObj(newComment);
 				if (actualParentId) {
-					var parent = _.find(myComments, function(c) {
-						return c.id === actualParentId;
-					});
 
-					if (!parent) {
-						parent = _.find(allComments, function(c) {
-							return c.id === actualParentId;
-						});
-					}
+					var parent = commenthelper.findParentById(actualParentId, myComments);
+					if (!parent)
+						parent = commenthelper.findParentById(actualParentId, allComments);
 
+					if (!parent.myReplies) 
+						parent.myReplies = [];
 					parent.myReplies.push(newComment);
 				} else {
 					newComment.myReplies = [];
