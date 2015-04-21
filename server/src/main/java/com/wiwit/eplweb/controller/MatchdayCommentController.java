@@ -48,7 +48,7 @@ public class MatchdayCommentController extends BaseController {
 	private CommentPointService pointService;
 
 	@RequestMapping(value = ApiPath.MATCHDAY_COMMENT_POINT, method = RequestMethod.POST, produces = CONTENT_TYPE_JSON, consumes = CONTENT_TYPE_JSON)
-	public ResponseEntity postPoint(@PathVariable("commentId") int commentId,
+	public ResponseEntity<CommentPoint> postPoint(@PathVariable("commentId") int commentId,
 			@RequestBody CommentPointModelInput model, HttpServletRequest req) {
 		logger.info("POST /api/matchday/comment/" + commentId + "/point ");
 
@@ -57,7 +57,7 @@ public class MatchdayCommentController extends BaseController {
 
 		MatchdayComment comment = commentService.findById(commentId);
 		if (comment == null) {
-			return new ResponseEntity<MatchdayComment>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<CommentPoint>(HttpStatus.BAD_REQUEST);
 		}
 
 		Boolean latestValue = null;
@@ -75,7 +75,7 @@ public class MatchdayCommentController extends BaseController {
 
 		point.setIsUp(model.isUp());
 		pointService.updatePoint(point, latestValue);
-		return new ResponseEntity(HttpStatus.OK);
+		return new ResponseEntity<CommentPoint>(point, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = ApiPath.MATCHDAY_COMMENTS_BY_MATCH, method = RequestMethod.POST, produces = CONTENT_TYPE_JSON, consumes = CONTENT_TYPE_JSON)

@@ -29,6 +29,7 @@
 
 		var textInfoComment = "Load More Comment... ";
 		var stillDoAsc = false;
+		var latestPointValue = null;
 
 		var service = {
 			userTypeNewComment: userTypeNewComment,
@@ -58,7 +59,70 @@
 		this.newComment = "";
 
 		function updatePoint(commentId, isUp) {
-			dataservice.updatePoint(commentId, isUp);
+			latestPointValue = null;
+			var point = _.find(myPoints, function(p) {
+				return p.commentId === commentId;
+			});
+			if (point)
+				latestPointValue = point.isUp;
+			
+			dataservice.updatePoint(commentId, isUp)
+				.then(afterUpdatePoint);
+		}
+
+		function afterUpdatePoint(resp) {
+			if (200 === resp.status) {
+				var newPoint = resp.data;
+				var oldPoint = null;
+
+				_.each(myPoints, function(p) {
+					if (p.id === newPoint.id) {
+						oldPoint = {};
+						oldPoint.commentId = p.commentId
+						oldPoint.isUp = p.isUp;
+
+						p.isUp = newPoint.isUp;
+					}
+				});
+
+				if (oldPoint === null) {
+					myPoints.push(newPoint);
+				} 
+				
+				iterateCommentList(myComments, newPoint, oldPoint);
+
+				iterateCommentList(allComments, newPoint, oldPoint);
+			}
+		}
+
+		function iterateCommentList(commentList, newPoint, oldPoint) {
+			_.each(commentList, function(c) {
+				commenthelper.updateCommentAttr(c, myPoints);
+				updateCommentPoints(c, newPoint, oldPoint);
+
+				_.each(c.subComment, function(s) {
+					commenthelper.updateCommentAttr(s, myPoints);
+					updateCommentPoints(s, newPoint, oldPoint);
+				});
+			});
+		}
+
+		function updateCommentPoints(comment, newPoint, oldPoint) {
+			if (oldPoint == null) {
+				if (newPoint.commentId === comment.id) {
+					var latestPoint = comment.points;
+					newPoint.isUp ? latestPoint++ : latestPoint--;
+					comment.points = latestPoint;
+					comment.points = comment.points < 0 ? 0 : comment.points;
+				}
+			} else if (oldPoint.commentId === comment.id) {
+				if (oldPoint.isUp && !comment.isUp) {
+					comment.points--;
+					comment.points = comment.points < 0 ? 0 : comment.points;
+				} else if (!oldPoint.isUp && comment.isUp) {
+					comment.points++;
+				}				
+			}
 		}
 
 		function isStillDoAsc() {

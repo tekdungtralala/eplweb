@@ -8,7 +8,8 @@
 			var service = {
 				findTimeDiff: findTimeDiff,
 				findParentById: findParentById,
-				initCommentObj: initCommentObj
+				initCommentObj: initCommentObj,
+				updateCommentAttr: updateCommentAttr
 			};
 			return service;
 
@@ -25,7 +26,7 @@
 						// Set timeDIff on all children comment
 						s.timeDiff = findTimeDiff(s.created);
 
-						checkUserPointCmmnt(s, myPoints);
+						updateCommentAttr(s, myPoints);
 					});
 				}
 
@@ -33,20 +34,18 @@
 				c.textInfoSubCmt = "Load More Replies...";
 				c.isTextInfoActive = true;
 				c.offset = 0;
-				checkUserPointCmmnt(c, myPoints);
+				updateCommentAttr(c, myPoints);
 			}
 
-			function checkUserPointCmmnt(comment, myPoints) {
+			function updateCommentAttr(comment, myPoints) {
+				comment.isUp = null;
 				if (myPoints) {
-					comment.isUp = null;
-					if (myPoints) {
-						// Check, if user has been set point on this comment or not
-						var point = _.find(myPoints, function(p) {
-							return p.commentId === comment.id;
-						});
-						if (point) {
-							comment.isUp = point.isUp;
-						}
+					// Check, if user has been set point on this comment or not
+					var point = _.find(myPoints, function(p) {
+						return p.commentId === comment.id;
+					});
+					if (point) {
+						comment.isUp = point.isUp;
 					}
 				}
 			}
