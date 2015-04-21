@@ -15,6 +15,7 @@
 		var deferred = null;
 		var allComments = [];
 		var myComments = [];
+		var myPoints = [];
 		var modalInstance = null;
 		var totalComment = 0;
 		var commentLoaded = 0;
@@ -88,7 +89,7 @@
 				var comments = resp.data.comments;
 				_.each(comments, function(c) {
 
-					commenthelper.initCommentObj(c);
+					commenthelper.initCommentObj(c, myPoints);
 
 					var parent = commenthelper.findParentById(c.parentId, myComments);
 					if (!parent)
@@ -165,7 +166,7 @@
 				totalComment = resp.data.totalComment;
 				_.each(allC, function(c) {
 					commentLoaded++;
-					commenthelper.initCommentObj(c);
+					commenthelper.initCommentObj(c, myPoints);
 
 					// Chek if it is a user comment
 					var myComment = _.find(myComments, function(mc) {
@@ -197,16 +198,18 @@
 				allComments = resp.data.comments;
 				totalComment = resp.data.totalComment;
 				myComments = resp.data.myComments;
+				myPoints = resp.data.myPoints;
+
 				_.each(myComments, function(c) {
 					c.myReplies = [];
-					commenthelper.initCommentObj(c);
+					commenthelper.initCommentObj(c, myPoints);
 				});				
 
 				commentLoaded = 0;
 				_.each(allComments, function(c) {
 					commentLoaded++;
 					c.myReplies = [];
-					commenthelper.initCommentObj(c);
+					commenthelper.initCommentObj(c, myPoints);
 
 					// Chek if it is a user comment
 					var myComment = _.find(myComments, function(mc) {

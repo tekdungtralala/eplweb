@@ -17,12 +17,12 @@
 				Reply
 			</button>
 			<button type="button" 
-				class="btn btn-default btn-xs"
+				class="btn btn-default btn-xs {{comment.isUp != null && comment.isUp ?'btn-primary':''}}"
 				ng-click="updatePoint({commentId: comment.id, upOrDown: true})">
 				<span class="glyphicon glyphicon-arrow-up"></span>
 			</button>
 			<button type="button" 
-				class="btn btn-default btn-xs"
+				class="btn btn-default btn-xs {{comment.isUp != null && !comment.isUp ?'btn-primary':''}}"
 				ng-click="updatePoint({commentId: comment.id, upOrDown: false})">
 				<span class="glyphicon glyphicon-arrow-down"></span>
 			</button>

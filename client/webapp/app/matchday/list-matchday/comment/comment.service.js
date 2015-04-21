@@ -12,7 +12,7 @@
 			};
 			return service;
 
-			function initCommentObj(c) {
+			function initCommentObj(c, myPoints) {
 				c.subCommentLoaded = 0;
 
 				// Set timeDiff on all comment
@@ -24,6 +24,8 @@
 						c.subCommentLoaded++;
 						// Set timeDIff on all children comment
 						s.timeDiff = findTimeDiff(s.created);
+
+						checkUserPointCmmnt(s, myPoints);
 					});
 				}
 
@@ -31,6 +33,22 @@
 				c.textInfoSubCmt = "Load More Replies...";
 				c.isTextInfoActive = true;
 				c.offset = 0;
+				checkUserPointCmmnt(c, myPoints);
+			}
+
+			function checkUserPointCmmnt(comment, myPoints) {
+				if (myPoints) {
+					comment.isUp = null;
+					if (myPoints) {
+						// Check, if user has been set point on this comment or not
+						var point = _.find(myPoints, function(p) {
+							return p.commentId === comment.id;
+						});
+						if (point) {
+							comment.isUp = point.isUp;
+						}
+					}
+				}
 			}
 
 			function findParentById(parentId, allComment) {

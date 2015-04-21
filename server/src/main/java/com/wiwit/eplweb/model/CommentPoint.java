@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -31,6 +32,9 @@ public class CommentPoint {
 
 	@Column(name = "is_up", columnDefinition = "TINYINT", length = 1)
 	private Boolean isUp;
+	
+	@Transient
+	private int commentId;
 
 	public int getId() {
 		return id;
@@ -49,6 +53,13 @@ public class CommentPoint {
 	public Boolean getIsUp() {
 		return isUp;
 	}
+	
+	public int getCommentId() {
+		if (matchdayComment != null && matchdayComment.getId() != 0) {
+			return matchdayComment.getId();
+		}
+		return commentId;
+	}
 
 	public void setId(int id) {
 		this.id = id;
@@ -64,5 +75,9 @@ public class CommentPoint {
 
 	public void setIsUp(Boolean isUp) {
 		this.isUp = isUp;
+	}
+	
+	public void setCommentId(int commentId) {
+		this.commentId = commentId;
 	}
 }

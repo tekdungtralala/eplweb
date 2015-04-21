@@ -1,6 +1,7 @@
 package com.wiwit.eplweb.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -59,20 +60,21 @@ public class MatchdayCommentController extends BaseController {
 			return new ResponseEntity<MatchdayComment>(HttpStatus.BAD_REQUEST);
 		}
 
-		boolean isNew = false;
+		Boolean latestValue = null;
 		CommentPoint point = pointService.findByCommentIdAndUser(
 				comment.getId(), user.getId());
 		
 		if (point == null) {
-			isNew = true;
 			point = new CommentPoint();
 			
 			point.setMatchdayComment(comment);
 			point.setUser(user);
+		} else {
+			latestValue = point.getIsUp();
 		}
 
 		point.setIsUp(model.isUp());
-		pointService.updatePoint(point, isNew);
+		pointService.updatePoint(point, latestValue);
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
@@ -174,15 +176,22 @@ public class MatchdayCommentController extends BaseController {
 		// User comments
 		if (req.getAttribute(CustomFilter.SESSION_ID) != null) {
 			int sessionId = (Integer) req.getAttribute(CustomFilter.SESSION_ID);
+			User user = getUser(sessionId); 
 			result.setMyComments(commentService.findByMatchAndUser(matchdayId,
-					getUser(sessionId), 0, TOTAL_SUBCOMMANT_FIRST_LOAD));
+					user, 0, TOTAL_SUBCOMMANT_FIRST_LOAD));
 			for (MatchdayComment comment : result.getMyComments()) {
 				comment.setSubComment(commentService.findByParentId(
 						comment.getId(), 0, TOTAL_SUBCOMMANT_FIRST_LOAD));
 				comment.setTotalSubComment(commentService
 						.countTotalCommentByParentId(comment.getId()));
 			}
+			// If offset == 0, its mean first fetch request, need to set List of CommentPoint
+			if (0 == offsetInt) {
+				List<CommentPoint> myPoints = pointService.findByMatchIdAndUserId(matchdayId, user.getId());
+				result.setMyPoints(myPoints);
+			}
 		}
+		
 
 		return new ResponseEntity<MatchdayCommentModelView>(result,
 				HttpStatus.OK);
