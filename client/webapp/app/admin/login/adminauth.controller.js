@@ -11,7 +11,7 @@
 		$state.go("admin.login", {reload: false});
 	}
 
-	function AdminLogin(dataservice, adminauth, userauth) {
+	function AdminLogin(dataservice, adminauth, userauth, $rootScope) {
 		var vm = this;
 		vm.hideMsg = null;
 		vm.hasErr = null; 
@@ -59,7 +59,10 @@
 
 				// set user profile
 				var user = result.data.result.user;
-				userauth.setLoggedUser(user);
+				var userRole = result.data.result.role;
+				userauth.setLoggedUser(user, userRole);
+
+				$rootScope.isAdminLogged = true;
 
 				// redirect to admin dashboard
 				window.location.href = "#/admin/dashboard";

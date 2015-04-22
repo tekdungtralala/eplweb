@@ -102,27 +102,6 @@
 				userservice.userSignIn(userModel).then(userauth.processSignIn);
 			}
 		}
-
-		function processSignIn(result) {
-			// Get sign in result from our server #4-b
-
-			$rootScope.isUserLogged = false;
-			if (200 === result.status) {
-				// Process number #5. Render logged user
-
-				// change userLogged flag
-				$rootScope.isUserLogged = true;
-
-				// save current session into cookie
-				var session = result.data.session;
-				var type = result.data.userNetwork.type;
-				userauth.putUserSession(session, type);
-
-				// render logged user
-				userauth.setLoggedUser(result.data.userNetwork.user);
-			}
-		}
-
 	}
 	
 })();

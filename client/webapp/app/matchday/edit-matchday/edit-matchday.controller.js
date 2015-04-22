@@ -195,7 +195,6 @@
 				delete m["week"];
 			});
 
-			console.log("doSave : ", vm.unSavedModels);
 			dismisModal();
 
 			dataservice.updateMatchdays(vm.currWeek, vm.unSavedModels)

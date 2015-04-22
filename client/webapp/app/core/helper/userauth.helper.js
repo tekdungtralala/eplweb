@@ -40,7 +40,9 @@
 				putUserSession(session, type);
 
 				// render logged user
-				setLoggedUser(result.data.userNetwork.user);
+				var user = result.data.userNetwork.user;
+				var userRole = result.data.role;
+				setLoggedUser(user, userRole);
 
 				$state.go("dashboard");
 			}
@@ -70,13 +72,13 @@
 			$rootScope.profileUrl = url;
 		}
 
-		function setLoggedUser(userProfile) {
+		function setLoggedUser(userProfile, userRole) {
 			$rootScope.loggedUser = null;
 			if (userProfile) {
 				$rootScope.loggedUser = userProfile;
 
 				// used on userProfile.html - signout button
-				$rootScope.loggedUser["userRole"] = 2;
+				$rootScope.loggedUser["userRole"] = userRole;
 			}
 		}
 

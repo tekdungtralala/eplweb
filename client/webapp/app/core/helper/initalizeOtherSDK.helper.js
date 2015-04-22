@@ -61,7 +61,9 @@
 				$rootScope.isUserLogged = true; 
 
 				// render logged user
-				userauth.setLoggedUser(result.data);
+				var user = result.data;
+				var userRole = result.data.userRole;
+				userauth.setLoggedUser(result.data, userRole);
 			}
 		}
 

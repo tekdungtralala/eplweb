@@ -74,6 +74,9 @@
 		}
 
 		function adminLogout() {
+			$rootScope.isUserLogged = false; 
+			$rootScope.isAdminLogged = false;
+			
 			// Remove server authentication
 			var session = adminauth.getAdminSession();
 			if (session) {
@@ -81,7 +84,6 @@
 
 				// Remove local authentication
 				adminauth.delAdminSession();
-				$rootScope.isUserLogged = false; 
 				$("body").removeClass("sidebar-collapse");
 				$("body").removeClass("sidebar-open");
 			}

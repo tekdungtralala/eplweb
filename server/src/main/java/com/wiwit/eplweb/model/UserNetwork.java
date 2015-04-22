@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -42,6 +43,9 @@ public class UserNetwork {
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	private List<UserSession> userSessions;
+	
+	@Transient
+	private int userRole;
 	
 	public UserNetwork() {
 	}
@@ -76,6 +80,12 @@ public class UserNetwork {
 	public List<UserSession> getUserSessions() {
 		return userSessions;
 	}
+	
+	public int getUserRole() {
+		if (userSessions != null && userSessions.size() > 0)
+			return userSessions.get(0).getRole();
+		return userRole;
+	}
 
 	public void setId(int id) {
 		this.id = id;
@@ -100,5 +110,9 @@ public class UserNetwork {
 	
 	public void setUserSessions(List<UserSession> userSessions) {
 		this.userSessions = userSessions;
+	}
+	
+	public void setUserRole(int userRole) {
+		this.userRole = userRole;
 	}
 }

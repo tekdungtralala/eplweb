@@ -113,7 +113,10 @@ public class UserController extends BaseController {
 		
 		int sessionId = (Integer) req.getAttribute(CustomFilter.SESSION_ID);
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		return new ResponseEntity<String>(ow.writeValueAsString(getUser(sessionId)), HttpStatus.OK);
+		User user = getUser(sessionId);
+		UserSession us = userSessionService.findById(sessionId);
+		user.setUserRole(us.getRole());
+		return new ResponseEntity<String>(ow.writeValueAsString(user), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = ApiPath.USER_SESSION, method = RequestMethod.DELETE, produces = CONTENT_TYPE_JSON)

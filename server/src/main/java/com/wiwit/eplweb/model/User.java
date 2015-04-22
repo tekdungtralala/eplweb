@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -41,10 +42,10 @@ public class User {
 	@Column(name = "image_url")
 	private String imageUrl;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<UserSession> userSessions;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<UserNetwork> userNetworks;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
@@ -58,6 +59,9 @@ public class User {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<CommentPoint> commentPoints;
+	
+	@Transient
+	private int userRole;
 
 	public int getId() {
 		return id;
@@ -169,5 +173,15 @@ public class User {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+	
+	public int getUserRole() {
+		if (userSessions != null && userSessions.size() > 0)
+			return userSessions.get(0).getRole();
+		return userRole;
+	}
+	
+	public void setUserRole(int userRole) {
+		this.userRole = userRole;
 	}
 }
