@@ -6,7 +6,6 @@
 
 		function CommentHelper() {
 			var service = {
-				findTimeDiff: findTimeDiff,
 				findParentById: findParentById,
 				initCommentObj: initCommentObj,
 				updateCommentAttr: updateCommentAttr
@@ -17,14 +16,16 @@
 				c.subCommentLoaded = 0;
 
 				// Set timeDiff on all comment
-				c.timeDiff = findTimeDiff(c.created);
+				c.timeDiff = generateTimeDiff(c.created);
 
-				// Chek is this comment has children
+				// Chek is this comment has subComment / children
 				if (c.subComment && c.subComment.length > 0 ) {
+
 					_.each(c.subComment, function(s) {
 						c.subCommentLoaded++;
+
 						// Set timeDIff on all children comment
-						s.timeDiff = findTimeDiff(s.created);
+						s.timeDiff = generateTimeDiff(s.created);
 
 						updateCommentAttr(s, myPoints);
 					});
@@ -54,11 +55,10 @@
 				return _.find(allComment, function(c) {
 					return c.id === parentId;
 				});
-
 				return null;
 			}
 
-			function findTimeDiff(createdDate) {
+			function generateTimeDiff(createdDate) {
 				// Init current date, in Moment.js obj
 				var currentDate = new Date();
 				var ma = moment(currentDate);
@@ -72,7 +72,7 @@
 				var hourDiff = ma.diff(mb, 'hours');
 				var minuteDiff = ma.diff(mb, 'minute');
 
-				// Set timeDiff, and put on comment
+				// Set timeDiff, and put it on comment
 				if (minuteDiff === 0)
 					return " - a moment ago"
 				else if (minuteDiff < 60)

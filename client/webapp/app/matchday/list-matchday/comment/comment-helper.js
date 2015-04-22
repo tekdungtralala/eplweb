@@ -9,27 +9,31 @@
 		.controller("commentctrl", CommentCtrl);
 
 	function CommentCtrl(dataservice, commenthelper, $modal, $scope) {
-		var matchdayId = null;
-		var maxCommentLength = 500;
+		var matchdayId = null; // Selected matchdayId
+		var MAC_COMMENT_LENGTH = 500; // Max comment length
 		var remainingChars = null; // Will be change when user start typing
-		var deferred = null;
-		var allComments = [];
-		var myComments = [];
-		var myPoints = [];
-		var modalInstance = null;
-		var totalComment = 0;
-		var commentLoaded = 0;
+		var deferred = null; // Variable of deferred object
+		var allComments = []; // List all comment except user comment, when user
+													//  already logged
+		var myComments = []; // List all user comment
+		var myPoints = []; // List all point which user submit
+		var modalInstance = null; // Popup dialog
+		var totalComment = 0; // Total comment available to be loaded on matchday
+		var commentLoaded = 0;  // Total comment already loaded
 
-		// Modal dialog for post comment {new comment / reply}
+		// Modal dialog paramter for post comment {new comment / reply}
 		var titleDialog = null;
 		var postTextBtn = null;
 		var placeHolder = null;
-		var actualParentId = null;
-		var parentComment = null;
 
+		var actualParentId = null; // temp var for the real parentCommentId
+		var parentComment = null; // temp variable for parentComment
+
+		// Asc button indicator
 		var textInfoComment = "Load More Comment... ";
 		var stillDoAsc = false;
-		var latestPointValue = null;
+
+		var latestPointValue = null; // Temporary of latest point value
 
 		var service = {
 			userTypeNewComment: userTypeNewComment,
@@ -58,7 +62,9 @@
 		angular.extend(this, service);
 		this.newComment = "";
 
+		// User click up/down buttom to send update point request
 		function updatePoint(commentId, isUp) {
+			// Save latest point if available
 			latestPointValue = null;
 			var point = _.find(myPoints, function(p) {
 				return p.commentId === commentId;
@@ -66,15 +72,18 @@
 			if (point)
 				latestPointValue = point.isUp;
 			
+			// Do send update request
 			dataservice.updatePoint(commentId, isUp)
 				.then(afterUpdatePoint);
 		}
 
 		function afterUpdatePoint(resp) {
 			if (200 === resp.status) {
+				// Retrive newPoint obj
 				var newPoint = resp.data;
 				var oldPoint = null;
 
+				// Change oldPoint value base on newPoint value
 				_.each(myPoints, function(p) {
 					if (p.id === newPoint.id) {
 						oldPoint = {};
@@ -84,29 +93,39 @@
 						p.isUp = newPoint.isUp;
 					}
 				});
-
+				// If oldPoint is null, it means that is the first time the user send
+				//  updatePoint request, and just newPoint to the myPoints list
 				if (oldPoint === null) {
 					myPoints.push(newPoint);
 				} 
 				
+				// Iterate through myComment list
 				iterateCommentList(myComments, newPoint, oldPoint);
 
+				// Iterate through allComments list
 				iterateCommentList(allComments, newPoint, oldPoint);
 			}
 		}
 
 		function iterateCommentList(commentList, newPoint, oldPoint) {
 			_.each(commentList, function(c) {
+				// Update parent comment attribute, if posible
 				commenthelper.updateCommentAttr(c, myPoints);
+				// Update parent comment point, if posible
 				updateCommentPoints(c, newPoint, oldPoint);
 
+				// Iterate parent subComment
 				_.each(c.subComment, function(s) {
+					// Update sub comment attribute, if posible
 					commenthelper.updateCommentAttr(s, myPoints);
+					// Update sub comment point, if posible
 					updateCommentPoints(s, newPoint, oldPoint);
 				});
 			});
 		}
 
+		// Need to change the point value, whatever increases or decreases,
+		//  when the latestPointValue is null or different
 		function updateCommentPoints(comment, newPoint, oldPoint) {
 			if (oldPoint == null) {
 				if (newPoint.commentId === comment.id) {
@@ -141,24 +160,32 @@
 			return totalComment;
 		}
 
+		// User click "Load More Replies" button
 		function loadMoreReplies(c) {
+			// Set indicator, still doing asc
 			stillDoAsc = true;
 			c.textInfoSubCmt = "Loading...";
+			// Send request
 			dataservice.fetchSubComments(c.id, c.subCommentLoaded)
 				.then(afterLoadReplies);
 		}
 
+		// call back loadMoreReplies
 		function afterLoadReplies(resp) {
 			if (200 === resp.status) {
+				// Retrive more subComment
 				var comments = resp.data.comments;
-				_.each(comments, function(c) {
 
+				_.each(comments, function(c) {
+					// Initialization every comment
 					commenthelper.initCommentObj(c, myPoints);
 
+					// Find parent
 					var parent = commenthelper.findParentById(c.parentId, myComments);
 					if (!parent)
 						parent = commenthelper.findParentById(c.parentId, allComments);
 
+					// Push/append to subComment
 					if (parent) {
 							parent.subComment.push(c);
 							parent.offset++;
@@ -167,6 +194,7 @@
 					}
 				});
 			}
+			// Set indicator, not doing asc
 			stillDoAsc = false;
 		}
 
@@ -174,14 +202,19 @@
 			modalInstance.dismiss();
 		}
 
+		// User click "Reply" / "Post New Comment" button
 		function openCommentDialog(parentComment, parentId) {
 			this.newComment = "";
+			// If its "Reply" comment, then fill the begining comment with with 
+			//  the username who owned the parentComment
 			if (parentComment) {
 				this.newComment = "@" + parentComment.username + " ";
 			}
 
+			// Initialize new comment
 			initNewComment(parentComment, parentId);
 
+			// Open modal dialog
 			modalInstance = $modal.open({
 				templateUrl: "newComment.html",
 				size: "lg",
@@ -213,32 +246,45 @@
 			return myComments;
 		}
 
+		// User click "Load More Comment" utton
 		function loadMoreComment() {
+			// Set indicator, still doing asc
 			stillDoAsc = true;
 			textInfoComment = "Loading...";
+
+			// Create instance deffered object
 			deferred = $.Deferred();
+			// Send request
 			dataservice.fetchComments(matchdayId, commentLoaded, false)
 				.then(afterLoadComment);
 			return deferred;			
 		}
 
+		// loadMoreComment callback
 		function afterLoadComment(resp) {
 			textInfoComment = "Load More Comment... ";
 			
 			if (200 === resp.status) {
+				// Retrive more comment
 				var allC = resp.data.comments;
 				totalComment = resp.data.totalComment;
+
 				_.each(allC, function(c) {
+					// Increase total comment loaded
 					commentLoaded++;
+					// Initialize each new comment
 					commenthelper.initCommentObj(c, myPoints);
 
-					// Chek if it is a user comment
+					// Chek the new comment, if it is a user comment or not
 					var myComment = _.find(myComments, function(mc) {
 						return c.id === mc.id;
 					});
 					if (myComment) {
+						// If it is user comment, then set hide paramter and the view/html
+						//  for this comment will not appear
 						c.hideThis = true;
 					} else {
+						// Otherwise just push to allComment
 						allComments.push(c);
 					}
 				});
@@ -248,10 +294,13 @@
 			stillDoAsc = false;
 		}
 
+		// User clicks one of the comments button on matchday table
 		function fetchComments(mID) {
+			// Save matchdayId
 			matchdayId = mID;
-			allComments = null;
+
 			deferred = $.Deferred();
+			// Send request
 			dataservice.fetchComments(matchdayId, 0, true)
 				.then(afterFetchComments);
 			return deferred;
@@ -259,11 +308,14 @@
 
 		function afterFetchComments(resp) {
 			if (200 === resp.status) {
+				// Retrive all values, such as: all comment, user comments, 
+				//   total comment, user points
 				allComments = resp.data.comments;
 				totalComment = resp.data.totalComment;
 				myComments = resp.data.myComments;
 				myPoints = resp.data.myPoints;
 
+				// Initialize each user comment
 				_.each(myComments, function(c) {
 					c.myReplies = [];
 					commenthelper.initCommentObj(c, myPoints);
@@ -273,13 +325,17 @@
 				_.each(allComments, function(c) {
 					commentLoaded++;
 					c.myReplies = [];
+
+					// Initialize every comment
 					commenthelper.initCommentObj(c, myPoints);
 
-					// Chek if it is a user comment
+					// Chek the new comment, if it is a user comment or not
 					var myComment = _.find(myComments, function(mc) {
 						return c.id === mc.id;
 					});
 					if (myComment) {
+						// If it is user comment, then set hide paramter and the view/html
+						//  for this comment will not appear
 						c.hideThis = true;
 					}
 				});
@@ -291,24 +347,32 @@
 			return remainingChars;
 		}
 
+		// User click "Send button" to post new comment
 		function postNewComment() {
+			// Close comment form dialog
 			closeCommentDialog();
 
+			// Send request
 			dataservice.createNewComment(matchdayId ,this.newComment, actualParentId)
 				.then(afterPostComment);
 		}
 
+		// callback of postNewComment
 		function afterPostComment(resp) {
 			if (200 === resp.status) {
-
-				var newComment = resp.data;
+				// Retrive new comment and initalize it
+				var newComment = resp.dataservicea;
 				commenthelper.initCommentObj(newComment);
-				if (actualParentId) {
 
+				if (actualParentId) {
+					// The new comment come from "Reply" button
+
+					// Find the parent
 					var parent = commenthelper.findParentById(actualParentId, myComments);
 					if (!parent)
 						parent = commenthelper.findParentById(actualParentId, allComments);
 
+					// Push/append the new comment to the parent subComment
 					if (!parent.myReplies) 
 						parent.myReplies = [];
 					parent.myReplies.push(newComment);
@@ -319,22 +383,25 @@
 			}
 		}
 
+		// Listener when user keep type on new comment form and keep update
+		//  the remaining characters available left
 		function userTypeNewComment() {
+			
 			var newComment = this.newComment;
 			if (newComment) {
 				var newComment = newComment;
 				var length = (newComment && newComment.length) 
 					? newComment.length
 					: 0;
-				remainingChars = maxCommentLength - length;
+				remainingChars = MAC_COMMENT_LENGTH - length;
 			}
 		}
 
 		function initNewComment(pc, parentId) {
-			// Set require param to default
+			// Set require param to default value
 			parentComment = null;
 			actualParentId = null;
-			remainingChars = maxCommentLength;
+			remainingChars = MAC_COMMENT_LENGTH;
 
 			parentComment = pc;
 			if (parentId)
