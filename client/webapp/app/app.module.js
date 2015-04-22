@@ -23,9 +23,6 @@
 		"app.totw",
 		"app.squads",
 		"app.admin",
-		"app.admin.auth",
-		"app.admin.dashboard",
-		"app.admin.config",
 		"app.user"
 		// "app.news"
 	])

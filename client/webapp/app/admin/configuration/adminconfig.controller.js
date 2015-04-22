@@ -2,7 +2,7 @@
 	"use strict";
 
 	angular
-		.module("app.admin.config")
+		.module("app.admin")
 		.controller("AdminConfig", AdminConfig);
 
 	function AdminConfig() {

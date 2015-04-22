@@ -2,7 +2,7 @@
 	"use strict";
 
 	angular
-		.module("app.admin.auth")
+		.module("app.admin")
 		.controller("AdminLogout", AdminLogout)
 		.controller("AdminLogin", AdminLogin);
 
@@ -11,7 +11,7 @@
 		$state.go("admin.login", {reload: false});
 	}
 
-	function AdminLogin(dataservice, adminauth) {
+	function AdminLogin(dataservice, adminauth, userauth) {
 		var vm = this;
 		vm.hideMsg = null;
 		vm.hasErr = null; 
@@ -32,9 +32,8 @@
 				var email = encodeBase64(adminEmail);
 				var psswd = encodeBase64(adminPaswd)
 
-				dataservice.adminLogin(email, psswd).then(function(data) {
-						processData(data);
-				})
+				dataservice.adminLogin(email, psswd)
+					.then(processData);
 			} else {
 				showError("Email or Password is empty.")
 			}
@@ -57,6 +56,10 @@
 				hideError();
 				// save cookie session
 				adminauth.putAdminSession(result.data.result.session);
+
+				// set user profile
+				var user = result.data.result.user;
+				userauth.setLoggedUser(user);
 
 				// redirect to admin dashboard
 				window.location.href = "#/admin/dashboard";
