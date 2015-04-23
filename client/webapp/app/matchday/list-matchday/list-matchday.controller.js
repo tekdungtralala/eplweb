@@ -131,7 +131,7 @@
 			allMatch = [];
 			_.each(vm.model, function(m) {
 				_.each(m, function(match) {
-					match.ratingPoint = match.ratingPoint.toFixed(2);
+					match.ratingPoint = parseFloat(match.ratingPoint).toFixed(2);
 
 					var voting = _.find(vm.voting.getAllVoting(), function(v) {
 						return v.matchdayId === match.id;
