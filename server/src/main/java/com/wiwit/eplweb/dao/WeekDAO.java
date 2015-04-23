@@ -46,7 +46,7 @@ public class WeekDAO extends AbstractDAO{
 
 	@Transactional
 	public List<Week> findAllPassedWeek(int prevWeek) {
-		commitAndClose();
+		openSession();
 
 		List<Week> result = getSession().createQuery(
 				"from Week as w where w.weekNumber <= " + prevWeek
