@@ -2,42 +2,36 @@ package com.wiwit.eplweb.dao;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wiwit.eplweb.model.Rank;
 
 @Service
-public class RankDAO {
+public class RankDAO extends AbstractDAO{
 
 	private static final Logger logger = LoggerFactory.getLogger(RankDAO.class);
 
-	@Autowired
-	private SessionFactory sessionFactory;
-
 	@Transactional
 	public List<Rank> findRankByWeekNumber(int weekNumber) {
-		Session session = this.sessionFactory.openSession();
-		List<Rank> result = session.createQuery(
+		openSession();
+		
+		List<Rank> result = getSession().createQuery(
 				"from Rank as r where r.week.weekNumber = " + weekNumber
 						+ " ORDER BY r.points DESC").list();
 		logger.info("Rank loaded successfully, ranks size=" + result.size());
-		session.close();
+		commitAndClose();
 		return result;
 	}
 
 	@Transactional
 	public Rank findTeamRankByWeeknumber(int teamId, int weekNumber) {
-		Session session = this.sessionFactory.openSession();
-		List<Rank> list = session.createQuery(
+		openSession();
+		List<Rank> list = getSession().createQuery(
 				"from Rank as r where r.week.weekNumber = " + weekNumber
 						+ " and r.team.id=" + teamId).list();
 		if (list == null || list.isEmpty()) {
@@ -47,18 +41,18 @@ public class RankDAO {
 		}
 		Rank result = list.get(0);
 		logger.info("Rank loaded successfully, rank.id" + result.getId());
-		session.close();
+		commitAndClose();
 		return result;
 	}
 	
 	@Transactional
 	public void updateMoreRank(HashMap<Integer, List<Rank>> rankMap) {
-		Session session = this.sessionFactory.openSession();
+		openSession();
 		for (Integer key : rankMap.keySet()) {
 			for(Rank r : rankMap.get(key)) {
-				session.update(r);
+				getSession().update(r);
 			}
 		}
-		session.close();
+		commitAndClose();
 	}
 }

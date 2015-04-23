@@ -4,62 +4,56 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wiwit.eplweb.model.Week;
 
 @Service
-public class WeekDAO {
+public class WeekDAO extends AbstractDAO{
 
 	private static final Logger logger = LoggerFactory.getLogger(WeekDAO.class);
 
-	@Autowired
-	private SessionFactory sessionFactory;
-
 	@Transactional
 	public List<Week> findLastFiveWeek() {
-		Session session = this.sessionFactory.openSession();
-		List<Week> result =  session.createQuery("from Week order by startDay")
+		openSession();
+		List<Week> result =  getSession().createQuery("from Week order by startDay")
 				.setMaxResults(5).list();
 		
-		session.close();
+		commitAndClose();
 		return result;
 	}
 
 	@Transactional
 	public Week findByWeekNmr(int weekNumber) {
-		Session session = this.sessionFactory.openSession();
-		Week result = (Week) session.createQuery("from Week where weekNumber = " + weekNumber)
+		openSession();
+		Week result = (Week) getSession().createQuery("from Week where weekNumber = " + weekNumber)
 				.setMaxResults(1).list().get(0);
-		session.close();
+		commitAndClose();
 		return result;
 	}
 
 	@Transactional
 	public List<Week> findAllWeek() {
-		Session session = this.sessionFactory.openSession();
-		List<Week> result = session.createQuery(
+		openSession();
+		List<Week> result = getSession().createQuery(
 				"from Week order by startDay desc").list();
 		logger.info("Week loaded successfully, weeks size=" + result.size());
-		session.close();
+		commitAndClose();
 		return result;
 	}
 
 	@Transactional
 	public List<Week> findAllPassedWeek(int prevWeek) {
-		Session session = this.sessionFactory.openSession();
+		commitAndClose();
 
-		List<Week> result = session.createQuery(
+		List<Week> result = getSession().createQuery(
 				"from Week as w where w.weekNumber <= " + prevWeek
 						+ " order by w.weekNumber desc").list();
 
 		logger.info("Week loaded successfully, weeks size=" + result.size());
-		session.close();
+		commitAndClose();
 		return result;
 	}
 }

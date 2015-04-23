@@ -4,36 +4,30 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wiwit.eplweb.model.Team;
 
 @Service
-public class TeamDAO {
+public class TeamDAO extends AbstractDAO{
 	private static final Logger logger = LoggerFactory.getLogger(TeamDAO.class);
-
-	@Autowired
-	private SessionFactory sessionFactory;
 
 	@Transactional
 	public List<Team> findAll() {
-		Session session = this.sessionFactory.openSession();
-		List<Team> result = session.createQuery("from Team order by Name asc").list();
+		openSession();
+		List<Team> result = getSession().createQuery("from Team order by Name asc").list();
 
 		logger.info("Team loaded successfully, teams size=" + result.size());
-		session.close();
+		commitAndClose();
 		return result;
 	}
 
 	@Transactional
 	public Team findByIdAndName(int id, String simpleName) {
-		Session session = this.sessionFactory.openSession();
-		List<Team> list = session
+		openSession();
+		List<Team> list = getSession()
 				.createQuery(
 						"from Team where id=" + id + " and simpleName='"
 								+ simpleName + "'").setMaxResults(1).list();
@@ -45,14 +39,14 @@ public class TeamDAO {
 		Team result = list.get(0);
 
 		logger.info("Team loaded successfully, team.id =" + result.getId());
-		session.close();
+		commitAndClose();
 		return result;
 	}
 	
 	@Transactional
 	public Team findById(int id) {
-		Session session = this.sessionFactory.openSession();
-		List<Team> list = session
+		openSession();
+		List<Team> list = getSession()
 				.createQuery("from Team where id=" + id).setMaxResults(1).list();
 		
 		if (list == null || list.isEmpty()) {
@@ -62,14 +56,14 @@ public class TeamDAO {
 		Team result = list.get(0);
 
 		logger.info("Team loaded successfully, team.id =" + result.getId());
-		session.close();
+		commitAndClose();
 		return result;
 	}
 	
 	@Transactional
 	public void updateTeam(Team team) {
-		Session session = this.sessionFactory.openSession();
-		session.update(team);
-		session.close();
+		openSession();
+		getSession().update(team);
+		commitAndClose();
 	}
 }

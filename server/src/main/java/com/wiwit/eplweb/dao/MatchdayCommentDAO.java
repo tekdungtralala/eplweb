@@ -4,37 +4,28 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wiwit.eplweb.model.MatchdayComment;
 
 @Service
-public class MatchdayCommentDAO {
-
-	@Autowired
-	private SessionFactory sessionFactory;
+public class MatchdayCommentDAO extends AbstractDAO{
 	
 	@Transactional
 	public void createComment(MatchdayComment comment) {
-		Session session = this.sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+		openSession();
 		
-		session.persist(comment);
+		getSession().persist(comment);
 		
-		tx.commit();
-		session.close();
+		commitAndClose();
 	}
 	
 	// Find parent comment
 	@Transactional
 	public List<MatchdayComment> findByMatchAndUser(int matchdayId, int userId, 
 			int offset, int size) {
-		Session session = this.sessionFactory.openSession();
-		List<MatchdayComment> result = session
+		openSession();
+		List<MatchdayComment> result = getSession()
 				.createQuery(
 						"From MatchdayComment "
 								+ "where matchday.id =:matchdayId "
@@ -47,15 +38,15 @@ public class MatchdayCommentDAO {
 				.setMaxResults(size)
 				.list();
 
-		session.close();
+		commitAndClose();
 		return result;
 	}
 
 	// Find parent comment
 	@Transactional
 	public List<MatchdayComment> findByMatchdayId(int matchdayId, int offset, int size) {
-		Session session = this.sessionFactory.openSession();
-		List<MatchdayComment> result = session
+		openSession();
+		List<MatchdayComment> result = getSession()
 				.createQuery(
 						"From MatchdayComment "
 								+ "where matchday.id =:matchdayId "
@@ -66,7 +57,7 @@ public class MatchdayCommentDAO {
 				.setMaxResults(size)
 				.list();
 
-		session.close();
+		commitAndClose();
 		return result;
 	}
 
@@ -74,8 +65,8 @@ public class MatchdayCommentDAO {
 	@Transactional
 	public List<MatchdayComment> findByParentId(int parentId, int offset,
 			int size) {
-		Session session = this.sessionFactory.openSession();
-		List<MatchdayComment> result = session
+		openSession();
+		List<MatchdayComment> result = getSession()
 				.createQuery(
 						"From MatchdayComment "
 								+ "where parent is not NULL and parent.id =:parentId "
@@ -85,47 +76,45 @@ public class MatchdayCommentDAO {
 				.setMaxResults(size)
 				.list();
 
-		session.close();
+		commitAndClose();
 		return result;
 	}
 
 	@Transactional
 	public Long countTotalCommentByMatchdayId(int matchdayId) {
-		Session session = this.sessionFactory.openSession();
+		openSession();
 
-		Long count = ((Long) session
+		Long count = ((Long) getSession()
 				.createQuery("select count(*) " +
 						"from MatchdayComment " +
 						"where matchday.id =:matchdayId  " +
 						"and parent is null")
 				.setParameter("matchdayId", matchdayId)
 				.iterate().next());
-		session.close();
+		commitAndClose();
 		return count;
 	}
 	
 	@Transactional
 	public Long countTotalCommentByParentId(int parentId) {
-		Session session = this.sessionFactory.openSession();
-
-		Long count = ((Long) session
+		openSession();
+		Long count = ((Long) getSession()
 				.createQuery("select count(*) " +
 						"from MatchdayComment " +
 						"where parent.id =:parentId ")
 				.setParameter("parentId", parentId)
 				.iterate().next());
-		session.close();
+		commitAndClose();
 		return count;
 	}
 	
 	@Transactional
 	public MatchdayComment findById(int id) {
-		Session session = this.sessionFactory.openSession();
-
-		List<MatchdayComment> result= session.createQuery("from MatchdayComment " +
+		openSession();
+		List<MatchdayComment> result = getSession().createQuery("from MatchdayComment " +
 						"where id =:id ")
 				.setParameter("id", id).list();
-		session.close();
+		commitAndClose();
 		
 		if (result != null && result.size() > 0)
 			return result.get(0);

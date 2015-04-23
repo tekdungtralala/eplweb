@@ -4,40 +4,36 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wiwit.eplweb.model.Image;
 import com.wiwit.eplweb.util.ImageUtil.ImageType;
 
 @Service
-public class ImageDAO {
+public class ImageDAO extends AbstractDAO {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(ImageDAO.class);
 
-	@Autowired
-	private SessionFactory sessionFactory;
-
 	@Transactional
 	public void saveImage(Image image) {
-		Session session = this.sessionFactory.openSession();
-		session.persist(image);
-		session.close();
+		openSession();
+		
+		getSession().persist(image);
+		
+		commitAndClose();
 	}
 
 	@Transactional
 	public List<Image> findAllByTeamId(int teamId, ImageType imageType) {
-		Session session = this.sessionFactory.openSession();
-		List<Image> result = session.createQuery(
+		openSession();
+		List<Image> result = getSession().createQuery(
 				"from Image where team.id=" + teamId + " and imageType='"
 						+ imageType.toString() + "' order by position asc").list();
 
-		session.close();
+		commitAndClose();
 		if (result == null || result.size() == 0) {
 			logger.info("Can't find slide show with teamId=" + teamId);
 			return null;
@@ -48,11 +44,11 @@ public class ImageDAO {
 
 	@Transactional
 	public Image findById(int id) {
-		Session session = this.sessionFactory.openSession();
-		List<Image> result = session.createQuery("from Image where id=" + id)
+		openSession();
+		List<Image> result = getSession().createQuery("from Image where id=" + id)
 				.list();
 
-		session.close();
+		commitAndClose();
 		if (result == null || result.size() == 0) {
 			logger.info("Can't find slide show with id=" + id);
 			return null;
@@ -63,17 +59,17 @@ public class ImageDAO {
 
 	@Transactional
 	public void deleteImage(Image image) {
-		Session session = this.sessionFactory.openSession();
-		session.delete(image);
-		session.close();
+		openSession();
+		getSession().delete(image);
+		commitAndClose();
 	}
 
 	@Transactional
 	public void updateMore(List<Image> images) {
-		Session session = this.sessionFactory.openSession();
+		openSession();
 		for (Image i : images) {
-			session.update(i);
+			getSession().update(i);
 		}
-		session.close();
+		commitAndClose();
 	}
 }

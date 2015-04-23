@@ -5,51 +5,45 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wiwit.eplweb.model.Matchday;
 import com.wiwit.eplweb.model.MatchdayRating;
 import com.wiwit.eplweb.model.MatchdayVoting;
-import com.wiwit.eplweb.model.User;
 
 @Service
-public class MatchdayDAO {
+public class MatchdayDAO extends AbstractDAO{
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(MatchdayDAO.class);
 
-	@Autowired
-	private SessionFactory sessionFactory;
-
 	@Transactional
 	public List<Matchday> findClosestMatch(int teamId, int weekNumber,
 			int totalMatch) {
-		Session session = this.sessionFactory.openSession();
+		openSession();
 
 		String query = "from Matchday as m where m.week.weekNumber > "
 				+ (weekNumber - totalMatch) + " and m.week.weekNumber < "
 				+ (weekNumber + totalMatch) + " and (homeTeam.id=" + teamId
 				+ " or awayTeam.id=" + teamId + ") order by m.week.weekNumber asc";
-		List<Matchday> result = session.createQuery(query).list();
+		List<Matchday> result = getSession().createQuery(query).list();
 		logger.info("Matchday loaded successfully, matchdays size="
 				+ result.size());
-		session.close();
+		commitAndClose();
 		return result;
 	}
 
 	@Transactional
 	public List<Matchday> findMatchtdayByWeekNmr(int weekNumber) {
-		Session session = this.sessionFactory.openSession();
+		openSession();
 
-		List<Matchday> result = session.createQuery(findMatchdayByWeekNmr(weekNumber)).list();
+		List<Matchday> result = getSession().createQuery(findMatchdayByWeekNmr(weekNumber)).list();
 		logger.info("Matchday loaded successfully, matchdays size="
 				+ result.size());
-		session.close();
+		
+		commitAndClose();
 		return result;
 	}
 	
@@ -60,29 +54,31 @@ public class MatchdayDAO {
 	
 	@Transactional
 	public Matchday findMatchtdayById(int matchdayId) {
-		Session session = this.sessionFactory.openSession();
+		openSession();
 
-		List<Matchday> result = session.createQuery(
+		List<Matchday> result = getSession().createQuery(
 				"from Matchday as m where m.id = " + matchdayId).list();
 		if (result == null || result.size() == 0){
 			logger.info("Can't find matchday with id="+ matchdayId);
 			return null;
 		}
-		session.close();
+		commitAndClose();
 		return result.get(0);
 	}
 	
 	@Transactional
 	public void updateMatchday(Matchday matchday) {
-		Session session = this.sessionFactory.openSession();
-		session.update(matchday);
-		session.close();
+		openSession();
+		
+		getSession().update(matchday);
+		
+		commitAndClose();
 	}
 	
 	@Transactional
 	public void saveMoreMatchday(int weekNumber, List<Matchday> matchdays) {
-		Session session = this.sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+		openSession();
+		Session session = getSession();
 		
 		// Delete old data
 		List<Matchday> result = session.createQuery(findMatchdayByWeekNmr(weekNumber)).list();
@@ -94,14 +90,13 @@ public class MatchdayDAO {
 		for(Matchday m : matchdays) {
 			session.persist(m);
 		}
-		tx.commit();
-		session.close();
+		commitAndClose();
 	}
 	
 	@Transactional
 	public void updateVoting(Matchday matchday, MatchdayVoting mv, boolean newVotingData) {
-		Session session = this.sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+		openSession();
+		Session session = getSession();
 		
 		if (newVotingData) 
 			session.persist(mv);
@@ -110,14 +105,13 @@ public class MatchdayDAO {
 		
 		session.update(matchday);
 		
-		tx.commit();
-		session.close();
+		commitAndClose();
 	}
 	
 	@Transactional
 	public void updateRating(Matchday matchday, MatchdayRating mr, boolean newRatingData) {
-		Session session = this.sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+		openSession();
+		Session session = getSession();
 		
 		if (newRatingData) 
 			session.persist(mr); 
@@ -126,7 +120,6 @@ public class MatchdayDAO {
 		
 		session.update(matchday);
 		
-		tx.commit();
-		session.close();
+		commitAndClose();
 	}
 }

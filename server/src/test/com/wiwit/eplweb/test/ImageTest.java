@@ -13,7 +13,7 @@ public class ImageTest {
 		TeamService ts = context.getBean(TeamService.class);
 		ImageService is = context.getBean(ImageService.class);
 
-		Team t = ts.findByIdAndSimppleName(20, "chelsea");
+		Team t = ts.findById(15);
 		System.out.println(t.getName());
 		
 		Image i = new Image();
@@ -24,6 +24,7 @@ public class ImageTest {
 		i.setTeam(t);
 		is.saveImage(i);
 		context.close();
+		
 	}
 
 	public static void main(String[] asfd) {
