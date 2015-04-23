@@ -35,7 +35,7 @@
 
 				// Cek session order by high priority (admin first)
 				if (adminSession) {
-					// dataservice.adminCekLogin();
+					promise = dataservice.adminCekLogin().then(prcessAdminLogin);
 				} else if (userSession) {
 					// If has user session then chek the user who loggin in this app
 					promise = dataservice.me().then(prcessUserLogin);
@@ -55,6 +55,18 @@
 			deferredObject.resolve();
 		}
 
+		function prcessAdminLogin(result) {
+			if (200 === result.status) {
+				// change userLogged flag
+				$rootScope.isUserLogged = true; 
+
+				// render logged user
+				var user = result.data.result.user;
+				var userRole = user.userRole;
+				userauth.setLoggedUser(user, userRole);
+			}
+		}
+
 		function prcessUserLogin(result) {
 			if (200 === result.status) {
 				// change userLogged flag
@@ -63,7 +75,7 @@
 				// render logged user
 				var user = result.data;
 				var userRole = result.data.userRole;
-				userauth.setLoggedUser(result.data, userRole);
+				userauth.setLoggedUser(user, userRole);
 			}
 		}
 
