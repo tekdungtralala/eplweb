@@ -247,7 +247,7 @@
 		}
 
 		// User click "Load More Comment" utton
-		function loadMoreComment() {
+		function loadMoreComment() {		
 			// Set indicator, still doing asc
 			stillDoAsc = true;
 			textInfoComment = "Loading...";
@@ -296,6 +296,11 @@
 
 		// User clicks one of the comments button on matchday table
 		function fetchComments(mID) {
+			allComments = [];
+			myComments = [];
+			myPoints = [];
+			myComments = [];
+
 			// Save matchdayId
 			matchdayId = mID;
 
