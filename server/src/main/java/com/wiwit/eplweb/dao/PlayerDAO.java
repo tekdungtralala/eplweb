@@ -17,7 +17,6 @@ public class PlayerDAO extends AbstractDAO{
 		List<Player> result = getSession().createQuery(
 				"from Player where team.id=" + teamId
 						+ " order by playerNumber asc").list();
-		commitAndClose();
 		return result;
 	}
 
@@ -26,22 +25,29 @@ public class PlayerDAO extends AbstractDAO{
 		openSession();
 		List<Player> result = getSession().createQuery("from Player where id=" + id)
 				.list();
-		commitAndClose();
 		return result.get(0);
 	}
 
 	@Transactional
 	public void updatePlayer(Player player) {
-		openSession();
-		getSession().update(player);
-		commitAndClose();
+		openSession(true);
+		try {
+			getSession().update(player);
+			commit();
+		} catch (Exception e) {
+			roleback();
+		}
 	}
 
 	@Transactional
 	public void savePlayer(Player player) {
-		openSession();
-		getSession().persist(player);
-		commitAndClose();
+		openSession(true);
+		try {
+			getSession().persist(player);
+			commit();
+		} catch (Exception e) {
+			roleback();
+		}
 	}
 
 	@Transactional
@@ -51,7 +57,6 @@ public class PlayerDAO extends AbstractDAO{
 				"from Player where team.id=" + teamId + " and playerNumber="
 						+ playerNumber).list();
 
-		commitAndClose();
 		if (result == null || result.size() == 0)
 			return null;
 
@@ -60,8 +65,13 @@ public class PlayerDAO extends AbstractDAO{
 
 	@Transactional
 	public void deletePlayer(Player player) {
-		openSession();
-		getSession().delete(player);
-		commitAndClose();
+		openSession(true);
+		try {
+			getSession().delete(player);
+			commit();
+		} catch (Exception e) {
+			roleback();
+		}
+		closeConnection();
 	}
 }

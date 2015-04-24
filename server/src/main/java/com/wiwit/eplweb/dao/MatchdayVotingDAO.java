@@ -19,7 +19,6 @@ public class MatchdayVotingDAO extends AbstractDAO{
 		List<MatchdayVoting> result = getSession().createQuery(
 				"from MatchdayVoting where user.id=" + user.getId()
 						+ " and matchday.id='" + match.getId() + "' ").list();
-		commitAndClose();
 		if (result.size() > 0) {
 			return result.get(0);
 		}
@@ -37,8 +36,6 @@ public class MatchdayVotingDAO extends AbstractDAO{
 				.setParameterList("ids", ids)
 				.setParameter("userId", user.getId())
 				.list();
-
-		commitAndClose();
 		return result;
 	}
 }

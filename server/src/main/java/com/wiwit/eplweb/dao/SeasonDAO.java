@@ -12,7 +12,6 @@ public class SeasonDAO extends AbstractDAO{
 	public List<Season> findAllSeason() {
 		openSession();
 		List<Season> result = getSession().createQuery("from Season").list();
-		commitAndClose();
 		return result;
 	}
 
@@ -20,8 +19,7 @@ public class SeasonDAO extends AbstractDAO{
 		openSession();
 		Season result = (Season) getSession().createQuery("from Season where id = " + id)
 				.list().get(0);
-		
-		commitAndClose();		
+				
 		return result;
 	}
 }

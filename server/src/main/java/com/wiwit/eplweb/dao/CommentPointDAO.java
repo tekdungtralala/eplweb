@@ -15,33 +15,38 @@ public class CommentPointDAO extends AbstractDAO{
 	
 	@Transactional
 	public void updatePoint(CommentPoint point, Boolean latestValue) {
-		MatchdayComment comment = point.getMatchdayComment();
-		int latestPoint = comment.getPoints();
-		
-		openSession();
-		Session session = getSession();
-		
-		if (latestValue == null) {
-			if (point.getIsUp()) {
-				latestPoint++;
+		openSession(true);
+		try {
+			MatchdayComment comment = point.getMatchdayComment();
+			int latestPoint = comment.getPoints();
+			
+			Session session = getSession();
+			
+			if (latestValue == null) {
+				if (point.getIsUp()) {
+					latestPoint++;
+				} else {
+					latestPoint--;
+				}
+				session.persist(point);
 			} else {
-				latestPoint--;
+				if (latestValue && !point.getIsUp()) {
+					latestPoint--;
+				} else if (!latestValue && point.getIsUp()) {
+					latestPoint++;
+				}
+				session.update(point);
 			}
-			session.persist(point);
-		} else {
-			if (latestValue && !point.getIsUp()) {
-				latestPoint--;
-			} else if (!latestValue && point.getIsUp()) {
-				latestPoint++;
-			}
-			session.update(point);
+			
+			if (latestPoint < 0) latestPoint = 0;
+			comment.setPoints(latestPoint);
+			session.update(comment); 
+			
+			commit();
+		} catch (Exception e) {
+			roleback();
 		}
-		
-		if (latestPoint < 0) latestPoint = 0;
-		comment.setPoints(latestPoint);
-		session.update(comment); 
-		
-		commitAndClose();
+		closeConnection();
 	}
 	
 	@Transactional
@@ -54,7 +59,6 @@ public class CommentPointDAO extends AbstractDAO{
 				.setParameter("matchdayId", matchdayId)
 				.setParameter("userId", userId)
 				.list();
-		commitAndClose();
 		return result;
 	}
 	
@@ -66,7 +70,6 @@ public class CommentPointDAO extends AbstractDAO{
 				.setParameter("commentId", commentId)
 				.setParameter("userId", userId)
 				.list();
-		commitAndClose();
 		
 		if (result != null && result.size() > 0)
 			return result.get(0);

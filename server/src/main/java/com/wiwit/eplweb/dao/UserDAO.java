@@ -20,7 +20,6 @@ public class UserDAO extends AbstractDAO{
 		openSession();
 		List<User> result = getSession().createQuery(
 				"from User as u where u." + key + "= '" + value + "'").list();
-		commitAndClose();
 		if (result == null || result.size() == 0) {
 			return null;
 		}

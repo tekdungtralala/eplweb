@@ -24,7 +24,6 @@ public class RankDAO extends AbstractDAO{
 				"from Rank as r where r.week.weekNumber = " + weekNumber
 						+ " ORDER BY r.points DESC").list();
 		logger.info("Rank loaded successfully, ranks size=" + result.size());
-		commitAndClose();
 		return result;
 	}
 
@@ -41,18 +40,23 @@ public class RankDAO extends AbstractDAO{
 		}
 		Rank result = list.get(0);
 		logger.info("Rank loaded successfully, rank.id" + result.getId());
-		commitAndClose();
 		return result;
 	}
 	
 	@Transactional
 	public void updateMoreRank(HashMap<Integer, List<Rank>> rankMap) {
-		openSession();
-		for (Integer key : rankMap.keySet()) {
-			for(Rank r : rankMap.get(key)) {
-				getSession().update(r);
+		openSession(true);
+		try {
+			for (Integer key : rankMap.keySet()) {
+				for(Rank r : rankMap.get(key)) {
+					getSession().update(r);
+				}
 			}
+			
+			commit();
+		} catch (Exception e) {
+			roleback();
 		}
-		commitAndClose();
+		closeConnection();
 	}
 }

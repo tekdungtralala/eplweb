@@ -19,7 +19,6 @@ public class MatchdayRatingDAO extends AbstractDAO{
 		List<MatchdayRating> result = getSession().createQuery(
 				"from MatchdayRating where user.id=" + user.getId()
 						+ " and matchday.id='" + match.getId() + "' ").list();
-		commitAndClose();
 		if (result.size() > 0) {
 			return result.get(0);
 		}

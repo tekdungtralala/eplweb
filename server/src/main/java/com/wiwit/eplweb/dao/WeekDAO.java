@@ -20,8 +20,6 @@ public class WeekDAO extends AbstractDAO{
 		openSession();
 		List<Week> result =  getSession().createQuery("from Week order by startDay")
 				.setMaxResults(5).list();
-		
-		commitAndClose();
 		return result;
 	}
 
@@ -30,7 +28,6 @@ public class WeekDAO extends AbstractDAO{
 		openSession();
 		Week result = (Week) getSession().createQuery("from Week where weekNumber = " + weekNumber)
 				.setMaxResults(1).list().get(0);
-		commitAndClose();
 		return result;
 	}
 
@@ -40,7 +37,6 @@ public class WeekDAO extends AbstractDAO{
 		List<Week> result = getSession().createQuery(
 				"from Week order by startDay desc").list();
 		logger.info("Week loaded successfully, weeks size=" + result.size());
-		commitAndClose();
 		return result;
 	}
 
@@ -53,7 +49,6 @@ public class WeekDAO extends AbstractDAO{
 						+ " order by w.weekNumber desc").list();
 
 		logger.info("Week loaded successfully, weeks size=" + result.size());
-		commitAndClose();
 		return result;
 	}
 }

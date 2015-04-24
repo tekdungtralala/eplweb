@@ -31,7 +31,6 @@ public class MatchdayDAO extends AbstractDAO{
 		List<Matchday> result = getSession().createQuery(query).list();
 		logger.info("Matchday loaded successfully, matchdays size="
 				+ result.size());
-		commitAndClose();
 		return result;
 	}
 
@@ -42,8 +41,6 @@ public class MatchdayDAO extends AbstractDAO{
 		List<Matchday> result = getSession().createQuery(findMatchdayByWeekNmr(weekNumber)).list();
 		logger.info("Matchday loaded successfully, matchdays size="
 				+ result.size());
-		
-		commitAndClose();
 		return result;
 	}
 	
@@ -62,17 +59,19 @@ public class MatchdayDAO extends AbstractDAO{
 			logger.info("Can't find matchday with id="+ matchdayId);
 			return null;
 		}
-		commitAndClose();
 		return result.get(0);
 	}
 	
 	@Transactional
 	public void updateMatchday(Matchday matchday) {
-		openSession();
-		
-		getSession().update(matchday);
-		
-		commitAndClose();
+		openSession(true);
+		try {
+			getSession().update(matchday);
+			commit();
+		} catch (Exception e) {
+			roleback();
+		}
+		closeConnection();
 	}
 	
 	@Transactional
@@ -90,36 +89,45 @@ public class MatchdayDAO extends AbstractDAO{
 		for(Matchday m : matchdays) {
 			session.persist(m);
 		}
-		commitAndClose();
 	}
 	
 	@Transactional
 	public void updateVoting(Matchday matchday, MatchdayVoting mv, boolean newVotingData) {
-		openSession();
-		Session session = getSession();
-		
-		if (newVotingData) 
-			session.persist(mv);
-		else
-			session.update(mv);
-		
-		session.update(matchday);
-		
-		commitAndClose();
+		openSession(true);
+		try {
+			Session session = getSession();
+			
+			if (newVotingData) 
+				session.persist(mv);
+			else
+				session.update(mv);
+			
+			session.update(matchday);
+			
+			commit();
+		} catch (Exception e) {
+			roleback();
+		}
+		closeConnection();
 	}
 	
 	@Transactional
 	public void updateRating(Matchday matchday, MatchdayRating mr, boolean newRatingData) {
-		openSession();
-		Session session = getSession();
-		
-		if (newRatingData) 
-			session.persist(mr); 
-		else 
-			session.update(mr); 
-		
-		session.update(matchday);
-		
-		commitAndClose();
+		openSession(true);
+		try {
+			Session session = getSession();
+			
+			if (newRatingData) 
+				session.persist(mr); 
+			else 
+				session.update(mr); 
+			
+			session.update(matchday);
+			
+			commit();
+		} catch (Exception e) {
+			roleback();
+		}
+		closeConnection();
 	}
 }

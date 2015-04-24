@@ -15,17 +15,28 @@ public class AbstractDAO {
 	private Session session;
 
 	public void openSession() {
-		session = this.sessionFactory.openSession();
-		tx = session.beginTransaction();
+		session = this.sessionFactory.getCurrentSession();
 	}
 	
-	public void commitAndClose() {
+	public void openSession(boolean withTx) {
+		session = this.sessionFactory.openSession();
+		if (withTx)
+			tx = session.beginTransaction();
+	}
+	
+	public void commit() {
 		tx.commit();
+	}
+	
+	public void roleback() {
+		tx.rollback();
+	}
+	
+	public void closeConnection() {
 		session.close();
 	}
 	
 	public Session getSession() {
 		return session;
 	}
-
 }

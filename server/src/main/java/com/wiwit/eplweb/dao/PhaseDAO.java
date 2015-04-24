@@ -21,7 +21,6 @@ public class PhaseDAO extends AbstractDAO{
 		List<Phase> results = getSession()
 				.createQuery("from Phase where key like '" + phaseKey.toString()+"'")
 				.setMaxResults(1).list();
-		commitAndClose();
 		return results.get(0);
 	}
 

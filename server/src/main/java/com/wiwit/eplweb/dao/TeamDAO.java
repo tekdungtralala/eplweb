@@ -20,7 +20,6 @@ public class TeamDAO extends AbstractDAO{
 		List<Team> result = getSession().createQuery("from Team order by Name asc").list();
 
 		logger.info("Team loaded successfully, teams size=" + result.size());
-		commitAndClose();
 		return result;
 	}
 
@@ -39,7 +38,6 @@ public class TeamDAO extends AbstractDAO{
 		Team result = list.get(0);
 
 		logger.info("Team loaded successfully, team.id =" + result.getId());
-		commitAndClose();
 		return result;
 	}
 	
@@ -56,14 +54,18 @@ public class TeamDAO extends AbstractDAO{
 		Team result = list.get(0);
 
 		logger.info("Team loaded successfully, team.id =" + result.getId());
-		commitAndClose();
 		return result;
 	}
 	
 	@Transactional
 	public void updateTeam(Team team) {
-		openSession();
-		getSession().update(team);
-		commitAndClose();
+		openSession(true);
+		try {
+			getSession().update(team);
+			commit();
+		} catch (Exception e) {
+			roleback();
+		}
+		closeConnection();
 	}
 }

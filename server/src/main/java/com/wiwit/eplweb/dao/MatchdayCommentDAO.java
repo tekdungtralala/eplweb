@@ -13,11 +13,14 @@ public class MatchdayCommentDAO extends AbstractDAO{
 	
 	@Transactional
 	public void createComment(MatchdayComment comment) {
-		openSession();
-		
-		getSession().persist(comment);
-		
-		commitAndClose();
+		openSession(true);
+		try {
+			getSession().persist(comment);
+			commit();
+		} catch (Exception e) {
+			roleback();
+		}
+		closeConnection();
 	}
 	
 	// Find parent comment
@@ -37,8 +40,6 @@ public class MatchdayCommentDAO extends AbstractDAO{
 				.setFirstResult(offset)
 				.setMaxResults(size)
 				.list();
-
-		commitAndClose();
 		return result;
 	}
 
@@ -57,7 +58,6 @@ public class MatchdayCommentDAO extends AbstractDAO{
 				.setMaxResults(size)
 				.list();
 
-		commitAndClose();
 		return result;
 	}
 
@@ -76,7 +76,6 @@ public class MatchdayCommentDAO extends AbstractDAO{
 				.setMaxResults(size)
 				.list();
 
-		commitAndClose();
 		return result;
 	}
 
@@ -91,7 +90,6 @@ public class MatchdayCommentDAO extends AbstractDAO{
 						"and parent is null")
 				.setParameter("matchdayId", matchdayId)
 				.iterate().next());
-		commitAndClose();
 		return count;
 	}
 	
@@ -104,7 +102,6 @@ public class MatchdayCommentDAO extends AbstractDAO{
 						"where parent.id =:parentId ")
 				.setParameter("parentId", parentId)
 				.iterate().next());
-		commitAndClose();
 		return count;
 	}
 	
@@ -114,7 +111,7 @@ public class MatchdayCommentDAO extends AbstractDAO{
 		List<MatchdayComment> result = getSession().createQuery("from MatchdayComment " +
 						"where id =:id ")
 				.setParameter("id", id).list();
-		commitAndClose();
+		closeConnection();
 		
 		if (result != null && result.size() > 0)
 			return result.get(0);

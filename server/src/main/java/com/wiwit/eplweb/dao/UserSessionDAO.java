@@ -18,7 +18,6 @@ public class UserSessionDAO extends AbstractDAO{
 	public List<UserSession> findAll() {
 		openSession();
 		List<UserSession> result =  getSession().createQuery("from UserSession").list();
-		commitAndClose();
 		return result;
 	}
 	
@@ -27,8 +26,6 @@ public class UserSessionDAO extends AbstractDAO{
 		openSession();
 		List<UserSession> list = getSession().createQuery(
 				"from UserSession where id=" + id + "").list();
-
-		commitAndClose();
 		if (list != null && list.size() > 0)
 			return list.get(0);
 		return null;
@@ -39,7 +36,6 @@ public class UserSessionDAO extends AbstractDAO{
 		openSession();
 		List<UserSession> list = getSession().createQuery(
 				"from UserSession where session='" + session + "'").list();
-		commitAndClose();
 		if (list != null && list.size() > 0)
 			return list.get(0);
 		return null;
@@ -47,35 +43,45 @@ public class UserSessionDAO extends AbstractDAO{
 
 	@Transactional
 	public void saveSession(UserSession us) {
-		openSession();
-		Session se = getSession();
+		openSession(true);
+		try {
+			Session se = getSession();
 
-		// Delete previous session
-		if (us.getUser() != null){
-			Query q = se.createQuery("DELETE UserSession where user.id = "
-					+ us.getUser().getId() + "");
-			q.executeUpdate();
-			us.setRole(UserRoleHelper.getAdminRole());
-		} else if (us.getUserNetwork() != null) {
-			Query q = se.createQuery("DELETE UserSession where userNetwork.id = "
-					+ us.getUserNetwork().getId() + "");
-			q.executeUpdate();
-			us.setRole(UserRoleHelper.getUserRole());
+			// Delete previous session
+			if (us.getUser() != null){
+				Query q = se.createQuery("DELETE UserSession where user.id = "
+						+ us.getUser().getId() + "");
+				q.executeUpdate();
+				us.setRole(UserRoleHelper.getAdminRole());
+			} else if (us.getUserNetwork() != null) {
+				Query q = se.createQuery("DELETE UserSession where userNetwork.id = "
+						+ us.getUserNetwork().getId() + "");
+				q.executeUpdate();
+				us.setRole(UserRoleHelper.getUserRole());
+			}
+
+			// Save new session
+			se.persist(us);
+			
+			commit();
+		} catch (Exception e) {
+			roleback();
 		}
-
-		// Save new session
-		se.persist(us);
-
-		commitAndClose();
+		closeConnection();
 	}
 
 	@Transactional
 	public void deleteSession(String session) {
-		openSession();
-		Query q = getSession().createQuery("DELETE UserSession where session = '"
-				+ session + "'");
-		q.executeUpdate();
-		commitAndClose();
+		openSession(true);
+		try {
+			Query q = getSession().createQuery("DELETE UserSession where session = '"
+					+ session + "'");
+			q.executeUpdate();
+			commit();
+		} catch (Exception e) {
+			roleback();
+		}
+		closeConnection();
 	}
 
 }

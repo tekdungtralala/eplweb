@@ -21,32 +21,38 @@ public class UserNetworkDAO extends AbstractDAO{
 	@Transactional
 	public void create(UserNetwork userNetwork, boolean newUser, 
 			UserNetworkModelInput model) {
-		
-		openSession();
-		
-		if (newUser) {
-			User user = new User();
-			user.setUsername(model.getUsername());
-			user.setFirstName(model.getFirstName());
-			user.setLastName(model.getLastName());
-			user.setImageUrl(model.getImageUrl());
-			getSession().persist(user);
-			
-			userNetwork.setUser(user);
+		openSession(true);
+		try {
+			if (newUser) {
+				User user = new User();
+				user.setUsername(model.getUsername());
+				user.setFirstName(model.getFirstName());
+				user.setLastName(model.getLastName());
+				user.setImageUrl(model.getImageUrl());
+				getSession().persist(user);
+				
+				userNetwork.setUser(user);
+			}
+			getSession().persist(userNetwork);			
+			commit();
+		} catch (Exception e) {
+			roleback();
 		}
-		getSession().persist(userNetwork);
-		
-		commitAndClose();
+		closeConnection();
 	}
 	
 	@Transactional
 	public void create(UserNetwork un, User usr) {
-		openSession();
-		
-		getSession().persist(un);
-		getSession().persist(usr);
-		
-		commitAndClose();
+		openSession(true);
+		try {
+			getSession().persist(un);
+			getSession().persist(usr);
+			
+			commit();
+		} catch (Exception e) {
+			roleback();
+		}
+		closeConnection();
 	}
 	
 	@Transactional
@@ -54,7 +60,6 @@ public class UserNetworkDAO extends AbstractDAO{
 		openSession();
 		List<UserNetwork> results = getSession().createQuery("from UserNetwork where " +
 				"email='" + email + "' and type='" + type.getValue() + "'").list();
-		commitAndClose();
 		if (results != null && results.size() > 0)
 			return results.get(0);
 		return null;
@@ -65,7 +70,6 @@ public class UserNetworkDAO extends AbstractDAO{
 		openSession();
 		List<UserNetwork> results = getSession().createQuery("from UserNetwork where " +
 				"email='" + email + "'").list();
-		commitAndClose();
 		if (results != null && results.size() > 0)
 			return results.get(0);
 		return null;

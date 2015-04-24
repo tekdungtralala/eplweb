@@ -19,11 +19,15 @@ public class ImageDAO extends AbstractDAO {
 
 	@Transactional
 	public void saveImage(Image image) {
-		openSession();
-		
-		getSession().persist(image);
-		
-		commitAndClose();
+		openSession(true);
+		try {
+			getSession().persist(image);
+			
+			commit();
+		} catch (Exception e) {
+			roleback();
+		}
+		closeConnection();
 	}
 
 	@Transactional
@@ -33,7 +37,6 @@ public class ImageDAO extends AbstractDAO {
 				"from Image where team.id=" + teamId + " and imageType='"
 						+ imageType.toString() + "' order by position asc").list();
 
-		commitAndClose();
 		if (result == null || result.size() == 0) {
 			logger.info("Can't find slide show with teamId=" + teamId);
 			return null;
@@ -45,10 +48,14 @@ public class ImageDAO extends AbstractDAO {
 	@Transactional
 	public Image findById(int id) {
 		openSession();
-		List<Image> result = getSession().createQuery("from Image where id=" + id)
-				.list();
-
-		commitAndClose();
+		List<Image> result = null;
+		try {
+			result = getSession().createQuery("from Image where id=" + id).list();
+		} catch (Exception e) {
+			logger.error("Error e = " + e.getMessage());
+			logger.error("Error find by ID =" + id);
+		}
+		
 		if (result == null || result.size() == 0) {
 			logger.info("Can't find slide show with id=" + id);
 			return null;
@@ -59,17 +66,27 @@ public class ImageDAO extends AbstractDAO {
 
 	@Transactional
 	public void deleteImage(Image image) {
-		openSession();
-		getSession().delete(image);
-		commitAndClose();
+		openSession(true);
+		try {
+			getSession().delete(image);
+			commit();
+		} catch (Exception e) {
+			roleback();
+		}
+		closeConnection();
 	}
 
 	@Transactional
 	public void updateMore(List<Image> images) {
-		openSession();
-		for (Image i : images) {
-			getSession().update(i);
+		openSession(true);
+		try {
+			for (Image i : images) {
+				getSession().update(i);
+			}
+			commit();
+		} catch (Exception e) {
+			roleback();
 		}
-		commitAndClose();
+		closeConnection();		
 	}
 }

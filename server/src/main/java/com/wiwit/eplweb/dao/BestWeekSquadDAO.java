@@ -13,7 +13,6 @@ public class BestWeekSquadDAO extends AbstractDAO{
 		openSession();
 		List<BestWeekSquad> result =  getSession().createQuery(
 				"from BestWeekSquad where week.id = " + weekId + " order by number asc").list();
-		commitAndClose();
 		return result;
 	}
 }
