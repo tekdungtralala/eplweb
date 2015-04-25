@@ -15,11 +15,15 @@
 			</a>
 			<ul class="dropdown-menu">
 				<!-- User image -->
-				<li class="user-header epl-user-logged-header">
+				<li 
+					class="user-header {{loggedUser.userRole == 1 ? 'epl-admin':''}}">
 					<img ng-src="{{loggedUser.imageUrl}}" 
+						ng-show="loggedUser.userRole == 2"
 						class="img-circle" alt="User Image">
 					<p>
-						{{loggedUser.username}}<br/>
+						<span ng-show="loggedUser.userRole == 2">
+							{{loggedUser.username}}<br/>
+						</span>
 						{{loggedUser.firstName}} {{loggedUser.lastName}}
 					</p>
 				</li>

@@ -146,6 +146,11 @@ body{
 	}
 }
 
+/* User Profile */
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header.epl-admin {
+	height: 58px;
+}
+
 /*Centering menu and content*/
 #epl-main-container {
 	max-width: 740px;
