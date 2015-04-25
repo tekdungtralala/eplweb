@@ -111,7 +111,6 @@ public class MatchdayCommentDAO extends AbstractDAO{
 		List<MatchdayComment> result = getSession().createQuery("from MatchdayComment " +
 						"where id =:id ")
 				.setParameter("id", id).list();
-		closeConnection();
 		
 		if (result != null && result.size() > 0)
 			return result.get(0);

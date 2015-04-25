@@ -366,7 +366,8 @@
 		function afterPostComment(resp) {
 			if (200 === resp.status) {
 				// Retrive new comment and initalize it
-				var newComment = resp.dataservicea;
+				var newComment = resp.data;
+				console.log("newComment : ", newComment);
 				commenthelper.initCommentObj(newComment);
 
 				if (actualParentId) {
