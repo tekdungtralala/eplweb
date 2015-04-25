@@ -193,6 +193,10 @@
 				delete m["dateStr"];
 				delete m["id"];
 				delete m["week"];
+				delete m["votingAwayWin"];
+				delete m["votingHomeWin"];
+				delete m["votingTie"];
+				delete m["ratingPoint"];
 			});
 
 			dismisModal();

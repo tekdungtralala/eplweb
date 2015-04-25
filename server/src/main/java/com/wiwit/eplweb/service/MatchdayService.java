@@ -186,6 +186,13 @@ public class MatchdayService {
 			m.setWeek(week);
 			m.setAwayPoint(0);
 			m.setHomePoint(0);
+			
+			float zeroVal = Float.valueOf("0");
+			m.setRatingPoint(zeroVal);
+			m.setTotalRating(0);
+			m.setVotingHomeWin(0);
+			m.setVotingAwayWin(0);
+			m.setVotingTie(0);
 
 			matchdays.add(m);
 		}
