@@ -1,0 +1,47 @@
+<ion-view view-title="Table">
+	<ion-content>
+		<div class="row" >
+			<div class="col col-20">
+			</div>
+			<div class="col col-50">
+				<span style="float:right">
+					P
+				</span>
+			</div>
+			<div class="col col-20 epl-center">Goals</div>
+			<div class="col col-10 epl-center">Pts.</div>
+		</div>
+		<div class="row" ng-repeat="(i,r) in vm.datas">
+			<div class="col col-20">
+				<div style="float:left; width:25px" >
+					{{i+1}}
+				</div>
+				<img class='epl-team-logo' 
+					alt='' ng-src='img/logo/150x150/{{r.team.id}}.png' />
+			</div>
+			<div class="col col-50">
+				{{r.team.name}}
+				<span style="float:right">
+					{{r.gamesDrawn + r.gamesWon + r.gamesLost}}
+				</span>
+			</div>
+			<!-- <div class="col col-10"></div> -->
+
+			<div class="col col-20 epl-center">{{r.goalsScored}} - {{r.goalsAgainst}}</div>
+			<div class="col col-10 epl-center">{{r.points}}</div>
+		</div>
+<!--    <div class="list">
+			<a class="item item-avatar" href="#" ng-repeat="(i,r) in vm.datas">
+			<img class='' alt='' 
+				ng-src='img/logo/150x150/{{r.team.id}}.png' >
+				<h2>{{i+1}}. {{r.team.simpleName}}</h2>
+				<p>
+					Play : {{r.gamesDrawn + r.gamesWon + r.gamesLost}},
+					Won : {{r.gamesWon}}. 
+					Draw : {{r.gamesDrawn}}. 
+					Lost : {{r.gamesLost}}. 
+				</p>
+			</a>
+		</div> -->
+	</ion-content>
+</ion-view>
