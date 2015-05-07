@@ -10,7 +10,8 @@
 				url: "/matchday",
 				views: {
 					'menuContent': {
-						templateUrl: "js/matchday/matchday.html"
+						templateUrl: "js/matchday/matchday.html",
+						controller: "MatchdayCtrl as vm"
 					}
 				}
 			});

@@ -1,5 +1,28 @@
 <ion-view view-title="Matchday">
 	<ion-content>
-		<h1>Matchday</h1>
+		<div ng-repeat="(i, days) in vm.datas">
+			<div class="row" >
+				<div class="col">{{i}}</div>
+			</div>
+			<div class="row" ng-repeat="(j, r) in days">
+				<div class="col col-20 epl-center">{{r.time}}</div>
+				<div class="col col-40 epl-center">
+					<img class='epl-team-logo' alt='' 
+						ng-src='img/logo/150x150/{{r.homeTeam.id}}.png' />
+					{{r.homeGoal}} - {{r.awayGoal}}
+					<img class='epl-team-logo' alt='' 
+						ng-src='img/logo/150x150/{{r.awayTeam.id}}.png' />
+				</div>
+				<div class="col col-40 epl-center">
+					<button class="button button-small button-calm icon ion-chatboxes" 
+					style="margin-right:5px"/> 
+					<button class="button button-small button-balanced icon ion-checkmark-circled"
+					style="margin-right:5px" /> 
+					<button class="button button-small button-energized icon ion-star" >
+						4.55
+					</button>
+				</div>
+			</div>
+		</div>
 	</ion-content>
 </ion-view>

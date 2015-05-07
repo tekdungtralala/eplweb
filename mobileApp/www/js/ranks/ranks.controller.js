@@ -4,7 +4,7 @@
 	angular.module('app.ranks')
 		.controller('RanksCtrl', RanksCtrl);
 
-	function RanksCtrl($scope, dataservice) {
+	function RanksCtrl(dataservice) {
 		var vm = this;
 		vm.datas = [];
 

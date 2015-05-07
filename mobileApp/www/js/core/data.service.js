@@ -10,14 +10,23 @@
 		var API_URL = "http://" + ADDRESS_URL + ":8080/eplweb";
 
 		var service = {
-			fetchRanks: fetchRanks
+			fetchRanks: fetchRanks,
+			fetchMatchdays: fetchMatchdays
 		};
 		return service;
 
 		function fetchRanks() {
+			return fetchData("GET", "/api/ranks");
+		}
+
+		function fetchMatchdays() {
+			return fetchData("GET", "/api/page/matchday");
+		}
+
+		function fetchData(method, path) {
 			var req = {
-				method: "GET",
-				url: API_URL + "/api/ranks"
+				method: method,
+				url: API_URL + path
 			};
 			return $http(req).then(getResult);
 		}
