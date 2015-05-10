@@ -13,6 +13,10 @@
 			fetchMatchdays();	
 		};
 
+		function setUpMatchdays() {
+			console.log("_ : ", _)
+		}
+
 		function fetchMatchdays() {
 			dataservice.fetchMatchdays().then(processMatchdays);
 		}
@@ -20,8 +24,8 @@
 		function processMatchdays(result) {
 			if (200 === result.status) {
 				vm.datas = result.data.matchdayModelView.model;
+				setUpMatchdays();
 			}
-			console.log("result : ", result.data.matchdayModelView.model);
 		};
 	};
 	
