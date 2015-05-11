@@ -30,6 +30,7 @@
 					event.preventDefault();
 				}
 			});
+
 		});
 	};
 
