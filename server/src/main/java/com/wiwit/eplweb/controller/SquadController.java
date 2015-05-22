@@ -31,6 +31,7 @@ public class SquadController extends BaseController {
 	@Autowired
 	public PlayerService playerService;
 	
+	// Delete player
 	@RequestMapping(value = ApiPath.SQUAD_BY_ID, method = RequestMethod.DELETE)
 	public ResponseEntity<String> deletePlayer(@PathVariable("playerId") int playerId) {
 		logger.info("DELETE /api/players/" + playerId);
@@ -45,6 +46,7 @@ public class SquadController extends BaseController {
 		}
 	}
 
+	// Create new player
 	@RequestMapping(value = ApiPath.SQUAD, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
 	public ResponseEntity<Object> postPlayer(@RequestBody final Player player)
 			throws JsonGenerationException, JsonMappingException, IOException {
@@ -53,9 +55,11 @@ public class SquadController extends BaseController {
 		int teamId = player.getTeam().getId();
 		int playerNumber = player.getPlayerNumber();
 
+		// Find player on team by playerNumber
 		Player p = playerService.findByTeamAndNumber(teamId, playerNumber);
 
 		if (p != null) {
+			// Can't create new player on a team with same playerNumber
 			String errorMsg = "Player with player number = " + playerNumber
 					+ " on team id = " + teamId + " already exist!";
 
@@ -64,11 +68,13 @@ public class SquadController extends BaseController {
 
 			return new ResponseEntity<Object>(er, HttpStatus.CONFLICT);
 		} else {
+			// Save new player
 			playerService.savePlayer(player);
 			return new ResponseEntity<Object>(HttpStatus.OK);
 		}
 	}
 
+	// Edit player
 	@RequestMapping(value = ApiPath.SQUAD_BY_ID, method = RequestMethod.PUT, consumes = CONTENT_TYPE_JSON)
 	public ResponseEntity putPlayer(@PathVariable("playerId") int playerId,
 			@RequestBody final Player player) {
@@ -78,6 +84,7 @@ public class SquadController extends BaseController {
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
+	// Get all players on a team by teamId
 	@RequestMapping(value = ApiPath.SQUADS_BY_TEAM, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<SimpleResult> getFiveHighestRank(@PathVariable("teemId") int teamId)
 			throws JsonGenerationException, JsonMappingException, IOException {

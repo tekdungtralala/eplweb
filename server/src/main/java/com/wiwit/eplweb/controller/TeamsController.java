@@ -29,6 +29,7 @@ public class TeamsController extends BaseController {
 	@Autowired
 	public TeamService teamService;
 
+	// Find all teams
 	@RequestMapping(value = ApiPath.TEAMS, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<SimpleResult> getFiveHighestRank() throws JsonGenerationException,
 			JsonMappingException, IOException {
@@ -39,6 +40,7 @@ public class TeamsController extends BaseController {
 		return new ResponseEntity(SimpleResult.generateResult(result), HttpStatus.OK);
 	}
 	
+	// Update team
 	@RequestMapping(value = ApiPath.TEAMS_BY_ID, method = RequestMethod.PUT, consumes = CONTENT_TYPE_JSON)
 	public ResponseEntity putTeam(@PathVariable("teamId") int teamId, @RequestBody Team team){
 		logger.info("PUT /api/teams/" + teamId);

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.wiwit.eplweb.model.Person;
 import com.wiwit.eplweb.service.PersonService;
 
+// Not used anymore
 @Controller
 public class PersonController {
 	

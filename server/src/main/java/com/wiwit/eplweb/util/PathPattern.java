@@ -3,6 +3,7 @@ package com.wiwit.eplweb.util;
 import java.util.ArrayList;
 import java.util.List;
 
+// All available path pattern and that role
 public enum PathPattern {
 	// Admin Secured path	
 	SQUAD_BY_ID(new String[]{"PUT", "DELETE"}, "/api/players/[\\d]+", true, UserRoleHelper.getAdminRole()),

@@ -48,6 +48,7 @@ public class SlideShowController extends BaseController {
 	@Autowired
 	private ImageService imageService;
 
+	// Sorted images slideshow
 	@RequestMapping(value = ApiPath.IMAGES_SORTED, method = RequestMethod.PUT, consumes = CONTENT_TYPE_JSON)
 	public ResponseEntity sortedImage(
 			@RequestBody List<SortedImageModelInput> sortedImages) {
@@ -56,18 +57,20 @@ public class SlideShowController extends BaseController {
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
+	// Delte image by imageId
 	@RequestMapping(value = ApiPath.IMAGES, method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity deleteImageById(@PathVariable("imageId") int imageId,
 			HttpServletResponse res, HttpServletRequest req) throws IOException {
 		logger.info("DELETE /api/images/" + imageId);
+		// Fetch image properties
 		String it = req.getParameter(WebappProps.getImageTypeKey());
-
 		if (it == null) {
 			res.sendError(404);
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 
+		// Validate image type
 		ImageType imageType = null;
 		try {
 			imageType = ImageType.valueOf(it.toUpperCase());
@@ -81,6 +84,7 @@ public class SlideShowController extends BaseController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 
+		// Find the image
 		Image image = imageService.findById(imageId);
 		if (image == null) {
 			return new ResponseEntity(HttpStatus.OK);
@@ -91,9 +95,12 @@ public class SlideShowController extends BaseController {
 		String thumbnailPath = WebappProps.getThumbnailFileDir()
 				+ image.getLocalFileName();
 
+
 		try {
+			// Delete image data from database.
 			imageService.deleteImage(image);
 
+			// Delete actual image file
 			File imageFile = new File(imagePath);
 			if (imageFile.isFile()) {
 				try {
@@ -102,6 +109,7 @@ public class SlideShowController extends BaseController {
 				}
 			}
 
+			// Delete actual thumnail image file
 			File thumbnailFile = new File(thumbnailPath);
 			if (thumbnailFile.isFile()) {
 				try {
@@ -118,6 +126,7 @@ public class SlideShowController extends BaseController {
 		}
 	}
 
+	// Get image by id
 	@RequestMapping(value = ApiPath.IMAGES, method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity getImageById(@PathVariable("imageId") int imageId,
@@ -141,6 +150,7 @@ public class SlideShowController extends BaseController {
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
+	// Get images list by teamId
 	@RequestMapping(value = ApiPath.SLIDE_SHOW, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<SimpleResult> getSlideShow(
 			@PathVariable("teamId") int teamId) {
@@ -153,6 +163,7 @@ public class SlideShowController extends BaseController {
 		return new ResponseEntity<SimpleResult>(result, HttpStatus.OK);
 	}
 
+	// Upload new slideshow image
 	@RequestMapping(value = ApiPath.SLIDE_SHOW_UPLOAD, method = RequestMethod.POST, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<String> uploadSlideShow(
 			@PathVariable("teamId") int teamId,
@@ -182,7 +193,7 @@ public class SlideShowController extends BaseController {
 				// Save thumbnail
 				ImageUtil.saveScaledImage(f);
 
-				// Save data
+				// Save image data to database
 				Image image = new Image();
 				image.setTeam(teamService.findById(teamId));
 				image.setFileType(contentType);

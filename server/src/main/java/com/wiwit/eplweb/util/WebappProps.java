@@ -10,7 +10,7 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 public class WebappProps {
 	public enum WebappEnum {
 		ADMIN_SESSION_KEY, 				// Placed in the header, used for validation request which come in
-										//  for upload file placed on query param
+										//  for upload file the key placed on query param
 		
 		IMAGE_FILE_DIRECTORY, 			// images directory
 		THUMBNAIL_FILE_DIRECTORY, 		// thumbnail directory

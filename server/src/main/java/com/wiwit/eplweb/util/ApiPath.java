@@ -1,5 +1,6 @@
 package com.wiwit.eplweb.util;
 
+// All available path 
 public class ApiPath {
 
 	public static final String ADMIN_SESSION = "/api/admin/login/{session}";

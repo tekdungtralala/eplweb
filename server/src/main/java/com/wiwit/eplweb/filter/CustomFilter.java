@@ -19,6 +19,12 @@ import com.wiwit.eplweb.util.PathPattern;
 import com.wiwit.eplweb.util.PathPatternUtil;
 import com.wiwit.eplweb.util.WebappProps;
 
+// Every http request will be through Filter class.
+// Filter class will determine if the request is secure path or unsecure path.
+// For secure path must has session key, and with that key
+//  will be defined a role which key has.
+// Session key placed on header or query param.
+
 public class CustomFilter implements Filter {
 
 	private static final Logger logger = LoggerFactory
@@ -46,7 +52,7 @@ public class CustomFilter implements Filter {
 		String method = req.getMethod();
 		
 		String authKey = WebappProps.getAdminSessionKey();
-		// Get auth value from header
+		// Get auth value from header (session key)
 		String authVal = req.getHeader(authKey);
 		if (authVal == null) {
 			// If not in header, maybe auth value placed in query paramters 
@@ -59,31 +65,32 @@ public class CustomFilter implements Filter {
 
 		PathPattern p = PathPatternUtil.getPathPattern(path, method);
 		if (p != null) {
+			// Known the path
 			if (p.isSecuredPath()) {
 				logger.info(method + " SECURED : " + path);
 
-				if (authVal == null) {
-					authVal = req.getParameter(authKey);
-				}
-
-				if ( s != null) {
+				if (s != null) {
+					// Validate the role with path role
 					if (s.getRole() == p.getRole()) {
 						req.setAttribute(SESSION_ID, s.getId());
 						chain.doFilter(rq, rs);
 					} else {
+						// Return 403 when the role is not match
 						res.setStatus(HttpStatus.FORBIDDEN.value());
 					}
 				} else {
+					// Return 403 when try secure path without auth val (session key)
 					res.setStatus(HttpStatus.FORBIDDEN.value());
 				}
 			} else {
 				logger.info(method + " NOT SECURED : " + path);
-				if ( s != null) {
+				if (s != null) {
 					req.setAttribute(SESSION_ID, s.getId());
 				}
 				chain.doFilter(rq, rs);
 			}
 		} else {
+			// Return 404 while the path is not available
 			res.setStatus(HttpStatus.NOT_FOUND.value());
 		}
 	}

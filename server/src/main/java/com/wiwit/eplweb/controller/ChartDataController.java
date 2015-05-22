@@ -35,6 +35,9 @@ public class ChartDataController extends BaseController {
 	@Autowired
 	private RankService rankService;
 
+	// Get the statistic data like how many that team already win, lose and draw.
+	// The statistic data covers which team that requested base on "teamId" and 
+	//  the data from the average of all teams
 	@RequestMapping(value = ApiPath.CHART_TEAM_STAT, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<TeamStatModelView> getChartTeamStat(@PathVariable("weekNumber") int weekNumber,
 			@PathVariable("teamId") int teamId) throws JsonGenerationException,
@@ -48,8 +51,10 @@ public class ChartDataController extends BaseController {
 		return new ResponseEntity<TeamStatModelView>(tsmv, HttpStatus.OK);
 	}
 
+	// Get five biggest team in current week.
+	// Used in home page.
 	@RequestMapping(value = ApiPath.CHART_FIVE_BIGGEST_TEAM, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
-	public ResponseEntity<FiveBigTeamModelView> getFiveBigestTeam() throws JsonGenerationException,
+	public ResponseEntity<FiveBigTeamModelView> getFiveBiggestTeam() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		logger.info("GET /api/chart/fiveBigestTeam");
 

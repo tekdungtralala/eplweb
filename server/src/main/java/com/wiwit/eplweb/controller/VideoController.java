@@ -22,6 +22,8 @@ import com.wiwit.eplweb.service.TeamService;
 import com.wiwit.eplweb.util.ApiPath;
 import com.wiwit.eplweb.util.youtube.api.VideoService;
 
+
+// Any video which uploaded to our server will be forwarded to youtube.com
 @RestController
 public class VideoController extends BaseController {
 
@@ -31,6 +33,7 @@ public class VideoController extends BaseController {
 	@Autowired
 	private TeamService teamService;
 	
+	// Post video thumnail
 	@RequestMapping(value = ApiPath.CHANGE_VIDEO_THUMBNAIL, method = RequestMethod.POST, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<String> changeThumbnail(
 			@PathVariable("teamId") int teamId,
@@ -61,6 +64,7 @@ public class VideoController extends BaseController {
 		return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 	}
 	
+	// Submit a new video
 	@RequestMapping(value = ApiPath.UPLOAD_VIDEO, method = RequestMethod.POST, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<String> uploadVideo(
 			@PathVariable("teamId") int teamId,

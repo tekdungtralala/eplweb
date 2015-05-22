@@ -28,6 +28,7 @@ public class WeekController extends BaseController {
 	@Autowired
 	private WeekService weekService;
 
+	// Get all passed week
 	@RequestMapping(value = ApiPath.PASSED_WEEK, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<WeekModelView> getAllPassedWeek() throws JsonGenerationException,
 			JsonMappingException, IOException {
@@ -39,6 +40,7 @@ public class WeekController extends BaseController {
 		return new ResponseEntity<WeekModelView>(result, HttpStatus.OK);
 	}
 	
+	// Get all weeks
 	@RequestMapping(value = ApiPath.WEEKS, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<WeekModelView> getAllWeek() throws JsonGenerationException,
 			JsonMappingException, IOException {

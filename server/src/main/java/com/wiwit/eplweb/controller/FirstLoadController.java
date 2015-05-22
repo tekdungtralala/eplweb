@@ -41,6 +41,10 @@ import com.wiwit.eplweb.service.TeamService;
 import com.wiwit.eplweb.service.WeekService;
 import com.wiwit.eplweb.util.ApiPath;
 
+// When each page loaded, they need more data to be process.
+// We create some page api like /api/page/whatpage to handle that.
+// It's better way, because the client just only send one request to get
+//   all data instead send more request.
 @RestController
 public class FirstLoadController extends BaseController {
 

@@ -35,6 +35,7 @@ public class AdminController extends BaseController {
 	@Autowired
 	private UserSessionService sessionService;
 	
+	// Remove user session
 	@RequestMapping(value = ApiPath.ADMIN_SESSION, method = RequestMethod.DELETE, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<String> removeSession(@PathVariable("session") String session)
 			throws JsonGenerationException, JsonMappingException, IOException {
@@ -45,6 +46,7 @@ public class AdminController extends BaseController {
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
+	// Find user session, return 404 when not found
 	@RequestMapping(value = ApiPath.ADMIN_SESSION, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<SimpleResult> checkSession(@PathVariable("session") String session)
 			throws JsonGenerationException, JsonMappingException, IOException {
@@ -58,6 +60,8 @@ public class AdminController extends BaseController {
 		return new ResponseEntity<SimpleResult>(SimpleResult.generateResult(us), HttpStatus.OK);
 	}
 
+	// Simple Admin login, retrive email and password
+	// Next time we must upgrade this section
 	@RequestMapping(value = ApiPath.ADMIN_LOGIN, method = RequestMethod.POST, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<SimpleResult> createSession(HttpServletRequest request)
 			throws JsonGenerationException, JsonMappingException, IOException {

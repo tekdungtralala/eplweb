@@ -108,6 +108,7 @@ public class RankService {
 					int goalScoed = isHome ? m.getHomeGoal() : m.getAwayGoal();
 					int goalAgainst = isHome ? m.getAwayGoal() : m.getHomeGoal();
 
+					// Determine who will lost/won or mybe already draw
 					if (isHome) {
 						won = m.getHomeGoal() > m.getAwayGoal() ? 1 : 0;
 						lost = m.getHomeGoal() < m.getAwayGoal() ? 1 : 0;
@@ -116,12 +117,14 @@ public class RankService {
 						lost = m.getAwayGoal() < m.getHomeGoal() ? 1 : 0;
 					}
 
+					// Set new value
 					rank.setGamesWon(prevRank.getGamesWon() + won);
 					rank.setGamesLost(prevRank.getGamesLost() + lost);
 					rank.setGamesDrawn(prevRank.getGamesDrawn() + draw);
 					rank.setGoalsScored(prevRank.getGoalsScored() + goalScoed);
 					rank.setGoalsAgainst(prevRank.getGoalsAgainst() + goalAgainst);
 
+					// calulcate point
 					int points = (3 * rank.getGamesWon()) + rank.getGamesDrawn();
 					rank.setPoints(points);
 				}

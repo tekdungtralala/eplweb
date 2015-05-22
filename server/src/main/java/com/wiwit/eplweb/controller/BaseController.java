@@ -19,6 +19,8 @@ public class BaseController {
 	
 	@Autowired
 	protected UserSessionService userSessionService;
+
+	// Get user by userId. The userId it self already set on CustomFilter.java
 	public User getUser(int id) {
 		UserSession us = userSessionService.findById(id); 
 		if (us.getUser() != null) return us.getUser();

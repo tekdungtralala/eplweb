@@ -83,20 +83,25 @@ public class MatchdayService {
 	}
 	
 	public void updateVoting(Matchday matchday, User user, VoteType vote) {
+		// Find latest voting
 		MatchdayVoting mv = matchdayVotingDAO.findByUserAndMatchday(user, matchday);
-		
 		
 		boolean newVotingData = true;
 		if (mv == null || mv.getId() == 0) {
+			// It is a new voting
 			mv = new MatchdayVoting();
 			mv.setUser(user);
 			mv.setMatchday(matchday);
 		} else {
+			// It is not a new one
+
+			// Set flag = false
 			newVotingData = false;
 			
+			// Get old vote
 			VoteType oldVote = VoteType.getVote(mv.getVote());
 			int oldVoteValue;
-			// Reduce old vote
+			// Reduce the old vote
 			switch (oldVote) {
 				case HOME:
 					oldVoteValue = matchday.getVotingHomeWin() -1;
@@ -117,7 +122,7 @@ public class MatchdayService {
 		}
 		
 		int newVoteValue;
-		// Increase new vote
+		// Increase the new vote
 		switch (vote) {
 			case HOME:
 				newVoteValue = matchday.getVotingHomeWin() +1;
@@ -133,21 +138,27 @@ public class MatchdayService {
 				break;
 		}
 		
+		// Set vote on matchday
 		mv.setVote(vote.getValue());		
 		
+		// Save matchday
 		matchdayDAO.updateVoting(matchday, mv, newVotingData);
 	}
 
 	public void updateRating(Matchday matchday, User user, int ratingValue) {
+		// Find latest rating
 		MatchdayRating mr = matchdayRatingDAO.findByUserAndMatchday(user, matchday);
 		int totalRating = matchday.getTotalRating();
+
 		Float newRating = null;
 		float currentRating = matchday.getRatingPoint();
 		
 		boolean newRatingData = true;
 		if (mr == null) {
+			// It is a new rating
 			totalRating++;
 			
+			// Calculate 
 			newRating = ((currentRating * (totalRating - 1)) + ratingValue) / totalRating;
 			matchday.setTotalRating(totalRating);
 			
@@ -155,30 +166,41 @@ public class MatchdayService {
 			mr.setUser(user);
 			mr.setMatchday(matchday);
 		} else {
+			// It is not a new rating
 			if (totalRating == 0) {
 				totalRating = 1;
 				matchday.setTotalRating(1);
 			}
+			// Calculate 
 			newRating = ((currentRating * totalRating) - mr.getRatingValue() + ratingValue) / totalRating;
 			newRatingData = false;
 		}
 		
+		// Set rating value
 		mr.setRatingValue(ratingValue);
 		matchday.setRatingPoint(newRating);
 		
+		// Save matchday
 		matchdayDAO.updateRating(matchday, mr, newRatingData);
 
 	}
 
 	public void updateMatchdays(int weekNumber, List<MatchdayModelInput> matchs) {
+		// Find all team
 		List<Team> teams = teamDAO.findAll();
+		// Find week by weeknumber
 		Week week = weekDAO.findByWeekNmr(weekNumber);
 
+		// Initialize new matchday list
 		List<Matchday> matchdays = new ArrayList<Matchday>();
 
+		// Iterate all matchday model
 		for (MatchdayModelInput um : matchs) {
+
+			// Instance new matchday
 			Matchday m = new Matchday();
 
+			// Set up matchday
 			m.setAwayTeam(findTeamById(teams, um.getAwayTeamId()));
 			m.setHomeTeam(findTeamById(teams, um.getHomeTeamId()));
 			m.setTime(um.getTime());
@@ -194,12 +216,15 @@ public class MatchdayService {
 			m.setVotingAwayWin(0);
 			m.setVotingTie(0);
 
+			// Add to the list
 			matchdays.add(m);
 		}
 
+		// Create new matchdays on a week
 		matchdayDAO.saveMoreMatchday(weekNumber, matchdays);
 	}
 
+	// Find team by team id on team list
 	protected Team findTeamById(List<Team> teams, int teamId) {
 		for (Team t : teams) {
 			if (t.getId() == teamId)

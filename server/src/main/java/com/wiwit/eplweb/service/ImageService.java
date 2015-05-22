@@ -36,12 +36,15 @@ public class ImageService {
 	public void saveImageOrder(List<SortedImageModelInput> sortedImages) {
 		List<Image> images = new ArrayList<Image>();
 		for (SortedImageModelInput m : sortedImages) {
+			// Find image
 			Image i = imageDAO.findById(m.getId());
 			if (i != null) {
+				// Set new position
 				i.setPosition(m.getPosition());
 				images.add(i);
 			}
 		}
+		// Save new images data
 		imageDAO.updateMore(images);
 	}
 }

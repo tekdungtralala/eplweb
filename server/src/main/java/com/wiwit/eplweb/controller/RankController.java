@@ -31,6 +31,7 @@ public class RankController extends BaseController {
 	@Autowired
 	private RankService rankService;
 
+	// Get 5 highest rank on current week
 	@RequestMapping(value = ApiPath.HIGHEST_RANK, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<RankModelView> getFiveHighestRank() throws JsonGenerationException,
 			JsonMappingException, IOException {
@@ -41,6 +42,7 @@ public class RankController extends BaseController {
 		return new ResponseEntity<RankModelView>(RankModelView.getModelView(ranks), HttpStatus.OK);
 	}
 
+	// Get ranks on cureent week
 	@RequestMapping(value = ApiPath.RANKS, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<RankModelView> getLatestRank() throws JsonGenerationException,
 			JsonMappingException, IOException {
@@ -51,6 +53,7 @@ public class RankController extends BaseController {
 		return new ResponseEntity<RankModelView>(RankModelView.getModelView(ranks), HttpStatus.OK);
 	}
 
+	// Get ranks by weeknumber
 	@RequestMapping(value = ApiPath.RANKS_BY_WEEK, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<RankModelView> getSelectedRank(
 			@PathVariable("weekNumber") int weekNumber)
@@ -62,6 +65,11 @@ public class RankController extends BaseController {
 		return new ResponseEntity<RankModelView>(RankModelView.getModelView(ranks), HttpStatus.OK);
 	}
 	
+	// After user update score of matchs on a week, the ranks not automaticaly updated.
+	// Need to update manualy with weeknumber value.
+	// Example, if it's given 17 on weeknumber then from week 1-17will be count 
+	//  the number of win, lose, draw and a goal difference of each team.
+	//  And the final result is week 1 - 17 will have a new ranking position.
 	@RequestMapping(value = ApiPath.UPDATE_RANK, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
 	public ResponseEntity updateRank(@RequestBody RankModelInput ur) {
 		logger.info("POST /api/updateRanks weekNumber=" + ur.getWeekNumber());

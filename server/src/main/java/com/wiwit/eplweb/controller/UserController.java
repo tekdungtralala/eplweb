@@ -46,6 +46,7 @@ public class UserController extends BaseController {
 	@Autowired
 	private UserService userService;
 	
+	// Validate the user
 	@RequestMapping(value = ApiPath.USER_IS_REGISTERED_USER, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
 	public ResponseEntity<RestResult> isUserExist(@RequestBody CheckUserModelInput model) {
 		HttpStatus httpStatus;
@@ -82,6 +83,8 @@ public class UserController extends BaseController {
 		return new ResponseEntity<RestResult>(result, httpStatus);
 	}
 	
+	// Check if the username available.
+	// Return 200 when the user available, 
 	@RequestMapping(value = ApiPath.USER_IS_USERNAME_EXIST, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON)
 	public ResponseEntity<RestResult> isUsernameAvailable(@RequestBody CheckUsernameModelInput model) {
 		HttpStatus httpStatus;
@@ -96,7 +99,8 @@ public class UserController extends BaseController {
 			
 			return new ResponseEntity<RestResult>(result, httpStatus);
 		}
-		
+
+		// Find user by username
 		User user = userService.findUserByUsername(model.getUsername());
 		if (user != null) {
 			httpStatus =  HttpStatus.CONFLICT;			
@@ -107,6 +111,7 @@ public class UserController extends BaseController {
 		return new ResponseEntity<RestResult>(httpStatus);
 	}
 	
+	// Get logged user profile
 	@RequestMapping(value = ApiPath.USER_MY_PROFILE, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<String> fetchMyProfile(HttpServletRequest req) throws JsonGenerationException, JsonMappingException, IOException{
 		logger.info("GET /api/usernetwork/me");
@@ -119,6 +124,7 @@ public class UserController extends BaseController {
 		return new ResponseEntity<String>(ow.writeValueAsString(user), HttpStatus.OK);
 	}
 	
+	// Remove user session
 	@RequestMapping(value = ApiPath.USER_SESSION, method = RequestMethod.DELETE, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<String> removeSession(@PathVariable("session") String session)
 			throws JsonGenerationException, JsonMappingException, IOException {
@@ -129,6 +135,7 @@ public class UserController extends BaseController {
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
+	// Find logged user by session
 	@RequestMapping(value = ApiPath.USER_SESSION, method = RequestMethod.GET, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<UserSession> checkSession(@PathVariable("session") String session)
 			throws JsonGenerationException, JsonMappingException, IOException {
@@ -142,28 +149,33 @@ public class UserController extends BaseController {
 		return new ResponseEntity<UserSession>(us, HttpStatus.OK);
 	}
 
+	// User sign in
 	@RequestMapping(value = ApiPath.USER_SIGNIN, method = RequestMethod.POST, consumes = CONTENT_TYPE_JSON, produces = CONTENT_TYPE_JSON)
 	public ResponseEntity<UserSession> doSignin(
 			@RequestBody UserNetworkModelInput model)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		logger.info("POST /api/usernetwork/signin");
 
+		// Validate the model
 		if (!model.isValidModel())
 			return new ResponseEntity<UserSession>(HttpStatus.BAD_REQUEST);
 
 		UserNetworkType type = UserNetworkType.valueOf(model.getType());
+		// Find user by email and type
 		UserNetwork user = userNetworkService.findByEmailAndType(model.getEmail(), type);
 		
 		if (user == null) {
+			// If user is not exist, we will create the new one
 			if (model.getUsername() == null || model.getUsername().isEmpty()) {
 				return new ResponseEntity<UserSession>(HttpStatus.BAD_REQUEST);
 			}
 			
+			// Create new user
 			user = new UserNetwork(model);
 			userNetworkService.create(user, model);
 		}
+		// Do sign in
 		UserSession session = sessionService.doLogin(user);
-
 		return new ResponseEntity<UserSession>(session, HttpStatus.OK);
 	}
 }
