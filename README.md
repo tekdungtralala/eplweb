@@ -40,7 +40,7 @@ This application divided on some part.
 4. Php server (15% finished)
 5. Database structure and some  sample data (100% finished)
 
-### Client (<a href="https://github.com/tekdungtralala/eplweb_clent">repo link</a>)
+### Client (<a href="https://github.com/tekdungtralala/eplweb_client">repo link</a>)
 
 Using angular framework for the javascript and adminLTE as the user interfaces.
 The data transaction using rest method and json string for the data.
