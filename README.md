@@ -55,7 +55,9 @@ Using spring, hibernate and mysql. And also maven for the instalation.
 example api 
 
 [/api/ranks](http://weekendmatch.info/api/ranks).
-<> <http://weekendmatch.info/api/ranks/19> <http://weekendmatch.info/api/matchday> <http://weekendmatch.info/api/matchday/19>
+[/api/ranks/19](http://weekendmatch.info/api/ranks/19).
+[/api/matchday](http://weekendmatch.info/api/matchday).
+[/api/matchday/19](http://weekendmatch.info/api/matchday/19).
 
 ### Php Server (<a href="https://github.com/tekdungtralala/eplweb_php_server">repo link</a>)
 
