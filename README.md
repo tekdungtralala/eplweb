@@ -65,8 +65,8 @@ example api
 
 ### Mobile client (repo link)
 
-Mobile client sendiri mengunakan framwork ionic, sehingga dapat digunakan di beberapa mobile platform
-seperti android ios dsb. Untuk mobile client dihubungkan dg java server (bisa diganti ke php bila sudah 100% finished).
-<a>Android latest file instalation</a>, <a>Ios latest file instalation.</a>
+The mobile client it self using ionic framework, so can be used on some mobile platform such as ios, android, etc. connected to the server java (Still 30% completed).
+
+<a href="https://github.com/tekdungtralala/weekendmatch_mobile_client/raw/master/latest_file_instalation/weekend-match.apk">Android latest file instalation</a>, <a>Ios latest file instalation.</a>
 
 ### Database (repo link)
