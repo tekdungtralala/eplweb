@@ -54,7 +54,7 @@ Sorry for low traffict, because i rent a vps with the minimum cost.
 Using spring, hibernate and mysql. And also maven for the instalation.
 example api 
 
-<a>/api/ranks</a> <a>/api/ranks/19</a> <a>/api/matchday</a> <a>/api/matchday/19</a>
+<a http="http://weekendmatch.info/api/ranks">/api/ranks</a> <a http="http://weekendmatch.info/api/ranks/19">/api/ranks/19</a> <a http="http://weekendmatch.info/api/matchday">/api/matchday</a> <a http="http://weekendmatch.info/api/matchday/19">/api/matchday/19</a>
 
 ### Php Server (<a href="https://github.com/tekdungtralala/eplweb_php_server">repo link</a>)
 
@@ -63,10 +63,17 @@ example api
 
 <a>/api/ranks</a> <a>/api/ranks/19</a> <a>/api/matchday</a> <a>/api/matchday/19</a>
 
-### Mobile client (repo link)
+### Node js Server (<a href="https://github.com/tekdungtralala/weekendmatch_nodejs_server">repo link</a>)
+I also create same sarver on node js, the live demo in this link
+example api 
+
+<a>/api/ranks</a> <a>/api/ranks/19</a> <a>/api/matchday</a> <a>/api/matchday/19</a>
+
+### Mobile client (<a href="https://github.com/tekdungtralala/weekendmatch_mobile_client">repo link</a>)
 
 The mobile client it self using ionic framework, so can be used on some mobile platform such as ios, android, etc. connected to the server java (Still 30% completed).
 
 <a href="https://github.com/tekdungtralala/weekendmatch_mobile_client/raw/master/latest_file_instalation/weekend-match.apk">Android latest file instalation</a>, <a>Ios latest file instalation.</a>
 
-### Database (repo link)
+### Database (<a href="https://github.com/tekdungtralala/weekendmatch/tree/master/database">repo link</a>)
+
