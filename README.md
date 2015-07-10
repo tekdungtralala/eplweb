@@ -54,7 +54,7 @@ Sorry for low traffict, because i rent a vps with the minimum cost.
 Using spring, hibernate and mysql. And also maven for the instalation.
 example api 
 
-<a http="http://weekendmatch.info/api/ranks">/api/ranks</a> <a http="http://weekendmatch.info/api/ranks/19">/api/ranks/19</a> <a http="http://weekendmatch.info/api/matchday">/api/matchday</a> <a http="http://weekendmatch.info/api/matchday/19">/api/matchday/19</a>
+<http://weekendmatch.info/api/ranks> <http://weekendmatch.info/api/ranks/19> <http://weekendmatch.info/api/matchday> <http://weekendmatch.info/api/matchday/19>
 
 ### Php Server (<a href="https://github.com/tekdungtralala/eplweb_php_server">repo link</a>)
 
