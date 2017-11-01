@@ -54,18 +54,8 @@ Sorry for low traffict, because i rent a vps with the minimum cost.
 Using spring, hibernate and mysql. And also maven for the instalation.
 example api 
 
-[/api/ranks](http://weekendmatch.info/api/ranks), [/api/ranks/19](http://weekendmatch.info/api/ranks/19), [/api/matchday](http://weekendmatch.info/api/matchday), [/api/matchday/19](http://weekendmatch.info/api/matchday/19)
+[/api/ranks](http://wiwitadityasaputra.info:8080/api/ranks), [/api/ranks/19](http://wiwitadityasaputra.info:8080/api/ranks/19), [/api/matchday](http://wiwitadityasaputra.info:8080/api/matchday), [/api/matchday/19](http://wiwitadityasaputra.info:8080/api/matchday/19)
 
-### Php Server (<a href="https://github.com/tekdungtralala/eplweb_php_server">repo link</a>)
-
-Using Codeigniter of the framework and mysql for the database.
-example api 
-
-<a>/api/ranks</a> <a>/api/ranks/19</a> <a>/api/matchday</a> <a>/api/matchday/19</a>
-
-### Node js Server (<a href="https://github.com/tekdungtralala/weekendmatch_nodejs_server">repo link</a>)
-I also create same sarver on node js, the live demo in this link
-example api 
 
 <a>/api/ranks</a> <a>/api/ranks/19</a> <a>/api/matchday</a> <a>/api/matchday/19</a>
 
