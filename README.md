@@ -56,9 +56,6 @@ example api
 
 [/api/ranks](http://wiwitadityasaputra.info:8080/api/ranks), [/api/ranks/19](http://wiwitadityasaputra.info:8080/api/ranks/19), [/api/matchday](http://wiwitadityasaputra.info:8080/api/matchday), [/api/matchday/19](http://wiwitadityasaputra.info:8080/api/matchday/19)
 
-
-<a>/api/ranks</a> <a>/api/ranks/19</a> <a>/api/matchday</a> <a>/api/matchday/19</a>
-
 ### Mobile client (<a href="https://github.com/tekdungtralala/weekendmatch_mobile_client">repo link</a>)
 
 The mobile client it self using ionic framework, so can be used on some mobile platform such as ios, android, etc. connected to the server java (Still 30% completed).
