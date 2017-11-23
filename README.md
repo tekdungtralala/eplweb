@@ -64,7 +64,5 @@ The mobile client it self using ionic framework, so can be used on some mobile p
 
 ### Database (<a href="https://github.com/tekdungtralala/weekendmatch/tree/master/database">repo link</a>)
 
-https://raw.githubusercontent.com/tekdungtralala/weekendmatch/master/
-
 ![Alt text](/Screenshot%20from%202017-11-23%2009-25-31.png?raw=true "Optional Title")
 
