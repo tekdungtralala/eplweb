@@ -26,6 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `best_week_squad`
 --
 
+DROP TABLE IF EXISTS `best_week_squad`;
 CREATE TABLE IF NOT EXISTS `best_week_squad` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `week_id` int(10) NOT NULL,
@@ -147,6 +148,7 @@ INSERT INTO `best_week_squad` (`id`, `week_id`, `player_id`, `number`) VALUES
 -- Table structure for table `image`
 --
 
+DROP TABLE IF EXISTS `image`;
 CREATE TABLE IF NOT EXISTS `image` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `image_type` varchar(32) NOT NULL,
@@ -268,7 +270,7 @@ INSERT INTO `image` (`id`, `image_type`, `team_id`, `output_file_name`, `local_f
 --
 -- Table structure for table `matchday`
 --
-
+DROP TABLE IF EXISTS `matchday`;
 CREATE TABLE IF NOT EXISTS `matchday` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `week_id` int(3) NOT NULL,
@@ -682,7 +684,7 @@ INSERT INTO `matchday` (`id`, `week_id`, `date`, `time`, `home_team_id`, `away_t
 --
 -- Table structure for table `matchday_comment`
 --
-
+DROP TABLE IF EXISTS `matchday_comment`;
 CREATE TABLE IF NOT EXISTS `matchday_comment` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
   `user_id` int(8) NOT NULL,
@@ -732,7 +734,7 @@ INSERT INTO `matchday_comment` (`id`, `user_id`, `matchday_id`, `value`, `create
 --
 -- Table structure for table `matchday_comment_point`
 --
-
+DROP TABLE IF EXISTS `matchday_comment_point`;
 CREATE TABLE IF NOT EXISTS `matchday_comment_point` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `comment_id` int(10) NOT NULL,
@@ -764,7 +766,7 @@ INSERT INTO `matchday_comment_point` (`id`, `comment_id`, `user_id`, `is_up`) VA
 --
 -- Table structure for table `matchday_rating`
 --
-
+DROP TABLE IF EXISTS `matchday_rating`;
 CREATE TABLE IF NOT EXISTS `matchday_rating` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `matchday_id` int(10) NOT NULL,
@@ -788,7 +790,7 @@ INSERT INTO `matchday_rating` (`id`, `matchday_id`, `user_id`, `rating_value`) V
 --
 -- Table structure for table `matchday_voting`
 --
-
+DROP TABLE IF EXISTS `matchday_voting`;
 CREATE TABLE IF NOT EXISTS `matchday_voting` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `matchday_id` int(16) NOT NULL,
@@ -822,7 +824,7 @@ INSERT INTO `matchday_voting` (`id`, `matchday_id`, `user_id`, `vote`) VALUES
 --
 -- Table structure for table `Person`
 --
-
+DROP TABLE IF EXISTS `Person`;
 CREATE TABLE IF NOT EXISTS `Person` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL DEFAULT '',
@@ -844,7 +846,7 @@ INSERT INTO `Person` (`id`, `name`, `country`) VALUES
 --
 -- Table structure for table `phase`
 --
-
+DROP TABLE IF EXISTS `phase`;
 CREATE TABLE IF NOT EXISTS `phase` (
   `key` varchar(64) NOT NULL,
   `value` varchar(64) NOT NULL,
@@ -864,7 +866,7 @@ INSERT INTO `phase` (`key`, `value`) VALUES
 --
 -- Table structure for table `player`
 --
-
+DROP TABLE IF EXISTS `player`;
 CREATE TABLE IF NOT EXISTS `player` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `team_id` int(10) NOT NULL,
@@ -1418,7 +1420,7 @@ INSERT INTO `player` (`id`, `team_id`, `player_number`, `name`, `position`) VALU
 --
 -- Table structure for table `rank`
 --
-
+DROP TABLE IF EXISTS `rank`;
 CREATE TABLE IF NOT EXISTS `rank` (
   `id` int(2) NOT NULL AUTO_INCREMENT,
   `week_id` int(3) NOT NULL,
@@ -1906,7 +1908,7 @@ INSERT INTO `rank` (`id`, `week_id`, `team_id`, `games_won`, `games_drawn`, `gam
 --
 -- Table structure for table `season`
 --
-
+DROP TABLE IF EXISTS `season`;
 CREATE TABLE IF NOT EXISTS `season` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `years` varchar(9) NOT NULL,
@@ -1925,7 +1927,7 @@ INSERT INTO `season` (`id`, `years`) VALUES
 --
 -- Table structure for table `team`
 --
-
+DROP TABLE IF EXISTS `team`;
 CREATE TABLE IF NOT EXISTS `team` (
   `id` int(10) NOT NULL,
   `name` varchar(64) NOT NULL,
@@ -1972,7 +1974,7 @@ INSERT INTO `team` (`id`, `name`, `short_name`, `simple_name`, `established`, `m
 --
 -- Table structure for table `user`
 --
-
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
   `username` varchar(16) DEFAULT NULL,
@@ -2001,7 +2003,7 @@ INSERT INTO `user` (`id`, `username`, `email`, `password`, `first_name`, `last_n
 --
 -- Table structure for table `user_from_network`
 --
-
+DROP TABLE IF EXISTS `user_from_network`;
 CREATE TABLE IF NOT EXISTS `user_from_network` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
   `user_id` int(8) NOT NULL,
@@ -2031,7 +2033,7 @@ INSERT INTO `user_from_network` (`id`, `user_id`, `email`, `type`, `user_network
 --
 -- Table structure for table `user_session`
 --
-
+DROP TABLE IF EXISTS `user_session`;
 CREATE TABLE IF NOT EXISTS `user_session` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
@@ -2057,7 +2059,7 @@ INSERT INTO `user_session` (`id`, `user_id`, `user_os_id`, `role`, `session`, `l
 --
 -- Table structure for table `week`
 --
-
+DROP TABLE IF EXISTS `week`;
 CREATE TABLE IF NOT EXISTS `week` (
   `id` int(3) NOT NULL AUTO_INCREMENT,
   `season_id` int(2) NOT NULL,

@@ -12,7 +12,7 @@
 	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<beans:property name="url"
-			value="jdbc:mysql://localhost:3306/eplweb" />
+			value="jdbc:mysql://localhost:8426/weekendmatch" />
 		<beans:property name="username" value="root" />
 		<beans:property name="password" value="password" />
 	</beans:bean>

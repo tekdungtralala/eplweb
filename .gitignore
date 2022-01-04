@@ -3,7 +3,9 @@
 .settings/
 target/
 client/webapp/eplweb_components/fonts/
-client/bower_components/*
+client/bower_components
+client/node_modules
 client/webapp/eplweb_components/css/eplweb.css
 client/webapp/eplweb_components/js/eplweb.js
 client/webapp/eplweb_components/js/vendors.js
+server/src/main/webapp/**

@@ -41,7 +41,7 @@
 					stop: sliderStop
 			})
 			.each(function() {
-				var opt = $(this).data()["ui-slider"].options;
+				var opt = $(this).data()["uiSlider"].options;
 				var vals = opt.max - opt.min;
 				for (var i = 0; i <= vals; i++) {
 					var el = $("<label>"+(i+1)+"</label>").css("left",(i/vals*100)+"%");

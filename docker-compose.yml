@@ -1,0 +1,21 @@
+version: "3.1"
+services:
+    database:
+        build:
+            context: database
+            dockerfile: Dockerfile
+        ports: 
+            - "8426:3306"
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_DATABASE: weekendmatch
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
+            MYSQL_ROOT_PASSWORD: password
+        networks:
+            - backend
+networks:
+    backend:
+
+volumes:
+    persistent:
