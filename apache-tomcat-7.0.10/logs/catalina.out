@@ -1,0 +1,76 @@
+Jan 04, 2022 8:30:46 PM org.apache.catalina.core.AprLifecycleListener init
+INFO: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /Users/wiwitaditya/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+Jan 04, 2022 8:30:47 PM org.apache.coyote.AbstractProtocolHandler init
+INFO: Initializing ProtocolHandler ["http-bio-8080"]
+Jan 04, 2022 8:30:47 PM org.apache.coyote.AbstractProtocolHandler init
+INFO: Initializing ProtocolHandler ["ajp-bio-8009"]
+Jan 04, 2022 8:30:47 PM org.apache.catalina.startup.Catalina load
+INFO: Initialization processed in 1008 ms
+Jan 04, 2022 8:30:47 PM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service Catalina
+Jan 04, 2022 8:30:47 PM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet Engine: Apache Tomcat/7.0.10
+Jan 04, 2022 8:30:47 PM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory docs
+Jan 04, 2022 8:30:47 PM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory manager
+Jan 04, 2022 8:30:47 PM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory examples
+Jan 04, 2022 8:30:47 PM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory ROOT
+Jan 04, 2022 8:30:47 PM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory host-manager
+Jan 04, 2022 8:30:47 PM org.apache.coyote.AbstractProtocolHandler start
+INFO: Starting ProtocolHandler ["http-bio-8080"]
+Jan 04, 2022 8:30:47 PM org.apache.coyote.AbstractProtocolHandler start
+INFO: Starting ProtocolHandler ["ajp-bio-8009"]
+Jan 04, 2022 8:30:47 PM org.apache.catalina.startup.Catalina start
+INFO: Server startup in 593 ms
+Jan 04, 2022 8:31:21 PM org.apache.coyote.AbstractProtocolHandler pause
+INFO: Pausing ProtocolHandler ["http-bio-8080"]
+Jan 04, 2022 8:31:22 PM org.apache.coyote.AbstractProtocolHandler pause
+INFO: Pausing ProtocolHandler ["ajp-bio-8009"]
+Jan 04, 2022 8:31:23 PM org.apache.catalina.core.StandardService stopInternal
+INFO: Stopping service Catalina
+Jan 04, 2022 8:31:24 PM org.apache.coyote.AbstractProtocolHandler stop
+INFO: Stopping ProtocolHandler ["http-bio-8080"]
+Jan 04, 2022 8:31:24 PM org.apache.coyote.AbstractProtocolHandler stop
+INFO: Stopping ProtocolHandler ["ajp-bio-8009"]
+Jan 04, 2022 8:35:28 PM org.apache.catalina.core.AprLifecycleListener init
+INFO: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /Users/wiwitaditya/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+Jan 04, 2022 8:35:28 PM org.apache.coyote.AbstractProtocolHandler init
+INFO: Initializing ProtocolHandler ["http-bio-8080"]
+Jan 04, 2022 8:35:28 PM org.apache.coyote.AbstractProtocolHandler init
+INFO: Initializing ProtocolHandler ["ajp-bio-8009"]
+Jan 04, 2022 8:35:28 PM org.apache.catalina.startup.Catalina load
+INFO: Initialization processed in 782 ms
+Jan 04, 2022 8:35:28 PM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service Catalina
+Jan 04, 2022 8:35:28 PM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet Engine: Apache Tomcat/7.0.10
+Jan 04, 2022 8:35:28 PM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory docs
+Jan 04, 2022 8:35:29 PM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory manager
+Jan 04, 2022 8:35:29 PM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory examples
+Jan 04, 2022 8:35:29 PM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory ROOT
+Jan 04, 2022 8:35:29 PM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory host-manager
+Jan 04, 2022 8:35:29 PM org.apache.coyote.AbstractProtocolHandler start
+INFO: Starting ProtocolHandler ["http-bio-8080"]
+Jan 04, 2022 8:35:29 PM org.apache.coyote.AbstractProtocolHandler start
+INFO: Starting ProtocolHandler ["ajp-bio-8009"]
+Jan 04, 2022 8:35:29 PM org.apache.catalina.startup.Catalina start
+INFO: Server startup in 595 ms
+Jan 04, 2022 8:36:45 PM org.apache.coyote.AbstractProtocolHandler pause
+INFO: Pausing ProtocolHandler ["http-bio-8080"]
+Jan 04, 2022 8:36:46 PM org.apache.coyote.AbstractProtocolHandler pause
+INFO: Pausing ProtocolHandler ["ajp-bio-8009"]
+Jan 04, 2022 8:36:47 PM org.apache.catalina.core.StandardService stopInternal
+INFO: Stopping service Catalina
+Jan 04, 2022 8:36:47 PM org.apache.coyote.AbstractProtocolHandler stop
+INFO: Stopping ProtocolHandler ["http-bio-8080"]
+Jan 04, 2022 8:36:47 PM org.apache.coyote.AbstractProtocolHandler stop
+INFO: Stopping ProtocolHandler ["ajp-bio-8009"]

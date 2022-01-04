@@ -1,0 +1,206 @@
+Jan 05, 2022 12:53:07 AM org.apache.catalina.core.AprLifecycleListener init
+INFO: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /Users/wiwitaditya/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+Jan 05, 2022 12:53:08 AM org.apache.coyote.AbstractProtocolHandler init
+INFO: Initializing ProtocolHandler ["http-bio-8428"]
+Jan 05, 2022 12:53:08 AM org.apache.coyote.AbstractProtocolHandler init
+INFO: Initializing ProtocolHandler ["ajp-bio-8009"]
+Jan 05, 2022 12:53:08 AM org.apache.catalina.startup.Catalina load
+INFO: Initialization processed in 796 ms
+Jan 05, 2022 12:53:08 AM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service Catalina
+Jan 05, 2022 12:53:08 AM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet Engine: Apache Tomcat/7.0.10
+Jan 05, 2022 12:53:08 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory docs
+Jan 05, 2022 12:53:08 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory manager
+Jan 05, 2022 12:53:08 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory examples
+Jan 05, 2022 12:53:08 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory ROOT
+Jan 05, 2022 12:53:08 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory host-manager
+Jan 05, 2022 12:53:08 AM org.apache.coyote.AbstractProtocolHandler start
+INFO: Starting ProtocolHandler ["http-bio-8428"]
+Jan 05, 2022 12:53:08 AM org.apache.coyote.AbstractProtocolHandler start
+INFO: Starting ProtocolHandler ["ajp-bio-8009"]
+Jan 05, 2022 12:53:08 AM org.apache.catalina.startup.Catalina start
+INFO: Server startup in 604 ms
+Jan 05, 2022 12:53:43 AM org.apache.coyote.AbstractProtocolHandler pause
+INFO: Pausing ProtocolHandler ["http-bio-8428"]
+Jan 05, 2022 12:53:44 AM org.apache.coyote.AbstractProtocolHandler pause
+INFO: Pausing ProtocolHandler ["ajp-bio-8009"]
+Jan 05, 2022 12:53:45 AM org.apache.catalina.core.StandardService stopInternal
+INFO: Stopping service Catalina
+Jan 05, 2022 12:53:45 AM org.apache.coyote.AbstractProtocolHandler stop
+INFO: Stopping ProtocolHandler ["http-bio-8428"]
+Jan 05, 2022 12:53:45 AM org.apache.coyote.AbstractProtocolHandler stop
+INFO: Stopping ProtocolHandler ["ajp-bio-8009"]
+Jan 05, 2022 12:54:14 AM org.apache.catalina.core.AprLifecycleListener init
+INFO: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /Users/wiwitaditya/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+Jan 05, 2022 12:54:15 AM org.apache.coyote.AbstractProtocolHandler init
+INFO: Initializing ProtocolHandler ["http-bio-8428"]
+Jan 05, 2022 12:54:15 AM org.apache.coyote.AbstractProtocolHandler init
+INFO: Initializing ProtocolHandler ["ajp-bio-8009"]
+Jan 05, 2022 12:54:15 AM org.apache.catalina.startup.Catalina load
+INFO: Initialization processed in 745 ms
+Jan 05, 2022 12:54:15 AM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service Catalina
+Jan 05, 2022 12:54:15 AM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet Engine: Apache Tomcat/7.0.10
+Jan 05, 2022 12:54:15 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory docs
+Jan 05, 2022 12:54:15 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory manager
+Jan 05, 2022 12:54:15 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory examples
+Jan 05, 2022 12:54:15 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory ROOT
+Jan 05, 2022 12:54:15 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory host-manager
+Jan 05, 2022 12:54:15 AM org.apache.coyote.AbstractProtocolHandler start
+INFO: Starting ProtocolHandler ["http-bio-8428"]
+Jan 05, 2022 12:54:15 AM org.apache.coyote.AbstractProtocolHandler start
+INFO: Starting ProtocolHandler ["ajp-bio-8009"]
+Jan 05, 2022 12:54:15 AM org.apache.catalina.startup.Catalina start
+INFO: Server startup in 593 ms
+Jan 05, 2022 12:55:06 AM org.apache.catalina.startup.HostConfig deployWAR
+INFO: Deploying web application archive weekendmatch.war
+Jan 05, 2022 12:55:07 AM org.apache.catalina.loader.WebappClassLoader validateJarFile
+INFO: validateJarFile(/Users/wiwitaditya/workspace/git-clone/weekendmatch/apache-tomcat-7.0.10/webapps/weekendmatch/WEB-INF/lib/servlet-api-2.5-20081211.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
+Jan 05, 2022 12:55:08 AM org.apache.catalina.core.StandardContext startInternal
+SEVERE: Error filterStart
+Jan 05, 2022 12:55:08 AM org.apache.catalina.core.StandardContext startInternal
+SEVERE: Context [/weekendmatch] startup failed due to previous errors
+Jan 05, 2022 12:55:08 AM org.apache.catalina.loader.WebappClassLoader clearReferencesJdbc
+SEVERE: The web application [/weekendmatch] registered the JDBC driver [com.mysql.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+Jan 05, 2022 12:55:08 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/weekendmatch] appears to have started a thread named [Timer-0] but has failed to stop it. This is very likely to create a memory leak.
+Jan 05, 2022 12:55:08 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/weekendmatch] appears to have started a thread named [MySQL Statement Cancellation Timer] but has failed to stop it. This is very likely to create a memory leak.
+Jan 05, 2022 12:55:39 AM org.apache.catalina.startup.HostConfig checkResources
+INFO: Undeploying context [/weekendmatch]
+Jan 05, 2022 12:57:59 AM org.apache.catalina.startup.HostConfig deployWAR
+INFO: Deploying web application archive weekendmatch.war
+Jan 05, 2022 12:58:01 AM org.apache.catalina.loader.WebappClassLoader validateJarFile
+INFO: validateJarFile(/Users/wiwitaditya/workspace/git-clone/weekendmatch/apache-tomcat-7.0.10/webapps/weekendmatch/WEB-INF/lib/servlet-api-2.5-20081211.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
+Jan 05, 2022 1:02:23 AM org.apache.coyote.AbstractProtocolHandler pause
+INFO: Pausing ProtocolHandler ["http-bio-8428"]
+Jan 05, 2022 1:02:24 AM org.apache.coyote.AbstractProtocolHandler pause
+INFO: Pausing ProtocolHandler ["ajp-bio-8009"]
+Jan 05, 2022 1:02:25 AM org.apache.catalina.core.StandardService stopInternal
+INFO: Stopping service Catalina
+Jan 05, 2022 1:02:25 AM org.apache.catalina.loader.WebappClassLoader clearReferencesJdbc
+SEVERE: The web application [/weekendmatch] registered the JDBC driver [com.mysql.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+Jan 05, 2022 1:02:25 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/weekendmatch] appears to have started a thread named [Timer-1] but has failed to stop it. This is very likely to create a memory leak.
+Jan 05, 2022 1:02:25 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/weekendmatch] appears to have started a thread named [MySQL Statement Cancellation Timer] but has failed to stop it. This is very likely to create a memory leak.
+Jan 05, 2022 1:02:25 AM org.apache.coyote.AbstractProtocolHandler stop
+INFO: Stopping ProtocolHandler ["http-bio-8428"]
+Jan 05, 2022 1:02:25 AM org.apache.coyote.AbstractProtocolHandler stop
+INFO: Stopping ProtocolHandler ["ajp-bio-8009"]
+Jan 05, 2022 1:02:41 AM org.apache.catalina.core.AprLifecycleListener init
+INFO: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /Users/wiwitaditya/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+Jan 05, 2022 1:02:42 AM org.apache.coyote.AbstractProtocolHandler init
+INFO: Initializing ProtocolHandler ["http-bio-8428"]
+Jan 05, 2022 1:02:42 AM org.apache.coyote.AbstractProtocolHandler init
+INFO: Initializing ProtocolHandler ["ajp-bio-8009"]
+Jan 05, 2022 1:02:42 AM org.apache.catalina.startup.Catalina load
+INFO: Initialization processed in 844 ms
+Jan 05, 2022 1:02:42 AM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service Catalina
+Jan 05, 2022 1:02:42 AM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet Engine: Apache Tomcat/7.0.10
+Jan 05, 2022 1:02:42 AM org.apache.catalina.startup.HostConfig deployWAR
+INFO: Deploying web application archive weekendmatch.war
+Jan 05, 2022 1:02:42 AM org.apache.catalina.loader.WebappClassLoader validateJarFile
+INFO: validateJarFile(/Users/wiwitaditya/workspace/git-clone/weekendmatch/apache-tomcat-7.0.10/webapps/weekendmatch/WEB-INF/lib/servlet-api-2.5-20081211.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
+Jan 05, 2022 1:02:47 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory docs
+Jan 05, 2022 1:02:47 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory manager
+Jan 05, 2022 1:02:47 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory examples
+Jan 05, 2022 1:02:47 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory ROOT
+Jan 05, 2022 1:02:47 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory host-manager
+Jan 05, 2022 1:02:47 AM org.apache.coyote.AbstractProtocolHandler start
+INFO: Starting ProtocolHandler ["http-bio-8428"]
+Jan 05, 2022 1:02:47 AM org.apache.coyote.AbstractProtocolHandler start
+INFO: Starting ProtocolHandler ["ajp-bio-8009"]
+Jan 05, 2022 1:02:47 AM org.apache.catalina.startup.Catalina start
+INFO: Server startup in 5466 ms
+Jan 05, 2022 1:02:58 AM org.apache.catalina.startup.HostConfig checkResources
+INFO: Undeploying context [/weekendmatch]
+Jan 05, 2022 1:02:58 AM org.apache.catalina.loader.WebappClassLoader clearReferencesJdbc
+SEVERE: The web application [/weekendmatch] registered the JDBC driver [com.mysql.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+Jan 05, 2022 1:02:58 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/weekendmatch] appears to have started a thread named [Timer-0] but has failed to stop it. This is very likely to create a memory leak.
+Jan 05, 2022 1:02:58 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/weekendmatch] appears to have started a thread named [MySQL Statement Cancellation Timer] but has failed to stop it. This is very likely to create a memory leak.
+Jan 05, 2022 1:03:19 AM org.apache.catalina.startup.HostConfig deployWAR
+INFO: Deploying web application archive weekendmatch.war
+Jan 05, 2022 1:03:20 AM org.apache.catalina.loader.WebappClassLoader validateJarFile
+INFO: validateJarFile(/Users/wiwitaditya/workspace/git-clone/weekendmatch/apache-tomcat-7.0.10/webapps/weekendmatch/WEB-INF/lib/servlet-api-2.5-20081211.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
+Jan 05, 2022 1:04:05 AM org.apache.coyote.AbstractProtocolHandler pause
+INFO: Pausing ProtocolHandler ["http-bio-8428"]
+Jan 05, 2022 1:04:06 AM org.apache.coyote.AbstractProtocolHandler pause
+INFO: Pausing ProtocolHandler ["ajp-bio-8009"]
+Jan 05, 2022 1:04:07 AM org.apache.catalina.core.StandardService stopInternal
+INFO: Stopping service Catalina
+Jan 05, 2022 1:04:07 AM org.apache.catalina.loader.WebappClassLoader clearReferencesJdbc
+SEVERE: The web application [/weekendmatch] registered the JDBC driver [com.mysql.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+Jan 05, 2022 1:04:07 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/weekendmatch] appears to have started a thread named [Timer-1] but has failed to stop it. This is very likely to create a memory leak.
+Jan 05, 2022 1:04:07 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/weekendmatch] appears to have started a thread named [MySQL Statement Cancellation Timer] but has failed to stop it. This is very likely to create a memory leak.
+Jan 05, 2022 1:04:07 AM org.apache.coyote.AbstractProtocolHandler stop
+INFO: Stopping ProtocolHandler ["http-bio-8428"]
+Jan 05, 2022 1:04:07 AM org.apache.coyote.AbstractProtocolHandler stop
+INFO: Stopping ProtocolHandler ["ajp-bio-8009"]
+Jan 05, 2022 1:04:15 AM org.apache.catalina.core.AprLifecycleListener init
+INFO: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /Users/wiwitaditya/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+Jan 05, 2022 1:04:16 AM org.apache.coyote.AbstractProtocolHandler init
+INFO: Initializing ProtocolHandler ["http-bio-8428"]
+Jan 05, 2022 1:04:16 AM org.apache.coyote.AbstractProtocolHandler init
+INFO: Initializing ProtocolHandler ["ajp-bio-8009"]
+Jan 05, 2022 1:04:16 AM org.apache.catalina.startup.Catalina load
+INFO: Initialization processed in 793 ms
+Jan 05, 2022 1:04:16 AM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service Catalina
+Jan 05, 2022 1:04:16 AM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet Engine: Apache Tomcat/7.0.10
+Jan 05, 2022 1:04:16 AM org.apache.catalina.startup.HostConfig deployWAR
+INFO: Deploying web application archive weekendmatch.war
+Jan 05, 2022 1:04:16 AM org.apache.catalina.loader.WebappClassLoader validateJarFile
+INFO: validateJarFile(/Users/wiwitaditya/workspace/git-clone/weekendmatch/apache-tomcat-7.0.10/webapps/weekendmatch/WEB-INF/lib/servlet-api-2.5-20081211.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
+Jan 05, 2022 1:04:20 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory docs
+Jan 05, 2022 1:04:21 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory manager
+Jan 05, 2022 1:04:21 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory examples
+Jan 05, 2022 1:04:21 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory ROOT
+Jan 05, 2022 1:04:21 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory host-manager
+Jan 05, 2022 1:04:21 AM org.apache.coyote.AbstractProtocolHandler start
+INFO: Starting ProtocolHandler ["http-bio-8428"]
+Jan 05, 2022 1:04:21 AM org.apache.coyote.AbstractProtocolHandler start
+INFO: Starting ProtocolHandler ["ajp-bio-8009"]
+Jan 05, 2022 1:04:21 AM org.apache.catalina.startup.Catalina start
+INFO: Server startup in 4875 ms
+Jan 05, 2022 1:06:22 AM org.apache.catalina.startup.HostConfig checkResources
+INFO: Undeploying context [/weekendmatch]
+Jan 05, 2022 1:06:22 AM org.apache.catalina.loader.WebappClassLoader clearReferencesJdbc
+SEVERE: The web application [/weekendmatch] registered the JDBC driver [com.mysql.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+Jan 05, 2022 1:06:22 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/weekendmatch] appears to have started a thread named [Timer-0] but has failed to stop it. This is very likely to create a memory leak.
+Jan 05, 2022 1:06:22 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/weekendmatch] appears to have started a thread named [MySQL Statement Cancellation Timer] but has failed to stop it. This is very likely to create a memory leak.
+Jan 05, 2022 1:07:32 AM org.apache.catalina.startup.HostConfig deployWAR
+INFO: Deploying web application archive weekendmatch.war
+Jan 05, 2022 1:07:34 AM org.apache.catalina.loader.WebappClassLoader validateJarFile
+INFO: validateJarFile(/Users/wiwitaditya/workspace/git-clone/weekendmatch/apache-tomcat-7.0.10/webapps/weekendmatch/WEB-INF/lib/servlet-api-2.5-20081211.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
